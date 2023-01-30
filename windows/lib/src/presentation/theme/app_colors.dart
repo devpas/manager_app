@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+
+class AppColors {
+  AppColors._();
+
+  static const Color greenMain = Color(0xFF16AA16);
+  static const Color transparent = Color(0x00000000);
+  static const Color black = Color(0xFF000000);
+  static const Color darkBlue = Color(0xFF2E3456);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color mainBackground = Color(0xFFECEFF3);
+  static const Color appbarShadowColor = Color(0xDFE2EBC9);
+  static const Color totalPanelGradient1 = Color(0xFFFFB300);
+  static const Color totalPanelGradient2 = Color(0xFFFEB101);
+  static const Color totalPanelGradient3 = Color(0xFFFF38AB);
+  static const Color totalPanelGradient4 = Color(0xFFFE0000);
+  static const Color totalPanelShadowGradient1 = Color(0xFFFF6B00);
+  static const Color totalPanelShadowGradient2 = Color(0xFFFF38AB);
+  static const Color totalPanelShadowGradient3 = Color(0xFFFE0000);
+  static const Color ratingBack = Color(0xFF1A1D2E);
+  static const Color darkGray = Color(0xFF808080);
+  static const Color lightGray = Color(0xFF959595);
+  static const Color unselectedTabBar = Color(0xFF7C7C7C);
+  static const Color whiter = Color(0xFFF4F4F4);
+  static const Color red = Color(0xFFD21234);
+  static const Color dropdownFill = Color(0xFFF4F4F6);
+  static const Color toggleBack = Color(0xFFF2F2F2);
+  static const Color toggleUnselected = Color(0xFF8A8A8A);
+  static const Color readyText = Color(0xFF3569B8);
+  static const Color totalAmountBack = Color(0xFFF8F8F8);
+  static const Color totalCharsComment = Color(0xFFC2C2C2);
+  static const Color commentBack = Color.fromRGBO(143, 146, 161, 0.05);
+  static const Color commentHint = Color(0xFFAFAFAF);
+  static const Color loginBack = Color(0xFFF3F3F0);
+  static const Color emailHint = Color.fromRGBO(136, 136, 126, 0.26);
+  static const Color profileTask = Color(0xFF88887E);
+  static const Color settingsButtonBack = Color(0xFFF1F1F1);
+  static const Color settingsButtonIcon = Color(0xFF828282);
+  static const Color shopItemBorder = Color(0xFFDBDBE1);
+  static const Color shopsPageBack = Color(0xFFF9F9FA);
+  static const Color inputNameHint = Color(0xFFAEAEAF);
+  static const Color productBorder = Color(0xFFEFEFEF);
+  static const Color replaceProduct = Color(0xFFF19204);
+  static const Color priceText = Color(0xFFAAAAAA);
+  static const Color unselectedBag = Color(0xFFB3B3B3);
+  static const Color inProgressOrders = Color(0xFFF26110);
+  static const Color canceledOrders = Color(0xFFC26BF9);
+  static const Color deliveredOrders = Color(0xFF52A0F5);
+  static const Color orderReviews = Color(0xFFFFB800);
+  static const Color titleIconColor = Color(0xFF4F4F4F);
+}

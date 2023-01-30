@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!--    favicon.ico-->
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-select.min.css"/>
+    <!-- icon css-->
+    <link rel="stylesheet" href="assets/elagent-icon/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="assets/niceselectpicker/nice-select.css"/>
+    <link rel="stylesheet" href="assets/font-size/css/rvfs.css"/>
+    <link rel="stylesheet" href="assets/animation/animate.css"/>
+    <link rel="stylesheet" href="assets/video/video-js.css"/>
+    <link rel="stylesheet" href="assets/tooltipster/css/tooltipster.bundle.css"/>
+    <link rel="stylesheet" href="assets/prism/prism.css"/>
+    <link rel="stylesheet" href="assets/prism/prism-coy.css"/>
+    <link rel="stylesheet" href="assets/magnify-pop/magnific-popup.css"/>
+    <link rel="stylesheet" href="assets/mcustomscrollbar/jquery.mCustomScrollbar.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/responsive.css"/>
+    <title>Goshops multi-vendor app documentation</title>
+</head>
+
+<body class="doc full-width-doc sticky-nav-doc onepage-doc" data-spy="scroll" data-target=".navbar" data-offset="0">
+<div class="body_wrapper sticky_menu">
+    <nav class="navbar navbar-expand-lg menu_one menu_logo_change">
+        <div class="container-fluid pl-60 pr-60">
+            <a class="navbar-brand" href="index.html">
+                <strong>Githubit</strong>
+            </a>
+            <ul class="menu d-flex">
+                <div class="doc_switch ">
+                    <label for="something" class="tab-btn tab-btns"><i class="icon_lightbulb_alt"></i></label>
+                    <input type="checkbox" name="something" id="something" class="tab_switcher"/>
+                    <label for="something" class="tab-btn"><i class="far fa-moon"></i></label>
+                </div>
+            </ul>
+        </div>
+    </nav>
+    <section class="doc_documentation_area onepage_doc_area" id="sticky_doc">
+        <div class="overlay_bg"></div>
+        <div class="container-fluid pl-60 pr-60">
+            <div class="row doc-container">
+                <div class="col-lg-2 doc_mobile_menu doc-sidebar display_none">
+                    <!-- Start Asid area  -->
+                    <aside class="doc_left_sidebarlist">
+                        <h3 class="nav_title">Doc NAVIGATION</h3>
+                        <div class="scroll">
+                            <ul class="list-unstyled nav-sidebar doc-nav">
+                                <li class="nav-item">
+                                    <a href="#Mobile_Apps" class="nav-link">
+                                        Mobile Apps
+                                    </a>
+                                    <ul class="list-unstyled dropdown_nav">
+                                        <li class="nav-item">
+                                            <a href="#Mandatory_setup" class="nav-link">Mandatory setup</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#Customization" class="nav-link">Customization</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#App_build_release" class="nav-link">App build & release</a>
+                                        </li>
+                                    </ul>
+                                    <span class="icon">
+                      <i class="icon_plus"></i>
+                      <i class="icon_minus-06"></i>
+                    </span>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="#Update" class="nav-link">
+                                        Update
+                                    </a>
+                                    <ul class="list-unstyled dropdown_nav">
+                                        <li class="nav-item">
+                                            <a href="#app" class="nav-link">App</a>
+                                        </li>
+                                    </ul>
+                                    <span class="icon">
+                      <i class="icon_plus"></i>
+                      <i class="icon_minus-06"></i>
+                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- End Asid area  -->
+                </div>
+                <div class="col-lg-9 col-md-12">
+                    <div class="documentation_info" id="post">
+                        <article class="pt-0 documentation_body doc-section" id="Mobile_Apps">
+
+                            <div class="shortcode_title section_end" id="Mandatory_setup">
+                                <div class="shortcode_title">
+                                    <h1>Mandatory setup</h1>
+                                    <h5>
+                                        Running flutter app in your IDE
+                                    </h5>
+                                    1. Firstly, download the source code and unarchive the file. <br/>
+                                    2. Check whether your computer has installed flutter sdk or not by running this
+                                    command
+                                    in your terminal:
+                                    flutter doctor. <br/>
+                                    If all items are marked as a green checkmark, you can continue.
+                                </div>
+                                <div class="img-container">
+                                    <a
+                                            href="./img/doc/vendor_flutter_doctor.png"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/vendor_flutter_doctor.png"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+                                3. Project was built with the 3.3.6 version. If your flutter version is less than with
+                                this
+                                version, you
+                                need to upgrade your flutter version by running this command in your terminal: flutter
+                                upgrade. <br/><br/>
+
+                                4. You need to have installed VS Code or Android Studio on your computer.
+                                If you haven’t installed yet, you can download and install by these links:
+                                <strong><a target="_blank" href="https://code.visualstudio.com/"
+                                           class="introduction-link"> https://code.visualstudio.com/ </a></strong>
+                                for VS Code and
+                                <strong> <a target="_blank" href="https://developer.android.com/studio"
+                                            class="introduction-link"> https://developer.android.com/studio </a>
+                                </strong>
+                                for Android
+                                Studio <br/><br/>
+                                5. We will see only running on Android Studio. Open Android Studio. Click the “Open”
+                                button.
+                                Select
+                                unarchived root project folder.<br/>
+
+                                <div class="introduction-img-container mt-3">
+                                    <a
+                                            href="./img/doc/vendor_opem.png"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/vendor_opem.png"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+                                <div class="introduction-img-container mt-3">
+                                    <a
+                                            href="./img/doc/choose_folder.png"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/choose_folder.png"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+
+                                6. After initialising all files, open terminal and run flutter pub get.<br/>
+                                <div class="introduction-img-container">
+                                    <a
+                                            href="./img/doc/vendor_pubget.png"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/vendor_pubget.png"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+
+                                7. You can run the project on an emulator or a physical device. Select the device and
+                                click
+                                the “Run”
+                                button. <br/>
+                                <div class="introduction-img-container">
+                                    <a
+                                            href="./img/doc/vendor_run_project.png"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/vendor_run_project.png"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+
+                                <h4 class="introduction-contentTitle"> Change App Logo </h4>
+                                You can generate app icon using this website
+                                https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html <br/>
+                                • Then go to <strong class="introduction-step"> /android/app/src/main/res</strong>
+                                and replace all mipmap folder with your /android folder <br/>
+                                • Again go to <strong class="introduction-step">/ios/Runner</strong> and replace
+                                Assets.xcassets with your
+                                generated Assets.xcassets folder <br/>
+
+                                <h4 class="introduction-contentTitle mt-3"> Change App Name </h4>
+
+                                <div class="mb-2">
+                                    1.Change the value of label from
+                                    <strong class="introduction-step">/android/app/src/main/AndroidManifest.xml</strong>
+                                </div>
+
+
+                                <div class="code_item">
+                                <pre class="snippet">
+                                    <p class="snippet-step">/android/app/src/main/AndroidManifest.xml</p>
+                                 <code class="language-html" data-lang="html">
+                                       android:label="My App"
+                                </code>
+                                </pre>
+                                </div>
+
+                                <div class="mb-2">
+                                    2.Change the value of CFBundleName from
+                                    <strong class="introduction-step"> /iOS/Runner/info.plist</strong>
+                                </div>
+
+                                <div class="code_item">
+                                <pre class="snippet">
+                                    <p class="snippet-step">/iOS/Runner/info.plist</p>
+                                 <code class="language-html" data-lang="html">
+                                     <span><</span>key<span>></span> CFBundleName <span><</span>/key<span>></span>
+                                     <span><</span>string<span>></span> My App <span><</span>/string<span>></span>
+                                </code>
+                                </pre>
+                                </div>
+
+
+                                <h4 class="introduction-contentTitle"> Change Base URL</h4>
+                                Please do NOT put slash ( / ) at the end of your base url. Use your admin url as base
+                                url.
+                                First you have to
+                                install your admin panel. For example: If your admin url is
+                                <strong class="introduction-step"> https://your_domain.com/admin</strong>
+                                then base url will be https://your_domain.com. Open
+                                <strong class="introduction-step"> /lib/src/core/constants/app_constants.dart</strong>
+                                and replace baseUrl variable value with your own URL. <br/>
+
+
+                                <div class="code_item">
+                                <pre class="snippet">
+                                    <p class="snippet-step">/lib/src/core/constants/app_constants.dart</p>
+                                 <code class="language-html" data-lang="html">
+                                  baseUrl=https://your_domain.com
+                                </code>
+                                </pre>
+                                </div>
+
+                                <div class="introduction-img-container">
+                                    <a
+                                            href="./img/doc/vendor_constant.jpg"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/vendor_constant.jpg"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+
+                                <h4 class="introduction-contentTitle">Change App Package</h4>
+                                Firstly, find out the existing package name. You can find it out from top of
+                                <strong class="introduction-step">/app/src/main/AndroidManifest.xml</strong>
+                                file. Then right click on project folder from android studio and click on
+                                <strong class="introduction-step">replace in path</strong>
+                                You will see a popup window with two input boxes. In first box you have to put existing
+                                package name that you saw in <span class="introduction-step">AndroidManifest.xml</span>
+                                file previously and then write down your preferred package
+                                name in second box and then click on <span class="introduction-step">Replace All</span>
+                                button.
+
+                                <h4 class="introduction-contentTitle mt-3"> Add Google Map API Key</h4>
+                                • Please generate the google API key. You can visit this link -
+                                https://developers.google.com/maps/documentation/embed/get-api-key <br/>
+                                • You need to enable mentioned APIs: Direction API, Distance Matrix API, Geocoding API,
+                                Maps
+                                SDK for
+                                Android,
+                                Maps SDK for iOS, Place API. <br/>
+                                • Then you have to enable billing account. Visit this URL for activation:
+                                https://support.google.com/googleapi/answer/6158867?hl=en <br/>
+                                • After generating API key, you have to paste it on 3 different places: Android, iOS and
+                                web. <br/>
+                                For android, open
+                                <strong class="introduction-step">/android/app/src/main/AndroidManifest.xml</strong> and
+                                place
+                                the value of <strong class="introduction-step">com.google.android.geo.API_KEY </strong>
+
+
+                                <div class="code_item">
+                                <pre class="snippet">
+                                    <p class="snippet-step"> /android/app/src/main/AndroidManifest.xml</p>
+                                 <code class="language-html" data-lang="html">
+                                    <span><</span>meta-data android:name="com.google.android.geo.API_KEY" android:value=“YOUR_MAP_API_KEY_HERE”/<span>></span>
+                                </code>
+                                </pre>
+                                </div>
+
+                                <div class="mt-3">
+                                    For iOS: open <strong
+                                        class="introduction-step">/iOS/Runner/AppDelegate.swift</strong>
+                                    and place the value of <strong
+                                        class="introduction-step">GMSServices.provideAPIKey</strong>
+                                </div>
+                                <div class="code_item">
+                                <pre class="snippet">
+                                    <p class="snippet-step">/iOS/Runner/AppDelegate.swift</p>
+                                 <code class="language-html" data-lang="html">
+                                 GMSServices.provideAPIKey(“YOUR_MAP_API_KEY_HERE")
+                                </code>
+                                </pre>
+                                </div>
+                            </div>
+
+                            <div class="shortcode_title section_end pb-5 pt-5 mb-5" id="Customization">
+                                <h1 class="title"> Customization</h1>
+                                <h4 class="introduction-contentTitle">Translate mobile app</h4>
+                                • Translation admin panel is very easy. To translate admin panel, go to admin panel and
+                                open
+                                <br/>
+                                <span class="introduction-step-2">Settings > Translations menu</span>
+                                and Translate all words into your language
+                                <div class="introduction-img-container">
+                                    <a
+                                            href="./img/doc/translations.png"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/translations.png"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+                                <div class="introduction-img-container">
+
+                                    <a
+                                            href="./img/doc/translations-1.png"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/translations-1.png"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+
+                                <h4 class="introduction-contentTitle">Change App Color</h4>
+                                • Open <span
+                                    class="introduction-step"> /lib/src/presentation/theme/app_colors.dart</span>
+                                file and change colors as you want. <br/>
+                                <div class="introduction-img-container">
+                                    <a
+                                            href="./img/doc/vendor_colors.jpg"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/vendor_colors.jpg"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+
+                                <h4 class="introduction-contentTitle">Change App Font</h4>
+                                • in our apps, google font package is installed. You may change app fonts easily by
+                                selecting new fonts
+                            </div>
+
+                            <div class="shortcode_title" id="App_build_release">
+                                <h1 class="title">App build & release</h1>
+                                <h3 class="introduction-title">Build for Android</h3>
+
+                                For debug build you can run command:
+                                <div class="code_item">
+                                <pre class="snippet">
+                                    <p class="snippet-step">flutter build apk</p>
+                                 <code class="language-html" data-lang="html">
+                                     flutter build apk
+                                </code>
+                                </pre>
+                                </div>
+
+                                You will get a larger merged apk with this. But you can split them with this command:
+
+                                <div class="code_item">
+                                <pre class="snippet">
+                                    <p class="snippet-step">flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi</p>
+                                 <code class="language-html" data-lang="html">
+                                    flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
+                                </code>
+                                </pre>
+                                </div>
+
+                                Build file location:
+                                <span class="introduction-step"> /build/app/outputs/apk/</span>
+                                For deploying it please follow this documentation:
+                                <strong class="strong"> https://docs.flutter.dev/deployment/android</strong>
+
+                                <h4 class="introduction-contentTitle">Build for iOS</h4>
+                                There are no general way to generate app for iOS. Apple doesn’t allow to install app
+                                like this debug way. If
+                                you want to install it on your iOS device then you have to deploy it on TestFlight or
+                                AppStore. For
+                                deploying it please follow this documentation:
+                                <strong class="strong"> https://docs.flutter.dev/deployment/ios</strong>
+                            </div>
+                        </article>
+
+                        <article class="documentation_body doc-section" id="Update">
+                            <div class="shortcode_title section_end" id="app">
+                                <h1 class="title">App</h1>
+                                <h3 class="introduction-title">Update mobile App</h3>
+                                Download source code for flutter app. <br/>
+                                For running your project in latest stable flutter version first run this command in your
+                                terminal root
+                                directory:<br/>
+
+                                <div class="code_item">
+                                    <pre class="snippet">
+                                        <p class="snippet-step">flutter upgrade</p>
+                                     <code class="language-html" data-lang="html">
+                                      flutter upgrade
+                                    </code>
+                                    </pre>
+                                </div>
+
+                                <br/>
+                                • Go to your project folder with terminal and update your packages: <br/>
+
+                                <div class="code_item">
+                                    <pre class="snippet">
+                                        <p class="snippet-step">flutter packages upgrade</p>
+                                     <code class="language-html" data-lang="html">
+                                      flutter packages upgrade
+                                    </code>
+                                    </pre>
+                                </div>
+
+                                <br/>
+                                • Update your code files where you need to change. <br/>
+                                • Then for updating your app version go to pubspec.yaml file and change version:
+
+                                <div class="introduction-img-container">
+                                    <a
+                                            href="./img/doc/vendor_vergen.jpg"
+                                            data-fancybox
+                                            rel="nofollow"
+                                    >
+                                        <img
+                                                src="./img/doc/vendor_vergen.jpg"
+                                                alt="image"
+                                                loading="lazy"
+                                                class="img-responsive-full"
+                                        />
+                                    </a>
+                                </div>
+
+
+                                <div class="alert alert-danger mt-4 mb-5" role="alert">
+                                    <div class="mb-2">
+                                        <i class="fa-solid fa-square-exclamation"></i>
+                                        <p>WARNING</p>
+                                    </div>
+                                    You have to be a developer in this case. If something goes wrong, we won't be
+                                    responsible for that.
+                                </div>
+
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 doc_right_mobile_menu">
+                    <div class="open_icon" id="right">
+                        <i class="arrow_carrot-left"></i>
+                        <i class="arrow_carrot-right"></i>
+                    </div>
+                    <div class="doc_rightsidebar">
+                        <div class="scroll">
+                            <ul class="list-unstyled nav-sidebar doc-nav">
+                                <li class="nav-item">
+                                    <a href="#Mobile_Apps" class="nav-link">
+                                        Mobile Apps
+                                    </a>
+                                    <ul class="list-unstyled dropdown_nav">
+                                        <li class="nav-item">
+                                            <a href="#Mandatory_setup" class="nav-link">Mandatory setup</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#Customization" class="nav-link">Customization</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#App_build_release" class="nav-link">App build & release</a>
+                                        </li>
+                                    </ul>
+                                    <span class="icon">
+                      <i class="icon_plus"></i>
+                      <i class="icon_minus-06"></i>
+                    </span>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="#Update" class="nav-link">
+                                        Update</a>
+                                    <ul class="list-unstyled dropdown_nav">
+                                        <li class="nav-item">
+                                            <a href="#app" class="nav-link">App</a>
+                                        </li>
+                                    </ul>
+                                    <span class="icon">
+                      <i class="icon_plus"></i>
+                      <i class="icon_minus-06"></i>
+                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="simple_footer">
+        <div class="row d-flex align-items-center justify-content-between">
+            <div class="text-md-center text-lg-center ml-5">
+                <p class="ptf-footer-copyright has-black-color">
+                    © <span id="year"></span> <span>Githubit</span>. All Rights
+                    Reserved.
+                </p>
+                <script>
+                    const d = new Date();
+                    document.getElementById("year").innerHTML = d.getFullYear();
+                </script>
+            </div>
+            <div class="mr-5">
+                <a
+                        class="ptf-social-icon facebook"
+                        target="_blank"
+                        href='https://www.facebook.com/githubit'
+                >
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a
+                        class="ptf-social-icon linkedin-icon"
+                        target="_blank"
+                        href='https://linkedin.com/company/githubit'
+                >
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="assets/bootstrap/js/popper.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap-select.min.js"></script>
+<script src="js/parallaxie.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/anchor.js"></script>
+<script src="assets/wow/wow.min.js"></script>
+<script src="assets/prism/prism.js"></script>
+<script src="assets/niceselectpicker/jquery.nice-select.min.js"></script>
+<script src="assets/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/magnify-pop/jquery.magnific-popup.min.js"></script>
+<script src="assets/tooltipster/js/tooltipster.bundle.min.js"></script>
+<script src="assets/font-size/js/rv-jquery-fontsize-2.0.3.js"></script>
+<script src="assets/video/video.min.js"></script>
+<script src="assets/video/wistia.js"></script>
+<script src="js/onpage-menu.js"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>
