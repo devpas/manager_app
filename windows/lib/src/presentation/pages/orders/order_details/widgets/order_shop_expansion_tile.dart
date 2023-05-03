@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/utils/utils.dart';
@@ -263,7 +262,7 @@ class _OrderShopExpansionTileState extends State<OrderShopExpansionTile>
                               color: AppColors.darkBlue,
                             ),
                             onPressed: () {
-                              showCupertinoModalBottomSheet(
+                              showModalBottomSheet(
                                 context: context,
                                 builder: (context) {
                                   return OrderStatusModal(

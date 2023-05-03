@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../core/utils/utils.dart';
@@ -76,9 +75,8 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                       : '${state.selectedUser?.firstname} ${state.selectedUser?.lastname}',
                   onSelectTap: () {
                     notifier.setUserQuery(context, '');
-                    showCupertinoModalBottomSheet(
+                    showModalBottomSheet(
                       context: context,
-                      expand: true,
                       builder: (context) {
                         return const SearchUserModalInClientInfo();
                       },
@@ -93,7 +91,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                       title: state.selectedAddress == null
                           ? AppHelpers.getTranslation(TrKeys.selectAddress)
                           : '${state.selectedAddress?.address}',
-                      onSelectTap: () => showCupertinoModalBottomSheet(
+                      onSelectTap: () => showModalBottomSheet(
                         context: context,
                         builder: (context) => const SelectAddressModal(),
                       ),
@@ -106,7 +104,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                       ? AppHelpers.getTranslation(TrKeys.selectCurrency)
                       : '${state.selectedCurrency?.title} - (${state.selectedCurrency?.symbol})',
                   onSelectTap: () {
-                    showCupertinoModalBottomSheet(
+                    showModalBottomSheet(
                       context: context,
                       builder: (context) => const SelectCurrencyModal(),
                     );
@@ -119,7 +117,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                       ? AppHelpers.getTranslation(TrKeys.selectPayment)
                       : '${state.selectedPayment?.translation?.title}',
                   onSelectTap: () {
-                    showCupertinoModalBottomSheet(
+                    showModalBottomSheet(
                       context: context,
                       builder: (context) => const SelectPaymentModal(),
                     );

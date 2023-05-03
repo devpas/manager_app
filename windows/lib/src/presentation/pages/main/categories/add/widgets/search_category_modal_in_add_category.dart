@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../core/utils/utils.dart';
@@ -57,7 +56,6 @@ class SearchCategoryModalInAddCategory extends ConsumerWidget {
                       physics: const CustomBouncingScrollPhysics(),
                       itemCount: state.searchedCategories.length,
                       shrinkWrap: true,
-                      controller: ModalScrollController.of(context),
                       itemBuilder: (context, index) {
                         final category = state.searchedCategories[index];
                         return SearchedItem(

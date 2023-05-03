@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../riverpod/providers/providers.dart';
 import '../../../components/components.dart';
@@ -54,7 +53,6 @@ class SearchShopModalInFilterProducts extends ConsumerWidget {
                       physics: const CustomBouncingScrollPhysics(),
                       itemCount: state.searchedShops.length,
                       shrinkWrap: true,
-                      controller: ModalScrollController.of(context),
                       itemBuilder: (context, index) {
                         final shop = state.searchedShops[index];
                         return SearchedItem(

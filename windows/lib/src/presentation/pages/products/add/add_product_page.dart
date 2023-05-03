@@ -6,7 +6,6 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/utils.dart';
@@ -70,9 +69,8 @@ class AddProductPage extends ConsumerWidget {
                     label: AppHelpers.getTranslation(TrKeys.shop),
                     onTap: () {
                       notifier.setShopQuery('');
-                      showCupertinoModalBottomSheet(
+                      showModalBottomSheet(
                         context: context,
-                        expand: true,
                         builder: (context) =>
                             const SearchShopModalInAddProduct(),
                       );
@@ -86,9 +84,8 @@ class AddProductPage extends ConsumerWidget {
                     label: AppHelpers.getTranslation(TrKeys.brand),
                     onTap: () {
                       notifier.setBrandQuery('');
-                      showCupertinoModalBottomSheet(
+                      showModalBottomSheet(
                         context: context,
-                        expand: true,
                         builder: (context) =>
                             const SearchBrandModalInAddProduct(),
                       );
@@ -102,9 +99,8 @@ class AddProductPage extends ConsumerWidget {
                     label: AppHelpers.getTranslation(TrKeys.category),
                     onTap: () {
                       notifier.setCategoryQuery('');
-                      showCupertinoModalBottomSheet(
+                      showModalBottomSheet(
                         context: context,
-                        expand: true,
                         builder: (context) =>
                             const SearchCategoryModalInAddProduct(),
                       );

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/utils/utils.dart';
@@ -117,7 +116,7 @@ class _ProductReviewsPageState extends ConsumerState<ProductReviewsPage> {
                         final review = state.reviews[index];
                         return ProductReviewItem(
                           review: review,
-                          onDeleteTap: () => showCupertinoModalBottomSheet(
+                          onDeleteTap: () => showModalBottomSheet(
                             context: context,
                             builder: (context) =>
                                 AreYouSureModalInProductReview(

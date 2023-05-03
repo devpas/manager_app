@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/routes/app_router.gr.dart';
@@ -198,10 +197,29 @@ class WMainDrawer extends ConsumerWidget {
                 DrawerItemWidget(
                   iconData: FlutterRemix.logout_circle_r_line,
                   title: AppHelpers.getTranslation(TrKeys.logout),
-                  onTap: () => showCupertinoModalBottomSheet(
+                  onTap: () => showModalBottomSheet(
                     context: context,
                     builder: (context) => const AreYouSureModalInDrawer(),
                   ),
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                DrawerItemWidget(
+                  iconData: FlutterRemix.star_fill,
+                  title: AppHelpers.getTranslation(TrKeys.modifyApp),
+                  onTap: () {
+                    context.popRoute();
+                    context.pushRoute(const MainPASRoute());
+                  },
+                ),
+                DrawerItemWidget(
+                  iconData: FlutterRemix.star_fill,
+                  title: AppHelpers.getTranslation(TrKeys.dashboard),
+                  onTap: () {
+                    context.popRoute();
+                    context.pushRoute(const MainRoute());
+                  },
                 ),
               ],
             ),

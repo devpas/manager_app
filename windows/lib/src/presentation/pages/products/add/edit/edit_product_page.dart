@@ -5,7 +5,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/utils/utils.dart';
@@ -105,9 +104,8 @@ class _EditProductPageState extends ConsumerState<EditProductPage> {
                           label: AppHelpers.getTranslation(TrKeys.shop),
                           onTap: () {
                             notifier.setShopQuery('');
-                            showCupertinoModalBottomSheet(
+                            showModalBottomSheet(
                               context: context,
-                              expand: true,
                               builder: (context) =>
                                   const SearchShopModalInEditProduct(),
                             );
@@ -121,9 +119,8 @@ class _EditProductPageState extends ConsumerState<EditProductPage> {
                           label: AppHelpers.getTranslation(TrKeys.brand),
                           onTap: () {
                             notifier.setBrandQuery('');
-                            showCupertinoModalBottomSheet(
+                            showModalBottomSheet(
                               context: context,
-                              expand: true,
                               builder: (context) =>
                                   const SearchBrandModalInEditProduct(),
                             );
@@ -137,9 +134,8 @@ class _EditProductPageState extends ConsumerState<EditProductPage> {
                           label: AppHelpers.getTranslation(TrKeys.category),
                           onTap: () {
                             notifier.setCategoryQuery('');
-                            showCupertinoModalBottomSheet(
+                            showModalBottomSheet(
                               context: context,
-                              expand: true,
                               builder: (context) {
                                 return const SearchCategoryModalInEditProduct();
                               },

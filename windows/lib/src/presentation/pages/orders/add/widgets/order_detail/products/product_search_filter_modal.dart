@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../../../core/constants/constants.dart';
 import '../../../../../../../core/utils/utils.dart';
@@ -50,9 +49,8 @@ class ProductSearchFilterModal extends ConsumerWidget {
             40.verticalSpace,
             SelectFromDialogButton(
               onTap: () {
-                showCupertinoModalBottomSheet(
+                showModalBottomSheet(
                   context: context,
-                  expand: true,
                   builder: (context) => const SearchShopModal(),
                 );
               },
@@ -63,9 +61,8 @@ class ProductSearchFilterModal extends ConsumerWidget {
             20.verticalSpace,
             SelectFromDialogButton(
               onTap: () {
-                showCupertinoModalBottomSheet(
+                showModalBottomSheet(
                   context: context,
-                  expand: true,
                   builder: (context) => const SearchCategoryModal(),
                 );
               },
@@ -76,9 +73,8 @@ class ProductSearchFilterModal extends ConsumerWidget {
             20.verticalSpace,
             SelectFromDialogButton(
               onTap: () {
-                showCupertinoModalBottomSheet(
+                showModalBottomSheet(
                   context: context,
-                  expand: true,
                   builder: (context) => const SearchBrandModal(),
                 );
               },

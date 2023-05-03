@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../riverpod/providers/providers.dart';
 import '../../../components/components.dart';
@@ -38,9 +37,8 @@ class ProductsFilterModal extends ConsumerWidget {
               label: 'Shop',
               onTap: () {
                 notifier.setShopQuery('');
-                showCupertinoModalBottomSheet(
+                showModalBottomSheet(
                   context: context,
-                  expand: true,
                   builder: (context) {
                     return const SearchShopModalInFilterProducts();
                   },
@@ -53,9 +51,8 @@ class ProductsFilterModal extends ConsumerWidget {
               label: 'Brand',
               onTap: () {
                 notifier.setBrandQuery('');
-                showCupertinoModalBottomSheet(
+                showModalBottomSheet(
                   context: context,
-                  expand: true,
                   builder: (context) {
                     return const SearchBrandModalInFilterProducts();
                   },
@@ -68,9 +65,8 @@ class ProductsFilterModal extends ConsumerWidget {
               label: 'Category',
               onTap: () {
                 notifier.setCategoryQuery('');
-                showCupertinoModalBottomSheet(
+                showModalBottomSheet(
                   context: context,
-                  expand: true,
                   builder: (context) {
                     return const SearchCategoryModalInFilterProducts();
                   },

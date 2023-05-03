@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../../../core/constants/constants.dart';
 import '../../../../../../../core/utils/utils.dart';
@@ -82,7 +81,6 @@ class _SearchCategoryModalState extends ConsumerState<SearchCategoryModal> {
                       physics: const CustomBouncingScrollPhysics(),
                       itemCount: state.categories.length,
                       shrinkWrap: true,
-                      controller: ModalScrollController.of(context),
                       itemBuilder: (context, index) {
                         final category = state.categories[index];
                         return SearchedItem(

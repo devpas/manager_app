@@ -138,6 +138,27 @@ import 'modals_route.dart';
       page: ProductReviewsPage,
       customRouteBuilder: modalsPageRoute,
     ),
+    // CustomRoute(
+    //   path: '/dashboard-pas',
+    //   page: DashboardPASPage,
+    //   customRouteBuilder: modalsPageRoute,
+    // ),
+    CustomRoute(
+      path: '/main_pas',
+      page: MainPASPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/main_pas',
+      page: MainPASPage,
+      customRouteBuilder: modalsPageRoute,
+      children: [
+        AutoRoute(
+          path: 'dashboard-pas',
+          page: DashboardPASPage,
+        ),
+      ],
+    ),
   ],
 )
 class $AppRouter {}

@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/utils/utils.dart';
@@ -160,9 +159,8 @@ class _AddCategoryPageState extends ConsumerState<EditCategoryPage> {
                                     TrKeys.selectParentCategory),
                             onTap: () {
                               notifier.setQuery('');
-                              showCupertinoModalBottomSheet(
+                              showModalBottomSheet(
                                 context: context,
-                                expand: true,
                                 builder: (context) =>
                                     const SearchCategoryModalInEdit(),
                               );

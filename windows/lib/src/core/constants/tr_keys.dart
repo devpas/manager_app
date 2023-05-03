@@ -367,16 +367,20 @@ class TrKeys {
   static const String parentCategory = 'parent_category';
   static const String selectParentCategory = 'select_parent_category';
   static const String editCategory = 'edit_category';
-  static const String areYouSureToDeleteThisCategory = 'are_you_sure_to_delete_this_category';
+  static const String areYouSureToDeleteThisCategory =
+      'are_you_sure_to_delete_this_category';
   static const String changePhoto = 'change_photo';
   static const String shopName = 'shop_name';
-  static const String shopUsers= 'shop_users';
-  static const String openHours= 'open_hours';
-  static const String closeHours= 'close_hours';
-  static const String visibility= 'visibility';
-  static const String on= 'on';
-  static const String off= 'off';
-  static const String percentage= 'percentage';
-  static const String selectShopLocation= 'select_shop_location';
-  static const String areYouSureToDeleteThisShop= 'are_you_sure_to_delete_this_shop';
+  static const String shopUsers = 'shop_users';
+  static const String openHours = 'open_hours';
+  static const String closeHours = 'close_hours';
+  static const String visibility = 'visibility';
+  static const String on = 'on';
+  static const String off = 'off';
+  static const String percentage = 'percentage';
+  static const String selectShopLocation = 'select_shop_location';
+  static const String areYouSureToDeleteThisShop =
+      'are_you_sure_to_delete_this_shop';
+  // modify
+  static const String modifyApp = 'Modify';
 }

@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/utils/utils.dart';
@@ -72,9 +71,8 @@ class _ShopEditPageState extends ConsumerState<ShopEditPage> {
                     children: [
                       30.verticalSpace,
                       MainStatusButton(
-                        onTap: () => showCupertinoModalBottomSheet(
+                        onTap: () => showModalBottomSheet(
                           context: context,
-                          expand: false,
                           builder: (context) => const EditShopStatusModal(),
                         ),
                         title: AppHelpers.getTranslation(TrKeys.shopStatus),

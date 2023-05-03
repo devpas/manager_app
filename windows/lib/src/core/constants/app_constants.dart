@@ -24,8 +24,12 @@ class AppConstants {
   static const String emptyString = '';
 
   /// api urls
-  static const String baseUrl = 'https://api.goshops.org';
-  static const String imageBaseUrl = 'https://api.goshops.org/storage/images';
+  // static const String baseUrl = 'https://api.goshops.org';
+  // static const String imageBaseUrl = 'https://api.goshops.org/storage/images';
+
+  /// api urls
+  static const String baseUrl = 'http://10.0.2.2:8000';
+  static const String imageBaseUrl = 'http://10.0.2.2:8000';
 
   /// locales
   static const String localeCodeEn = 'en';

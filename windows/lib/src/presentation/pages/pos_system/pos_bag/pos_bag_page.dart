@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/utils.dart';
@@ -95,9 +94,8 @@ class _PosBagPageState extends ConsumerState<PosBagPage> {
                                     : '${state.posBagData?.selectedUser?.firstname} ${state.posBagData?.selectedUser?.lastname}',
                                 onSelectTap: () {
                                   notifier.setUserQuery(context, '');
-                                  showCupertinoModalBottomSheet(
+                                  showModalBottomSheet(
                                     context: context,
-                                    expand: true,
                                     builder: (context) =>
                                         const SearchUserModalInPosBag(),
                                   );
@@ -114,8 +112,7 @@ class _PosBagPageState extends ConsumerState<PosBagPage> {
                                         ? AppHelpers.getTranslation(
                                             TrKeys.selectAddress)
                                         : '${state.posBagData?.selectedAddress?.address}',
-                                    onSelectTap: () =>
-                                        showCupertinoModalBottomSheet(
+                                    onSelectTap: () => showModalBottomSheet(
                                       context: context,
                                       builder: (context) =>
                                           const SelectAddressModalInPosBag(),
@@ -131,8 +128,7 @@ class _PosBagPageState extends ConsumerState<PosBagPage> {
                                     ? AppHelpers.getTranslation(
                                         TrKeys.selectCurrency)
                                     : '${state.posBagData?.selectedCurrency?.title} - (${state.posBagData?.selectedCurrency?.symbol})',
-                                onSelectTap: () =>
-                                    showCupertinoModalBottomSheet(
+                                onSelectTap: () => showModalBottomSheet(
                                   context: context,
                                   builder: (context) =>
                                       const SelectCurrencyModalInPosBag(),
@@ -146,8 +142,7 @@ class _PosBagPageState extends ConsumerState<PosBagPage> {
                                     ? AppHelpers.getTranslation(
                                         TrKeys.selectPayment)
                                     : '${state.posBagData?.selectedPayment?.translation?.title}',
-                                onSelectTap: () =>
-                                    showCupertinoModalBottomSheet(
+                                onSelectTap: () => showModalBottomSheet(
                                   context: context,
                                   builder: (context) =>
                                       const SelectPaymentModalInPosBag(),

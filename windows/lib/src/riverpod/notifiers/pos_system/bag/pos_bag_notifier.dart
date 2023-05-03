@@ -4,8 +4,6 @@ import 'dart:developer';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/utils.dart';
 import '../../../../models/models.dart';
@@ -878,7 +876,7 @@ class PosBagNotifier extends StateNotifier<PosBagState> {
       );
       return;
     }
-    showCupertinoModalBottomSheet(
+    showModalBottomSheet(
       context: context,
       builder: (context) => const ChooseDeliveriesModalInPosBag(),
     );

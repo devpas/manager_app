@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../riverpod/providers/providers.dart';
@@ -52,7 +51,6 @@ class SearchBrandModalInEditProduct extends ConsumerWidget {
                       physics: const CustomBouncingScrollPhysics(),
                       itemCount: state.searchedBrands.length,
                       shrinkWrap: true,
-                      controller: ModalScrollController.of(context),
                       itemBuilder: (context, index) {
                         final brand = state.searchedBrands[index];
                         return SearchedItem(

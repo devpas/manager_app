@@ -247,6 +247,15 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    MainPASRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.MainPASPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -275,6 +284,12 @@ class AppRouter extends _i2.RootStackRouter {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.DeliveryBoyPage(),
+      );
+    },
+    DashboardPASRoute.name: (routeData) {
+      return _i2.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i1.DashboardPASPage(),
       );
     },
   };
@@ -403,6 +418,21 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           ProductReviewsRoute.name,
           path: '/product-reviews',
+        ),
+        _i2.RouteConfig(
+          MainPASRoute.name,
+          path: '/main_pas',
+        ),
+        _i2.RouteConfig(
+          MainPASRoute.name,
+          path: '/main_pas',
+          children: [
+            _i2.RouteConfig(
+              DashboardPASRoute.name,
+              path: 'dashboard-pas',
+              parent: MainPASRoute.name,
+            )
+          ],
         ),
       ];
 }
@@ -888,6 +918,19 @@ class ProductReviewsRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [_i1.MainPASPage]
+class MainPASRoute extends _i2.PageRouteInfo<void> {
+  const MainPASRoute({List<_i2.PageRouteInfo>? children})
+      : super(
+          MainPASRoute.name,
+          path: '/main_pas',
+          initialChildren: children,
+        );
+
+  static const String name = 'MainPASRoute';
+}
+
+/// generated route for
 /// [_i1.DashboardPage]
 class DashboardRoute extends _i2.PageRouteInfo<void> {
   const DashboardRoute()
@@ -945,4 +988,16 @@ class DeliveryBoyRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'DeliveryBoyRoute';
+}
+
+/// generated route for
+/// [_i1.DashboardPASPage]
+class DashboardPASRoute extends _i2.PageRouteInfo<void> {
+  const DashboardPASRoute()
+      : super(
+          DashboardPASRoute.name,
+          path: 'dashboard-pas',
+        );
+
+  static const String name = 'DashboardPASRoute';
 }
