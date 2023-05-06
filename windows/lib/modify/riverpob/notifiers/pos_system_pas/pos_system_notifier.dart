@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../modify/models/models.dart';
+import '../../../../modify/repository/categories_repository.dart';
+import '../../../../src/core/handlers/handlers.dart';
 import '../../states/states.dart';
 
 class PosSystemNotifier extends StateNotifier<PosSystemState> {
@@ -148,7 +151,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     return convertNumberZero(total);
   }
 
-  String convertNumberZero(number) {
+  String convertNumberZero(number, [String unit = "đ"]) {
     String numb = "0";
     number = double.parse((number).toStringAsFixed(2));
     double resultAfterRounded =
@@ -161,7 +164,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     } else if (number / 1000000000 >= 1) {
       numb = "${resultAfterRounded}b";
     } else {
-      numb = "$numberđ";
+      numb = "$number$unit";
     }
     return numb;
   }
@@ -179,5 +182,17 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
   void setSelectPaymentPos(List<dynamic> payment) {
     infoSelected[2] = payment;
     state = state.copyWith(infoSelected: infoSelected);
+  }
+
+  //edit ticketline
+
+  void editUnitProduct(
+      String unit, String price, int? id, indexTicketline, indexTicket) {
+    listTicket[indexTicket].ticketlines![indexTicketline] =
+        listTicket[indexTicket]
+            .ticketlines![indexTicketline]
+            .copyWith(unit: int.parse(unit), price: double.parse(price));
+
+    state = state.copyWith(listTicket: listTicket);
   }
 }

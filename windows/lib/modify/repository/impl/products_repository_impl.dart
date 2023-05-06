@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../src/core/di/injection.dart';
 import '../../../src/core/handlers/handlers.dart';
 import '../../../modify/models/models.dart';
-import '../categories_repository.dart';
+import '../products_repository.dart';
 
-class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
+class ProductsRepositoryPASImpl extends ProductsPASRepository {
   // @override
   // Future<ApiResult<SingleCategoryResponse>> getCategory(String alias) async {
   //   try {
@@ -28,11 +28,28 @@ class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
         "__Secure-1PSID=WAgvZg2kGWrhbYOUuLBs87LvN9CyveH-F6Vogqg_-i9GIvzEnEiAk-18jC6f3EpfPEgzTA."
   };
   @override
-  Future<ApiResult<CategoriesPasResponse>> getCategory(String alias) async {
+  Future<ApiResult<ProductsPasResponse>> getProduct(String alias) async {
     final data = {"query_param": []};
+    List<String> queryParam = alias.split("&");
+    queryParam = queryParam
+        .where(
+          (param) => param.isNotEmpty,
+        )
+        .toList();
+    print(queryParam);
+    if (queryParam.isNotEmpty) {
+      for (int i = 0; i < queryParam.length; i++) {
+        List kv = queryParam[i].split("=");
+        if (kv[0] == "categoryId") {
+          data["query_param"]!.add({"key": "category_id", "value": kv[1]});
+        }
+      }
+    }
+    print(data);
+
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
-      '?api=category/getData',
+      '?api=product/getData',
       data: data,
       options: Options(
           headers: headers,
@@ -55,13 +72,12 @@ class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
               return status! < 500;
             }),
       );
-      print(response2.data);
       return ApiResult.success(
-        data: CategoriesPasResponse.fromJson(response2.data),
+        data: ProductsPasResponse.fromJson(response2.data),
       );
     } else {
       return ApiResult.success(
-        data: CategoriesPasResponse.fromJson(response.data),
+        data: ProductsPasResponse.fromJson(response.data),
       );
     }
   }

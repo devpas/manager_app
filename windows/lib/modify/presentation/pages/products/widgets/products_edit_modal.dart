@@ -1,28 +1,64 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/order_detail/products/search_product_modal_in_order_detail_info.dart';
+import 'package:g_manager_app/modify/models/data/ticketline_data.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:g_manager_app/src/core/utils/app_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../src/core/constants/constants.dart';
-import '../../../../../src/riverpod/providers/providers.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
-import 'search_category_modal_in_filter_products.dart';
-import 'search_shop_modal_in_filter_products.dart';
 
-class ProductsEditModal extends ConsumerWidget {
-  const ProductsEditModal({Key? key}) : super(key: key);
+class ProductEditModal extends ConsumerStatefulWidget {
+  const ProductEditModal(
+      this.ticketline, this.ticketIndex, this.ticketLineIndex,
+      {super.key});
+
+  final TicketLineData? ticketline;
+
+  final int? ticketIndex;
+
+  final int? ticketLineIndex;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(posSystemPASProvider);
-    final stateProduct = ref.watch(productsProvider);
-    final notifier = ref.read(posSystemPASProvider.notifier);
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ProductEditModalState(ticketline, ticketIndex, ticketLineIndex);
+}
+
+class _ProductEditModalState extends ConsumerState<ProductEditModal> {
+  _ProductEditModalState(
+      this.ticketline, this.ticketIndex, this.ticketLineIndex);
+
+  final TicketLineData? ticketline;
+
+  final int? ticketIndex;
+
+  final int? ticketLineIndex;
+
+  TextEditingController unitController = TextEditingController(text: "0");
+  TextEditingController priceAndTaxController =
+      TextEditingController(text: "0");
+  TextEditingController priceController = TextEditingController(text: "0");
+
+  @override
+  void initState() {
+    super.initState();
+    unitController.text = ticketline!.unit.toString();
+    priceAndTaxController.text =
+        (ticketline!.price! * (1 + int.parse("${ticketline!.taxId}") / 100))
+            .toStringAsFixed(2);
+    priceController.text = ticketline!.price!.toStringAsFixed(2);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final statePos = ref.watch(posSystemPASProvider);
+    final stateProduct = ref.watch(productsPASProvider);
+    final notifierPos = ref.read(posSystemPASProvider.notifier);
     return Material(
       color: AppColors.white,
       child: Padding(
@@ -35,7 +71,7 @@ class ProductsEditModal extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Sản phẩm exe",
+              "${stateProduct.products!.where((product) => product.id == ticketline!.productId).toList().first.name}",
               style: AppTypographies.styBlack22W500,
             ),
             40.verticalSpace,
@@ -51,11 +87,11 @@ class ProductsEditModal extends ConsumerWidget {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.number,
+              controller: unitController,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly
               ],
               onChanged: (input) => {},
-              initialValue: "1",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -87,8 +123,15 @@ class ProductsEditModal extends ConsumerWidget {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly
               ],
-              onChanged: (input) => {},
-              initialValue: "1",
+              onChanged: (input) => {
+                if (input.isNotEmpty)
+                  {
+                    priceAndTaxController.text =
+                        (double.parse(input) * (1 + ticketline!.taxId! / 100))
+                            .toStringAsFixed(2),
+                  }
+              },
+              controller: priceController,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -117,11 +160,21 @@ class ProductsEditModal extends ConsumerWidget {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.number,
+              controller: priceAndTaxController,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly
               ],
-              onChanged: (input) => {},
-              initialValue: "1",
+              onChanged: (input) => {
+                priceController.text =
+                    (double.parse(input) / (1 + ticketline!.taxId! / 100))
+                        .toStringAsFixed(2),
+                if (input.isNotEmpty)
+                  {
+                    priceController.text =
+                        (double.parse(input) / (1 + ticketline!.taxId! / 100))
+                            .toStringAsFixed(2),
+                  }
+              },
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -151,7 +204,7 @@ class ProductsEditModal extends ConsumerWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "1%",
+                    "${ticketline!.taxId}%",
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
@@ -177,7 +230,10 @@ class ProductsEditModal extends ConsumerWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "1đ",
+                    notifierPos.convertNumberZero(
+                        double.parse(priceController.text) *
+                            (int.parse("${ticketline!.taxId}") / 100) *
+                            int.parse(unitController.text)),
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
@@ -203,7 +259,10 @@ class ProductsEditModal extends ConsumerWidget {
                 ),
                 Expanded(
                   child: Text(
-                    "1đ",
+                    notifierPos.convertNumberZero(
+                        double.parse(priceController.text) *
+                            (1 + int.parse("${ticketline!.taxId}") / 100) *
+                            int.parse(unitController.text)),
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
@@ -216,9 +275,31 @@ class ProductsEditModal extends ConsumerWidget {
               ],
             ),
             50.verticalSpace,
-            CommonAccentButton(
-              title: 'Show result',
-              onPressed: () {},
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ConfirmButton(
+                    title: 'Đồng ý',
+                    onTap: () {
+                      notifierPos.editUnitProduct(
+                          unitController.text,
+                          priceController.text,
+                          ticketline!.id,
+                          ticketIndex,
+                          ticketLineIndex);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ConfirmButton(
+                    title: 'Hủy bỏ',
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
             ),
             40.verticalSpace,
           ],

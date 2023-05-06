@@ -20,6 +20,7 @@ mixin _$PosSystemState {
   List<List<dynamic>>? get customerPos => throw _privateConstructorUsedError;
   List<List<dynamic>>? get unitPos => throw _privateConstructorUsedError;
   List<List<dynamic>>? get paymentPos => throw _privateConstructorUsedError;
+  List<CategoryPasData>? get categories => throw _privateConstructorUsedError;
   List<List<dynamic>>? get infoSelected => throw _privateConstructorUsedError;
   bool get isUsersLoading => throw _privateConstructorUsedError;
   bool? get isUnitLoading => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $PosSystemStateCopyWith<$Res> {
       List<List<dynamic>>? customerPos,
       List<List<dynamic>>? unitPos,
       List<List<dynamic>>? paymentPos,
+      List<CategoryPasData>? categories,
       List<List<dynamic>>? infoSelected,
       bool isUsersLoading,
       bool? isUnitLoading,
@@ -64,6 +66,7 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
     Object? customerPos = freezed,
     Object? unitPos = freezed,
     Object? paymentPos = freezed,
+    Object? categories = freezed,
     Object? infoSelected = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
@@ -86,6 +89,10 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
           ? _value.paymentPos
           : paymentPos // ignore: cast_nullable_to_non_nullable
               as List<List<dynamic>>?,
+      categories: freezed == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryPasData>?,
       infoSelected: freezed == infoSelected
           ? _value.infoSelected
           : infoSelected // ignore: cast_nullable_to_non_nullable
@@ -119,6 +126,7 @@ abstract class _$$_PosSystemStateCopyWith<$Res>
       List<List<dynamic>>? customerPos,
       List<List<dynamic>>? unitPos,
       List<List<dynamic>>? paymentPos,
+      List<CategoryPasData>? categories,
       List<List<dynamic>>? infoSelected,
       bool isUsersLoading,
       bool? isUnitLoading,
@@ -140,6 +148,7 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
     Object? customerPos = freezed,
     Object? unitPos = freezed,
     Object? paymentPos = freezed,
+    Object? categories = freezed,
     Object? infoSelected = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
@@ -162,6 +171,10 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
           ? _value._paymentPos
           : paymentPos // ignore: cast_nullable_to_non_nullable
               as List<List<dynamic>>?,
+      categories: freezed == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryPasData>?,
       infoSelected: freezed == infoSelected
           ? _value._infoSelected
           : infoSelected // ignore: cast_nullable_to_non_nullable
@@ -190,6 +203,7 @@ class _$_PosSystemState extends _PosSystemState {
       final List<List<dynamic>>? customerPos,
       final List<List<dynamic>>? unitPos,
       final List<List<dynamic>>? paymentPos,
+      final List<CategoryPasData>? categories = const [],
       final List<List<dynamic>>? infoSelected = const [],
       this.isUsersLoading = false,
       this.isUnitLoading = false,
@@ -198,6 +212,7 @@ class _$_PosSystemState extends _PosSystemState {
         _customerPos = customerPos,
         _unitPos = unitPos,
         _paymentPos = paymentPos,
+        _categories = categories,
         _infoSelected = infoSelected,
         super._();
 
@@ -237,6 +252,16 @@ class _$_PosSystemState extends _PosSystemState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<CategoryPasData>? _categories;
+  @override
+  @JsonKey()
+  List<CategoryPasData>? get categories {
+    final value = _categories;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<List<dynamic>>? _infoSelected;
   @override
   @JsonKey()
@@ -259,7 +284,7 @@ class _$_PosSystemState extends _PosSystemState {
 
   @override
   String toString() {
-    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, infoSelected: $infoSelected, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, isPaymentLoading: $isPaymentLoading)';
+    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, categories: $categories, infoSelected: $infoSelected, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, isPaymentLoading: $isPaymentLoading)';
   }
 
   @override
@@ -274,6 +299,8 @@ class _$_PosSystemState extends _PosSystemState {
             const DeepCollectionEquality().equals(other._unitPos, _unitPos) &&
             const DeepCollectionEquality()
                 .equals(other._paymentPos, _paymentPos) &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories) &&
             const DeepCollectionEquality()
                 .equals(other._infoSelected, _infoSelected) &&
             (identical(other.isUsersLoading, isUsersLoading) ||
@@ -291,6 +318,7 @@ class _$_PosSystemState extends _PosSystemState {
       const DeepCollectionEquality().hash(_customerPos),
       const DeepCollectionEquality().hash(_unitPos),
       const DeepCollectionEquality().hash(_paymentPos),
+      const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_infoSelected),
       isUsersLoading,
       isUnitLoading,
@@ -309,6 +337,7 @@ abstract class _PosSystemState extends PosSystemState {
       final List<List<dynamic>>? customerPos,
       final List<List<dynamic>>? unitPos,
       final List<List<dynamic>>? paymentPos,
+      final List<CategoryPasData>? categories,
       final List<List<dynamic>>? infoSelected,
       final bool isUsersLoading,
       final bool? isUnitLoading,
@@ -323,6 +352,8 @@ abstract class _PosSystemState extends PosSystemState {
   List<List<dynamic>>? get unitPos;
   @override
   List<List<dynamic>>? get paymentPos;
+  @override
+  List<CategoryPasData>? get categories;
   @override
   List<List<dynamic>>? get infoSelected;
   @override

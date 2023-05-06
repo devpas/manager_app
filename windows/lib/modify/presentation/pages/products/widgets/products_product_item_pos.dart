@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 
-import '../../../../../src/core/utils/utils.dart';
-import '../../../../../src/models/models.dart';
+import '../../../../../modify/models/models.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
-import '../../../../../src/core/constants/constants.dart';
 
 class ProductsProductItemPOS extends StatelessWidget {
-  final ProductData product;
+  final ProductPasData product;
 
   const ProductsProductItemPOS({
     Key? key,
@@ -19,19 +15,6 @@ class ProductsProductItemPOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isOutOfStock = product.stocks == null || product.stocks!.isEmpty;
-    final bool hasDiscount = isOutOfStock
-        ? false
-        : (product.stocks?[0].discount != null &&
-            (product.stocks?[0].discount ?? 0) > 0);
-    final String price = isOutOfStock
-        ? AppHelpers.getTranslation(TrKeys.outOfStock)
-        : NumberFormat.currency(
-            symbol: LocalStorage.instance.getSelectedCurrency()?.symbol,
-          ).format(hasDiscount
-            ? ((product.stocks?[0].price ?? 0) -
-                (product.stocks?[0].discount ?? 0))
-            : product.stocks?[0].price);
     return Column(
       children: [
         Material(
@@ -44,7 +27,7 @@ class ProductsProductItemPOS extends StatelessWidget {
               child: Row(
                 children: [
                   CommonImage(
-                    imageUrl: product.img,
+                    imageUrl: product.image,
                     radius: 20,
                     width: 40,
                     height: 40,
@@ -58,7 +41,7 @@ class ProductsProductItemPOS extends StatelessWidget {
                           height: 30,
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            '${product.translation?.title}',
+                            '${product.name}',
                             style: AppTypographies.styBlack11W400,
                             maxLines: 2,
                           ),
@@ -68,7 +51,7 @@ class ProductsProductItemPOS extends StatelessWidget {
                           style: AppTypographies.styBlack11W700,
                         ),
                         Text(
-                          price,
+                          "${product.priceSell}",
                           style: AppTypographies.styBlack11W700,
                         ),
                       ],

@@ -36,15 +36,14 @@ class CategoryPosItem extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Center(
-                        child: Text(
-                          title,
-                          style: isSelected
-                              ? AppTypographies.styWhite10W500
-                              : AppTypographies.styBlack10W500,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        title,
+                        style: isSelected
+                            ? AppTypographies.styWhite10W500
+                            : AppTypographies.styBlack10W500,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],

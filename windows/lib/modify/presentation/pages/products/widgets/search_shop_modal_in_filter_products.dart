@@ -40,11 +40,12 @@ class SearchShopModalInFilterProducts extends ConsumerWidget {
               },
             ),
             state.isShopSearching
-                ? Padding(
-                    padding: REdgeInsets.symmetric(vertical: 20.0),
-                    child: CircularProgressIndicator(
-                      strokeWidth: 3.r,
-                      color: AppColors.greenMain,
+                ? Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3.r,
+                        color: AppColors.greenMain,
+                      ),
                     ),
                   )
                 : Expanded(

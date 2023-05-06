@@ -10,6 +10,7 @@ class PosSystemState with _$PosSystemState {
       List<List<dynamic>>? customerPos,
       List<List<dynamic>>? unitPos,
       List<List<dynamic>>? paymentPos,
+      @Default([]) List<CategoryPasData>? categories,
       @Default([]) List<List<dynamic>>? infoSelected,
       @Default(false) bool isUsersLoading,
       @Default(false) bool? isUnitLoading,

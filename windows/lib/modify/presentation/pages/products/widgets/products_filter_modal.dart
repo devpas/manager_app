@@ -43,6 +43,7 @@ class ProductsFilterModal extends ConsumerWidget {
                 notifier.setShopQuery('');
                 showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   builder: (context) {
                     return const SearchShopModalInFilterProducts();
                   },
@@ -57,6 +58,7 @@ class ProductsFilterModal extends ConsumerWidget {
                 notifier.setCategoryQuery('');
                 showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   builder: (context) {
                     return const SearchCategoryModalInFilterProducts();
                   },
@@ -81,6 +83,7 @@ class ProductsFilterModal extends ConsumerWidget {
                 print("fetch_product");
                 showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   builder: (context) {
                     return const SearchProductModalInOrderDetailInfo();
                   },

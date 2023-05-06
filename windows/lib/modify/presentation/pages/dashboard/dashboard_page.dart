@@ -25,7 +25,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
   String message = "";
   double heightContainerProduct = 340;
   int selectTicketLine = 0;
-  int selectCategory = 0;
+  int selectCategory = -1;
   int selectTicket = 0;
   bool keyboardVisible = false;
   late FocusNode focusNode;
@@ -62,8 +62,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(productsProvider.notifier).fetchProducts();
-        ref.read(categoriesProvider.notifier).fetchCategories();
+        ref.read(productsPASProvider.notifier).fetchProducts();
+        ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
         ref.read(posSystemPASProvider.notifier).initListTicket();
       },
     );
@@ -72,10 +72,12 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(dashboardProvider);
-    final stateProducts = ref.watch(productsProvider);
-    final stateCategory = ref.watch(categoriesProvider);
+    final stateCategories = ref.watch(categoriesPASProvider);
+    final stateProducts = ref.watch(productsPASProvider);
     final statePos = ref.watch(posSystemPASProvider);
     final notifierPos = ref.read(posSystemPASProvider.notifier);
+    final notifierCategories = ref.read(categoriesPASProvider.notifier);
+    final notifierProducts = ref.read(productsPASProvider.notifier);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.mainBackground,
@@ -181,7 +183,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                       SizedBox(
                                         width: 100,
                                         child: Text(
-                                          "${stateProducts.products.where((product) => product.id == statePos.listTicket![selectTicket].ticketlines![index].productId).toList().first.translation!.title}",
+                                          "${stateProducts.products!.where((product) => product.id == statePos.listTicket![selectTicket].ticketlines![index].productId).toList().first.name}",
                                           style: selectTicketLine == index
                                               ? AppTypographies.styGreen11W700
                                               : AppTypographies.styBlack11W700,
@@ -362,21 +364,24 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                     )),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: Container(
-                                width: 30.r,
-                                height: 30.r,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  color: AppColors.deliveredOrders
-                                      .withOpacity(0.1),
-                                ),
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  Icons.print,
-                                  size: 20.r,
-                                  color: AppColors.deliveredOrders,
+                            GestureDetector(
+                              onTap: () {},
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                child: Container(
+                                  width: 30.r,
+                                  height: 30.r,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    color: AppColors.deliveredOrders
+                                        .withOpacity(0.1),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.print,
+                                    size: 20.r,
+                                    color: AppColors.deliveredOrders,
+                                  ),
                                 ),
                               ),
                             ),
@@ -420,17 +425,20 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                               scrollDirection: Axis.vertical,
                               padding: REdgeInsets.symmetric(vertical: 5),
                               physics: const CustomBouncingScrollPhysics(),
-                              itemCount: stateCategory.categories.length,
+                              itemCount: stateCategories.categories!.length,
                               shrinkWrap: false,
                               itemBuilder: (context, index) {
                                 return CategoryPosItem(
                                   title:
-                                      '${stateCategory.categories[index].translation?.title}',
+                                      '${stateCategories.categories![index].name}',
                                   isSelected:
                                       selectCategory == index ? true : false,
                                   onTap: () {
                                     setState(() {
                                       selectCategory = index;
+                                      notifierProducts.fetchProductsByCategory(
+                                          stateCategories
+                                              .categories![index].id);
                                     });
                                   },
                                 );
@@ -445,7 +453,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                 GridView.builder(
                                   shrinkWrap: true,
                                   primary: false,
-                                  itemCount: stateProducts.products.length,
+                                  itemCount: stateProducts.products!.length,
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     childAspectRatio: 200 / 110,
@@ -453,7 +461,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                   ),
                                   itemBuilder: (context, index) {
                                     final product =
-                                        stateProducts.products[index];
+                                        stateProducts.products![index];
                                     return TextButton(
                                       onPressed: () {
                                         TicketLineData ticketline = TicketLineData(
@@ -473,19 +481,13 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                 .ticketId,
                                             line: 1,
                                             productId: stateProducts
-                                                .products[index].id,
+                                                .products![index].id,
                                             attributesetInstanceId: 1,
-                                            unit: stateProducts.products[index]
-                                                    .stocks!.isNotEmpty
-                                                ? 1
-                                                : 0,
-                                            price: stateProducts.products[index]
-                                                    .stocks!.isNotEmpty
-                                                ? double.parse(
-                                                    "${stateProducts.products[index].stocks![0].price}")
-                                                : 0,
-                                            taxId:
-                                                int.parse("${stateProducts.products[index].tax}"),
+                                            unit: 1,
+                                            price: double.parse(
+                                                "${stateProducts.products![index].priceSell}"),
+                                            taxId: int.parse(
+                                                "${stateProducts.products![index].taxCat}"),
                                             attributes: "");
                                         notifierPos.addTicketline(
                                             ticketline, selectTicket);
@@ -586,11 +588,19 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) => const ProductsEditModal(),
-                            );
+                            print(selectTicketLine);
+                            if (statePos.listTicket![selectTicket].ticketlines!
+                                .isNotEmpty) {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => ProductEditModal(
+                                    statePos.listTicket![selectTicket]
+                                        .ticketlines![selectTicketLine],
+                                    selectTicketLine,
+                                    selectTicket),
+                              );
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),

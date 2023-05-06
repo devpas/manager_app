@@ -22,3 +22,7 @@ export 'payments_repository.dart';
 export 'impl/payments_repository_impl.dart';
 export 'dashboard_repository.dart';
 export 'impl/dashboard_repository_impl.dart';
+export '../../modify/repository/categories_repository.dart';
+export '../../modify/repository/impl/categories_repository_impl.dart';
+export '../../modify/repository/products_repository.dart';
+export '../../modify/repository/impl/products_repository_impl.dart';

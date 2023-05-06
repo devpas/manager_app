@@ -36,11 +36,12 @@ class SearchProductModalInOrderDetailInfo extends ConsumerWidget {
             ),
             10.verticalSpace,
             state.isProductSearchLoading
-                ? Padding(
-                    padding: REdgeInsets.symmetric(vertical: 20),
-                    child: CircularProgressIndicator(
-                      strokeWidth: 3.r,
-                      color: AppColors.greenMain,
+                ? Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3.r,
+                        color: AppColors.greenMain,
+                      ),
                     ),
                   )
                 : Expanded(
