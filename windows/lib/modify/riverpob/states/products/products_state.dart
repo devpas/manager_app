@@ -5,8 +5,10 @@ part 'products_state.freezed.dart';
 
 @freezed
 class ProductsState with _$ProductsState {
-  const factory ProductsState({@Default([]) List<ProductPasData>? products}) =
-      _ProductsState;
+  const factory ProductsState(
+      {@Default([]) List<ProductPasData>? products,
+      @Default([]) List<ProductPasData>? productsAfterFilter,
+      ProductPasData? productsSelected}) = _ProductsState;
 
   const ProductsState._();
 }

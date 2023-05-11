@@ -1,26 +1,35 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/order_detail/products/search_product_modal_in_order_detail_info.dart';
+import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:g_manager_app/src/core/utils/app_helpers.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/riverpod/providers/providers.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
-import 'search_category_modal_in_filter_products.dart';
-import 'search_shop_modal_in_filter_products.dart';
+import '../../orders/add/widgets/order_detail/products/search_product_modal_in_order_detail_info_pas.dart';
+import 'search_category_modal_in_filter_products_pas.dart';
 
 class ProductsFilterModal extends ConsumerWidget {
-  const ProductsFilterModal({Key? key}) : super(key: key);
+  ProductsFilterModal({Key? key}) : super(key: key);
+
+  String codeRef = "";
+  String name = "";
+  double priceBuy = 0;
+  double priceSell = 0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(productsProvider);
-    final notifier = ref.read(productsProvider.notifier);
-    final stateOrder = ref.watch(addOrderProvider);
-    final notifierAddOrder = ref.read(addOrderProvider.notifier);
+    final state = ref.watch(productsPASProvider);
+    final notifier = ref.read(productsPASProvider.notifier);
+    final stateCategory = ref.watch(categoriesPASProvider);
+    final notifierCategory = ref.read(categoriesPASProvider.notifier);
     return Material(
       color: AppColors.white,
       child: Padding(
@@ -36,70 +45,174 @@ class ProductsFilterModal extends ConsumerWidget {
               'Lọc sản phẩm',
               style: AppTypographies.styBlack22W500,
             ),
-            40.verticalSpace,
-            SelectWithSearchButton(
-              label: 'Kho',
-              onTap: () {
-                notifier.setShopQuery('');
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return const SearchShopModalInFilterProducts();
-                  },
-                );
-              },
-              title: state.shopName ?? 'Chọn kho',
+            20.verticalSpace,
+            Text(
+              AppHelpers.getTranslation("Mã vạch"),
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                letterSpacing: -0.4,
+                color: AppColors.black.withOpacity(0.3),
+              ),
             ),
-            30.verticalSpace,
-            SelectWithSearchButton(
+            TextFormField(
+              textCapitalization: TextCapitalization.sentences,
+              onChanged: (value) {
+                codeRef = value;
+              },
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                letterSpacing: -0.4,
+                color: AppColors.black,
+              ),
+              decoration: InputDecoration(
+                hintStyle: GoogleFonts.inter(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  letterSpacing: -0.4,
+                  color: AppColors.inputNameHint,
+                ),
+              ),
+            ),
+            20.verticalSpace,
+            Text(
+              AppHelpers.getTranslation("Tên sản phẩm"),
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                letterSpacing: -0.4,
+                color: AppColors.black.withOpacity(0.3),
+              ),
+            ),
+            TextFormField(
+              textCapitalization: TextCapitalization.sentences,
+              onChanged: (input) {
+                name = input;
+              },
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                letterSpacing: -0.4,
+                color: AppColors.black,
+              ),
+              decoration: InputDecoration(
+                hintStyle: GoogleFonts.inter(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  letterSpacing: -0.4,
+                  color: AppColors.inputNameHint,
+                ),
+              ),
+            ),
+            20.verticalSpace,
+            Text(
+              AppHelpers.getTranslation("Giá mua"),
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                letterSpacing: -0.4,
+                color: AppColors.black.withOpacity(0.3),
+              ),
+            ),
+            TextFormField(
+              textCapitalization: TextCapitalization.sentences,
+              onChanged: (input) {
+                priceBuy = double.parse(input);
+              },
+              keyboardType: TextInputType.number,
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                letterSpacing: -0.4,
+                color: AppColors.black,
+              ),
+              decoration: InputDecoration(
+                hintStyle: GoogleFonts.inter(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  letterSpacing: -0.4,
+                  color: AppColors.inputNameHint,
+                ),
+              ),
+            ),
+            Text(
+              AppHelpers.getTranslation("Giá bán"),
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                letterSpacing: -0.4,
+                color: AppColors.black.withOpacity(0.3),
+              ),
+            ),
+            TextFormField(
+              textCapitalization: TextCapitalization.sentences,
+              onChanged: (input) {
+                priceSell = double.parse(input);
+              },
+              keyboardType: TextInputType.number,
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                letterSpacing: -0.4,
+                color: AppColors.black,
+              ),
+              decoration: InputDecoration(
+                hintStyle: GoogleFonts.inter(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  letterSpacing: -0.4,
+                  color: AppColors.inputNameHint,
+                ),
+              ),
+            ),
+            20.verticalSpace,
+            SelectWithSearchPosButton(
+              iconData: FlutterRemix.arrow_down_s_line,
               label: 'Danh mục',
               onTap: () {
-                notifier.setCategoryQuery('');
+                notifier.keySearch = "";
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   builder: (context) {
-                    return const SearchCategoryModalInFilterProducts();
+                    return const SearchCategoryModalInFilterProductsPAS();
                   },
                 );
               },
-              title: state.categoryName ?? 'Chọn danh mục',
+              title:
+                  "${stateCategory.categorySelected != null ? stateCategory.categorySelected!.name : 'Chọn danh mục'}",
             ),
-            30.verticalSpace,
-            SelectWithSearchButton(
+            20.verticalSpace,
+            SelectWithSearchPosButton(
+              iconData: FlutterRemix.search_line,
               label: 'Sản phẩm',
               onTap: () {
-                notifierAddOrder.fetchProducts(
-                  checkYourNetwork: () {
-                    AppHelpers.showCheckFlash(
-                      context,
-                      AppHelpers.getTranslation(
-                          TrKeys.checkYourNetworkConnection),
-                    );
-                  },
-                  query: '',
-                );
-                print("fetch_product");
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return const SearchProductModalInOrderDetailInfo();
-                  },
-                );
+                notifier.keySearch = "";
+                notifier.filterProduct(
+                    stateCategory.categorySelected!, "", state.products!);
+                Future.delayed(const Duration(milliseconds: 50), () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return const SearchProductModalInOrderDetailInfoPAS();
+                    },
+                  );
+                });
               },
-              title: state.categoryName ?? 'Chọn sản phẩm',
+              title:
+                  "${state.productsSelected != null ? state.productsSelected!.name : 'Chọn sản phẩm'}",
             ),
-            100.verticalSpace,
+            40.verticalSpace,
             CommonAccentButton(
               title: 'Show result',
               onPressed: () {
-                notifier.updateProducts();
+                // notifier.updateProducts();
                 context.popRoute();
               },
             ),
-            40.verticalSpace,
+            20.verticalSpace,
           ],
         ),
       ),

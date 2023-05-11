@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,8 @@ class _ListTicketModalState extends ConsumerState<ListTicketModal> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(posSystemPASProvider);
+    var state = ref.watch(posSystemPASProvider);
+    final notifier = ref.read(posSystemPASProvider.notifier);
     return Material(
       color: AppColors.mainBackground,
       child: Container(
@@ -32,25 +34,31 @@ class _ListTicketModalState extends ConsumerState<ListTicketModal> {
         ),
         child: Stack(
           children: [
-            Expanded(
-              child: ListView.builder(
-                padding: REdgeInsets.symmetric(vertical: 10),
-                physics: const CustomBouncingScrollPhysics(),
-                itemCount: state.listTicket!.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final ticket = state.listTicket![index];
-                  return TicketItem(
-                    title: "${ticket.title}" "\n ${state.infoSelected![0][1]}",
-                    isSelected: index == selectTicket ? true : false,
-                    onTap: () {
-                      setState(() {
-                        selectTicket = index;
-                      });
-                    },
-                  );
-                },
-              ),
+            ListView.builder(
+              padding: REdgeInsets.symmetric(vertical: 10),
+              physics: const CustomBouncingScrollPhysics(),
+              itemCount: state.listTicket!.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final ticket = state.listTicket![index];
+                return TicketItem(
+                  title: "${ticket.title}" "\n ${state.infoSelected![0][1]}",
+                  isSelected: index == selectTicket ? true : false,
+                  onDelete: () {
+                    print(index);
+                    notifier.deleteTicket(index);
+                    notifier.updateIndex(
+                        "ticket", state.listTicket!.length - 1);
+                  },
+                  onTap: () {
+                    setState(() {
+                      selectTicket = index;
+                      notifier.updateIndex("ticket", index);
+                      context.popRoute();
+                    });
+                  },
+                );
+              },
             ),
           ],
         ),

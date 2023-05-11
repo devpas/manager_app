@@ -11,6 +11,7 @@ class TicketItem extends StatelessWidget {
   final String? imageUrl;
   final bool isSelected;
   final Function() onTap;
+  final Function() onDelete;
   final double? verticalPadding;
 
   const TicketItem({
@@ -20,6 +21,7 @@ class TicketItem extends StatelessWidget {
     required this.onTap,
     this.imageUrl,
     this.verticalPadding = 20,
+    required this.onDelete,
   }) : super(key: key);
 
   @override
@@ -67,10 +69,13 @@ class TicketItem extends StatelessWidget {
                           color: Colors.blue.withOpacity(0.1),
                         ),
                         alignment: Alignment.center,
-                        child: Icon(
-                          Icons.delete,
-                          size: 20.r,
-                          color: Colors.blue,
+                        child: GestureDetector(
+                          onTap: onDelete,
+                          child: Icon(
+                            Icons.delete,
+                            size: 20.r,
+                            color: Colors.blue,
+                          ),
                         ),
                       ),
                     ),

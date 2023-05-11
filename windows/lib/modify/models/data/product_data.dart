@@ -1,3 +1,5 @@
+import 'package:g_manager_app/modify/models/data/stocks.dart';
+
 class ProductPasData {
   ProductPasData({
     int? index,
@@ -17,6 +19,8 @@ class ProductPasData {
     String? attribute,
     String? image,
     int? active,
+    int? attributesetInstanceId,
+    List<StockData>? stocks,
     List<ProductPasData>? children,
   }) {
     _index = index;
@@ -36,6 +40,8 @@ class ProductPasData {
     _attribute = attribute;
     _image = image;
     _active = active;
+    _attributesetInstanceId = attributesetInstanceId;
+    _stocks = stocks;
     _children = children;
   }
 
@@ -57,6 +63,10 @@ class ProductPasData {
     _attribute = json['attribute'];
     _image = json['image'];
     _active = json['active'];
+    _attributesetInstanceId = json["attributeset_instance_id"];
+    _stocks = json['stocks'] != null
+        ? List<StockData>.from(json['stocks'].map((x) => StockData.fromJson(x)))
+        : null;
     _children = json['children'] != null
         ? List<ProductPasData>.from(
             json['children'].map((x) => ProductPasData.fromJson(x)))
@@ -80,6 +90,8 @@ class ProductPasData {
   String? _attribute;
   String? _image;
   int? _active;
+  int? _attributesetInstanceId;
+  List<StockData>? _stocks;
   List<ProductPasData>? _children;
 
   ProductPasData copyWith({
@@ -100,6 +112,8 @@ class ProductPasData {
     String? attribute,
     String? image,
     int? active,
+    int? attributesetInstanceId,
+    List<StockData>? stocks,
     List<ProductPasData>? children,
   }) =>
       ProductPasData(
@@ -120,6 +134,9 @@ class ProductPasData {
         attribute: attribute ?? _attribute,
         image: image ?? _image,
         active: active ?? _active,
+        attributesetInstanceId:
+            attributesetInstanceId ?? _attributesetInstanceId,
+        stocks: stocks ?? _stocks,
         children: children ?? _children,
       );
 
@@ -157,6 +174,10 @@ class ProductPasData {
 
   int? get active => _active;
 
+  int? get attributesetInstanceId => _attributesetInstanceId;
+
+  List<StockData>? get stocks => _stocks;
+
   List<ProductPasData>? get children => _children;
 
   Map<String, dynamic> toJson() {
@@ -178,6 +199,8 @@ class ProductPasData {
     map['attribute'] = _attribute;
     map['image'] = _image;
     map['active'] = _active;
+    map['attributeset_instance_id'] = _attributesetInstanceId;
+    map['stocks'] = _stocks;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }

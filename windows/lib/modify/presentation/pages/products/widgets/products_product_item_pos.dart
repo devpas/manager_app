@@ -8,9 +8,12 @@ import '../../../theme/theme.dart';
 class ProductsProductItemPOS extends StatelessWidget {
   final ProductPasData product;
 
+  final String selectWarehouse;
+
   const ProductsProductItemPOS({
     Key? key,
     required this.product,
+    required this.selectWarehouse,
   }) : super(key: key);
 
   @override
@@ -47,7 +50,19 @@ class ProductsProductItemPOS extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "2+0",
+                          product.stocks!
+                                  .where((warehouse) =>
+                                      warehouse.warehouse == selectWarehouse)
+                                  .toList()
+                                  .isNotEmpty
+                              ? product.stocks!
+                                  .where((warehouse) =>
+                                      warehouse.warehouse == selectWarehouse)
+                                  .toList()
+                                  .first
+                                  .stockCurrent
+                                  .toString()
+                              : "0",
                           style: AppTypographies.styBlack11W700,
                         ),
                         Text(

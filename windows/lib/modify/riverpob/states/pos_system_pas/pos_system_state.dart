@@ -12,6 +12,9 @@ class PosSystemState with _$PosSystemState {
       List<List<dynamic>>? paymentPos,
       @Default([]) List<CategoryPasData>? categories,
       @Default([]) List<List<dynamic>>? infoSelected,
+      @Default(0) int? selectTicketLine,
+      @Default(-1) int? selectCategory,
+      @Default(0) int? selectTicket,
       @Default(false) bool isUsersLoading,
       @Default(false) bool? isUnitLoading,
       @Default(false) bool? isPaymentLoading}) = _PosSystemState;

@@ -22,6 +22,9 @@ mixin _$PosSystemState {
   List<List<dynamic>>? get paymentPos => throw _privateConstructorUsedError;
   List<CategoryPasData>? get categories => throw _privateConstructorUsedError;
   List<List<dynamic>>? get infoSelected => throw _privateConstructorUsedError;
+  int? get selectTicketLine => throw _privateConstructorUsedError;
+  int? get selectCategory => throw _privateConstructorUsedError;
+  int? get selectTicket => throw _privateConstructorUsedError;
   bool get isUsersLoading => throw _privateConstructorUsedError;
   bool? get isUnitLoading => throw _privateConstructorUsedError;
   bool? get isPaymentLoading => throw _privateConstructorUsedError;
@@ -44,6 +47,9 @@ abstract class $PosSystemStateCopyWith<$Res> {
       List<List<dynamic>>? paymentPos,
       List<CategoryPasData>? categories,
       List<List<dynamic>>? infoSelected,
+      int? selectTicketLine,
+      int? selectCategory,
+      int? selectTicket,
       bool isUsersLoading,
       bool? isUnitLoading,
       bool? isPaymentLoading});
@@ -68,6 +74,9 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
     Object? paymentPos = freezed,
     Object? categories = freezed,
     Object? infoSelected = freezed,
+    Object? selectTicketLine = freezed,
+    Object? selectCategory = freezed,
+    Object? selectTicket = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
     Object? isPaymentLoading = freezed,
@@ -97,6 +106,18 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
           ? _value.infoSelected
           : infoSelected // ignore: cast_nullable_to_non_nullable
               as List<List<dynamic>>?,
+      selectTicketLine: freezed == selectTicketLine
+          ? _value.selectTicketLine
+          : selectTicketLine // ignore: cast_nullable_to_non_nullable
+              as int?,
+      selectCategory: freezed == selectCategory
+          ? _value.selectCategory
+          : selectCategory // ignore: cast_nullable_to_non_nullable
+              as int?,
+      selectTicket: freezed == selectTicket
+          ? _value.selectTicket
+          : selectTicket // ignore: cast_nullable_to_non_nullable
+              as int?,
       isUsersLoading: null == isUsersLoading
           ? _value.isUsersLoading
           : isUsersLoading // ignore: cast_nullable_to_non_nullable
@@ -128,6 +149,9 @@ abstract class _$$_PosSystemStateCopyWith<$Res>
       List<List<dynamic>>? paymentPos,
       List<CategoryPasData>? categories,
       List<List<dynamic>>? infoSelected,
+      int? selectTicketLine,
+      int? selectCategory,
+      int? selectTicket,
       bool isUsersLoading,
       bool? isUnitLoading,
       bool? isPaymentLoading});
@@ -150,6 +174,9 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
     Object? paymentPos = freezed,
     Object? categories = freezed,
     Object? infoSelected = freezed,
+    Object? selectTicketLine = freezed,
+    Object? selectCategory = freezed,
+    Object? selectTicket = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
     Object? isPaymentLoading = freezed,
@@ -179,6 +206,18 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
           ? _value._infoSelected
           : infoSelected // ignore: cast_nullable_to_non_nullable
               as List<List<dynamic>>?,
+      selectTicketLine: freezed == selectTicketLine
+          ? _value.selectTicketLine
+          : selectTicketLine // ignore: cast_nullable_to_non_nullable
+              as int?,
+      selectCategory: freezed == selectCategory
+          ? _value.selectCategory
+          : selectCategory // ignore: cast_nullable_to_non_nullable
+              as int?,
+      selectTicket: freezed == selectTicket
+          ? _value.selectTicket
+          : selectTicket // ignore: cast_nullable_to_non_nullable
+              as int?,
       isUsersLoading: null == isUsersLoading
           ? _value.isUsersLoading
           : isUsersLoading // ignore: cast_nullable_to_non_nullable
@@ -205,6 +244,9 @@ class _$_PosSystemState extends _PosSystemState {
       final List<List<dynamic>>? paymentPos,
       final List<CategoryPasData>? categories = const [],
       final List<List<dynamic>>? infoSelected = const [],
+      this.selectTicketLine = 0,
+      this.selectCategory = -1,
+      this.selectTicket = 0,
       this.isUsersLoading = false,
       this.isUnitLoading = false,
       this.isPaymentLoading = false})
@@ -274,6 +316,15 @@ class _$_PosSystemState extends _PosSystemState {
 
   @override
   @JsonKey()
+  final int? selectTicketLine;
+  @override
+  @JsonKey()
+  final int? selectCategory;
+  @override
+  @JsonKey()
+  final int? selectTicket;
+  @override
+  @JsonKey()
   final bool isUsersLoading;
   @override
   @JsonKey()
@@ -284,7 +335,7 @@ class _$_PosSystemState extends _PosSystemState {
 
   @override
   String toString() {
-    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, categories: $categories, infoSelected: $infoSelected, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, isPaymentLoading: $isPaymentLoading)';
+    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, categories: $categories, infoSelected: $infoSelected, selectTicketLine: $selectTicketLine, selectCategory: $selectCategory, selectTicket: $selectTicket, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, isPaymentLoading: $isPaymentLoading)';
   }
 
   @override
@@ -303,6 +354,12 @@ class _$_PosSystemState extends _PosSystemState {
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality()
                 .equals(other._infoSelected, _infoSelected) &&
+            (identical(other.selectTicketLine, selectTicketLine) ||
+                other.selectTicketLine == selectTicketLine) &&
+            (identical(other.selectCategory, selectCategory) ||
+                other.selectCategory == selectCategory) &&
+            (identical(other.selectTicket, selectTicket) ||
+                other.selectTicket == selectTicket) &&
             (identical(other.isUsersLoading, isUsersLoading) ||
                 other.isUsersLoading == isUsersLoading) &&
             (identical(other.isUnitLoading, isUnitLoading) ||
@@ -320,6 +377,9 @@ class _$_PosSystemState extends _PosSystemState {
       const DeepCollectionEquality().hash(_paymentPos),
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_infoSelected),
+      selectTicketLine,
+      selectCategory,
+      selectTicket,
       isUsersLoading,
       isUnitLoading,
       isPaymentLoading);
@@ -339,6 +399,9 @@ abstract class _PosSystemState extends PosSystemState {
       final List<List<dynamic>>? paymentPos,
       final List<CategoryPasData>? categories,
       final List<List<dynamic>>? infoSelected,
+      final int? selectTicketLine,
+      final int? selectCategory,
+      final int? selectTicket,
       final bool isUsersLoading,
       final bool? isUnitLoading,
       final bool? isPaymentLoading}) = _$_PosSystemState;
@@ -356,6 +419,12 @@ abstract class _PosSystemState extends PosSystemState {
   List<CategoryPasData>? get categories;
   @override
   List<List<dynamic>>? get infoSelected;
+  @override
+  int? get selectTicketLine;
+  @override
+  int? get selectCategory;
+  @override
+  int? get selectTicket;
   @override
   bool get isUsersLoading;
   @override

@@ -17,6 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ProductsState {
   List<ProductPasData>? get products => throw _privateConstructorUsedError;
+  List<ProductPasData>? get productsAfterFilter =>
+      throw _privateConstructorUsedError;
+  ProductPasData? get productsSelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductsStateCopyWith<ProductsState> get copyWith =>
@@ -29,7 +32,10 @@ abstract class $ProductsStateCopyWith<$Res> {
           ProductsState value, $Res Function(ProductsState) then) =
       _$ProductsStateCopyWithImpl<$Res, ProductsState>;
   @useResult
-  $Res call({List<ProductPasData>? products});
+  $Res call(
+      {List<ProductPasData>? products,
+      List<ProductPasData>? productsAfterFilter,
+      ProductPasData? productsSelected});
 }
 
 /// @nodoc
@@ -46,12 +52,22 @@ class _$ProductsStateCopyWithImpl<$Res, $Val extends ProductsState>
   @override
   $Res call({
     Object? products = freezed,
+    Object? productsAfterFilter = freezed,
+    Object? productsSelected = freezed,
   }) {
     return _then(_value.copyWith(
       products: freezed == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<ProductPasData>?,
+      productsAfterFilter: freezed == productsAfterFilter
+          ? _value.productsAfterFilter
+          : productsAfterFilter // ignore: cast_nullable_to_non_nullable
+              as List<ProductPasData>?,
+      productsSelected: freezed == productsSelected
+          ? _value.productsSelected
+          : productsSelected // ignore: cast_nullable_to_non_nullable
+              as ProductPasData?,
     ) as $Val);
   }
 }
@@ -64,7 +80,10 @@ abstract class _$$_ProductsStateCopyWith<$Res>
       __$$_ProductsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ProductPasData>? products});
+  $Res call(
+      {List<ProductPasData>? products,
+      List<ProductPasData>? productsAfterFilter,
+      ProductPasData? productsSelected});
 }
 
 /// @nodoc
@@ -79,12 +98,22 @@ class __$$_ProductsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? products = freezed,
+    Object? productsAfterFilter = freezed,
+    Object? productsSelected = freezed,
   }) {
     return _then(_$_ProductsState(
       products: freezed == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<ProductPasData>?,
+      productsAfterFilter: freezed == productsAfterFilter
+          ? _value._productsAfterFilter
+          : productsAfterFilter // ignore: cast_nullable_to_non_nullable
+              as List<ProductPasData>?,
+      productsSelected: freezed == productsSelected
+          ? _value.productsSelected
+          : productsSelected // ignore: cast_nullable_to_non_nullable
+              as ProductPasData?,
     ));
   }
 }
@@ -92,8 +121,12 @@ class __$$_ProductsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ProductsState extends _ProductsState {
-  const _$_ProductsState({final List<ProductPasData>? products = const []})
+  const _$_ProductsState(
+      {final List<ProductPasData>? products = const [],
+      final List<ProductPasData>? productsAfterFilter = const [],
+      this.productsSelected})
       : _products = products,
+        _productsAfterFilter = productsAfterFilter,
         super._();
 
   final List<ProductPasData>? _products;
@@ -106,9 +139,22 @@ class _$_ProductsState extends _ProductsState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<ProductPasData>? _productsAfterFilter;
+  @override
+  @JsonKey()
+  List<ProductPasData>? get productsAfterFilter {
+    final value = _productsAfterFilter;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final ProductPasData? productsSelected;
+
   @override
   String toString() {
-    return 'ProductsState(products: $products)';
+    return 'ProductsState(products: $products, productsAfterFilter: $productsAfterFilter, productsSelected: $productsSelected)';
   }
 
   @override
@@ -116,12 +162,19 @@ class _$_ProductsState extends _ProductsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProductsState &&
-            const DeepCollectionEquality().equals(other._products, _products));
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            const DeepCollectionEquality()
+                .equals(other._productsAfterFilter, _productsAfterFilter) &&
+            (identical(other.productsSelected, productsSelected) ||
+                other.productsSelected == productsSelected));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_products));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_products),
+      const DeepCollectionEquality().hash(_productsAfterFilter),
+      productsSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -131,12 +184,18 @@ class _$_ProductsState extends _ProductsState {
 }
 
 abstract class _ProductsState extends ProductsState {
-  const factory _ProductsState({final List<ProductPasData>? products}) =
-      _$_ProductsState;
+  const factory _ProductsState(
+      {final List<ProductPasData>? products,
+      final List<ProductPasData>? productsAfterFilter,
+      final ProductPasData? productsSelected}) = _$_ProductsState;
   const _ProductsState._() : super._();
 
   @override
   List<ProductPasData>? get products;
+  @override
+  List<ProductPasData>? get productsAfterFilter;
+  @override
+  ProductPasData? get productsSelected;
   @override
   @JsonKey(ignore: true)
   _$$_ProductsStateCopyWith<_$_ProductsState> get copyWith =>

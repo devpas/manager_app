@@ -124,7 +124,8 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
 
   void addTicket() {
     listTicket.add(initTicket());
-    state = state.copyWith(listTicket: listTicket);
+    state = state.copyWith(
+        listTicket: listTicket, selectTicket: listTicket.length - 1);
   }
 
   void deleteTicket(index) {
@@ -194,5 +195,15 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
             .copyWith(unit: int.parse(unit), price: double.parse(price));
 
     state = state.copyWith(listTicket: listTicket);
+  }
+
+  void updateIndex(String mode, int index) {
+    if (mode == "ticket") {
+      state = state.copyWith(selectTicket: index);
+    } else if (mode == "ticketLine") {
+      state = state.copyWith(selectTicketLine: index);
+    } else if (mode == "category") {
+      state = state.copyWith(selectCategory: index);
+    }
   }
 }

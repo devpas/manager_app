@@ -45,7 +45,6 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
         }
       }
     }
-    print(data);
 
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
@@ -72,6 +71,7 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
               return status! < 500;
             }),
       );
+      print(response2);
       return ApiResult.success(
         data: ProductsPasResponse.fromJson(response2.data),
       );
@@ -80,5 +80,11 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
         data: ProductsPasResponse.fromJson(response.data),
       );
     }
+  }
+
+  @override
+  Future<ApiResult<ProductsPasResponse>> getStockCurrent(String alias) {
+    // TODO: implement getStockCurrent
+    throw UnimplementedError();
   }
 }
