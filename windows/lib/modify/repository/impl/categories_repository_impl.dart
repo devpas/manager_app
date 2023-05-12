@@ -25,7 +25,7 @@ class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
     "Content-Type": "application/json",
     "Accept": "application/json",
     "Cookie":
-        "__Secure-1PSID=WAgvZg2kGWrhbYOUuLBs87LvN9CyveH-F6Vogqg_-i9GIvzEnEiAk-18jC6f3EpfPEgzTA."
+        "__Secure-1PSID=WQgvZkPMUoZgDf38eufQPNcH9eQ5kstjDs_PXyljE0rp4wZG49AY_FOzKx_4Z1W1pZ9GKA.;"
   };
   @override
   Future<ApiResult<CategoriesPasResponse>> getCategory(String alias) async {

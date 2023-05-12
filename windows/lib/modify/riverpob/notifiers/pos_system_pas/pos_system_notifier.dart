@@ -96,8 +96,20 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
             notes: ""));
   }
 
-  void addTicketline(TicketLineData ticketline, index) {
-    if (listTicket[index]
+  void addTicketline(ProductPasData product, int? index) {
+    TicketLineData ticketline = TicketLineData(
+        id: listTicket[state.selectTicket!].ticketlines!.isNotEmpty
+            ? listTicket[state.selectTicket!].ticketlines!.length + 1
+            : 1,
+        ticketId: listTicket[state.selectTicket!].ticketId,
+        line: 1,
+        productId: product.id,
+        attributesetInstanceId: 1,
+        unit: 1,
+        price: double.parse("${product.priceSell}"),
+        taxId: int.parse("${product.taxCat}"),
+        attributes: "");
+    if (listTicket[index!]
         .ticketlines!
         .where((element) => element.productId == ticketline.productId)
         .isEmpty) {

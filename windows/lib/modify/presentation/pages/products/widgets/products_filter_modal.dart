@@ -8,9 +8,6 @@ import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/order
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:g_manager_app/src/core/utils/app_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../../../src/core/constants/constants.dart';
-import '../../../../../src/riverpod/providers/providers.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
 import '../../orders/add/widgets/order_detail/products/search_product_modal_in_order_detail_info_pas.dart';
@@ -19,17 +16,14 @@ import 'search_category_modal_in_filter_products_pas.dart';
 class ProductsFilterModal extends ConsumerWidget {
   ProductsFilterModal({Key? key}) : super(key: key);
 
-  String codeRef = "";
-  String name = "";
-  double priceBuy = 0;
-  double priceSell = 0;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     final stateCategory = ref.watch(categoriesPASProvider);
     final notifierCategory = ref.read(categoriesPASProvider.notifier);
+    final statePos = ref.watch(posSystemPASProvider);
+    final notifierPos = ref.read(posSystemPASProvider.notifier);
     return Material(
       color: AppColors.white,
       child: Padding(
@@ -58,7 +52,8 @@ class ProductsFilterModal extends ConsumerWidget {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               onChanged: (value) {
-                codeRef = value;
+                notifier.codeRef = value;
+                print(notifier.codeRef);
               },
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
@@ -88,7 +83,7 @@ class ProductsFilterModal extends ConsumerWidget {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               onChanged: (input) {
-                name = input;
+                notifier.productName = input;
               },
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
@@ -118,7 +113,7 @@ class ProductsFilterModal extends ConsumerWidget {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               onChanged: (input) {
-                priceBuy = double.parse(input);
+                notifier.priceBuy = double.parse(input);
               },
               keyboardType: TextInputType.number,
               style: GoogleFonts.inter(
@@ -148,7 +143,7 @@ class ProductsFilterModal extends ConsumerWidget {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               onChanged: (input) {
-                priceSell = double.parse(input);
+                notifier.priceSell = double.parse(input);
               },
               keyboardType: TextInputType.number,
               style: GoogleFonts.inter(
@@ -189,8 +184,9 @@ class ProductsFilterModal extends ConsumerWidget {
               label: 'Sản phẩm',
               onTap: () {
                 notifier.keySearch = "";
-                notifier.filterProduct(
-                    stateCategory.categorySelected!, "", state.products!);
+                // notifier.filterProduct(
+                //     stateCategory.categorySelected!, state.products!, "");
+                notifier.searchProducts(stateCategory.categorySelected!.id!);
                 Future.delayed(const Duration(milliseconds: 50), () {
                   showModalBottomSheet(
                     context: context,
@@ -208,7 +204,8 @@ class ProductsFilterModal extends ConsumerWidget {
             CommonAccentButton(
               title: 'Show result',
               onPressed: () {
-                // notifier.updateProducts();
+                notifierPos.addTicketline(
+                    state.productsSelected!, statePos.selectTicket);
                 context.popRoute();
               },
             ),

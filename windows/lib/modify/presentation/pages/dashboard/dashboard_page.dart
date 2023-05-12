@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/models.dart';
 import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/client/client_info_modal.dart';
+import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/order_detail/pay_info_modal_pas.dart';
 import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/order_detail/tickets/list_ticket_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/products/widgets/products_edit_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/products/widgets/products_filter_modal.dart';
@@ -394,20 +395,32 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: Container(
-                                width: 30.r,
-                                height: 30.r,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  color: Colors.red.withOpacity(0.1),
-                                ),
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  Icons.wallet,
-                                  size: 20.r,
-                                  color: Colors.red,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return const SizedBox(
+                                        height: 600, child: PayInfoModal());
+                                  },
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                child: Container(
+                                  width: 30.r,
+                                  height: 30.r,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    color: Colors.red.withOpacity(0.1),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.wallet,
+                                    size: 20.r,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
                             ),
@@ -504,7 +517,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                 "${stateProducts.products![index].taxCat}"),
                                             attributes: "");
                                         notifierPos.addTicketline(
-                                            ticketline, statePos.selectTicket);
+                                            product, statePos.selectTicket);
                                       },
                                       child: ProductsProductItemPOS(
                                         selectWarehouse: selectWarehouse,

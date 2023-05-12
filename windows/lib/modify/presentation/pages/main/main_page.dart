@@ -101,22 +101,22 @@ class MainPASPage extends ConsumerWidget {
                     items: [
                       _barItem(
                         icon: FlutterRemix.file_list_line,
-                        label: AppHelpers.getTranslation(TrKeys.orders),
+                        label: "Đơn hàng",
                         isSelected: bottomBarState.activeIndex == 0,
                       ),
                       _barItem(
-                        icon: FlutterRemix.qr_code_line,
-                        label: AppHelpers.getTranslation(TrKeys.posSystem),
+                        icon: FlutterRemix.user_2_fill,
+                        label: "Khách hàng",
                         isSelected: bottomBarState.activeIndex == 1,
                       ),
                       _barItem(
-                        icon: FlutterRemix.file_list_line,
-                        label: AppHelpers.getTranslation(TrKeys.orders),
+                        icon: FlutterRemix.money_dollar_box_fill,
+                        label: "Bán hàng",
                         isSelected: bottomBarState.activeIndex == 2,
                       ),
                       _barItem(
                         icon: FlutterRemix.shopping_bag_3_line,
-                        label: AppHelpers.getTranslation(TrKeys.products),
+                        label: "Sản phẩm",
                         isSelected: bottomBarState.activeIndex == 3,
                       ),
                       _barItem(
@@ -124,8 +124,8 @@ class MainPASPage extends ConsumerWidget {
                         label:
                             LocalStorage.instance.getLoginData()?.user?.role ==
                                     'admin'
-                                ? AppHelpers.getTranslation(TrKeys.deliveryBoy)
-                                : AppHelpers.getTranslation(TrKeys.users),
+                                ? "Vận chuyển"
+                                : "Người dùng",
                         isSelected: bottomBarState.activeIndex == 4,
                       ),
                     ],
