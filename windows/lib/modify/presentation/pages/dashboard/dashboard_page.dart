@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/models.dart';
@@ -397,14 +398,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return const SizedBox(
-                                        height: 600, child: PayInfoModal());
-                                  },
-                                );
+                                print("Mở ngăn kéo");
                               },
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -427,7 +421,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             Text("TS: ", style: AppTypographies.styBlack11W400),
                             Expanded(
                               child: Text(
-                                  notifierPos.totalMoney(statePos.selectTicket),
+                                  notifierPos.totalMoneyCalculator(
+                                      statePos.selectTicket!, true),
                                   textAlign: TextAlign.center,
                                   style: AppTypographies.styBlack11W400),
                             )
@@ -539,6 +534,38 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       height: 40,
                       color: Colors.white,
                       child: Row(children: [
+                        GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) {
+                                return SizedBox(
+                                    height: 550,
+                                    child: PayInfoModal(double.parse(
+                                        notifierPos.totalMoneyCalculator(
+                                            statePos.selectTicket!, false))));
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                            child: Container(
+                              width: 30.r,
+                              height: 30.r,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                                color: Colors.green.withOpacity(0.1),
+                              ),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                FlutterRemix.money_dollar_box_line,
+                                size: 20.r,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ),
+                        ),
                         keyboardVisible
                             ? GestureDetector(
                                 onTap: () {
@@ -546,7 +573,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                 },
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                      const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                   child: Container(
                                     width: 30.r,
                                     height: 30.r,
@@ -569,7 +596,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                 },
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                      const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                   child: Container(
                                     width: 30.r,
                                     height: 30.r,
@@ -599,7 +626,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             });
                           },
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Container(
                               width: 30.r,
                               height: 30.r,
@@ -634,7 +661,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             }
                           },
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Container(
                               width: 30.r,
                               height: 30.r,
@@ -656,7 +683,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             notifierPos.addTicket();
                           },
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Container(
                               width: 30.r,
                               height: 30.r,
@@ -680,7 +707,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                 "ticket", statePos.listTicket!.length - 1);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                             child: Container(
                               width: 30.r,
                               height: 30.r,
@@ -699,7 +726,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         ),
                         Expanded(
                             child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 5, 10),
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
                           child: TextField(
                             focusNode: focusNode,
                             decoration: const InputDecoration(
@@ -715,7 +742,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         const SizedBox(
                           width: 60,
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(10, 0, 5, 10),
+                            padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
                             child: SizedBox(
                               child: TextField(
                                 decoration: InputDecoration(

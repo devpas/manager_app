@@ -76,7 +76,6 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                       ? state.infoSelected![0][1]
                       : "Tên người dùng",
                   onSelectTap: () {
-                    // notifier.setUserQuery(context, '');
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {

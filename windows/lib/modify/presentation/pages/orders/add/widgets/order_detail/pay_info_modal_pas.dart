@@ -12,23 +12,44 @@ import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
 
 class PayInfoModal extends ConsumerStatefulWidget {
-  const PayInfoModal({Key? key}) : super(key: key);
+  final double totalMoneyFromTicket;
+  const PayInfoModal(this.totalMoneyFromTicket, {Key? key}) : super(key: key);
 
   @override
-  ConsumerState<PayInfoModal> createState() => _PayInfoModalState();
+  ConsumerState<PayInfoModal> createState() =>
+      // ignore: no_logic_in_create_state
+      _PayInfoModalState(totalMoneyFromTicket);
 }
 
 class _PayInfoModalState extends ConsumerState<PayInfoModal>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
+  final double totalMoneyFromTicket;
+
+  double totalMoney = 0;
+
+  double arrearsMoney = 0;
+
+  double depositsMoney = 0;
+
+  double refundsMoney = 0;
+
+  bool editMoney = false;
+
+  _PayInfoModalState(this.totalMoneyFromTicket);
+
   @override
   void initState() {
     super.initState();
+    setState(() {
+      totalMoney = totalMoneyFromTicket;
+    });
+
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  Widget payment(String title) {
+  Widget payment() {
     final state = ref.watch(posSystemPASProvider);
     final notifier = ref.read(posSystemPASProvider.notifier);
     return Material(
@@ -36,49 +57,123 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Padding(
-            padding: REdgeInsets.symmetric(horizontal: 15.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 400,
-                  width: 258,
-                  child: ListView(
-                    physics: const CustomBouncingScrollPhysics(),
-                    children: [
-                      GridView.builder(
-                        shrinkWrap: true,
-                        primary: false,
-                        itemCount: 10,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisSpacing: 1,
-                          crossAxisCount: 3,
-                        ),
-                        itemBuilder: (context, index) {
-                          return Column(children: [
-                            TextButton(
-                              onPressed: () {},
-                              child: Image.network(
-                                "https://www.taspen.co.id/assets/img/tjsl/NoImageFound.jpg.png",
-                                height: 50,
-                                width: 100,
-                              ),
-                            ),
-                            const Text("100"),
-                          ]);
-                        },
+          Row(
+            children: [
+              SizedBox(
+                height: 400,
+                width: 260,
+                child: ListView(
+                  physics: const CustomBouncingScrollPhysics(),
+                  children: [
+                    GridView.builder(
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: notifier.money.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 1,
+                        crossAxisCount: 3,
                       ),
+                      itemBuilder: (context, index) {
+                        return Column(children: [
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                editMoney = true;
+                                totalMoney = totalMoney;
+
+                                if (editMoney) {
+                                  depositsMoney +=
+                                      notifier.money[index]["price"];
+                                } else {
+                                  depositsMoney =
+                                      notifier.money[index]["price"];
+                                }
+
+                                if (depositsMoney > totalMoney) {
+                                  refundsMoney = depositsMoney - totalMoney;
+                                  arrearsMoney = 0;
+                                } else {
+                                  arrearsMoney = totalMoney - depositsMoney;
+                                }
+                              });
+                            },
+                            child: Image.network(
+                              notifier.money[index]["img"],
+                              height: 50,
+                              width: 100,
+                            ),
+                          ),
+                          Text("${notifier.money[index]["price"]}"),
+                        ]);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+                child: SizedBox(
+                  height: 400,
+                  width: 150,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Đưa",
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                          Text(
+                              editMoney
+                                  ? notifier.convertNumberZero(depositsMoney)
+                                  : notifier.convertNumberZero(totalMoney),
+                              style: AppTypographies.styBlack14W400)
+                        ],
+                      ),
+                      50.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Thối",
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                          Text(notifier.convertNumberZero(refundsMoney),
+                              style: AppTypographies.styBlack14W400)
+                        ],
+                      ),
+                      50.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Tổng số",
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                          Text(notifier.convertNumberZero(totalMoney),
+                              style: AppTypographies.styBlack14W400)
+                        ],
+                      ),
+                      50.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Tiền còn",
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                          Text(notifier.convertNumberZero(arrearsMoney),
+                              style: AppTypographies.styBlack14W400)
+                        ],
+                      ),
+                      50.verticalSpace,
                     ],
                   ),
                 ),
-                Container(
-                  color: Colors.blue,
-                  height: 400,
-                  width: 138,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           const BlurLoadingWidget(isLoading: false),
         ],
@@ -119,16 +214,68 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
           child: TabBarView(
             controller: _tabController,
             physics: const CustomBouncingScrollPhysics(),
-            children: [payment("Tiền mặt"), payment("Công nợ")],
+            children: [payment(), payment()],
           ),
         ),
-        30.verticalSpace,
-        CommonAccentButton(
-            title: AppHelpers.getTranslation(TrKeys.save),
-            onPressed: () {
-              context.popRoute();
-            }),
-        30.verticalSpace,
+        10.verticalSpace,
+        const Divider(height: 5, thickness: 3),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    RoundedCheckBox(
+                      value: true,
+                      onChanged: (value) {
+                        // notifier.setVisibility(!state.visibility);
+                      },
+                    ),
+                    10.horizontalSpace,
+                    Text(
+                      "In",
+                      style: AppTypographies.styBlack14W400,
+                    ),
+                  ],
+                ),
+              ),
+              20.horizontalSpace,
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: arrearsMoney == 0
+                    ? AccentButtonCustom(
+                        disable: false,
+                        title: AppHelpers.getTranslation(TrKeys.ok),
+                        height: 40,
+                        width: 100,
+                        onPressed: () {
+                          context.popRoute();
+                        })
+                    : AccentButtonCustom(
+                        disable: true,
+                        title: AppHelpers.getTranslation(TrKeys.ok),
+                        height: 40,
+                        width: 100,
+                        onPressed: () {}),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: AccentButtonCustom(
+                    disable: false,
+                    title: AppHelpers.getTranslation(TrKeys.cancel),
+                    height: 40,
+                    width: 100,
+                    onPressed: () {
+                      context.popRoute();
+                    }),
+              ),
+            ],
+          ),
+        ),
+        20.verticalSpace,
       ],
     );
   }

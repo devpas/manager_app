@@ -72,6 +72,64 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         paymentPos: paymentPos);
   }
 
+  List money = [
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348.jpg",
+      "price": 500
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-02.jpg",
+      "price": 200
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-04.jpg",
+      "price": 100
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-06.jpg",
+      "price": 50
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-08.jpg",
+      "price": 20
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-10.jpg",
+      "price": 10
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-12.jpg",
+      "price": 5
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-14.jpg",
+      "price": 2
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-16.jpg",
+      "price": 1
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-18.jpg",
+      "price": 0.5
+    },
+    {
+      "img":
+          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-20.jpg",
+      "price": 0.2
+    },
+  ];
+
   TicketData initTicket() {
     return TicketData(
         id: 0,
@@ -148,7 +206,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     state = state.copyWith(listTicket: listTicket);
   }
 
-  String totalMoney(index) {
+  String totalMoneyCalculator(int index, bool convertCurrency) {
     double total = 0;
     if (listTicket.isNotEmpty) {
       if (listTicket[index].ticketlines!.isNotEmpty) {
@@ -161,7 +219,11 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
       }
     }
 
-    return convertNumberZero(total);
+    if (convertCurrency) {
+      return convertNumberZero(total);
+    } else {
+      return total.toString();
+    }
   }
 
   String convertNumberZero(number, [String unit = "đ"]) {
