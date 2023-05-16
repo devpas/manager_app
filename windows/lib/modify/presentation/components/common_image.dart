@@ -33,18 +33,18 @@ class CommonImage extends StatelessWidget {
         width: width,
         height: height,
         fit: BoxFit.cover,
-        progressIndicatorBuilder: (context, url, progress) {
-          return Center(
-            child: SizedBox(
-              width: progressSize ?? ((width ?? 40) * 0.4),
-              height: progressSize ?? ((width ?? 40) * 0.4),
-              child: CircularProgressIndicator(
-                strokeWidth: 3.r,
-                color: AppColors.greenMain,
-              ),
-            ),
-          );
-        },
+        // progressIndicatorBuilder: (context, url, progress) {
+        //   return Center(
+        //     child: SizedBox(
+        //       width: progressSize ?? ((width ?? 40) * 0.4),
+        //       height: progressSize ?? ((width ?? 40) * 0.4),
+        //       child: CircularProgressIndicator(
+        //         strokeWidth: 3.r,
+        //         color: AppColors.greenMain,
+        //       ),
+        //     ),
+        //   );
+        // },
         errorWidget: (context, url, error) {
           return Container(
             decoration: BoxDecoration(

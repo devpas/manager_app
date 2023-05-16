@@ -26,3 +26,5 @@ export '../../modify/repository/categories_repository.dart';
 export '../../modify/repository/impl/categories_repository_impl.dart';
 export '../../modify/repository/products_repository.dart';
 export '../../modify/repository/impl/products_repository_impl.dart';
+export '../../modify/repository/tickets_repository.dart';
+export '../../modify/repository/impl/tickets_repository_impl.dart';

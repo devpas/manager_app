@@ -3,7 +3,8 @@
 //],
 
 class TaxlineData {
-  TaxlineData({int? id, int? receiptId, int? taxId, int? base, int? amount}) {
+  TaxlineData(
+      {int? id, int? receiptId, int? taxId, double? base, double? amount}) {
     _id = id;
     _receiptId = receiptId;
     _taxId = taxId;
@@ -22,15 +23,15 @@ class TaxlineData {
   int? _id;
   int? _receiptId;
   int? _taxId;
-  int? _base;
-  int? _amount;
+  double? _base;
+  double? _amount;
 
   TaxlineData copyWith({
     int? id,
     int? receiptId,
     int? taxId,
-    int? base,
-    int? amount,
+    double? base,
+    double? amount,
   }) =>
       TaxlineData(
         id: id ?? _id,
@@ -46,9 +47,9 @@ class TaxlineData {
 
   int? get taxId => _taxId;
 
-  int? get base => _base;
+  double? get base => _base;
 
-  int? get amount => _amount;
+  double? get amount => _amount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

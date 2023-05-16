@@ -2,6 +2,8 @@
 //id, money, datenew, attributes
 //},
 
+import 'package:intl/intl.dart';
+
 class ReceiptData {
   ReceiptData({int? id, int? moneyId, DateTime? datenew, String? attributes}) {
     _id = id;
@@ -43,7 +45,7 @@ class ReceiptData {
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['money_id'] = _moneyId;
-    map['datenew'] = _datenew;
+    map['datenew'] = DateFormat.yMd().add_Hms().format(_datenew!);
     map['attributes'] = _attributes;
     return map;
   }

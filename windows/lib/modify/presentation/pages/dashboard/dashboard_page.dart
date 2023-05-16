@@ -63,7 +63,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(productsPASProvider.notifier).fetchProducts();
+        ref.read(productsPASProvider.notifier).fetchProductsPos();
         ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
         ref.read(posSystemPASProvider.notifier).initListTicket();
       },
@@ -182,7 +182,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                       SizedBox(
                                         width: 100,
                                         child: Text(
-                                          "${stateProducts.products!.where((product) => product.id == statePos.listTicket![statePos.selectTicket!].ticketlines![index].productId).toList().first.name}",
+                                          "${notifierProducts.listProductPos.where((product) => product.id == statePos.listTicket![statePos.selectTicket!].ticketlines![index].productId).toList().first.name}",
                                           style: statePos.selectTicketLine ==
                                                   index
                                               ? AppTypographies.styGreen11W700
@@ -433,100 +433,115 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                   ),
                   Padding(
                     padding: REdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: SizedBox(
-                      height: heightContainerProduct,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              padding: REdgeInsets.symmetric(vertical: 5),
-                              physics: const CustomBouncingScrollPhysics(),
-                              itemCount: stateCategories.categories!.length,
-                              shrinkWrap: false,
-                              itemBuilder: (context, index) {
-                                return CategoryPosItem(
-                                  title:
-                                      '${stateCategories.categories![index].name}',
-                                  isSelected: statePos.selectCategory == index
-                                      ? true
-                                      : false,
-                                  onTap: () {
-                                    setState(() {
-                                      notifierPos.updateIndex(
-                                          "category", index);
-                                      notifierProducts.fetchProductsByCategory(
-                                          stateCategories
-                                              .categories![index].id);
-                                    });
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 310,
-                            child: ListView(
-                              physics: const CustomBouncingScrollPhysics(),
+                    child: (stateCategories.categories!.isNotEmpty &&
+                            stateProducts.products!.isNotEmpty)
+                        ? SizedBox(
+                            height: heightContainerProduct,
+                            child: Row(
                               children: [
-                                GridView.builder(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemCount: stateProducts.products!.length,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    childAspectRatio: 1.75,
-                                    crossAxisCount: 2,
+                                SizedBox(
+                                  width: 100,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    padding: REdgeInsets.symmetric(vertical: 5),
+                                    physics:
+                                        const CustomBouncingScrollPhysics(),
+                                    itemCount:
+                                        stateCategories.categories!.length,
+                                    shrinkWrap: false,
+                                    itemBuilder: (context, index) {
+                                      return CategoryPosItem(
+                                        title:
+                                            '${stateCategories.categories![index].name}',
+                                        isSelected:
+                                            statePos.selectCategory == index
+                                                ? true
+                                                : false,
+                                        onTap: () {
+                                          setState(() {
+                                            notifierPos.updateIndex(
+                                                "category", index);
+                                            // notifierProducts.fetchProductsByCategory(
+                                            //     stateCategories
+                                            //         .categories![index].id);
+                                            notifierProducts
+                                                .getProductByCategory(
+                                                    stateCategories
+                                                        .categories![index].id);
+                                          });
+                                        },
+                                      );
+                                    },
                                   ),
-                                  itemBuilder: (context, index) {
-                                    final product =
-                                        stateProducts.products![index];
-                                    return TextButton(
-                                      onPressed: () {
-                                        TicketLineData ticketline = TicketLineData(
-                                            id: notifierPos
-                                                    .listTicket[
-                                                        statePos.selectTicket!]
-                                                    .ticketlines!
-                                                    .isNotEmpty
-                                                ? notifierPos
-                                                        .listTicket[statePos
-                                                            .selectTicket!]
-                                                        .ticketlines!
-                                                        .length +
-                                                    1
-                                                : 1,
-                                            ticketId: notifierPos
-                                                .listTicket[
-                                                    statePos.selectTicket!]
-                                                .ticketId,
-                                            line: 1,
-                                            productId: stateProducts
-                                                .products![index].id,
-                                            attributesetInstanceId: 1,
-                                            unit: 1,
-                                            price: double.parse(
-                                                "${stateProducts.products![index].priceSell}"),
-                                            taxId: int.parse(
-                                                "${stateProducts.products![index].taxCat}"),
-                                            attributes: "");
-                                        notifierPos.addTicketline(
-                                            product, statePos.selectTicket);
-                                      },
-                                      child: ProductsProductItemPOS(
-                                        selectWarehouse: selectWarehouse,
-                                        product: product,
-                                      ),
-                                    );
-                                  },
                                 ),
+                                SizedBox(
+                                  width: 310,
+                                  child: ListView(
+                                    physics:
+                                        const CustomBouncingScrollPhysics(),
+                                    children: [
+                                      GridView.builder(
+                                        shrinkWrap: true,
+                                        primary: false,
+                                        itemCount:
+                                            stateProducts.products!.length,
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          childAspectRatio: 1.75,
+                                          crossAxisCount: 2,
+                                        ),
+                                        itemBuilder: (context, index) {
+                                          final product =
+                                              stateProducts.products![index];
+                                          return TextButton(
+                                            onPressed: () {
+                                              TicketLineData ticketline = TicketLineData(
+                                                  id: notifierPos
+                                                          .listTicket[statePos
+                                                              .selectTicket!]
+                                                          .ticketlines!
+                                                          .isNotEmpty
+                                                      ? notifierPos
+                                                              .listTicket[statePos
+                                                                  .selectTicket!]
+                                                              .ticketlines!
+                                                              .length +
+                                                          1
+                                                      : 1,
+                                                  ticketId: notifierPos
+                                                      .listTicket[statePos
+                                                          .selectTicket!]
+                                                      .ticketId,
+                                                  line: 1,
+                                                  productId: stateProducts
+                                                      .products![index].id,
+                                                  attributesetInstanceId: 1,
+                                                  unit: 1,
+                                                  price: double.parse(
+                                                      "${stateProducts.products![index].priceSell}"),
+                                                  taxId: int.parse(
+                                                      "${stateProducts.products![index].taxCat}"),
+                                                  attributes: "");
+                                              notifierPos.addTicketline(product,
+                                                  statePos.selectTicket);
+                                            },
+                                            child: ProductsProductItemPOS(
+                                              selectWarehouse: selectWarehouse,
+                                              product: product,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
+                          )
+                        : CircularProgressIndicator(
+                            strokeWidth: 3.r,
+                            color: AppColors.greenMain,
                           ),
-                        ],
-                      ),
-                    ),
                   ),
                   Padding(
                     padding: REdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -536,17 +551,20 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       child: Row(children: [
                         GestureDetector(
                           onTap: () {
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) {
-                                return SizedBox(
-                                    height: 550,
-                                    child: PayInfoModal(double.parse(
-                                        notifierPos.totalMoneyCalculator(
-                                            statePos.selectTicket!, false))));
-                              },
-                            );
+                            if (statePos.listTicket![statePos.selectTicket!]
+                                .ticketlines!.isNotEmpty) {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) {
+                                  return SizedBox(
+                                      height: 550,
+                                      child: PayInfoModal(double.parse(
+                                          notifierPos.totalMoneyCalculator(
+                                              statePos.selectTicket!, false))));
+                                },
+                              );
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -555,13 +573,27 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                               height: 30.r,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.r),
-                                color: Colors.green.withOpacity(0.1),
+                                color: notifierPos.listTicket.isNotEmpty
+                                    ? (notifierPos
+                                            .listTicket[statePos.selectTicket!]
+                                            .ticketlines!
+                                            .isNotEmpty
+                                        ? Colors.green.withOpacity(0.1)
+                                        : Colors.grey.withOpacity(0.1))
+                                    : Colors.grey.withOpacity(0.1),
                               ),
                               alignment: Alignment.center,
                               child: Icon(
                                 FlutterRemix.money_dollar_box_line,
                                 size: 20.r,
-                                color: Colors.green,
+                                color: notifierPos.listTicket.isNotEmpty
+                                    ? (notifierPos
+                                            .listTicket[statePos.selectTicket!]
+                                            .ticketlines!
+                                            .isNotEmpty
+                                        ? Colors.green
+                                        : Colors.grey)
+                                    : Colors.grey.withOpacity(0.1),
                               ),
                             ),
                           ),
@@ -703,8 +735,6 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         GestureDetector(
                           onTap: () {
                             notifierPos.deleteTicket(statePos.selectTicket);
-                            notifierPos.updateIndex(
-                                "ticket", statePos.listTicket!.length - 1);
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),

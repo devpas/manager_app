@@ -1,19 +1,26 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/src/core/di/dependency_manager.dart';
+import 'package:g_manager_app/src/repository/repository.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../modify/models/models.dart';
-import '../../../../modify/repository/categories_repository.dart';
-import '../../../../src/core/handlers/handlers.dart';
+import '../../../../modify/repository/tickets_repository.dart';
+import '../../../../src/core/utils/utils.dart';
 import '../../states/states.dart';
 
 class PosSystemNotifier extends StateNotifier<PosSystemState> {
-  PosSystemNotifier()
+  PosSystemNotifier(this._ticketsRepository, this._productsPASRepository)
       : super(
           const PosSystemState(),
         );
 
   TicketLineData? ticketline;
+
+  final TicketsRepository _ticketsRepository;
+
+  final ProductsPASRepository _productsPASRepository;
 
   TicketData ticket = TicketData(
       id: 0,
@@ -204,6 +211,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
       listTicket.add(initTicket());
     }
     state = state.copyWith(listTicket: listTicket);
+    updateIndex("ticket", state.listTicket!.length - 1);
   }
 
   String totalMoneyCalculator(int index, bool convertCurrency) {
@@ -278,6 +286,49 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
       state = state.copyWith(selectTicketLine: index);
     } else if (mode == "category") {
       state = state.copyWith(selectCategory: index);
+    }
+  }
+
+  Future<void> createOrder(double money) async {
+    List<TaxlineData> listTaxline = [];
+    for (int i = 0;
+        i < listTicket[state.selectTicket!].ticketlines!.length;
+        i++) {
+      TicketLineData ticketline =
+          listTicket[state.selectTicket!].ticketlines![i];
+      listTaxline.add(TaxlineData(
+          id: 0,
+          taxId: ticketline.taxId,
+          receiptId: 0,
+          base: ticketline.price,
+          amount: ticketline.price! * ticketline.taxId!));
+    }
+    listTicket[state.selectTicket!] = listTicket[state.selectTicket!].copyWith(
+        person: 1,
+        customer: state.infoSelected![0][0],
+        status: 1,
+        taxlines: listTaxline,
+        payment: PaymentData(
+            id: 0,
+            receiptId: 0,
+            payment: "cash",
+            total: money,
+            transId: "",
+            returnMSG: "successful",
+            notes: ""),
+        receipt: ReceiptData(
+            id: 0, moneyId: 0, datenew: DateTime.now(), attributes: "{}"));
+
+    final connected = await AppConnectivity.connectivity();
+    if (connected) {
+      final response = await _ticketsRepository
+          .createTicket(listTicket[state.selectTicket!]);
+      if (response["data"]["msg"] == "create ticket successful!") {
+        deleteTicket(state.selectTicket);
+        productsPASRepository.getProduct("");
+      }
+    } else {
+      print("no connection");
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:g_manager_app/modify/models/models.dart';
+import 'package:intl/intl.dart';
 
 class TicketData {
   TicketData(
@@ -37,10 +38,22 @@ class TicketData {
     _customerId = json['customer_id'];
     _status = json['status'];
     _datenew = json['datenew'];
-    _ticketlines = json['ticketlines'];
-    _taxlines = json['taxlines'];
-    _payment = json['payment'];
-    _receipt = json['receipt'];
+    if (json['ticketlines'] != null) {
+      _ticketlines = [];
+      json['ticketlines'].forEach((v) {
+        _ticketlines?.add(TicketLineData.fromJson(v));
+      });
+    }
+    if (json['taxlines'] != null) {
+      _taxlines = [];
+      json['taxlines'].forEach((v) {
+        _taxlines?.add(TaxlineData.fromJson(v));
+      });
+    }
+    _payment =
+        json['payment'] != null ? PaymentData.fromJson(json['payment']) : null;
+    _receipt =
+        json['receipt'] != null ? ReceiptData.fromJson(json['receipt']) : null;
   }
 
   int? _id;
@@ -116,11 +129,19 @@ class TicketData {
     map['person_id'] = _personId;
     map['customer_id'] = _customerId;
     map['status'] = _status;
-    map['date'] = _datenew;
-    map['ticketlines'] = _ticketlines;
-    map['taxlines'] = _taxlines;
-    map['payment'] = _payment;
-    map['receipt'] = _receipt;
+    map['date'] = DateFormat.yMd().add_Hms().format(_datenew!);
+    if (_taxlines != null) {
+      map['taxlines'] = _taxlines?.map((v) => v.toJson()).toList();
+    }
+    if (_ticketlines != null) {
+      map['ticketlines'] = _ticketlines?.map((v) => v.toJson()).toList();
+    }
+    if (_payment != null) {
+      map['payment'] = _payment?.toJson();
+    }
+    if (_receipt != null) {
+      map['receipt'] = _receipt?.toJson();
+    }
     return map;
   }
 }

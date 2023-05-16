@@ -21,13 +21,30 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
   String productName = "";
   double priceBuy = -1;
   double priceSell = -1;
+  List<ProductPasData> listProductPos = [];
   Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
+
+  Future<void> fetchProductsPos() async {
+    final response = await _productsPASRepository.getProduct("");
+    response.when(
+      success: (data) async {
+        state = state.copyWith(products: data.products);
+        listProductPos = state.products!;
+      },
+      failure: (failure) {
+        if (failure == const NetworkExceptions.unauthorisedRequest()) {
+          debugPrint('==> get brands failure: $failure');
+        }
+      },
+    );
+  }
 
   Future<void> fetchProducts() async {
     final response = await _productsPASRepository.getProduct("");
     response.when(
       success: (data) async {
         state = state.copyWith(products: data.products);
+        listProductPos = state.products!;
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -50,6 +67,14 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
         }
       },
     );
+  }
+
+  void getProductByCategory(int? categoryId) async {
+    var listProductAfterFilter = listProductPos;
+    listProductAfterFilter = listProductAfterFilter
+        .where((product) => product.categoryId == categoryId)
+        .toList();
+    state = state.copyWith(products: listProductAfterFilter);
   }
 
   void filterProduct(CategoryPasData categorySelected,
@@ -98,35 +123,32 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
 
     List<ProductPasData> listProductAfterSearch = [];
 
-    for (int i = 0; i < state.products!.length; i++) {
+    for (int i = 0; i < listProductPos.length; i++) {
       List<List> valueProductForSearch = [];
       if (categoryId != -1) {
-        valueProductForSearch
-            .add(["categoryId", state.products![i].categoryId]);
+        valueProductForSearch.add(["categoryId", listProductPos[i].categoryId]);
       }
       if (codeRef != "") {
-        valueProductForSearch.add(["codeRef", state.products![i].reference]);
+        valueProductForSearch.add(["codeRef", listProductPos[i].reference]);
       }
       if (productName != "") {
         valueProductForSearch.add([
           "productName",
-          state.products![i].name!
+          listProductPos[i]
+              .name!
               .toLowerCase()
               .contains(productName.toLowerCase())
         ]);
       }
       if (priceBuy != -1) {
-        valueProductForSearch.add(["priceBuy", state.products![i].priceBuy]);
+        valueProductForSearch.add(["priceBuy", listProductPos[i].priceBuy]);
       }
       if (priceSell != -1) {
-        valueProductForSearch.add(["priceSell", state.products![i].priceSell]);
+        valueProductForSearch.add(["priceSell", listProductPos[i].priceSell]);
       }
 
-      print("param:$searchParam");
-      print("value:$valueProductForSearch");
-
       if (unOrdDeepEq(searchParam, valueProductForSearch) == true) {
-        listProductAfterSearch.add(state.products![i]);
+        listProductAfterSearch.add(listProductPos[i]);
       }
 
       state = state.copyWith(productsAfterFilter: listProductAfterSearch);

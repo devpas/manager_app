@@ -10,3 +10,5 @@ export 'response/categories_response.dart';
 export 'data/product_data.dart';
 export 'response/single_product_response.dart';
 export 'response/products_response.dart';
+export 'response/single_ticket_response.dart';
+export 'response/tickets_response.dart';

@@ -46,7 +46,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
       totalMoney = totalMoneyFromTicket;
     });
 
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 1, vsync: this);
   }
 
   Widget payment() {
@@ -206,7 +206,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
             labelStyle: AppTypographies.styBlack14W500,
             tabs: [
               Tab(text: AppHelpers.getTranslation("Tiền mặt")),
-              Tab(text: AppHelpers.getTranslation("Công nợ")),
+              // Tab(text: AppHelpers.getTranslation("Công nợ")),
             ],
           ),
         ),
@@ -214,7 +214,10 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
           child: TabBarView(
             controller: _tabController,
             physics: const CustomBouncingScrollPhysics(),
-            children: [payment(), payment()],
+            children: [
+              payment()
+              // , payment()
+            ],
           ),
         ),
         10.verticalSpace,
@@ -252,6 +255,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
                         height: 40,
                         width: 100,
                         onPressed: () {
+                          notifier.createOrder(totalMoney);
                           context.popRoute();
                         })
                     : AccentButtonCustom(

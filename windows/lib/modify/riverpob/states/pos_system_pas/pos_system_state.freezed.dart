@@ -27,6 +27,8 @@ mixin _$PosSystemState {
   int? get selectTicket => throw _privateConstructorUsedError;
   bool get isUsersLoading => throw _privateConstructorUsedError;
   bool? get isUnitLoading => throw _privateConstructorUsedError;
+  bool get categoriesLoading => throw _privateConstructorUsedError;
+  bool get productsLoading => throw _privateConstructorUsedError;
   bool? get isPaymentLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -52,6 +54,8 @@ abstract class $PosSystemStateCopyWith<$Res> {
       int? selectTicket,
       bool isUsersLoading,
       bool? isUnitLoading,
+      bool categoriesLoading,
+      bool productsLoading,
       bool? isPaymentLoading});
 }
 
@@ -79,6 +83,8 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
     Object? selectTicket = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
+    Object? categoriesLoading = null,
+    Object? productsLoading = null,
     Object? isPaymentLoading = freezed,
   }) {
     return _then(_value.copyWith(
@@ -126,6 +132,14 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
           ? _value.isUnitLoading
           : isUnitLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      categoriesLoading: null == categoriesLoading
+          ? _value.categoriesLoading
+          : categoriesLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productsLoading: null == productsLoading
+          ? _value.productsLoading
+          : productsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       isPaymentLoading: freezed == isPaymentLoading
           ? _value.isPaymentLoading
           : isPaymentLoading // ignore: cast_nullable_to_non_nullable
@@ -154,6 +168,8 @@ abstract class _$$_PosSystemStateCopyWith<$Res>
       int? selectTicket,
       bool isUsersLoading,
       bool? isUnitLoading,
+      bool categoriesLoading,
+      bool productsLoading,
       bool? isPaymentLoading});
 }
 
@@ -179,6 +195,8 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
     Object? selectTicket = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
+    Object? categoriesLoading = null,
+    Object? productsLoading = null,
     Object? isPaymentLoading = freezed,
   }) {
     return _then(_$_PosSystemState(
@@ -226,6 +244,14 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
           ? _value.isUnitLoading
           : isUnitLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      categoriesLoading: null == categoriesLoading
+          ? _value.categoriesLoading
+          : categoriesLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productsLoading: null == productsLoading
+          ? _value.productsLoading
+          : productsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       isPaymentLoading: freezed == isPaymentLoading
           ? _value.isPaymentLoading
           : isPaymentLoading // ignore: cast_nullable_to_non_nullable
@@ -249,6 +275,8 @@ class _$_PosSystemState extends _PosSystemState {
       this.selectTicket = 0,
       this.isUsersLoading = false,
       this.isUnitLoading = false,
+      this.categoriesLoading = false,
+      this.productsLoading = false,
       this.isPaymentLoading = false})
       : _listTicket = listTicket,
         _customerPos = customerPos,
@@ -331,11 +359,17 @@ class _$_PosSystemState extends _PosSystemState {
   final bool? isUnitLoading;
   @override
   @JsonKey()
+  final bool categoriesLoading;
+  @override
+  @JsonKey()
+  final bool productsLoading;
+  @override
+  @JsonKey()
   final bool? isPaymentLoading;
 
   @override
   String toString() {
-    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, categories: $categories, infoSelected: $infoSelected, selectTicketLine: $selectTicketLine, selectCategory: $selectCategory, selectTicket: $selectTicket, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, isPaymentLoading: $isPaymentLoading)';
+    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, categories: $categories, infoSelected: $infoSelected, selectTicketLine: $selectTicketLine, selectCategory: $selectCategory, selectTicket: $selectTicket, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, categoriesLoading: $categoriesLoading, productsLoading: $productsLoading, isPaymentLoading: $isPaymentLoading)';
   }
 
   @override
@@ -364,6 +398,10 @@ class _$_PosSystemState extends _PosSystemState {
                 other.isUsersLoading == isUsersLoading) &&
             (identical(other.isUnitLoading, isUnitLoading) ||
                 other.isUnitLoading == isUnitLoading) &&
+            (identical(other.categoriesLoading, categoriesLoading) ||
+                other.categoriesLoading == categoriesLoading) &&
+            (identical(other.productsLoading, productsLoading) ||
+                other.productsLoading == productsLoading) &&
             (identical(other.isPaymentLoading, isPaymentLoading) ||
                 other.isPaymentLoading == isPaymentLoading));
   }
@@ -382,6 +420,8 @@ class _$_PosSystemState extends _PosSystemState {
       selectTicket,
       isUsersLoading,
       isUnitLoading,
+      categoriesLoading,
+      productsLoading,
       isPaymentLoading);
 
   @JsonKey(ignore: true)
@@ -404,6 +444,8 @@ abstract class _PosSystemState extends PosSystemState {
       final int? selectTicket,
       final bool isUsersLoading,
       final bool? isUnitLoading,
+      final bool categoriesLoading,
+      final bool productsLoading,
       final bool? isPaymentLoading}) = _$_PosSystemState;
   const _PosSystemState._() : super._();
 
@@ -429,6 +471,10 @@ abstract class _PosSystemState extends PosSystemState {
   bool get isUsersLoading;
   @override
   bool? get isUnitLoading;
+  @override
+  bool get categoriesLoading;
+  @override
+  bool get productsLoading;
   @override
   bool? get isPaymentLoading;
   @override
