@@ -19,6 +19,7 @@ class PosSystemState with _$PosSystemState {
       @Default(false) bool? isUnitLoading,
       @Default(false) bool categoriesLoading,
       @Default(false) bool productsLoading,
+      @Default(false) bool? createTicketLoading,
       @Default(false) bool? isPaymentLoading}) = _PosSystemState;
 
   const PosSystemState._();

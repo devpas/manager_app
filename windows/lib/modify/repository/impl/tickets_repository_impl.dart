@@ -14,7 +14,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
     "Content-Type": "application/json",
     "Accept": "application/json",
     "Cookie":
-        "__Secure-1PSID=WQgvZkPMUoZgDf38eufQPNcH9eQ5kstjDs_PXyljE0rp4wZG49AY_FOzKx_4Z1W1pZ9GKA."
+        "__Secure-1PSID=WQgvZkPMUoZgDf38eufQPNcH9eQ5kstjDs_PXyljE0rp4wZG49AY_FOzKx_4Z1W1pZ9GKA.;"
   };
 
   @override
@@ -22,7 +22,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
     var ticketJson = ticket.toJson();
     var dataJson;
     final data = {
-      "data": {"ticket_data": ticketJson}
+      "data": {"ticket_data_normalization": ticketJson}
     };
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
@@ -31,11 +31,12 @@ class TicketsRepositoryImpl extends TicketsRepository {
       options: Options(
           headers: headers,
           method: "POST",
-          followRedirects: false,
+          followRedirects: true,
           validateStatus: (status) {
             return status! < 500;
           }),
     );
+
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);
@@ -53,6 +54,9 @@ class TicketsRepositoryImpl extends TicketsRepository {
     } else {
       dataJson = json.decode(response.toString());
     }
+
+    print("end:" + DateTime.now().toString());
+
     return dataJson;
   }
 

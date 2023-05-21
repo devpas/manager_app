@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:g_manager_app/src/core/di/dependency_manager.dart';
@@ -321,12 +322,14 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
 
     final connected = await AppConnectivity.connectivity();
     if (connected) {
+      state = state.copyWith(createTicketLoading: true);
       final response = await _ticketsRepository
           .createTicket(listTicket[state.selectTicket!]);
       if (response["data"]["msg"] == "create ticket successful!") {
         deleteTicket(state.selectTicket);
         productsPASRepository.getProduct("");
       }
+      state = state.copyWith(createTicketLoading: false);
     } else {
       print("no connection");
     }
