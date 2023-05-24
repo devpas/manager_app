@@ -6,5 +6,5 @@ import '../../states/states.dart';
 
 final posSystemPASProvider =
     StateNotifierProvider<PosSystemNotifier, PosSystemState>(
-  (ref) => PosSystemNotifier(ticketsRepository, productsPASRepository),
+  (ref) => PosSystemNotifier(ticketsRepository),
 );

@@ -5,12 +5,14 @@ import '../../../modify/presentation/theme/theme.dart';
 
 class CustomAppbarPOS extends StatelessWidget implements PreferredSize {
   final String title;
+  final String? subtitle;
   final Widget? leading;
   final List<Widget>? actions;
 
   const CustomAppbarPOS({
     Key? key,
     required this.title,
+    this.subtitle,
     this.leading,
     this.actions,
   }) : super(key: key);
@@ -25,11 +27,12 @@ class CustomAppbarPOS extends StatelessWidget implements PreferredSize {
         child: Column(
           children: [
             Text(
-              "VTNN-CẨM CHÂU HẬU GIANG",
+              title,
+              // "VTNN-CẨM CHÂU HẬU GIANG",
               style: AppTypographies.styBlack12W400,
             ),
             Text(
-              "Admin - kho 1",
+              subtitle ?? "",
               style: AppTypographies.styBlack12W400,
             ),
           ],

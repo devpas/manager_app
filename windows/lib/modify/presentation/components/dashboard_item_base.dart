@@ -3,17 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../src/presentation/theme/theme.dart';
 
-class DashboardItem extends StatelessWidget {
+class DashboardItemBase extends StatelessWidget {
   final IconData iconData;
-  final int? number;
   final String title;
   final Color iconColor;
   final Function()? onTap;
 
-  const DashboardItem({
+  const DashboardItemBase({
     Key? key,
     required this.iconData,
-    this.number,
     required this.title,
     required this.iconColor,
     this.onTap,
@@ -30,7 +28,7 @@ class DashboardItem extends StatelessWidget {
           onTap: onTap,
           child: Container(
             width: double.infinity,
-            height: 129.r,
+            height: 100.r,
             padding: REdgeInsets.all(14),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.r),
@@ -57,13 +55,8 @@ class DashboardItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      number != null ? '$number' : "",
-                      style: AppTypographies.styBlack20W600,
-                    ),
-                    2.verticalSpace,
-                    Text(
                       title,
-                      style: AppTypographies.styBlack14W400Opacity30,
+                      style: AppTypographies.styBlack14W400,
                       maxLines: 1,
                     ),
                   ],

@@ -12,7 +12,7 @@ import '../../../../src/core/utils/utils.dart';
 import '../../states/states.dart';
 
 class PosSystemNotifier extends StateNotifier<PosSystemState> {
-  PosSystemNotifier(this._ticketsRepository, this._productsPASRepository)
+  PosSystemNotifier(this._ticketsRepository)
       : super(
           const PosSystemState(),
         );
@@ -20,8 +20,6 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
   TicketLineData? ticketline;
 
   final TicketsRepository _ticketsRepository;
-
-  final ProductsPASRepository _productsPASRepository;
 
   TicketData ticket = TicketData(
       id: 0,
@@ -327,7 +325,6 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
           .createTicket(listTicket[state.selectTicket!]);
       if (response["data"]["msg"] == "create ticket successful!") {
         deleteTicket(state.selectTicket);
-        productsPASRepository.getProduct("");
       }
       state = state.copyWith(createTicketLoading: false);
     } else {

@@ -13,8 +13,8 @@ import 'package:g_manager_app/modify/presentation/pages/products/widgets/product
 
 import '../../../../src/riverpod/providers/providers.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
-import '../../../../modify/presentation/theme/theme.dart';
-import '../../../../modify/presentation/components/components.dart';
+import '../../theme/theme.dart';
+import '../../components/components.dart';
 import '../products/widgets/products_product_item_pos.dart';
 
 class DashboardPASPage extends ConsumerStatefulWidget {
@@ -50,21 +50,19 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     super.initState();
     focusNode = FocusNode();
     KeyboardVisibilityController().onChange.listen((isVisible) {
-      if (isVisible) {
-        setState(() {
+      setState(() {
+        if (isVisible) {
           heightContainerProduct = 70;
-        });
-      } else {
-        setState(() {
+        } else {
           heightContainerProduct = 340;
-        });
-      }
+        }
+      });
     });
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(productsPASProvider.notifier).fetchProductsPos();
         ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+        ref.read(productsPASProvider.notifier).fetchProductsPos();
         ref.read(posSystemPASProvider.notifier).initListTicket();
       },
     );
@@ -72,7 +70,6 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(dashboardProvider);
     final stateCategories = ref.watch(categoriesPASProvider);
     final stateProducts = ref.watch(productsPASProvider);
     final statePos = ref.watch(posSystemPASProvider);
@@ -410,8 +407,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
             ),
             Padding(
               padding: REdgeInsets.fromLTRB(0, 5, 0, 0),
-              child: (stateCategories.categories!.isNotEmpty &&
-                      stateProducts.products!.isNotEmpty)
+              child: stateProducts.products!.isNotEmpty
                   ? SizedBox(
                       height: heightContainerProduct,
                       child: Row(
@@ -435,9 +431,6 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                     setState(() {
                                       notifierPos.updateIndex(
                                           "category", index);
-                                      // notifierProducts.fetchProductsByCategory(
-                                      //     stateCategories
-                                      //         .categories![index].id);
                                       notifierProducts.getProductByCategory(
                                           stateCategories
                                               .categories![index].id);
@@ -619,15 +612,17 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         ),
                   GestureDetector(
                     onTap: () {
-                      notifierPos.deleteTicketline(
-                          statePos.selectTicket, statePos.selectTicketLine);
-                      setState(() {
-                        statePos.selectTicketLine;
-                        if (statePos.selectTicketLine! > 0) {
-                          notifierPos.updateIndex(
-                              "ticketLine", statePos.selectTicketLine! - 1);
-                        }
-                      });
+                      if (!statePos.createTicketLoading!) {
+                        notifierPos.deleteTicketline(
+                            statePos.selectTicket, statePos.selectTicketLine);
+                        setState(() {
+                          statePos.selectTicketLine;
+                          if (statePos.selectTicketLine! > 0) {
+                            notifierPos.updateIndex(
+                                "ticketLine", statePos.selectTicketLine! - 1);
+                          }
+                        });
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -636,22 +631,26 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         height: 30.r,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
-                          color: Colors.red.withOpacity(0.1),
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey.withOpacity(0.1)
+                              : Colors.red.withOpacity(0.1),
                         ),
                         alignment: Alignment.center,
                         child: Icon(
                           Icons.close,
                           size: 20.r,
-                          color: Colors.red,
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey
+                              : Colors.red,
                         ),
                       ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      print(statePos.selectTicketLine);
                       if (statePos.listTicket![statePos.selectTicket!]
-                          .ticketlines!.isNotEmpty) {
+                              .ticketlines!.isNotEmpty &&
+                          !statePos.createTicketLoading!) {
                         showModalBottomSheet(
                           isScrollControlled: true,
                           context: context,
@@ -670,20 +669,26 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         height: 30.r,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
-                          color: Colors.orange.withOpacity(0.1),
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey.withOpacity(0.1)
+                              : Colors.orange.withOpacity(0.1),
                         ),
                         alignment: Alignment.center,
                         child: Icon(
                           Icons.edit,
                           size: 20.r,
-                          color: Colors.orange,
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey
+                              : Colors.orange,
                         ),
                       ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      notifierPos.addTicket();
+                      if (!statePos.createTicketLoading!) {
+                        notifierPos.addTicket();
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -692,20 +697,26 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         height: 30.r,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
-                          color: Colors.purple.withOpacity(0.1),
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey.withOpacity(0.1)
+                              : Colors.purple.withOpacity(0.1),
                         ),
                         alignment: Alignment.center,
                         child: Icon(
                           Icons.add,
                           size: 20.r,
-                          color: Colors.purple,
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey
+                              : Colors.purple,
                         ),
                       ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      notifierPos.deleteTicket(statePos.selectTicket);
+                      if (!statePos.createTicketLoading!) {
+                        notifierPos.deleteTicket(statePos.selectTicket);
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -714,13 +725,17 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         height: 30.r,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
-                          color: Colors.blue.withOpacity(0.1),
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey.withOpacity(0.1)
+                              : Colors.blue.withOpacity(0.1),
                         ),
                         alignment: Alignment.center,
                         child: Icon(
                           Icons.delete,
                           size: 20.r,
-                          color: Colors.blue,
+                          color: statePos.createTicketLoading!
+                              ? Colors.grey
+                              : Colors.blue,
                         ),
                       ),
                     ),

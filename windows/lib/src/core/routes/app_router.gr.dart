@@ -247,6 +247,15 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    DashboardBaseRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.DashboardBasePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     MainPASRoute.name: (routeData) {
       return _i2.CustomPage<dynamic>(
         routeData: routeData,
@@ -420,12 +429,12 @@ class AppRouter extends _i2.RootStackRouter {
           path: '/product-reviews',
         ),
         _i2.RouteConfig(
-          MainPASRoute.name,
-          path: '/main_pas',
+          DashboardBaseRoute.name,
+          path: '/dashboard-base',
         ),
         _i2.RouteConfig(
           MainPASRoute.name,
-          path: '/main_pas',
+          path: '/main-pas',
           children: [
             _i2.RouteConfig(
               DashboardPASRoute.name,
@@ -918,12 +927,24 @@ class ProductReviewsRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [_i1.DashboardBasePage]
+class DashboardBaseRoute extends _i2.PageRouteInfo<void> {
+  const DashboardBaseRoute()
+      : super(
+          DashboardBaseRoute.name,
+          path: '/dashboard-base',
+        );
+
+  static const String name = 'DashboardBaseRoute';
+}
+
+/// generated route for
 /// [_i1.MainPASPage]
 class MainPASRoute extends _i2.PageRouteInfo<void> {
   const MainPASRoute({List<_i2.PageRouteInfo>? children})
       : super(
           MainPASRoute.name,
-          path: '/main_pas',
+          path: '/main-pas',
           initialChildren: children,
         );
 

@@ -144,12 +144,12 @@ import 'modals_route.dart';
     //   customRouteBuilder: modalsPageRoute,
     // ),
     CustomRoute(
-      path: '/main_pas',
-      page: MainPASPage,
+      path: '/dashboard-base',
+      page: DashboardBasePage,
       customRouteBuilder: modalsPageRoute,
     ),
     CustomRoute(
-      path: '/main_pas',
+      path: '/main-pas',
       page: MainPASPage,
       customRouteBuilder: modalsPageRoute,
       children: [

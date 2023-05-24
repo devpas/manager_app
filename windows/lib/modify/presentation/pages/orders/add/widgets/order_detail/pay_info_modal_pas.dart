@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/presentation/pages/dashboard/widgets/select_user_pos_modal.dart';
+import 'package:g_manager_app/modify/presentation/pages/pos_page/widgets/select_user_pos_modal.dart';
 import 'package:g_manager_app/modify/riverpob/providers/pos_system_pas/pos_system_pas_provider.dart';
+import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/utils/utils.dart';
@@ -183,8 +184,8 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(posSystemPASProvider);
     final notifier = ref.read(posSystemPASProvider.notifier);
+    final notifierProducts = ref.read(productsPASProvider.notifier);
     return Column(
       children: [
         10.verticalSpace,
@@ -256,6 +257,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
                         width: 100,
                         onPressed: () {
                           notifier.createOrder(totalMoney);
+                          notifierProducts.fetchProductsPos();
                           context.popRoute();
                         })
                     : AccentButtonCustom(

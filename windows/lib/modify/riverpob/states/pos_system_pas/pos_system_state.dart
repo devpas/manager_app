@@ -13,7 +13,7 @@ class PosSystemState with _$PosSystemState {
       @Default([]) List<CategoryPasData>? categories,
       @Default([]) List<List<dynamic>>? infoSelected,
       @Default(0) int? selectTicketLine,
-      @Default(-1) int? selectCategory,
+      @Default(0) int? selectCategory,
       @Default(0) int? selectTicket,
       @Default(false) bool isUsersLoading,
       @Default(false) bool? isUnitLoading,

@@ -27,5 +27,7 @@ export 'main/users/users_page.dart';
 export 'main/reviews/reviews_page.dart';
 export 'main/reviews/order/order_reviews_page.dart';
 export 'main/reviews/product/product_reviews_page.dart';
-export '../../../modify/presentation/pages/dashboard/dashboard_page.dart';
-export '../../../modify/presentation/pages/main/main_page.dart';
+//modify
+export '../../../modify/presentation/pages/pos_page/dashboard_page.dart';
+export '../../../modify/presentation/pages/pos_page/main_page.dart';
+export '../../../modify/presentation/pages/base/dashboard_page.dart';

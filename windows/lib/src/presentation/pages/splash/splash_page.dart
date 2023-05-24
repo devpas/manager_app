@@ -25,7 +25,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         ref.read(splashProvider.notifier).fetchSettings(
           context,
           goMain: () {
-            context.replaceRoute(const MainPASRoute());
+            context.replaceRoute(const DashboardBaseRoute());
           },
           goLogin: () {
             context.replaceRoute(const LoginRoute());

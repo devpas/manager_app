@@ -284,7 +284,7 @@ class _$_PosSystemState extends _PosSystemState {
       final List<CategoryPasData>? categories = const [],
       final List<List<dynamic>>? infoSelected = const [],
       this.selectTicketLine = 0,
-      this.selectCategory = -1,
+      this.selectCategory = 0,
       this.selectTicket = 0,
       this.isUsersLoading = false,
       this.isUnitLoading = false,

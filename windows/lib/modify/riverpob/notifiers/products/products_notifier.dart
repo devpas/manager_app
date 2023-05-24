@@ -28,8 +28,15 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
     final response = await _productsPASRepository.getProduct("");
     response.when(
       success: (data) async {
-        state = state.copyWith(products: data.products);
-        listProductPos = state.products!;
+        listProductPos = data.products!;
+        int minCategoryId = data.products![0].categoryId!;
+        for (int i = 0; i < data.products!.length; i++) {
+          if (data.products![i].categoryId! < minCategoryId) {
+            minCategoryId = data.products![i].categoryId!;
+          }
+        }
+        fetchProductsByCategory(minCategoryId);
+        print(state.products!.length);
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {

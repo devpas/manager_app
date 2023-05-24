@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/presentation/pages/dashboard/dashboard_page.dart';
 
-import '../../../../src/core/constants/constants.dart';
 import '../../../../src/core/routes/app_router.gr.dart';
 import '../../../../src/core/utils/utils.dart';
 import '../../../../src/riverpod/providers/providers.dart';
@@ -34,7 +32,8 @@ class MainPASPage extends ConsumerWidget {
           return PreferredSize(
             preferredSize: const Size.fromHeight(60.0),
             child: CustomAppbarPOS(
-              title: bottomBarState.appbarTitle,
+              title: "VTNN-CẨM CHÂU HẬU GIANG",
+              subtitle: "Admin - bán hàng - kho 1",
               leading: Builder(
                 builder: (context) => SmallIconButton(
                   icon: Icon(

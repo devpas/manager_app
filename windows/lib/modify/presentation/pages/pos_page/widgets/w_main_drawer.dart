@@ -194,31 +194,13 @@ class WMainDrawer extends ConsumerWidget {
                       context.pushRoute(const ReviewsRoute());
                     },
                   ),
+                48.verticalSpace,
                 DrawerItemWidget(
                   iconData: FlutterRemix.logout_circle_r_line,
-                  title: AppHelpers.getTranslation(TrKeys.logout),
-                  onTap: () => showModalBottomSheet(
-                    context: context,
-                    builder: (context) => const AreYouSureModalInDrawer(),
-                  ),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                DrawerItemWidget(
-                  iconData: FlutterRemix.star_fill,
-                  title: AppHelpers.getTranslation(TrKeys.modifyApp),
+                  title: "Màn hình chính",
                   onTap: () {
                     context.popRoute();
-                    context.pushRoute(const MainPASRoute());
-                  },
-                ),
-                DrawerItemWidget(
-                  iconData: FlutterRemix.star_fill,
-                  title: AppHelpers.getTranslation(TrKeys.dashboard),
-                  onTap: () {
-                    context.popRoute();
-                    context.pushRoute(const MainRoute());
+                    context.navigateBack();
                   },
                 ),
               ],
