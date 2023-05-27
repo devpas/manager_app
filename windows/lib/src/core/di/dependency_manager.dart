@@ -25,6 +25,7 @@ void setUpDependencies() {
       CategoriesRepositoryPASImpl());
   getIt.registerSingleton<ProductsPASRepository>(ProductsRepositoryPASImpl());
   getIt.registerSingleton<TicketsRepository>(TicketsRepositoryImpl());
+  getIt.registerSingleton<BaseRepository>(BaseRepositoryImpl());
 }
 
 final authRepository = getIt.get<AuthRepository>();
@@ -42,3 +43,4 @@ final dashboardRepository = getIt.get<DashboardRepository>();
 final categoriesPASRepository = getIt.get<CategoriesPASRepository>();
 final productsPASRepository = getIt.get<ProductsPASRepository>();
 final ticketsRepository = getIt.get<TicketsRepository>();
+final baseRepository = getIt.get<BaseRepository>();

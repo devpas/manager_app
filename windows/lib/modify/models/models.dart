@@ -12,3 +12,6 @@ export 'response/single_product_response.dart';
 export 'response/products_response.dart';
 export 'response/single_ticket_response.dart';
 export 'response/tickets_response.dart';
+export 'data/base_data.dart';
+export 'response/single_base_response.dart';
+export 'response/base_response.dart';

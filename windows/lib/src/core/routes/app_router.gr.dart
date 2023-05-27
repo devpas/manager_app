@@ -265,6 +265,15 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    BaseManageRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.BaseManagePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -442,6 +451,10 @@ class AppRouter extends _i2.RootStackRouter {
               parent: MainPASRoute.name,
             )
           ],
+        ),
+        _i2.RouteConfig(
+          BaseManageRoute.name,
+          path: '/base-manage',
         ),
       ];
 }
@@ -949,6 +962,18 @@ class MainPASRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'MainPASRoute';
+}
+
+/// generated route for
+/// [_i1.BaseManagePage]
+class BaseManageRoute extends _i2.PageRouteInfo<void> {
+  const BaseManageRoute()
+      : super(
+          BaseManageRoute.name,
+          path: '/base-manage',
+        );
+
+  static const String name = 'BaseManageRoute';
 }
 
 /// generated route for

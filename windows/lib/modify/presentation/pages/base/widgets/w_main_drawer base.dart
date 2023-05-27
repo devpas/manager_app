@@ -170,6 +170,12 @@ class WMainDrawerBase extends ConsumerWidget {
                       context.pushRoute(const ReviewsRoute());
                     },
                   ),
+                DrawerItemWidget(
+                    iconData: FlutterRemix.home_2_fill,
+                    title: "trang chính cũ",
+                    onTap: () {
+                      context.pushRoute(const MainRoute());
+                    }),
                 300.verticalSpace,
                 DrawerItemWidget(
                   iconData: FlutterRemix.logout_circle_r_line,

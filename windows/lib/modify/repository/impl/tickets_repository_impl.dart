@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:g_manager_app/src/core/constants/app_constants.dart';
 
 import '../../../src/core/di/injection.dart';
 import '../../../src/core/handlers/handlers.dart';
@@ -13,8 +14,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
   Map<String, String> headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
-    "Cookie":
-        "__Secure-1PSID=WQgvZkPMUoZgDf38eufQPNcH9eQ5kstjDs_PXyljE0rp4wZG49AY_FOzKx_4Z1W1pZ9GKA.;"
+    "Cookie": AppConstants.cookieDev
   };
 
   @override

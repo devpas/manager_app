@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../modify/presentation/theme/theme.dart';
 
 class CustomAppbarPOS extends StatelessWidget implements PreferredSize {
-  final String title;
+  final Text title;
   final String? subtitle;
   final Widget? leading;
   final List<Widget>? actions;
@@ -26,15 +26,13 @@ class CustomAppbarPOS extends StatelessWidget implements PreferredSize {
       title: Center(
         child: Column(
           children: [
-            Text(
-              title,
-              // "VTNN-CẨM CHÂU HẬU GIANG",
-              style: AppTypographies.styBlack12W400,
-            ),
-            Text(
-              subtitle ?? "",
-              style: AppTypographies.styBlack12W400,
-            ),
+            title,
+            subtitle != null
+                ? Text(
+                    subtitle!,
+                    style: AppTypographies.styBlack12W400,
+                  )
+                : const SizedBox(),
           ],
         ),
       ),

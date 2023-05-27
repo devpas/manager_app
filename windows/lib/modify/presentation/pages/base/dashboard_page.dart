@@ -79,7 +79,10 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: CustomAppbarPOS(
-          title: "VTNN-CẨM CHÂU HẬU GIANG",
+          title: Text(
+            "VTNN-CẨM CHÂU HẬU GIANG",
+            style: AppTypographies.styBlack12W400,
+          ),
           leading: Builder(
             builder: (context) => SmallIconButton(
               icon: Icon(
@@ -134,10 +137,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                           title: "Hệ thống bán hàng",
                           iconColor: AppColors.inProgressOrders,
                           onTap: () {
-                            Future.delayed(const Duration(milliseconds: 100),
-                                () {
-                              context.pushRoute(const MainPASRoute());
-                            });
+                            context.pushRoute(const MainPASRoute());
                           },
                         ),
                         9.horizontalSpace,
@@ -146,13 +146,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                           title: "Quản lý cơ sở",
                           iconColor: AppColors.canceledOrders,
                           onTap: () {
-                            ref
-                                .read(ordersProvider.notifier)
-                                .updateCanceledOrders(
-                                  cancelledOrdersNotifier: ref
-                                      .read(cancelledOrdersProvider.notifier),
-                                );
-                            bottomBarNotifier.setActiveIndex(0);
+                            context.pushRoute(const BaseManageRoute());
                           },
                         ),
                       ],

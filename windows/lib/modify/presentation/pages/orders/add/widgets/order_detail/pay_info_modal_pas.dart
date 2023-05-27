@@ -62,7 +62,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
             children: [
               SizedBox(
                 height: 400,
-                width: 260,
+                width: 250,
                 child: ListView(
                   physics: const CustomBouncingScrollPhysics(),
                   children: [
