@@ -35,7 +35,9 @@ class SearchProductModalInOrderDetailInfoPAS extends ConsumerWidget {
           children: [
             SearchTextField(
               onChanged: (input) => (notifier.filterProduct(
-                  stateCategory.categorySelected!, state.products!, input)),
+                  stateCategory.categorySelected!,
+                  notifier.listProductPos,
+                  input)),
               hintText: AppHelpers.getTranslation(TrKeys.searchProducts),
             ),
             10.verticalSpace,

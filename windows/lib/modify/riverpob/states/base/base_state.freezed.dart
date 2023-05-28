@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BaseState {
   List<BaseData>? get base => throw _privateConstructorUsedError;
   int? get baseSelected => throw _privateConstructorUsedError;
+  bool? get baseLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BaseStateCopyWith<BaseState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $BaseStateCopyWith<$Res> {
   factory $BaseStateCopyWith(BaseState value, $Res Function(BaseState) then) =
       _$BaseStateCopyWithImpl<$Res, BaseState>;
   @useResult
-  $Res call({List<BaseData>? base, int? baseSelected});
+  $Res call({List<BaseData>? base, int? baseSelected, bool? baseLoading});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
   $Res call({
     Object? base = freezed,
     Object? baseSelected = freezed,
+    Object? baseLoading = freezed,
   }) {
     return _then(_value.copyWith(
       base: freezed == base
@@ -57,6 +59,10 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.baseSelected
           : baseSelected // ignore: cast_nullable_to_non_nullable
               as int?,
+      baseLoading: freezed == baseLoading
+          ? _value.baseLoading
+          : baseLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -68,7 +74,7 @@ abstract class _$$_BaseStateCopyWith<$Res> implements $BaseStateCopyWith<$Res> {
       __$$_BaseStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<BaseData>? base, int? baseSelected});
+  $Res call({List<BaseData>? base, int? baseSelected, bool? baseLoading});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class __$$_BaseStateCopyWithImpl<$Res>
   $Res call({
     Object? base = freezed,
     Object? baseSelected = freezed,
+    Object? baseLoading = freezed,
   }) {
     return _then(_$_BaseState(
       base: freezed == base
@@ -94,6 +101,10 @@ class __$$_BaseStateCopyWithImpl<$Res>
           ? _value.baseSelected
           : baseSelected // ignore: cast_nullable_to_non_nullable
               as int?,
+      baseLoading: freezed == baseLoading
+          ? _value.baseLoading
+          : baseLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -102,7 +113,9 @@ class __$$_BaseStateCopyWithImpl<$Res>
 
 class _$_BaseState extends _BaseState {
   const _$_BaseState(
-      {final List<BaseData>? base = const [], this.baseSelected = 0})
+      {final List<BaseData>? base = const [],
+      this.baseSelected = 0,
+      this.baseLoading = false})
       : _base = base,
         super._();
 
@@ -119,10 +132,13 @@ class _$_BaseState extends _BaseState {
   @override
   @JsonKey()
   final int? baseSelected;
+  @override
+  @JsonKey()
+  final bool? baseLoading;
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading)';
   }
 
   @override
@@ -132,12 +148,14 @@ class _$_BaseState extends _BaseState {
             other is _$_BaseState &&
             const DeepCollectionEquality().equals(other._base, _base) &&
             (identical(other.baseSelected, baseSelected) ||
-                other.baseSelected == baseSelected));
+                other.baseSelected == baseSelected) &&
+            (identical(other.baseLoading, baseLoading) ||
+                other.baseLoading == baseLoading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_base), baseSelected);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_base), baseSelected, baseLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -148,13 +166,17 @@ class _$_BaseState extends _BaseState {
 
 abstract class _BaseState extends BaseState {
   const factory _BaseState(
-      {final List<BaseData>? base, final int? baseSelected}) = _$_BaseState;
+      {final List<BaseData>? base,
+      final int? baseSelected,
+      final bool? baseLoading}) = _$_BaseState;
   const _BaseState._() : super._();
 
   @override
   List<BaseData>? get base;
   @override
   int? get baseSelected;
+  @override
+  bool? get baseLoading;
   @override
   @JsonKey(ignore: true)
   _$$_BaseStateCopyWith<_$_BaseState> get copyWith =>

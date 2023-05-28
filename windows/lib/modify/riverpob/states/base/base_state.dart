@@ -8,6 +8,7 @@ class BaseState with _$BaseState {
   const factory BaseState({
     @Default([]) List<BaseData>? base,
     @Default(0) int? baseSelected,
+    @Default(false) bool? baseLoading,
   }) = _BaseState;
 
   const BaseState._();

@@ -274,6 +274,21 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    BaseDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<BaseDetailsRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.BaseDetailsPage(
+          key: args.key,
+          uuid: args.uuid,
+          title: args.title,
+          from: args.from,
+        ),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -455,6 +470,10 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           BaseManageRoute.name,
           path: '/base-manage',
+        ),
+        _i2.RouteConfig(
+          BaseDetailsRoute.name,
+          path: '/base-details',
         ),
       ];
 }
@@ -974,6 +993,50 @@ class BaseManageRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'BaseManageRoute';
+}
+
+/// generated route for
+/// [_i1.BaseDetailsPage]
+class BaseDetailsRoute extends _i2.PageRouteInfo<BaseDetailsRouteArgs> {
+  BaseDetailsRoute({
+    _i3.Key? key,
+    String? uuid,
+    required String title,
+    required _i5.OpenEditUserFrom from,
+  }) : super(
+          BaseDetailsRoute.name,
+          path: '/base-details',
+          args: BaseDetailsRouteArgs(
+            key: key,
+            uuid: uuid,
+            title: title,
+            from: from,
+          ),
+        );
+
+  static const String name = 'BaseDetailsRoute';
+}
+
+class BaseDetailsRouteArgs {
+  const BaseDetailsRouteArgs({
+    this.key,
+    this.uuid,
+    required this.title,
+    required this.from,
+  });
+
+  final _i3.Key? key;
+
+  final String? uuid;
+
+  final String title;
+
+  final _i5.OpenEditUserFrom from;
+
+  @override
+  String toString() {
+    return 'BaseDetailsRouteArgs{key: $key, uuid: $uuid, title: $title, from: $from}';
+  }
 }
 
 /// generated route for

@@ -4,14 +4,11 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../src/core/constants/constants.dart';
-import '../../../../src/core/utils/utils.dart';
 import '../../../../src/riverpod/providers/providers.dart';
 import '../../../riverpob/providers/base/base_provider.dart';
 import '../../components/components.dart';
 import '../../theme/theme.dart';
 import 'widgets/baseItem.dart';
-import 'widgets/products_filter_modal.dart';
 import 'widgets/w_delete_product_dialog.dart';
 
 class BaseManagePage extends ConsumerStatefulWidget {
@@ -53,8 +50,6 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(productsProvider);
-    final notifier = ref.read(productsProvider.notifier);
     final stateBase = ref.watch(baseProvider);
     final notifierBase = ref.read(baseProvider.notifier);
     return Scaffold(
@@ -62,6 +57,7 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: CustomAppbarPOS(
+            center: true,
             title: Text(
               "QUẢN LÝ CƠ SỞ",
               style: AppTypographies.styBlack12W400,
@@ -83,33 +79,33 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
         children: [
           3.verticalSpace,
           SearchTextField(
-            textEditingController: state.searchController,
-            onChanged: notifier.setQuery,
-            hintText: "Tên cơ sở",
+            onChanged: (input) {
+              notifierBase.filterBaseByNameOrEmail(input);
+            },
+            hintText: "Tên cơ sở hoặc email",
             suffixIcon: SmallIconButton(
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                builder: (context) => const ProductsFilterModal(),
-              ),
+              onPressed: () {
+                notifierBase.fetchListBase();
+              },
               icon: Icon(
-                FlutterRemix.sound_module_line,
+                FlutterRemix.refresh_line,
                 size: 24.r,
                 color: AppColors.black,
               ),
             ),
           ),
           Expanded(
-            child: state.isLoading
+            child: stateBase.baseLoading!
                 ? Center(
                     child: CircularProgressIndicator(
                       color: AppColors.greenMain,
                       strokeWidth: 3.r,
                     ),
                   )
-                : state.products.isEmpty
+                : stateBase.base!.isEmpty
                     ? Center(
                         child: Text(
-                          AppHelpers.getTranslation(TrKeys.thereIsNoProducts),
+                          "Không tìm thấy cơ sở",
                           style: GoogleFonts.inter(
                             fontSize: 18.sp,
                             color: AppColors.black,
@@ -127,7 +123,7 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                               top: 20,
                               left: 15,
                               right: 15,
-                              bottom: state.isMoreLoading ? 0 : 97,
+                              bottom: 10,
                             ),
                             shrinkWrap: true,
                             itemCount: stateBase.base!.length,
@@ -137,6 +133,12 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                                 base: base,
                                 onTap: () async {
                                   notifierBase.updateBaseSelected(index);
+                                },
+                                onSwitch: () {
+                                  print("onSwitch");
+                                },
+                                onEdit: () {
+                                  print("edit");
                                 },
                                 onDeleteTap: () {
                                   showDialog(
@@ -152,67 +154,63 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                               );
                             },
                           ),
-                          if (state.isMoreLoading)
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.greenMain,
-                                    strokeWidth: 2.r,
-                                  ),
-                                ),
-                                127.verticalSpace,
-                              ],
-                            )
                         ],
                       ),
           ),
           10.verticalSpace,
           Container(
             color: Colors.white,
-            height: 180,
             width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 5, 5),
-              child: stateBase.base!.isNotEmpty
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                          Text(
-                              "${stateBase.base![stateBase.baseSelected!].baseName}"),
+            child: stateBase.base!.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 5, 5),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ExpansionTile(
+                              title: const Text("Danh sách quyền truy cập"),
+                              textColor: AppColors.greenMain,
+                              initiallyExpanded: true,
+                              children: [
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: stateBase
+                                      .base![stateBase.baseSelected!]
+                                      .listRole!
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    var role = stateBase
+                                        .base![stateBase.baseSelected!]
+                                        .listRole![index];
+                                    return Text(
+                                      "${role["name"]}-${role["area"]}",
+                                      style: AppTypographies.styBlack13W500,
+                                    );
+                                  },
+                                ),
+                                10.verticalSpace,
+                              ]),
                           5.verticalSpace,
-                          Text(
-                              "${stateBase.base![stateBase.baseSelected!].publicInfomation["address"]}"),
-                          const Divider(
-                            thickness: 2,
-                          ),
                           Row(
                             children: [
-                              const SizedBox(width: 70, child: Text("Chủ cs:")),
-                              Text(
-                                  "${stateBase.base![stateBase.baseSelected!].ownerName}"),
+                              const SizedBox(width: 70, child: Text("Địa chỉ")),
+                              Expanded(
+                                child: Text(
+                                    "${stateBase.base![stateBase.baseSelected!].publicInfomation["address"]}"),
+                              ),
                             ],
                           ),
                           5.verticalSpace,
                           Row(
                             children: [
-                              const SizedBox(width: 70, child: Text("Email:")),
-                              Text(
-                                  "${stateBase.base![stateBase.baseSelected!].email}"),
-                            ],
-                          ),
-                          5.verticalSpace,
-                          Row(
-                            children: [
-                              const SizedBox(width: 70, child: Text("SĐT:")),
+                              const SizedBox(width: 70, child: Text("SĐT")),
                               SizedBox(
                                 width: 100,
                                 child: Text(
                                     "${stateBase.base![stateBase.baseSelected!].publicInfomation["phone"]}"),
                               ),
                               const SizedBox(
-                                  width: 80, child: Text("Diện tích:")),
+                                  width: 80, child: Text("Diện tích")),
                               SizedBox(
                                   width: 100,
                                   child: Text(
@@ -222,27 +220,22 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                           5.verticalSpace,
                           Row(
                             children: [
-                              const SizedBox(
-                                  width: 70, child: Text("Loại cs:")),
+                              const SizedBox(width: 70, child: Text("Loại cs")),
                               SizedBox(
                                   width: 100,
                                   child: Text(
                                       "${stateBase.base![stateBase.baseSelected!].publicInfomation["type_base"]}")),
                               const SizedBox(
-                                  width: 80, child: Text("Cây ăn trái:")),
+                                  width: 80, child: Text("Sản phẩm")),
                               SizedBox(
                                   width: 100,
                                   child: Text(
                                       "${stateBase.base![stateBase.baseSelected!].publicInfomation["properties"]["type_tree"][0]["name"]}")),
                             ],
                           ),
-                        ])
-                  : const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.greenMain,
-                      ),
-                    ),
-            ),
+                        ]),
+                  )
+                : const SizedBox(),
           )
         ],
       ),

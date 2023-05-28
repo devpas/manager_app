@@ -32,6 +32,7 @@ class MainPASPage extends ConsumerWidget {
           return PreferredSize(
             preferredSize: const Size.fromHeight(60.0),
             child: CustomAppbarPOS(
+              center: true,
               title: Text(
                 "VTNN-CẨM CHÂU HẬU GIANG",
                 style: AppTypographies.styBlack12W400,

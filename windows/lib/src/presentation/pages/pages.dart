@@ -32,3 +32,4 @@ export '../../../modify/presentation/pages/pos_page/dashboard_page.dart';
 export '../../../modify/presentation/pages/pos_page/main_page.dart';
 export '../../../modify/presentation/pages/base/dashboard_page.dart';
 export '../../../modify/presentation/pages/base_manage/base_manage_page.dart';
+export '../../../modify/presentation/pages/base_manage/base_details/base_details_page.dart';

@@ -164,6 +164,11 @@ import 'modals_route.dart';
       page: BaseManagePage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/base-details',
+      page: BaseDetailsPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
   ],
 )
 class $AppRouter {}

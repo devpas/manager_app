@@ -86,6 +86,7 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
 
   void filterProduct(CategoryPasData categorySelected,
       List<ProductPasData> data, String productName) {
+    print(categorySelected.id);
     if (categorySelected.id != -1) {
       data = data
           .where((product) => product.categoryId == categorySelected.id)

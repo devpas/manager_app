@@ -5,8 +5,9 @@ class BaseData {
     String? email,
     String? keyAccess,
     dynamic publicInfomation,
+    String? status,
     List<String>? areaAccess,
-    List<String>? listRole,
+    List<dynamic>? listRole,
     List<BaseData>? children,
   }) {
     _baseName = baseName;
@@ -15,6 +16,7 @@ class BaseData {
     _keyAccess = keyAccess;
     _areaAccess = areaAccess;
     _listRole = listRole;
+    _publicInfomation = publicInfomation;
     _children = children;
   }
 
@@ -24,15 +26,16 @@ class BaseData {
     _email = json['email'];
     _keyAccess = json['key_access'];
     _publicInfomation = json["public_infomation"];
+    _status = json["status"];
     if (json['area_access'] != null) {
       _areaAccess = [];
       json['area_access'].forEach((v) {
         _areaAccess?.add(v);
       });
     }
-    if (json['area_access'] != null) {
+    if (json['role'] != null) {
       _listRole = [];
-      json['area_access'].forEach((v) {
+      json['role'].forEach((v) {
         _listRole?.add(v);
       });
     }
@@ -50,8 +53,9 @@ class BaseData {
   String? _email;
   String? _keyAccess;
   dynamic _publicInfomation;
+  String? _status;
   List<String>? _areaAccess;
-  List<String>? _listRole;
+  List<dynamic>? _listRole;
   List<BaseData>? _children;
 
   BaseData copyWith({
@@ -60,6 +64,7 @@ class BaseData {
     String? email,
     String? keyAccess,
     dynamic publicInfomation,
+    String? status,
     List<String>? areaAccess,
     List<String>? listRole,
     List<BaseData>? children,
@@ -70,6 +75,7 @@ class BaseData {
         email: email ?? _email,
         keyAccess: keyAccess ?? _keyAccess,
         publicInfomation: publicInfomation ?? _publicInfomation,
+        status: status ?? _status,
         areaAccess: areaAccess ?? areaAccess,
         listRole: listRole ?? _listRole,
         children: children ?? _children,
@@ -85,9 +91,11 @@ class BaseData {
 
   dynamic get publicInfomation => _publicInfomation;
 
+  String? get status => _status;
+
   List<String>? get areaAccess => _areaAccess;
 
-  List<String>? get listRole => _listRole;
+  List<dynamic>? get listRole => _listRole;
 
   List<BaseData>? get children => _children;
 
@@ -98,8 +106,9 @@ class BaseData {
     map['email'] = _email;
     map['keyAccess'] = _keyAccess;
     map['public_infomation'] = _publicInfomation;
+    map['status'] = _status;
     map['areaAccess'] = _areaAccess;
-    map['listRole'] = _listRole;
+    map['role'] = _listRole;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }
