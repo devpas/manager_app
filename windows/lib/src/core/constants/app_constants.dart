@@ -31,8 +31,11 @@ class AppConstants {
   static const String baseUrl = 'http://10.0.2.2:8000';
   static const String imageBaseUrl = 'http://10.0.2.2:8000';
 
+  static const String baseUrlAppscript =
+      'https://script.google.com/macros/s/AKfycbwmjvjNT0jwZlqMY2AjhXIn27HuvncGId4enXVsHLLBtmZ7X2lnsLOWQQF9ylc3mgsl/exec';
+
   static const cookieDev =
-      "__Secure-1PSID=XAgvZtgrprRbD_Q4fwyNuVSjKa0pDdy5pJblcK_N4qxeq7g5A1hxXFcEep5skzM1mhdctQ.";
+      "__Secure-1PSID=XAgvZtgrprRbD_Q4fwyNuVSjKa0pDdy5pJblcK_N4qxeq7g5A1hxXFcEep5skzM1mhdctQ.;";
 
   /// locales
   static const String localeCodeEn = 'en';

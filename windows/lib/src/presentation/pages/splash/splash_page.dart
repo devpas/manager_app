@@ -28,7 +28,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             context.replaceRoute(const DashboardBaseRoute());
           },
           goLogin: () {
-            context.replaceRoute(const LoginRoute());
+            context.replaceRoute(SignInWebviewRoute());
           },
           goToSelectLang: () {
             context.replaceRoute(SelectLangRoute(isRequired: true));

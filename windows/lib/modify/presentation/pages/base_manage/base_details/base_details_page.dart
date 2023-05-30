@@ -12,7 +12,7 @@ import '../../../../../src/riverpod/providers/providers.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
 import 'widgets/user_addresses_body.dart';
-import 'widgets/user_details_body.dart';
+import 'widgets/base_details_body.dart';
 import 'widgets/user_orders_body.dart';
 import 'widgets/user_wallet_body.dart';
 
@@ -100,11 +100,11 @@ class _EditUserPageState extends ConsumerState<BaseDetailsPage>
                   unselectedLabelColor: AppColors.unselectedTabBar,
                   unselectedLabelStyle: AppTypographies.styUnselected14W500,
                   labelStyle: AppTypographies.styBlack14W500,
-                  tabs: [
-                    Tab(text: AppHelpers.getTranslation(TrKeys.editUser)),
-                    Tab(text: AppHelpers.getTranslation(TrKeys.address)),
-                    Tab(text: AppHelpers.getTranslation(TrKeys.orders)),
-                    Tab(text: AppHelpers.getTranslation(TrKeys.wallet)),
+                  tabs: const [
+                    Tab(text: "Cơ sở"),
+                    Tab(text: "Địa điểm"),
+                    Tab(text: "Nhân sự"),
+                    Tab(text: "Tùy chọn"),
                   ],
                 ),
               ),
@@ -113,7 +113,7 @@ class _EditUserPageState extends ConsumerState<BaseDetailsPage>
                   controller: _tabController,
                   physics: const CustomBouncingScrollPhysics(),
                   children: [
-                    UserDetailsBody(from: widget.from),
+                    BaseDetailsBody(from: widget.from),
                     UserAddressesBody(userData: state.userData),
                     const UserOrdersBody(),
                     const UserWalletBody(),

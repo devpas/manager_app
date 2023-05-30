@@ -29,6 +29,7 @@ class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
   };
   @override
   Future<ApiResult<CategoriesPasResponse>> getCategory(String alias) async {
+    print(AppConstants.cookieDev);
     final data = {"query_param": []};
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(

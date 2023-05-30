@@ -7,10 +7,10 @@ import '../../../../../../src/core/utils/utils.dart';
 import '../../../../../../src/models/models.dart';
 import '../../../../theme/theme.dart';
 
-class UserAddressItem extends StatelessWidget {
+class BaseAddressItem extends StatelessWidget {
   final AddressData? address;
 
-  const UserAddressItem({Key? key, required this.address}) : super(key: key);
+  const BaseAddressItem({Key? key, required this.address}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

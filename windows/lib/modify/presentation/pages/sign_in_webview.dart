@@ -3,18 +3,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/src/core/constants/constants.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:auto_route/auto_route.dart';
 import '../../../src/core/routes/app_router.gr.dart';
 
+// ignore: must_be_immutable
 class SignInWebviewPage extends ConsumerWidget {
   SignInWebviewPage({Key? key}) : super(key: key);
 
   String cookieGAS = '';
 
-  final String _url =
-      'https://script.google.com/macros/s/AKfycbxoxebXL1eZxOmASSK0MkbiiXsV6ImQF9i1MelLRCLGE1PcVZkM4lUTR2wS--eqxV6OuQ/exec';
+  final String _url = AppConstants.baseUrlAppscript;
   final String cookieValue = 'some-cookie-value';
   final String domain = 'https://script.google.com';
   final String cookieName = 'some_cookie_name';
@@ -49,7 +50,8 @@ class SignInWebviewPage extends ConsumerWidget {
                         cookieGAS = item.toString();
                         print('cookieGAS: $cookieGAS');
                         isLogin = true;
-                        context.replaceRoute(MainPASRoute());
+                        // ignore: use_build_context_synchronously
+                        context.pushRoute(const DashboardBaseRoute());
                       }
                     }
                   },

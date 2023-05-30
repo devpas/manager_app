@@ -19,6 +19,8 @@ mixin _$BaseState {
   List<BaseData>? get base => throw _privateConstructorUsedError;
   int? get baseSelected => throw _privateConstructorUsedError;
   bool? get baseLoading => throw _privateConstructorUsedError;
+  bool? get createDataRequest => throw _privateConstructorUsedError;
+  String? get msgBase => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BaseStateCopyWith<BaseState> get copyWith =>
@@ -30,7 +32,12 @@ abstract class $BaseStateCopyWith<$Res> {
   factory $BaseStateCopyWith(BaseState value, $Res Function(BaseState) then) =
       _$BaseStateCopyWithImpl<$Res, BaseState>;
   @useResult
-  $Res call({List<BaseData>? base, int? baseSelected, bool? baseLoading});
+  $Res call(
+      {List<BaseData>? base,
+      int? baseSelected,
+      bool? baseLoading,
+      bool? createDataRequest,
+      String? msgBase});
 }
 
 /// @nodoc
@@ -49,6 +56,8 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
     Object? base = freezed,
     Object? baseSelected = freezed,
     Object? baseLoading = freezed,
+    Object? createDataRequest = freezed,
+    Object? msgBase = freezed,
   }) {
     return _then(_value.copyWith(
       base: freezed == base
@@ -63,6 +72,14 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.baseLoading
           : baseLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      createDataRequest: freezed == createDataRequest
+          ? _value.createDataRequest
+          : createDataRequest // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      msgBase: freezed == msgBase
+          ? _value.msgBase
+          : msgBase // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -74,7 +91,12 @@ abstract class _$$_BaseStateCopyWith<$Res> implements $BaseStateCopyWith<$Res> {
       __$$_BaseStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<BaseData>? base, int? baseSelected, bool? baseLoading});
+  $Res call(
+      {List<BaseData>? base,
+      int? baseSelected,
+      bool? baseLoading,
+      bool? createDataRequest,
+      String? msgBase});
 }
 
 /// @nodoc
@@ -91,6 +113,8 @@ class __$$_BaseStateCopyWithImpl<$Res>
     Object? base = freezed,
     Object? baseSelected = freezed,
     Object? baseLoading = freezed,
+    Object? createDataRequest = freezed,
+    Object? msgBase = freezed,
   }) {
     return _then(_$_BaseState(
       base: freezed == base
@@ -105,6 +129,14 @@ class __$$_BaseStateCopyWithImpl<$Res>
           ? _value.baseLoading
           : baseLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      createDataRequest: freezed == createDataRequest
+          ? _value.createDataRequest
+          : createDataRequest // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      msgBase: freezed == msgBase
+          ? _value.msgBase
+          : msgBase // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -115,7 +147,9 @@ class _$_BaseState extends _BaseState {
   const _$_BaseState(
       {final List<BaseData>? base = const [],
       this.baseSelected = 0,
-      this.baseLoading = false})
+      this.baseLoading = false,
+      this.createDataRequest = true,
+      this.msgBase = "Loading..."})
       : _base = base,
         super._();
 
@@ -135,10 +169,16 @@ class _$_BaseState extends _BaseState {
   @override
   @JsonKey()
   final bool? baseLoading;
+  @override
+  @JsonKey()
+  final bool? createDataRequest;
+  @override
+  @JsonKey()
+  final String? msgBase;
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, createDataRequest: $createDataRequest, msgBase: $msgBase)';
   }
 
   @override
@@ -150,12 +190,20 @@ class _$_BaseState extends _BaseState {
             (identical(other.baseSelected, baseSelected) ||
                 other.baseSelected == baseSelected) &&
             (identical(other.baseLoading, baseLoading) ||
-                other.baseLoading == baseLoading));
+                other.baseLoading == baseLoading) &&
+            (identical(other.createDataRequest, createDataRequest) ||
+                other.createDataRequest == createDataRequest) &&
+            (identical(other.msgBase, msgBase) || other.msgBase == msgBase));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_base), baseSelected, baseLoading);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_base),
+      baseSelected,
+      baseLoading,
+      createDataRequest,
+      msgBase);
 
   @JsonKey(ignore: true)
   @override
@@ -168,7 +216,9 @@ abstract class _BaseState extends BaseState {
   const factory _BaseState(
       {final List<BaseData>? base,
       final int? baseSelected,
-      final bool? baseLoading}) = _$_BaseState;
+      final bool? baseLoading,
+      final bool? createDataRequest,
+      final String? msgBase}) = _$_BaseState;
   const _BaseState._() : super._();
 
   @override
@@ -177,6 +227,10 @@ abstract class _BaseState extends BaseState {
   int? get baseSelected;
   @override
   bool? get baseLoading;
+  @override
+  bool? get createDataRequest;
+  @override
+  String? get msgBase;
   @override
   @JsonKey(ignore: true)
   _$$_BaseStateCopyWith<_$_BaseState> get copyWith =>

@@ -7,7 +7,7 @@ import '../../../../../../src/core/utils/utils.dart';
 import '../../../../../../src/models/models.dart';
 import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
-import 'user_address_item.dart';
+import 'base_address_item.dart';
 
 class UserAddressesBody extends StatelessWidget {
   final UserData? userData;
@@ -34,7 +34,7 @@ class UserAddressesBody extends StatelessWidget {
             padding: REdgeInsets.symmetric(vertical: 20, horizontal: 15),
             physics: const CustomBouncingScrollPhysics(),
             itemBuilder: (context, index) =>
-                UserAddressItem(address: userData?.addresses?[index]),
+                BaseAddressItem(address: userData?.addresses?[index]),
           );
   }
 }

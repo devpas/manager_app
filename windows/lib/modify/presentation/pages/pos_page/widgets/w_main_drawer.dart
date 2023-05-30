@@ -200,7 +200,7 @@ class WMainDrawer extends ConsumerWidget {
                   title: "Màn hình chính",
                   onTap: () {
                     context.popRoute();
-                    context.navigateBack();
+                    context.pushRoute(const DashboardBaseRoute());
                   },
                 ),
               ],

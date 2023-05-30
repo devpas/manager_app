@@ -9,6 +9,8 @@ class BaseState with _$BaseState {
     @Default([]) List<BaseData>? base,
     @Default(0) int? baseSelected,
     @Default(false) bool? baseLoading,
+    @Default(true) bool? createDataRequest,
+    @Default("Loading...") String? msgBase,
   }) = _BaseState;
 
   const BaseState._();

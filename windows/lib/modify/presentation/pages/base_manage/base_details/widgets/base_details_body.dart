@@ -12,10 +12,10 @@ import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
 import 'user_roles_modal_in_edit_user.dart';
 
-class UserDetailsBody extends ConsumerWidget {
+class BaseDetailsBody extends ConsumerWidget {
   final OpenEditUserFrom from;
 
-  const UserDetailsBody({Key? key, required this.from}) : super(key: key);
+  const BaseDetailsBody({Key? key, required this.from}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:g_manager_app/modify/presentation/pages/sign_in_webview.dart';
 
 import '../../presentation/pages/pages.dart';
 import 'modals_route.dart';
@@ -168,6 +169,10 @@ import 'modals_route.dart';
       path: '/base-details',
       page: BaseDetailsPage,
       customRouteBuilder: modalsPageRoute,
+    ),
+    AutoRoute(
+      path: '/signIn-webview',
+      page: SignInWebviewPage,
     ),
   ],
 )
