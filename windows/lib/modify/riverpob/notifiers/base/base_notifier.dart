@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/src/core/utils/local_storage.dart';
 
 import '../../../../modify/repository/base_repository.dart';
 import '../../../../src/core/handlers/handlers.dart';
@@ -62,6 +63,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
                 "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không");
       } else {
         state = state.copyWith(createDataRequest: false);
+        LocalStorage.instance.setKeyAccess(response["data"]["key_access"]);
+        print(LocalStorage.instance.getKeyAccess());
       }
     } else {
       print("no connection");
@@ -79,10 +82,13 @@ class BaseNotifier extends StateNotifier<BaseState> {
         state = state.copyWith(msgBase: "dữ liệu mới đã được tạo thành công");
         Future.delayed(const Duration(milliseconds: 300), () {
           state = state.copyWith(createDataRequest: false);
+          LocalStorage.instance.setKeyAccess(response["data"]["key_access"]);
         });
+      } else {
+        state = state.copyWith(msgBase: "quá trình tạo dữ liệu đã xã ra lỗi");
       }
     } else {
-      state = state.copyWith(msgBase: "quá trình tạo dữ liệu đã xã ra lỗi");
+      state = state.copyWith(msgBase: "không thể kết nối tới Server");
     }
   }
 }

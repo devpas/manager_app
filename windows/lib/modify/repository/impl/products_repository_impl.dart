@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:g_manager_app/src/core/constants/app_constants.dart';
+import 'package:g_manager_app/src/core/utils/local_storage.dart';
 
 import '../../../src/core/di/injection.dart';
 import '../../../src/core/handlers/handlers.dart';
@@ -8,44 +7,37 @@ import '../../../modify/models/models.dart';
 import '../products_repository.dart';
 
 class ProductsRepositoryPASImpl extends ProductsPASRepository {
-  // @override
-  // Future<ApiResult<SingleCategoryResponse>> getCategory(String alias) async {
-  //   try {
-  //     final client = inject<HttpService>().client(requireAuth: false);
-  //     final response =
-  //         await client.get('/api/v1/dashboard/admin/categories/$alias');
-  //     return ApiResult.success(
-  //       data: SingleCategoryResponse.fromJson(response.data),
-  //     );
-  //   } catch (e) {
-  //     debugPrint('==> get category failure: $e');
-  //     return ApiResult.failure(error: NetworkExceptions.getDioException(e));
-  //   }
-  // }
   Map<String, String> headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
-    "Cookie": AppConstants.cookieDev
+    "Cookie": ""
   };
   @override
   Future<ApiResult<ProductsPasResponse>> getProduct(String alias) async {
-    final data = {"query_param": []};
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    List<dynamic> listParam = [];
     List<String> queryParam = alias.split("&");
     queryParam = queryParam
         .where(
           (param) => param.isNotEmpty,
         )
         .toList();
-    print(queryParam);
     if (queryParam.isNotEmpty) {
       for (int i = 0; i < queryParam.length; i++) {
         List kv = queryParam[i].split("=");
         if (kv[0] == "categoryId") {
-          data["query_param"]!.add({"key": "category_id", "value": kv[1]});
+          listParam.add({"key": "category_id", "value": kv[1]});
         }
       }
     }
 
+    final data = {
+      "key_access": LocalStorage.instance.getKeyAccess(),
+      "query_param": listParam
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["file_share_id"] = LocalStorage.instance.getFileShareId();
+    }
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
       '?api=product/getData',

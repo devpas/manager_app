@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../../models/models.dart';
 import '../constants/app_constants.dart';
@@ -51,7 +52,7 @@ class LocalStorage {
 
   String getToken() => _preferences?.getString(AppConstants.keyToken) ?? '';
 
-  void deleteToken()=> _preferences?.remove(AppConstants.keyToken);
+  void deleteToken() => _preferences?.remove(AppConstants.keyToken);
 
   Future<void> setLocaleCode(String code) async {
     if (_preferences != null) {
@@ -194,9 +195,49 @@ class LocalStorage {
 
   void deleteLoginData() => _preferences?.remove(AppConstants.keyLoginData);
 
-  void logout(){
+  Future<void> logout() async {
     deleteLoginData();
     deleteSelectedCurrency();
     deleteToken();
+    deleteKeyAccess();
+    deleteCookieAccess();
+    final cookieManager = WebviewCookieManager();
+    cookieManager.clearCookies();
   }
+
+  Future<void> setKeyAccess(String keyAccess) async {
+    if (_preferences != null) {
+      _preferences!.setString("pas_key_access", keyAccess);
+    }
+  }
+
+  String getKeyAccess() => _preferences?.getString("pas_key_access") ?? '';
+
+  Future<void> setCookieAccess(String cookie) async {
+    if (_preferences != null) {
+      _preferences!.setString("google_cookie_access", cookie);
+    }
+  }
+
+  String getCookieAccess() =>
+      _preferences?.getString("google_cookie_access") ?? '';
+
+  Future<void> setShareMode(bool selected) async {
+    if (_preferences != null) {
+      await _preferences!.setBool("share_mode", selected);
+    }
+  }
+
+  String getFileShareId() => _preferences?.getString("file_share_id") ?? '';
+
+  Future<void> setFileShareId(String fileShareId) async {
+    if (_preferences != null) {
+      _preferences!.setString("file_share_id", fileShareId);
+    }
+  }
+
+  bool getShareMode() => _preferences?.getBool("share_mode") ?? false;
+
+  void deleteKeyAccess() => _preferences?.remove("pas_key_access");
+  void deleteCookieAccess() => _preferences?.remove("google_cookie_access");
 }

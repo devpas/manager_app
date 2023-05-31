@@ -1,24 +1,30 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:g_manager_app/src/core/constants/app_constants.dart';
+import 'package:g_manager_app/src/core/utils/local_storage.dart';
 
 import '../../../src/core/di/injection.dart';
 import '../../../src/core/handlers/handlers.dart';
 import '../../../modify/models/models.dart';
 import '../base_repository.dart';
-import 'dart:developer';
 
 class BaseRepositoryImpl extends BaseRepository {
   Map<String, String> headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
-    "Cookie": AppConstants.cookieDev
+    "Cookie": ""
   };
   @override
   Future<ApiResult<BaseResponse>> getListBase() async {
-    final data = {"query_param": []};
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    final data = {
+      "key_access": LocalStorage.instance.getKeyAccess(),
+      "query_param": []
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["file_share_id"] = LocalStorage.instance.getFileShareId();
+    }
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
       '?api=base/getList',
@@ -57,7 +63,13 @@ class BaseRepositoryImpl extends BaseRepository {
 
   @override
   Future<dynamic> checkDataFolder() async {
-    final data = {};
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    final data = {
+      "key_access": LocalStorage.instance.getKeyAccess(),
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["file_share_id"] = LocalStorage.instance.getFileShareId();
+    }
     var dataJson = {};
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
@@ -71,7 +83,7 @@ class BaseRepositoryImpl extends BaseRepository {
             return status! < 500;
           }),
     );
-
+    log(response.toString());
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);
@@ -90,14 +102,18 @@ class BaseRepositoryImpl extends BaseRepository {
       dataJson = json.decode(response.toString());
     }
 
-    print(dataJson);
-
     return dataJson;
   }
 
   @override
   Future<dynamic> createDataFolder() async {
-    final data = {};
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    final data = {
+      "key_access": LocalStorage.instance.getKeyAccess(),
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["file_share_id"] = LocalStorage.instance.getFileShareId();
+    }
     var dataJson = {};
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(

@@ -1,29 +1,33 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:g_manager_app/src/core/constants/app_constants.dart';
+import 'package:g_manager_app/src/core/utils/local_storage.dart';
 
 import '../../../src/core/di/injection.dart';
 import '../../../src/core/handlers/handlers.dart';
 import '../../../modify/models/models.dart';
 import '../tickets_repository.dart';
-import 'dart:developer';
 
 class TicketsRepositoryImpl extends TicketsRepository {
   Map<String, String> headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
-    "Cookie": AppConstants.cookieDev
+    "Cookie": ""
   };
 
   @override
   Future<dynamic> createTicket(ticket) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     var ticketJson = ticket.toJson();
-    var dataJson;
+    print(ticketJson);
+    var dataJson = {};
     final data = {
-      "data": {"ticket_data_normalization": ticketJson}
+      "key_access": LocalStorage.instance.getKeyAccess(),
+      "data": {"ticket_data": ticketJson}
     };
+    if (LocalStorage.instance.getShareMode()) {
+      data["file_share_id"] = LocalStorage.instance.getFileShareId();
+    }
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
       '?api=ticket/createTicket',
@@ -55,7 +59,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
       dataJson = json.decode(response.toString());
     }
 
-    print("end:" + DateTime.now().toString());
+    print(dataJson);
 
     return dataJson;
   }

@@ -33,12 +33,7 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
     );
     _scrollController = ScrollController();
     _scrollController.addListener(
-      () {
-        if (_scrollController.position.maxScrollExtent ==
-            _scrollController.position.pixels) {
-          ref.read(productsProvider.notifier).fetchProducts();
-        }
-      },
+      () {},
     );
   }
 

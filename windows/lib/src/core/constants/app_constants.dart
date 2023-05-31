@@ -24,15 +24,15 @@ class AppConstants {
   static const String emptyString = '';
 
   /// api urls
-  // static const String baseUrl = 'https://api.goshops.org';
-  // static const String imageBaseUrl = 'https://api.goshops.org/storage/images';
+  static const String baseUrl = 'https://api.goshops.org';
+  static const String imageBaseUrl = 'https://api.goshops.org/storage/images';
 
   /// api urls
-  static const String baseUrl = 'http://10.0.2.2:8000';
-  static const String imageBaseUrl = 'http://10.0.2.2:8000';
+  // static const String baseUrl = 'http://10.0.2.2:8000';
+  // static const String imageBaseUrl = 'http://10.0.2.2:8000';
 
   static const String baseUrlAppscript =
-      'https://script.google.com/macros/s/AKfycbwmjvjNT0jwZlqMY2AjhXIn27HuvncGId4enXVsHLLBtmZ7X2lnsLOWQQF9ylc3mgsl/exec';
+      'https://script.google.com/macros/s/AKfycbyd2HeYFMsx5Iy-xVoNRZcXQRDtA26pIjdDttm-byaS0hSXVwBce_sBMgJFoAPO61uD/exec';
 
   static const cookieDev =
       "__Secure-1PSID=XAgvZtgrprRbD_Q4fwyNuVSjKa0pDdy5pJblcK_N4qxeq7g5A1hxXFcEep5skzM1mhdctQ.;";
@@ -42,6 +42,8 @@ class AppConstants {
 
   /// app based constants
   static const String appName = 'GMarket';
+
+  void test() {}
 }
 
 enum ShopStatus { newShop, edited, approved, rejected }

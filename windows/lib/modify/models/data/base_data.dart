@@ -6,6 +6,7 @@ class BaseData {
     String? keyAccess,
     dynamic publicInfomation,
     String? status,
+    String? fileShareId,
     List<String>? areaAccess,
     List<dynamic>? listRole,
     List<BaseData>? children,
@@ -15,6 +16,7 @@ class BaseData {
     _email = email;
     _keyAccess = keyAccess;
     _areaAccess = areaAccess;
+    _fileShareId = fileShareId;
     _listRole = listRole;
     _publicInfomation = publicInfomation;
     _children = children;
@@ -27,6 +29,7 @@ class BaseData {
     _keyAccess = json['key_access'];
     _publicInfomation = json["public_infomation"];
     _status = json["status"];
+    _fileShareId = json["file_share_id"];
     if (json['area_access'] != null) {
       _areaAccess = [];
       json['area_access'].forEach((v) {
@@ -54,6 +57,7 @@ class BaseData {
   String? _keyAccess;
   dynamic _publicInfomation;
   String? _status;
+  String? _fileShareId;
   List<String>? _areaAccess;
   List<dynamic>? _listRole;
   List<BaseData>? _children;
@@ -65,6 +69,7 @@ class BaseData {
     String? keyAccess,
     dynamic publicInfomation,
     String? status,
+    String? fileShareId,
     List<String>? areaAccess,
     List<String>? listRole,
     List<BaseData>? children,
@@ -76,6 +81,7 @@ class BaseData {
         keyAccess: keyAccess ?? _keyAccess,
         publicInfomation: publicInfomation ?? _publicInfomation,
         status: status ?? _status,
+        fileShareId: fileShareId ?? _fileShareId,
         areaAccess: areaAccess ?? areaAccess,
         listRole: listRole ?? _listRole,
         children: children ?? _children,
@@ -93,6 +99,8 @@ class BaseData {
 
   String? get status => _status;
 
+  String? get fileShareId => _fileShareId;
+
   List<String>? get areaAccess => _areaAccess;
 
   List<dynamic>? get listRole => _listRole;
@@ -107,6 +115,7 @@ class BaseData {
     map['keyAccess'] = _keyAccess;
     map['public_infomation'] = _publicInfomation;
     map['status'] = _status;
+    map['file_share_id'] = _fileShareId;
     map['areaAccess'] = _areaAccess;
     map['role'] = _listRole;
     if (_children != null) {
