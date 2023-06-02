@@ -8,16 +8,16 @@ import '../../../../../../src/core/utils/utils.dart';
 import '../../../../../../src/riverpod/providers/providers.dart';
 import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
-import 'wallet_history_item.dart';
+import 'sub_page/wallet_history_item.dart';
 
-class UserWalletBody extends ConsumerStatefulWidget {
-  const UserWalletBody({Key? key}) : super(key: key);
+class ListOption extends ConsumerStatefulWidget {
+  const ListOption({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<UserWalletBody> createState() => _UserWalletBodyState();
+  ConsumerState<ListOption> createState() => _ListOptionState();
 }
 
-class _UserWalletBodyState extends ConsumerState<UserWalletBody> {
+class _ListOptionState extends ConsumerState<ListOption> {
   @override
   void initState() {
     super.initState();
@@ -63,7 +63,7 @@ class _UserWalletBodyState extends ConsumerState<UserWalletBody> {
                 shrinkWrap: true,
                 physics: const CustomBouncingScrollPhysics(),
                 itemBuilder: (context, index) =>
-                    WalletHistoryItem(wallet: state.walletHistories[index]),
+                    ListOptionItem(wallet: state.walletHistories[index]),
               );
   }
 }

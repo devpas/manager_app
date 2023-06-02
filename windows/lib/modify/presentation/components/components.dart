@@ -74,3 +74,6 @@ export 'buttons/select_with_search_pos_button.dart';
 export 'buttons/accent_button_modify_height_width.dart';
 export 'dashboard_item_base.dart';
 export 'appbar_actions/base_actions.dart';
+export 'list_items/base_type_item.dart';
+export 'list_items/block_item.dart';
+export 'list_items/user_role_item_pas.dart';

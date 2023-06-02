@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'pos_bag_state.dart';
 
@@ -436,6 +436,7 @@ class _$_PosBagState extends _PosBagState {
   @override
   @JsonKey()
   List<UserData> get users {
+    if (_users is EqualUnmodifiableListView) return _users;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_users);
   }
@@ -444,6 +445,7 @@ class _$_PosBagState extends _PosBagState {
   @override
   @JsonKey()
   List<AddressData> get userAddresses {
+    if (_userAddresses is EqualUnmodifiableListView) return _userAddresses;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_userAddresses);
   }
@@ -452,6 +454,7 @@ class _$_PosBagState extends _PosBagState {
   @override
   @JsonKey()
   List<CurrencyData> get currencies {
+    if (_currencies is EqualUnmodifiableListView) return _currencies;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_currencies);
   }
@@ -460,6 +463,7 @@ class _$_PosBagState extends _PosBagState {
   @override
   @JsonKey()
   List<PaymentData> get payments {
+    if (_payments is EqualUnmodifiableListView) return _payments;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_payments);
   }
@@ -468,6 +472,8 @@ class _$_PosBagState extends _PosBagState {
   @override
   @JsonKey()
   List<ShopDeliveryInfo> get shopsDeliverInfo {
+    if (_shopsDeliverInfo is EqualUnmodifiableListView)
+      return _shopsDeliverInfo;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_shopsDeliverInfo);
   }

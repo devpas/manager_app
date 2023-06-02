@@ -27,7 +27,6 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(productsProvider.notifier).updateProducts();
         ref.read(baseProvider.notifier).fetchListBase();
       },
     );

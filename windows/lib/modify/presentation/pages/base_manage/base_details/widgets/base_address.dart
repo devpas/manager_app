@@ -5,14 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../src/core/constants/constants.dart';
 import '../../../../../../src/core/utils/utils.dart';
 import '../../../../../../src/models/models.dart';
-import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
 import 'base_address_item.dart';
 
-class UserAddressesBody extends StatelessWidget {
+class BaseAddressBody extends StatelessWidget {
   final UserData? userData;
 
-  const UserAddressesBody({Key? key, required this.userData}) : super(key: key);
+  const BaseAddressBody({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +27,6 @@ class UserAddressesBody extends StatelessWidget {
               ),
             ),
           )
-        : ListView.builder(
-            itemCount: userData?.addresses?.length,
-            shrinkWrap: true,
-            padding: REdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            physics: const CustomBouncingScrollPhysics(),
-            itemBuilder: (context, index) =>
-                BaseAddressItem(address: userData?.addresses?[index]),
-          );
+        : BaseAddressItem(address: userData?.addresses?[0]);
   }
 }

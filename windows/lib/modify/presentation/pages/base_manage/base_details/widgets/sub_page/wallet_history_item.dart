@@ -3,15 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../../src/core/constants/constants.dart';
-import '../../../../../../src/core/utils/utils.dart';
-import '../../../../../../src/models/models.dart';
-import '../../../../theme/theme.dart';
+import '../../../../../../../src/core/constants/constants.dart';
+import '../../../../../../../src/core/utils/utils.dart';
+import '../../../../../../../src/models/models.dart';
+import '../../../../../theme/theme.dart';
 
-class WalletHistoryItem extends StatelessWidget {
+class ListOptionItem extends StatelessWidget {
   final WalletData wallet;
 
-  const WalletHistoryItem({Key? key, required this.wallet}) : super(key: key);
+  const ListOptionItem({Key? key, required this.wallet}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

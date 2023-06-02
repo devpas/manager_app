@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/src/core/routes/app_router.gr.dart';
 
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/utils/utils.dart';
 import '../../../../../src/riverpod/providers/providers.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
-import 'widgets/user_addresses_body.dart';
+import 'widgets/base_address.dart';
 import 'widgets/base_details_body.dart';
-import 'widgets/user_orders_body.dart';
-import 'widgets/user_wallet_body.dart';
+import 'widgets/base_list_employee.dart';
+import 'widgets/list_option.dart';
 
 class BaseDetailsPage extends ConsumerStatefulWidget {
   final String? uuid;
@@ -114,9 +115,9 @@ class _EditUserPageState extends ConsumerState<BaseDetailsPage>
                   physics: const CustomBouncingScrollPhysics(),
                   children: [
                     BaseDetailsBody(from: widget.from),
-                    UserAddressesBody(userData: state.userData),
-                    const UserOrdersBody(),
-                    const UserWalletBody(),
+                    BaseAddressBody(userData: state.userData),
+                    const BaseListEmployee(),
+                    const ListOption(),
                   ],
                 ),
               ),

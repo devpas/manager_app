@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../../src/core/constants/constants.dart';
-import '../../../../../../src/core/utils/utils.dart';
 import '../../../../../../src/models/models.dart';
 import '../../../../theme/theme.dart';
 
@@ -56,9 +55,9 @@ class BaseAddressItem extends StatelessWidget {
                       alignment: Alignment.center,
                       padding: REdgeInsets.symmetric(horizontal: 12),
                       child: Text(
-                        'Id - #${address?.id}',
+                        '${address?.address}',
                         style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           letterSpacing: 0.4,
                           fontSize: 12.sp,
                           color: AppColors.black,
@@ -81,7 +80,7 @@ class BaseAddressItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppHelpers.getTranslation(TrKeys.address),
+                      "Cập nhật địa điểm",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.4,
@@ -90,15 +89,10 @@ class BaseAddressItem extends StatelessWidget {
                       ),
                     ),
                     6.verticalSpace,
-                    Text(
-                      '${address?.address}',
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.4,
-                        fontSize: 12.sp,
-                        color: AppColors.black,
-                      ),
-                    ),
+                    IconButton(
+                      icon: const Icon(FlutterRemix.search_2_line),
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),

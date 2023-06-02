@@ -4,25 +4,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../../src/core/constants/constants.dart';
-import '../../../../../../src/core/utils/utils.dart';
-import '../../../../../../src/riverpod/providers/providers.dart';
-import '../../../../components/components.dart';
-import '../../../../theme/theme.dart';
+import '../../../../../../../src/core/constants/constants.dart';
+import '../../../../../../../src/core/utils/utils.dart';
+import '../../../../../../../src/riverpod/providers/providers.dart';
+import '../../../../../components/components.dart';
+import '../../../../../theme/theme.dart';
 
-class UserRolesModalInEditUser extends ConsumerStatefulWidget {
+class UserRolesModalInEditUserPas extends ConsumerStatefulWidget {
   final UserRole userRole;
 
-  const UserRolesModalInEditUser({Key? key, required this.userRole})
+  const UserRolesModalInEditUserPas({Key? key, required this.userRole})
       : super(key: key);
 
   @override
-  ConsumerState<UserRolesModalInEditUser> createState() =>
-      _UserRolesModalInEditUserState();
+  ConsumerState<UserRolesModalInEditUserPas> createState() =>
+      _UserRolesModalInEditUserPasState();
 }
 
-class _UserRolesModalInEditUserState
-    extends ConsumerState<UserRolesModalInEditUser> {
+class _UserRolesModalInEditUserPasState
+    extends ConsumerState<UserRolesModalInEditUserPas> {
   @override
   void initState() {
     super.initState();
@@ -58,23 +58,23 @@ class _UserRolesModalInEditUserState
                 ),
               ),
               20.verticalSpace,
-              UserRoleItem(
-                userRole: UserRole.admin,
+              UserRoleItemPas(
+                roleName: "Quản trị viên",
                 onTap: () => notifier.setUserRole(UserRole.admin),
                 isSelected: state.activeRole == UserRole.admin,
               ),
-              UserRoleItem(
-                userRole: UserRole.seller,
+              UserRoleItemPas(
+                roleName: "Quản lý",
                 onTap: () => notifier.setUserRole(UserRole.seller),
                 isSelected: state.activeRole == UserRole.seller,
               ),
-              UserRoleItem(
-                userRole: UserRole.deliveryman,
+              UserRoleItemPas(
+                roleName: "Nhân viên bán hàng",
                 onTap: () => notifier.setUserRole(UserRole.deliveryman),
                 isSelected: state.activeRole == UserRole.deliveryman,
               ),
-              UserRoleItem(
-                userRole: UserRole.manager,
+              UserRoleItemPas(
+                roleName: "Nhân viên giao hàng",
                 onTap: () => notifier.setUserRole(UserRole.manager),
                 isSelected: state.activeRole == UserRole.manager,
               ),

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'pos_system_state.dart';
 
@@ -360,6 +360,7 @@ class _$_PosSystemState extends _PosSystemState {
   @override
   @JsonKey()
   List<ProductData> get products {
+    if (_products is EqualUnmodifiableListView) return _products;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_products);
   }
@@ -368,6 +369,7 @@ class _$_PosSystemState extends _PosSystemState {
   @override
   @JsonKey()
   List<CategoryData> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_categories);
   }
@@ -376,6 +378,7 @@ class _$_PosSystemState extends _PosSystemState {
   @override
   @JsonKey()
   List<BrandData> get brands {
+    if (_brands is EqualUnmodifiableListView) return _brands;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_brands);
   }
@@ -384,6 +387,7 @@ class _$_PosSystemState extends _PosSystemState {
   @override
   @JsonKey()
   List<ShopData> get shops {
+    if (_shops is EqualUnmodifiableListView) return _shops;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_shops);
   }
@@ -392,6 +396,7 @@ class _$_PosSystemState extends _PosSystemState {
   @override
   @JsonKey()
   List<PosSystemBagData> get bags {
+    if (_bags is EqualUnmodifiableListView) return _bags;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_bags);
   }

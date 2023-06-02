@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'pos_system_state.dart';
 
@@ -305,6 +305,7 @@ class _$_PosSystemState extends _PosSystemState {
   List<TicketData>? get listTicket {
     final value = _listTicket;
     if (value == null) return null;
+    if (_listTicket is EqualUnmodifiableListView) return _listTicket;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -314,6 +315,7 @@ class _$_PosSystemState extends _PosSystemState {
   List<List<dynamic>>? get customerPos {
     final value = _customerPos;
     if (value == null) return null;
+    if (_customerPos is EqualUnmodifiableListView) return _customerPos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -323,6 +325,7 @@ class _$_PosSystemState extends _PosSystemState {
   List<List<dynamic>>? get unitPos {
     final value = _unitPos;
     if (value == null) return null;
+    if (_unitPos is EqualUnmodifiableListView) return _unitPos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -332,6 +335,7 @@ class _$_PosSystemState extends _PosSystemState {
   List<List<dynamic>>? get paymentPos {
     final value = _paymentPos;
     if (value == null) return null;
+    if (_paymentPos is EqualUnmodifiableListView) return _paymentPos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -342,6 +346,7 @@ class _$_PosSystemState extends _PosSystemState {
   List<CategoryPasData>? get categories {
     final value = _categories;
     if (value == null) return null;
+    if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -352,6 +357,7 @@ class _$_PosSystemState extends _PosSystemState {
   List<List<dynamic>>? get infoSelected {
     final value = _infoSelected;
     if (value == null) return null;
+    if (_infoSelected is EqualUnmodifiableListView) return _infoSelected;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }

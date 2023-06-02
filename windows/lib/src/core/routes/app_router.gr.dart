@@ -290,6 +290,15 @@ class AppRouter extends _i3.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    AddEmployeeRoute.name: (routeData) {
+      return _i3.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AddEmployeePage(),
+        customRouteBuilder: _i5.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     SignInWebviewRoute.name: (routeData) {
       final args = routeData.argsAs<SignInWebviewRouteArgs>(
           orElse: () => const SignInWebviewRouteArgs());
@@ -483,6 +492,10 @@ class AppRouter extends _i3.RootStackRouter {
         _i3.RouteConfig(
           BaseDetailsRoute.name,
           path: '/base-details',
+        ),
+        _i3.RouteConfig(
+          AddEmployeeRoute.name,
+          path: '/add-employee',
         ),
         _i3.RouteConfig(
           SignInWebviewRoute.name,
@@ -1050,6 +1063,18 @@ class BaseDetailsRouteArgs {
   String toString() {
     return 'BaseDetailsRouteArgs{key: $key, uuid: $uuid, title: $title, from: $from}';
   }
+}
+
+/// generated route for
+/// [_i1.AddEmployeePage]
+class AddEmployeeRoute extends _i3.PageRouteInfo<void> {
+  const AddEmployeeRoute()
+      : super(
+          AddEmployeeRoute.name,
+          path: '/add-employee',
+        );
+
+  static const String name = 'AddEmployeeRoute';
 }
 
 /// generated route for

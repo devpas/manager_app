@@ -19,7 +19,7 @@ dependencies:
   photo_view: ^0.14.0
   collection: ^1.16.0
   flutter_svg: ^1.1.5
-  google_fonts: ^3.0.1
+  google_fonts: 
   image_picker: ^0.8.6
   flutter_remix: ^0.0.3
   flutter_riverpod: ^2.0.2
@@ -29,7 +29,7 @@ dependencies:
   flutter_screenutil: ^5.5.4
   shared_preferences: ^2.0.15
   google_maps_flutter: ^2.2.1
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.2.3
   syncfusion_flutter_charts: ^20.3.49
   flutter_keyboard_visibility: ^5.4.1
   webview_flutter: ^3.0.4

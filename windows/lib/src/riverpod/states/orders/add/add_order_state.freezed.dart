@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'add_order_state.dart';
 
@@ -735,6 +735,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<UserData> get users {
+    if (_users is EqualUnmodifiableListView) return _users;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_users);
   }
@@ -743,6 +744,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<AddressData> get userAddresses {
+    if (_userAddresses is EqualUnmodifiableListView) return _userAddresses;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_userAddresses);
   }
@@ -751,6 +753,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<CurrencyData> get currencies {
+    if (_currencies is EqualUnmodifiableListView) return _currencies;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_currencies);
   }
@@ -759,6 +762,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<PaymentData> get payments {
+    if (_payments is EqualUnmodifiableListView) return _payments;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_payments);
   }
@@ -767,6 +771,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<ShopData> get shops {
+    if (_shops is EqualUnmodifiableListView) return _shops;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_shops);
   }
@@ -775,6 +780,8 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<ProductData> get searchedProducts {
+    if (_searchedProducts is EqualUnmodifiableListView)
+      return _searchedProducts;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_searchedProducts);
   }
@@ -783,6 +790,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<CategoryData> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_categories);
   }
@@ -791,6 +799,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<BrandData> get brands {
+    if (_brands is EqualUnmodifiableListView) return _brands;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_brands);
   }
@@ -799,6 +808,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<OrderShopData> get orderShops {
+    if (_orderShops is EqualUnmodifiableListView) return _orderShops;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_orderShops);
   }
@@ -807,6 +817,7 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<OrderCartProductData> get orderProducts {
+    if (_orderProducts is EqualUnmodifiableListView) return _orderProducts;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_orderProducts);
   }
@@ -815,6 +826,8 @@ class _$_AddOrderState extends _AddOrderState {
   @override
   @JsonKey()
   List<ShopDeliveryInfo> get shopsDeliverInfo {
+    if (_shopsDeliverInfo is EqualUnmodifiableListView)
+      return _shopsDeliverInfo;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_shopsDeliverInfo);
   }

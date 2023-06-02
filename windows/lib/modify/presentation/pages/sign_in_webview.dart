@@ -100,10 +100,10 @@ class SignInWebviewPage extends ConsumerWidget {
                     }
                   },
                 )
-              : Center(
+              : const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       CircularProgressIndicator(),
                       Text("response here"),
                     ],
