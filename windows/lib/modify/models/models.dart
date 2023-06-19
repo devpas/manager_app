@@ -15,3 +15,6 @@ export 'response/tickets_response.dart';
 export 'data/base_data.dart';
 export 'response/single_base_response.dart';
 export 'response/base_response.dart';
+export 'data/employee_data.dart';
+export 'response/employee_response.dart';
+export 'data/role_block_data.dart';

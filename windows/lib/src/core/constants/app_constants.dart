@@ -32,7 +32,7 @@ class AppConstants {
   // static const String imageBaseUrl = 'http://10.0.2.2:8000';
 
   static const String baseUrlAppscript =
-      'https://script.google.com/macros/s/AKfycbyd2HeYFMsx5Iy-xVoNRZcXQRDtA26pIjdDttm-byaS0hSXVwBce_sBMgJFoAPO61uD/exec';
+      'https://script.google.com/macros/s/AKfycbwBFeT0LUiVsdYHspd8gV95GweilFDIRrGr6kh0o2k/dev';
 
   static const cookieDev =
       "__Secure-1PSID=XAgvZtgrprRbD_Q4fwyNuVSjKa0pDdy5pJblcK_N4qxeq7g5A1hxXFcEep5skzM1mhdctQ.;";

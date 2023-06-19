@@ -31,12 +31,16 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
       }
     }
 
+    print("asdsad");
+
+    print(listParam);
+
     final data = {
-      "key_access": LocalStorage.instance.getKeyAccess(),
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
       "query_param": listParam
     };
     if (LocalStorage.instance.getShareMode()) {
-      data["file_share_id"] = LocalStorage.instance.getFileShareId();
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
     }
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
@@ -63,7 +67,6 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
               return status! < 500;
             }),
       );
-      print(response2);
       return ApiResult.success(
         data: ProductsPasResponse.fromJson(response2.data),
       );

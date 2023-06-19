@@ -53,6 +53,34 @@ class LoginNotifier extends StateNotifier<LoginState> {
     );
   }
 
+  Future<void> loginAdminSilent({
+    VoidCallback? checkYourNetwork,
+    VoidCallback? errorOccurred,
+    VoidCallback? goToMain,
+  }) async {
+    state = state.copyWith(isLoading: true);
+    final response = await _authRepository.login(
+      email: "admin@gmail.com",
+      password: "admin123",
+    );
+    response.when(
+      success: (data) async {
+        state = state.copyWith(isLoading: false);
+        LocalStorage.instance.setToken(data.loginData?.accessToken ?? '');
+        LocalStorage.instance.setLoginData(data.loginData);
+        fetchCurrencies(
+          checkYourNetworkConnection: checkYourNetwork,
+          goToMain: goToMain,
+          fetchCurrenciesError: errorOccurred,
+        );
+      },
+      failure: (activeFailure) {
+        state = state.copyWith(isLoading: false);
+        debugPrint('==> login failure: $activeFailure');
+      },
+    );
+  }
+
   Future<void> fetchCurrencies({
     VoidCallback? checkYourNetworkConnection,
     VoidCallback? goToMain,

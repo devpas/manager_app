@@ -1,6 +1,13 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:g_manager_app/src/core/utils/local_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:restart_app/restart_app.dart';
 
 import '../../../../modify/repository/base_repository.dart';
 import '../../../../src/core/handlers/handlers.dart';
@@ -23,7 +30,6 @@ class BaseNotifier extends StateNotifier<BaseState> {
     final response = await _baseRepository.getListBase();
     response.when(
       success: (data) async {
-        print(data);
         state = state.copyWith(base: data.base);
         listBase = data.base!;
         state = state.copyWith(baseLoading: false);
@@ -62,9 +68,19 @@ class BaseNotifier extends StateNotifier<BaseState> {
             msgBase:
                 "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không");
       } else {
-        state = state.copyWith(createDataRequest: false);
-        LocalStorage.instance.setKeyAccess(response["data"]["key_access"]);
-        print(LocalStorage.instance.getKeyAccess());
+        if (LocalStorage.instance.getShareMode()) {
+          state = state.copyWith(
+              createDataRequest: false,
+              baseInfomation:
+                  jsonDecode(LocalStorage.instance.getBaseInfomation()));
+          print(state.baseInfomation);
+        } else {
+          state = state.copyWith(
+              createDataRequest: false,
+              baseInfomation: response["data"]["base_infomation"]);
+        }
+
+        LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
       }
     } else {
       print("no connection");
@@ -81,8 +97,11 @@ class BaseNotifier extends StateNotifier<BaseState> {
           response["data"]["key_access"] != "not found") {
         state = state.copyWith(msgBase: "dữ liệu mới đã được tạo thành công");
         Future.delayed(const Duration(milliseconds: 300), () {
-          state = state.copyWith(createDataRequest: false);
-          LocalStorage.instance.setKeyAccess(response["data"]["key_access"]);
+          state = state.copyWith(
+              createDataRequest: false,
+              baseInfomation: response["data"]["base_infomation"]);
+          LocalStorage.instance
+              .setKeyAccessOwner(response["data"]["key_access"]);
         });
       } else {
         state = state.copyWith(msgBase: "quá trình tạo dữ liệu đã xã ra lỗi");
@@ -90,5 +109,275 @@ class BaseNotifier extends StateNotifier<BaseState> {
     } else {
       state = state.copyWith(msgBase: "không thể kết nối tới Server");
     }
+  }
+
+  Future<void> addEmployee(String name, String email, String phone) async {
+    print("$name , $email , $phone");
+    if (name == "" || email == "" || phone == "") {
+      state = state.copyWith(noteAddEmployee: "Xin nhập đầy đủ thông tin");
+    } else {
+      var dataEmployee = {
+        "name": name,
+        "email": email,
+        "phone": "'$phone",
+        "role-block": [
+          {
+            "block": state.blockSelected,
+            "role": state.roleNameSelected,
+            "code": state.roleCodeSelected
+          }
+        ],
+      };
+      print(dataEmployee);
+      state = state.copyWith(noteAddEmployee: "");
+      final connected = await AppConnectivity.connectivity();
+      if (connected) {
+        state = state.copyWith(employeesLoading: true);
+        final response = await _baseRepository.addEmployee(dataEmployee);
+        if (response["msg"] == "add employee successful") {
+          print("success");
+        } else {
+          print(response);
+        }
+        getListEmployee();
+      } else {
+        state = state.copyWith(msgBase: "không thể kết nối tới Server");
+      }
+    }
+  }
+
+  Future<void> updateEmployee(String name, String email, String phone) async {
+    var dataEmployee = {
+      "name": name,
+      "email": email,
+      "phone": "'$phone",
+      "role-block": [
+        {
+          "block": state.blockSelected,
+          "role": state.roleNameSelected,
+          "code": state.roleCodeSelected
+        }
+      ],
+    };
+    final connected = await AppConnectivity.connectivity();
+    if (connected) {
+      state = state.copyWith(employeesLoading: true);
+      final response = await _baseRepository.updateEmployee(dataEmployee);
+      if (response["msg"] == "update employee successful") {
+      } else {}
+      getListEmployee();
+    } else {
+      state = state.copyWith(msgBase: "không thể kết nối tới Server");
+    }
+  }
+
+  Future<void> deleteEmployee(String email) async {
+    final connected = await AppConnectivity.connectivity();
+    if (connected) {
+      state = state.copyWith(employeesLoading: true);
+      final response = await _baseRepository.deleteEmployee(email);
+      if (response["msg"] == "delete employee successful") {
+        state = state.copyWith(employeesLoading: false);
+      } else {
+        state = state.copyWith(employeesLoading: false);
+      }
+      getListEmployee();
+    } else {
+      state = state.copyWith(msgBase: "không thể kết nối tới Server");
+    }
+  }
+
+  Future<void> getListEmployee() async {
+    state = state.copyWith(employeesLoading: true);
+    final response = await _baseRepository.getListEmplyees();
+    response.when(
+      success: (data) async {
+        state = state.copyWith(employees: data.employee);
+        state = state.copyWith(employeesLoading: false);
+      },
+      failure: (failure) {
+        if (failure == const NetworkExceptions.unauthorisedRequest()) {
+          debugPrint('==> get brands failure: $failure');
+        }
+        state = state.copyWith(baseLoading: false);
+      },
+    );
+  }
+
+  void switchBase(BaseData base) {
+    LocalStorage.instance.setShareMode(true);
+    LocalStorage.instance.setKeyAccessShare(base.keyAccess!);
+    setAccessRoleBlock(base.listRoleBlock!);
+    var baseInfomation = {
+      "base_name": base.baseName,
+      "owner_name": base.ownerName,
+      "email": base.email,
+      "phone": base.phone,
+      "address": base.address,
+      "base_type": base.baseType
+    };
+    LocalStorage.instance.setBaseInfomation(jsonEncode(baseInfomation));
+    state = state.copyWith(baseInfomation: baseInfomation);
+    Restart.restartApp();
+  }
+
+  void updateRoleCodeSelected(String roleCode) {
+    state = state.copyWith(
+        roleCodeSelected: roleCode, roleNameSelected: getRoleName(roleCode));
+  }
+
+  String getRoleName(String? roleCode) {
+    String roleName = "";
+    if (roleCode == "pos-admin") {
+      roleName = "Quản trị viên";
+    } else if (roleCode == "pos-manager") {
+      roleName = "Quản lý";
+    } else if (roleCode == "pos-seller") {
+      roleName = "Nhân viên bán hàng";
+    } else if (roleCode == "pos-deliveryman") {
+      roleName = "Nhân viên giao hàng";
+    }
+    return roleName;
+  }
+
+  Future<List<dynamic>> getDataRoleBlock() async {
+    final connected = await AppConnectivity.connectivity();
+    var dataRoleBlock = [];
+    if (connected) {
+      final response = await _baseRepository.checkAccessBlock();
+
+      if (response["data"]["msg"] == "data retrieved successful") {
+        dataRoleBlock = response["data"]["role-block"];
+      } else {
+        print("failed");
+      }
+    } else {
+      print("no connection");
+    }
+    return dataRoleBlock;
+  }
+
+  void setAccessRoleBlock(List<RoleBlockData> listRoleBlock) {
+    var roleBlock = getDataRoleBlock();
+    var dataSave = [];
+    roleBlock.then((data) {
+      for (int i = 0; i < listRoleBlock.length; i++) {
+        for (int j = 0; j < data.length; j++) {
+          if (data[j]["code"] == listRoleBlock[i].code) {
+            dataSave.add(data[j]["menu"]);
+          }
+        }
+      }
+      LocalStorage.instance.setListRoleShare(jsonEncode(dataSave));
+      checkAccessBlock();
+    });
+  }
+
+  void checkAccessBlock() {
+    if (LocalStorage.instance.getShareMode()) {
+      List<dynamic> listRoleBLock =
+          jsonDecode(LocalStorage.instance.getListRoleShare());
+      for (int i = 0; i < listRoleBLock.length; i++) {
+        if (listRoleBLock[i]["level_1"][0] == "pos-system") {
+          state = state.copyWith(accessPosSystemBlock: true);
+        } else if (listRoleBLock[i]["level_1"][0] == "base-manager") {
+          state = state.copyWith(accessBaseManagerBlock: true);
+        } else if (listRoleBLock[i]["level_1"][0] == "user-setting") {
+          state = state.copyWith(accessUserSettingBlock: true);
+        } else if (listRoleBLock[i]["level_1"][0] == "global-setting") {
+          state = state.copyWith(accessGlobalSettingBlock: true);
+        }
+      }
+    } else {
+      state = state.copyWith(
+          accessPosSystemBlock: true,
+          accessBaseManagerBlock: true,
+          accessGlobalSettingBlock: true,
+          accessUserSettingBlock: true);
+    }
+  }
+
+  bool checkAccessPage(String block, String page) {
+    bool check = false;
+    if (LocalStorage.instance.getShareMode()) {
+      bool checkBlock = false;
+      bool checkPage = false;
+      List<dynamic> listRoleBlock =
+          jsonDecode(LocalStorage.instance.getListRoleShare());
+      for (int i = 0; i < listRoleBlock.length; i++) {
+        List<dynamic> listBlock = listRoleBlock[i]["level_1"];
+        List<dynamic> listPage = listRoleBlock[i]["level_2"];
+        for (int j = 0; j < listBlock.length; j++) {
+          if (listBlock[j] == block) {
+            checkBlock = true;
+          }
+        }
+        for (int j = 0; j < listPage.length; j++) {
+          if (listPage[j] == page) {
+            checkPage = true;
+          }
+        }
+      }
+
+      if (checkBlock && checkPage) {
+        check = true;
+      }
+    } else {
+      check = true;
+    }
+
+    return check;
+  }
+
+  bool checkActiveBase(String key) {
+    bool check = false;
+    if (LocalStorage.instance.getShareMode()) {
+      if (LocalStorage.instance.getKeyAccessShare() == key) {
+        check = true;
+      }
+    } else {
+      if (LocalStorage.instance.getKeyAccessOwner() == key) {
+        check = true;
+      }
+    }
+    return check;
+  }
+
+  void disableShareMode() {
+    LocalStorage.instance.setShareMode(false);
+  }
+
+  bool checkShareMode() {
+    return LocalStorage.instance.getShareMode();
+  }
+
+  List<String> listProfile() {
+    List<String> profileShareMenu = ["Thông tin cá nhân", "Trở về cơ sở chính"];
+    List<String> profileOwnerMenu = ["Thông tin cá nhân", "Đăng xuất"];
+    List<String> listprofileMenu = [];
+    if (checkShareMode()) {
+      listprofileMenu = profileShareMenu;
+    } else {
+      listprofileMenu = profileOwnerMenu;
+    }
+    return listprofileMenu;
+  }
+
+  void actionProfileMenu(String title) {
+    if (title == "Thông tin cá nhân") {
+      print("nhảy vào trang profile");
+    } else if (title == "Trở về cơ sở chính") {
+      disableShareMode();
+      Restart.restartApp();
+    } else if (title == "Đăng xuất") {
+      LocalStorage.instance.logout();
+      Restart.restartApp();
+    }
+  }
+
+  void setImage(XFile? file) {
+    state = state.copyWith(image: file);
+    final bytes = File(file!.path).readAsBytesSync();
+    log(base64Encode(bytes));
   }
 }

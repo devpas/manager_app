@@ -1,45 +1,55 @@
+import 'package:g_manager_app/modify/models/models.dart';
+
 class BaseData {
   BaseData({
     String? baseName,
     String? ownerName,
     String? email,
+    String? phone,
+    String? baseStatus,
+    String? baseType,
+    String? address,
     String? keyAccess,
-    dynamic publicInfomation,
-    String? status,
-    String? fileShareId,
-    List<String>? areaAccess,
-    List<dynamic>? listRole,
+    String? shareStatus,
+    List<dynamic>? properties,
+    List<RoleBlockData>? listRoleBlock,
     List<BaseData>? children,
   }) {
     _baseName = baseName;
     _ownerName = ownerName;
     _email = email;
+    _phone = phone;
+    _baseStatus = baseStatus;
+    _baseType = baseType;
+    _address = address;
     _keyAccess = keyAccess;
-    _areaAccess = areaAccess;
-    _fileShareId = fileShareId;
-    _listRole = listRole;
-    _publicInfomation = publicInfomation;
+    _shareStatus = shareStatus;
+    _properties = properties;
+    _listRoleBlock = listRoleBlock;
     _children = children;
   }
 
   BaseData.fromJson(dynamic json) {
     _baseName = json['base_name'];
-    _ownerName = json['name'];
+    _ownerName = json['owner_name'];
     _email = json['email'];
+    _phone = json['phone'];
+    _baseStatus = json['base_status'];
+    _baseType = json['base_type'];
+    _address = json['address'];
     _keyAccess = json['key_access'];
-    _publicInfomation = json["public_infomation"];
-    _status = json["status"];
-    _fileShareId = json["file_share_id"];
-    if (json['area_access'] != null) {
-      _areaAccess = [];
-      json['area_access'].forEach((v) {
-        _areaAccess?.add(v);
+    _shareStatus = json['share_status'];
+    if (json['properties'] != null) {
+      _properties = [];
+      json['properties'].forEach((v) {
+        _properties?.add(v);
       });
     }
-    if (json['role'] != null) {
-      _listRole = [];
-      json['role'].forEach((v) {
-        _listRole?.add(v);
+
+    if (json['role-block'] != null) {
+      _listRoleBlock = [];
+      json['role-block'].forEach((v) {
+        _listRoleBlock?.add(RoleBlockData.fromJson(v));
       });
     }
 
@@ -54,36 +64,42 @@ class BaseData {
   String? _baseName;
   String? _ownerName;
   String? _email;
+  String? _phone;
+  String? _baseStatus;
+  String? _baseType;
+  String? _address;
   String? _keyAccess;
-  dynamic _publicInfomation;
-  String? _status;
-  String? _fileShareId;
-  List<String>? _areaAccess;
-  List<dynamic>? _listRole;
+  String? _shareStatus;
+  List<dynamic>? _properties;
+  List<RoleBlockData>? _listRoleBlock;
   List<BaseData>? _children;
 
   BaseData copyWith({
     String? baseName,
     String? ownerName,
     String? email,
+    String? phone,
+    String? baseStatus,
+    String? baseType,
+    String? address,
     String? keyAccess,
-    dynamic publicInfomation,
-    String? status,
-    String? fileShareId,
-    List<String>? areaAccess,
-    List<String>? listRole,
+    String? shareStatus,
+    List<dynamic>? properties,
+    List<RoleBlockData>? listRoleBlock,
     List<BaseData>? children,
   }) =>
       BaseData(
         baseName: baseName ?? _baseName,
         ownerName: ownerName ?? _ownerName,
         email: email ?? _email,
+        phone: phone ?? _phone,
+        baseStatus: baseStatus ?? _baseStatus,
+        baseType: baseType ?? _baseType,
+        address: address ?? _address,
         keyAccess: keyAccess ?? _keyAccess,
-        publicInfomation: publicInfomation ?? _publicInfomation,
-        status: status ?? _status,
-        fileShareId: fileShareId ?? _fileShareId,
-        areaAccess: areaAccess ?? areaAccess,
-        listRole: listRole ?? _listRole,
+        shareStatus: shareStatus ?? _shareStatus,
+        properties: properties ?? _properties,
+        listRoleBlock: listRoleBlock ?? _listRoleBlock,
         children: children ?? _children,
       );
 
@@ -93,31 +109,37 @@ class BaseData {
 
   String? get email => _email;
 
+  String? get phone => _phone;
+
+  String? get baseStatus => _baseStatus;
+
+  String? get baseType => _baseType;
+
+  String? get address => _address;
+
   String? get keyAccess => _keyAccess;
 
-  dynamic get publicInfomation => _publicInfomation;
+  String? get shareStatus => _shareStatus;
 
-  String? get status => _status;
+  List<dynamic>? get properties => _properties;
 
-  String? get fileShareId => _fileShareId;
-
-  List<String>? get areaAccess => _areaAccess;
-
-  List<dynamic>? get listRole => _listRole;
+  List<RoleBlockData>? get listRoleBlock => _listRoleBlock;
 
   List<BaseData>? get children => _children;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['baseName'] = _baseName;
-    map['ownerName'] = _ownerName;
+    map['base_name'] = _baseName;
+    map['owner_name'] = _ownerName;
     map['email'] = _email;
-    map['keyAccess'] = _keyAccess;
-    map['public_infomation'] = _publicInfomation;
-    map['status'] = _status;
-    map['file_share_id'] = _fileShareId;
-    map['areaAccess'] = _areaAccess;
-    map['role'] = _listRole;
+    map['phone'] = _phone;
+    map['base_status'] = _baseStatus;
+    map['base_type'] = _baseType;
+    map['address'] = _address;
+    map['key_access'] = _keyAccess;
+    map['share_status'] = _shareStatus;
+    map['properties'] = properties;
+    map['role-block'] = _listRoleBlock;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }

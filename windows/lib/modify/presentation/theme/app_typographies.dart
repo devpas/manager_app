@@ -246,6 +246,18 @@ class AppTypographies {
     fontSize: 11.sp,
   );
 
+  static TextStyle styGreen11W400 = GoogleFonts.inter(
+    fontWeight: FontWeight.w400,
+    color: AppColors.greenMain,
+    fontSize: 11.sp,
+  );
+
+  static TextStyle styOrange11W400 = GoogleFonts.inter(
+    fontWeight: FontWeight.w400,
+    color: Colors.orange,
+    fontSize: 11.sp,
+  );
+
   static TextStyle styBlack11W700 = GoogleFonts.inter(
     fontWeight: FontWeight.w700,
     color: AppColors.black,

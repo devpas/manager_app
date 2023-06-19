@@ -56,7 +56,7 @@ class AreYouSureModalInDrawer extends StatelessWidget {
                     onPressed: () {
                       LocalStorage.instance.logout();
                       context.router.popUntilRoot();
-                      context.replaceRoute(const LoginRoute());
+                      context.replaceRoute(SignInWebviewRoute());
                     },
                     background: AppColors.red,
                   ),

@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
 
+import '../../../modify/models/models.dart' as _i8;
 import '../../../modify/presentation/pages/sign_in_webview.dart' as _i2;
 import '../../models/models.dart' as _i7;
 import '../../presentation/pages/pages.dart' as _i1;
@@ -281,8 +282,7 @@ class AppRouter extends _i3.RootStackRouter {
         routeData: routeData,
         child: _i1.BaseDetailsPage(
           key: args.key,
-          uuid: args.uuid,
-          title: args.title,
+          base: args.base,
           from: args.from,
         ),
         customRouteBuilder: _i5.modalsPageRoute,
@@ -291,9 +291,27 @@ class AppRouter extends _i3.RootStackRouter {
       );
     },
     AddEmployeeRoute.name: (routeData) {
+      final args = routeData.argsAs<AddEmployeeRouteArgs>(
+          orElse: () => const AddEmployeeRouteArgs());
       return _i3.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i1.AddEmployeePage(),
+        child: _i1.AddEmployeePage(
+          key: args.key,
+          uuid: args.uuid,
+        ),
+        customRouteBuilder: _i5.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    EditEmployeeRoute.name: (routeData) {
+      final args = routeData.argsAs<EditEmployeeRouteArgs>();
+      return _i3.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.EditEmployeePage(
+          key: args.key,
+          employee: args.employee,
+        ),
         customRouteBuilder: _i5.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
@@ -496,6 +514,10 @@ class AppRouter extends _i3.RootStackRouter {
         _i3.RouteConfig(
           AddEmployeeRoute.name,
           path: '/add-employee',
+        ),
+        _i3.RouteConfig(
+          EditEmployeeRoute.name,
+          path: '/edit-employee',
         ),
         _i3.RouteConfig(
           SignInWebviewRoute.name,
@@ -1026,16 +1048,14 @@ class BaseManageRoute extends _i3.PageRouteInfo<void> {
 class BaseDetailsRoute extends _i3.PageRouteInfo<BaseDetailsRouteArgs> {
   BaseDetailsRoute({
     _i4.Key? key,
-    String? uuid,
-    required String title,
+    required _i8.BaseData? base,
     required _i6.OpenEditUserFrom from,
   }) : super(
           BaseDetailsRoute.name,
           path: '/base-details',
           args: BaseDetailsRouteArgs(
             key: key,
-            uuid: uuid,
-            title: title,
+            base: base,
             from: from,
           ),
         );
@@ -1046,35 +1066,88 @@ class BaseDetailsRoute extends _i3.PageRouteInfo<BaseDetailsRouteArgs> {
 class BaseDetailsRouteArgs {
   const BaseDetailsRouteArgs({
     this.key,
-    this.uuid,
-    required this.title,
+    required this.base,
     required this.from,
+  });
+
+  final _i4.Key? key;
+
+  final _i8.BaseData? base;
+
+  final _i6.OpenEditUserFrom from;
+
+  @override
+  String toString() {
+    return 'BaseDetailsRouteArgs{key: $key, base: $base, from: $from}';
+  }
+}
+
+/// generated route for
+/// [_i1.AddEmployeePage]
+class AddEmployeeRoute extends _i3.PageRouteInfo<AddEmployeeRouteArgs> {
+  AddEmployeeRoute({
+    _i4.Key? key,
+    String? uuid,
+  }) : super(
+          AddEmployeeRoute.name,
+          path: '/add-employee',
+          args: AddEmployeeRouteArgs(
+            key: key,
+            uuid: uuid,
+          ),
+        );
+
+  static const String name = 'AddEmployeeRoute';
+}
+
+class AddEmployeeRouteArgs {
+  const AddEmployeeRouteArgs({
+    this.key,
+    this.uuid,
   });
 
   final _i4.Key? key;
 
   final String? uuid;
 
-  final String title;
-
-  final _i6.OpenEditUserFrom from;
-
   @override
   String toString() {
-    return 'BaseDetailsRouteArgs{key: $key, uuid: $uuid, title: $title, from: $from}';
+    return 'AddEmployeeRouteArgs{key: $key, uuid: $uuid}';
   }
 }
 
 /// generated route for
-/// [_i1.AddEmployeePage]
-class AddEmployeeRoute extends _i3.PageRouteInfo<void> {
-  const AddEmployeeRoute()
-      : super(
-          AddEmployeeRoute.name,
-          path: '/add-employee',
+/// [_i1.EditEmployeePage]
+class EditEmployeeRoute extends _i3.PageRouteInfo<EditEmployeeRouteArgs> {
+  EditEmployeeRoute({
+    _i4.Key? key,
+    required _i8.EmployeeData? employee,
+  }) : super(
+          EditEmployeeRoute.name,
+          path: '/edit-employee',
+          args: EditEmployeeRouteArgs(
+            key: key,
+            employee: employee,
+          ),
         );
 
-  static const String name = 'AddEmployeeRoute';
+  static const String name = 'EditEmployeeRoute';
+}
+
+class EditEmployeeRouteArgs {
+  const EditEmployeeRouteArgs({
+    this.key,
+    required this.employee,
+  });
+
+  final _i4.Key? key;
+
+  final _i8.EmployeeData? employee;
+
+  @override
+  String toString() {
+    return 'EditEmployeeRouteArgs{key: $key, employee: $employee}';
+  }
 }
 
 /// generated route for

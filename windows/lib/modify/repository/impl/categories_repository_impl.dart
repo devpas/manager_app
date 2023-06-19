@@ -16,11 +16,11 @@ class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
   Future<ApiResult<CategoriesPasResponse>> getCategory(String alias) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     final data = {
-      "key_access": LocalStorage.instance.getKeyAccess(),
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
       "query_param": []
     };
     if (LocalStorage.instance.getShareMode()) {
-      data["file_share_id"] = LocalStorage.instance.getFileShareId();
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
     }
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(

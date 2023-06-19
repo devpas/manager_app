@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
@@ -11,9 +12,7 @@ import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
 
 class BlockModal extends ConsumerStatefulWidget {
-  final UserRole userRole;
-
-  const BlockModal({Key? key, required this.userRole}) : super(key: key);
+  const BlockModal({Key? key}) : super(key: key);
 
   @override
   ConsumerState<BlockModal> createState() => _BlockModalState();
@@ -25,18 +24,15 @@ class _BlockModalState extends ConsumerState<BlockModal> {
     super.initState();
     Future.delayed(
       Duration.zero,
-      () {
-        ref.read(editUserProvider.notifier).setUserRole(widget.userRole);
-      },
+      () {},
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(editUserProvider);
-    final notifier = ref.read(editUserProvider.notifier);
+    final state = ref.watch(baseProvider);
+    final notifier = ref.read(baseProvider.notifier);
     return AbsorbPointer(
-      absorbing: state.isUpdatingRole,
       child: Material(
         color: AppColors.white,
         child: Padding(
@@ -57,7 +53,7 @@ class _BlockModalState extends ConsumerState<BlockModal> {
               20.verticalSpace,
               BlockItem(
                 onTap: () {},
-                isSelected: true,
+                isSelected: state.blockSelected == "pos-system" ? true : false,
               ),
             ],
           ),

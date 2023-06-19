@@ -175,6 +175,11 @@ import 'modals_route.dart';
       page: AddEmployeePage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/edit-employee',
+      page: EditEmployeePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
     AutoRoute(
       path: '/signIn-webview',
       page: SignInWebviewPage,

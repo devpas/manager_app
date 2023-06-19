@@ -4,6 +4,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../src/core/constants/constants.dart';
@@ -11,15 +12,16 @@ import '../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../src/core/utils/utils.dart';
 import '../../../../../src/presentation/components/components.dart';
 import '../../../../../src/presentation/theme/theme.dart';
-import 'are_you_sure_modal_in_drawer.dart';
 import 'drawer_item_widget.dart';
 import 'settings_button.dart';
 
-class WMainDrawer extends ConsumerWidget {
-  const WMainDrawer({Key? key}) : super(key: key);
+class WMainDrawerPos extends ConsumerWidget {
+  const WMainDrawerPos({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(baseProvider);
+    final notifier = ref.read(baseProvider.notifier);
     return Drawer(
       backgroundColor: AppColors.white,
       width: double.infinity,
@@ -152,49 +154,76 @@ class WMainDrawer extends ConsumerWidget {
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               children: [
-                if (LocalStorage.instance.getLoginData()?.user?.role == 'admin')
-                  DrawerItemWidget(
-                    iconData: FlutterRemix.shopping_bag_3_line,
-                    title: AppHelpers.getTranslation(TrKeys.shops),
-                    onTap: () {
-                      context.popRoute();
-                      context.pushRoute(const ShopsRoute());
-                    },
-                  ),
-                DrawerItemWidget(
-                  iconData: FlutterRemix.medal_line,
-                  title: AppHelpers.getTranslation(TrKeys.brands),
-                  onTap: () {
-                    context.popRoute();
-                    context.pushRoute(const BrandsRoute());
-                  },
-                ),
-                DrawerItemWidget(
-                  iconData: FlutterRemix.layout_grid_line,
-                  title: AppHelpers.getTranslation(TrKeys.categories),
-                  onTap: () {
-                    context.popRoute();
-                    context.pushRoute(const CategoriesRoute());
-                  },
-                ),
-                DrawerItemWidget(
-                  iconData: FlutterRemix.shield_user_line,
-                  title: AppHelpers.getTranslation(TrKeys.users),
-                  onTap: () {
-                    context.popRoute();
-                    context.pushRoute(const UsersRoute());
-                  },
-                ),
-                if (LocalStorage.instance.getLoginData()?.user?.role == 'admin')
-                  DrawerItemWidget(
-                    iconData: FlutterRemix.chat_3_line,
-                    title: AppHelpers.getTranslation(TrKeys.reviews),
-                    onTap: () {
-                      context.popRoute();
-                      context.pushRoute(const ReviewsRoute());
-                    },
-                  ),
-                48.verticalSpace,
+                notifier.checkAccessPage("pos-system", "pos-page")
+                    ? DrawerItemWidget(
+                        iconData: FlutterRemix.store_2_line,
+                        title: "Trang bán hàng",
+                        onTap: () {
+                          // context.popRoute();
+                          // context.pushRoute(const BrandsRoute());
+                        },
+                      )
+                    : const SizedBox(),
+                notifier.checkAccessPage("pos-system", "pos-products")
+                    ? DrawerItemWidget(
+                        iconData: FlutterRemix.add_box_line,
+                        title: "Sản phẩm",
+                        onTap: () {
+                          // context.popRoute();
+                          // context.pushRoute(const CategoriesRoute());
+                        },
+                      )
+                    : const SizedBox(),
+                notifier.checkAccessPage("pos-system", "pos-categories")
+                    ? DrawerItemWidget(
+                        iconData: FlutterRemix.settings_line,
+                        title: "Danh mục",
+                        onTap: () {
+                          // context.popRoute();
+                          // context.pushRoute(const CategoriesRoute());
+                        },
+                      )
+                    : const SizedBox(),
+                notifier.checkAccessPage("pos-system", "pos-users")
+                    ? DrawerItemWidget(
+                        iconData: FlutterRemix.user_3_line,
+                        title: "Nhân viên",
+                        onTap: () {
+                          // context.popRoute();
+                          // context.pushRoute(const CategoriesRoute());
+                        },
+                      )
+                    : const SizedBox(),
+                notifier.checkAccessPage("pos-system", "pos-orders")
+                    ? DrawerItemWidget(
+                        iconData: FlutterRemix.bill_line,
+                        title: "Đơn hàng",
+                        onTap: () {
+                          // context.popRoute();
+                          // context.pushRoute(const CategoriesRoute());
+                        },
+                      )
+                    : const SizedBox(),
+                notifier.checkAccessPage("pos-system", "pos-report")
+                    ? DrawerItemWidget(
+                        iconData: FlutterRemix.file_paper_2_line,
+                        title: "Báo cáo",
+                        onTap: () {
+                          // context.popRoute();
+                          // context.pushRoute(const CategoriesRoute());
+                        },
+                      )
+                    : const SizedBox(),
+                notifier.checkAccessPage("pos-system", "pos-settings")
+                    ? DrawerItemWidget(
+                        iconData: FlutterRemix.settings_3_line,
+                        title: "Cấu hình",
+                        onTap: () {
+                          // context.popRoute();
+                          // context.pushRoute(const CategoriesRoute());
+                        },
+                      )
+                    : const SizedBox(),
                 DrawerItemWidget(
                   iconData: FlutterRemix.logout_circle_r_line,
                   title: "Màn hình chính",

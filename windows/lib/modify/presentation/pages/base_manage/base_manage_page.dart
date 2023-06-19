@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/src/core/constants/app_constants.dart';
+import 'package:g_manager_app/src/core/routes/app_router.gr.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../src/riverpod/providers/providers.dart';
-import '../../../riverpob/providers/base/base_provider.dart';
+import '../../../riverpob/providers/providers.dart';
 import '../../components/components.dart';
 import '../../theme/theme.dart';
 import 'widgets/baseItem.dart';
@@ -51,22 +54,23 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: CustomAppbarPOS(
-            center: true,
-            title: Text(
-              "QUẢN LÝ CƠ SỞ",
-              style: AppTypographies.styBlack12W400,
-            ),
-            leading: Builder(
-              builder: (context) => SmallIconButton(
-                icon: Icon(
-                  FlutterRemix.arrow_left_s_line,
-                  size: 24.r,
-                  color: AppColors.black,
-                ),
-                onPressed: context.popRoute,
+          center: true,
+          title: Text(
+            "QUẢN LÝ CƠ SỞ",
+            style: AppTypographies.styBlack12W400,
+          ),
+          leading: Builder(
+            builder: (context) => SmallIconButton(
+              icon: Icon(
+                FlutterRemix.arrow_left_s_line,
+                size: 24.r,
+                color: AppColors.black,
               ),
+              onPressed: context.popRoute,
             ),
-            actions: getBaseActions(context)),
+          ),
+          // actions: getBaseActions(context)
+        ),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -124,15 +128,26 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                             itemBuilder: (context, index) {
                               final base = stateBase.base![index];
                               return BaseItem(
+                                active: notifierBase
+                                    .checkActiveBase(base.keyAccess!),
                                 base: base,
                                 onTap: () async {
                                   notifierBase.updateBaseSelected(index);
                                 },
                                 onSwitch: () {
-                                  print("onSwitch");
+                                  if (notifierBase
+                                      .checkActiveBase(base.keyAccess!)) {
+                                  } else {
+                                    notifierBase.switchBase(base);
+                                  }
                                 },
                                 onEdit: () {
-                                  print("edit");
+                                  context.pushRoute(
+                                    BaseDetailsRoute(
+                                      base: base,
+                                      from: OpenEditUserFrom.users,
+                                    ),
+                                  );
                                 },
                                 onDeleteTap: () {
                                   showDialog(
@@ -170,14 +185,14 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                                   shrinkWrap: true,
                                   itemCount: stateBase
                                       .base![stateBase.baseSelected!]
-                                      .listRole!
+                                      .listRoleBlock!
                                       .length,
                                   itemBuilder: (context, index) {
                                     var role = stateBase
                                         .base![stateBase.baseSelected!]
-                                        .listRole![index];
+                                        .listRoleBlock![index];
                                     return Text(
-                                      "${role["name"]}-${role["area"]}",
+                                      "${role.block}: ${role.role}",
                                       style: AppTypographies.styBlack13W500,
                                     );
                                   },
@@ -187,28 +202,21 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                           5.verticalSpace,
                           Row(
                             children: [
-                              const SizedBox(width: 70, child: Text("Địa chỉ")),
-                              Expanded(
+                              const SizedBox(width: 70, child: Text("Email")),
+                              SizedBox(
                                 child: Text(
-                                    "${stateBase.base![stateBase.baseSelected!].publicInfomation["address"]}"),
+                                    "${stateBase.base![stateBase.baseSelected!].email}"),
                               ),
                             ],
                           ),
                           5.verticalSpace,
                           Row(
                             children: [
-                              const SizedBox(width: 70, child: Text("SĐT")),
-                              SizedBox(
-                                width: 100,
+                              const SizedBox(width: 70, child: Text("Địa chỉ")),
+                              Expanded(
                                 child: Text(
-                                    "${stateBase.base![stateBase.baseSelected!].publicInfomation["phone"]}"),
+                                    "${stateBase.base![stateBase.baseSelected!].address}"),
                               ),
-                              const SizedBox(
-                                  width: 80, child: Text("Diện tích")),
-                              SizedBox(
-                                  width: 100,
-                                  child: Text(
-                                      "${stateBase.base![stateBase.baseSelected!].publicInfomation["area"]}")),
                             ],
                           ),
                           5.verticalSpace,
@@ -216,15 +224,14 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                             children: [
                               const SizedBox(width: 70, child: Text("Loại cs")),
                               SizedBox(
-                                  width: 100,
+                                  width: 150,
                                   child: Text(
-                                      "${stateBase.base![stateBase.baseSelected!].publicInfomation["type_base"]}")),
-                              const SizedBox(
-                                  width: 80, child: Text("Sản phẩm")),
+                                      "${stateBase.base![stateBase.baseSelected!].baseType}")),
+                              const SizedBox(width: 70, child: Text("SĐT")),
                               SizedBox(
                                   width: 100,
                                   child: Text(
-                                      "${stateBase.base![stateBase.baseSelected!].publicInfomation["properties"]["type_tree"][0]["name"]}")),
+                                      "${stateBase.base![stateBase.baseSelected!].phone}")),
                             ],
                           ),
                         ]),

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 
-import '../../../../../src/core/utils/utils.dart';
 import '../../../../models/models.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
-import '../../../../../src/core/constants/constants.dart';
 
 class BaseItem extends StatelessWidget {
   final BaseData base;
@@ -16,15 +12,17 @@ class BaseItem extends StatelessWidget {
   final Function() onEdit;
   final Function() onSwitch;
   final Function() onDeleteTap;
+  final bool active;
 
-  const BaseItem({
-    Key? key,
-    required this.base,
-    required this.onTap,
-    required this.onEdit,
-    required this.onSwitch,
-    required this.onDeleteTap,
-  }) : super(key: key);
+  const BaseItem(
+      {Key? key,
+      required this.base,
+      required this.onTap,
+      required this.onEdit,
+      required this.onSwitch,
+      required this.onDeleteTap,
+      required this.active})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,28 +48,40 @@ class BaseItem extends StatelessWidget {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 180,
+                            width: 210,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  base.baseName!,
-                                  style: AppTypographies.styBlack11W400,
-                                  maxLines: 2,
+                                SizedBox(
+                                  width: 180,
+                                  child: Text(
+                                    base.baseName!,
+                                    style: AppTypographies.styBlack11W400,
+                                    maxLines: 2,
+                                  ),
                                 ),
                                 3.verticalSpace,
-                                Text(
-                                  base.ownerName!,
-                                  style: AppTypographies.styBlack11W400,
-                                  maxLines: 2,
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 150,
+                                      child: Text(
+                                        base.ownerName!,
+                                        style: AppTypographies.styBlack11W400,
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                    Text(
+                                      base.shareStatus!,
+                                      style: base.shareStatus! == "owner"
+                                          ? AppTypographies.styGreen11W400
+                                          : AppTypographies.styOrange11W400,
+                                      maxLines: 2,
+                                    ),
+                                  ],
                                 ),
                                 3.verticalSpace,
-                                Text(
-                                  base.email!,
-                                  style: AppTypographies.styBlack11W400,
-                                  maxLines: 2,
-                                ),
                               ],
                             ),
                           ),
@@ -93,18 +103,20 @@ class BaseItem extends StatelessWidget {
                                               AppColors.black.withOpacity(0.05),
                                         ),
                                         padding: const EdgeInsets.all(8),
-                                        child:
-                                            const Icon(FlutterRemix.play_fill),
+                                        child: active
+                                            ? const Icon(FlutterRemix.stop_fill)
+                                            : const Icon(
+                                                FlutterRemix.play_fill),
                                       ),
                                       onPressed: onSwitch,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 5),
-                                      child: Text("${base.status}",
+                                      child: Text("${base.baseStatus}",
                                           style: TextStyle(
-                                              color: base.status == "Ready"
+                                              color: base.baseStatus == "Ready"
                                                   ? Colors.green
-                                                  : base.status == "Close"
+                                                  : base.baseStatus == "Close"
                                                       ? Colors.red
                                                       : Colors.black,
                                               fontSize: 16,

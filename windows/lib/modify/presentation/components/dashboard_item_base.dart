@@ -19,7 +19,8 @@ class DashboardItemBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      width: 190,
       child: Material(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.r),

@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
+import 'package:restart_app/restart_app.dart';
 
 import '../../../../src/core/routes/app_router.gr.dart';
 import '../../../../src/core/utils/utils.dart';
 import '../../../../src/riverpod/providers/providers.dart';
 import '../../../../modify/presentation/theme/theme.dart';
 import '../../../../modify/presentation/components/components.dart';
-import 'widgets/w_main_drawer.dart';
+import 'widgets/w_main_drawer_pos.dart';
 
 class MainPASPage extends ConsumerWidget {
   const MainPASPage({Key? key}) : super(key: key);
@@ -18,6 +20,8 @@ class MainPASPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomBarState = ref.watch(bottomBarProvider);
     final bottomBarNotifier = ref.read(bottomBarProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
+    final notifierBase = ref.read(baseProvider.notifier);
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return SafeArea(
       top: false,
@@ -59,15 +63,17 @@ class MainPASPage extends ConsumerWidget {
                       width: 40,
                       height: 40,
                     ),
-                    onPressed: () =>
-                        context.pushRoute(const NotificationsRoute()),
+                    onPressed: () {
+                      notifierBase.disableShareMode();
+                      Restart.restartApp();
+                    },
                   ),
                 ),
               ],
             ),
           );
         },
-        drawer: const WMainDrawer(),
+        drawer: const WMainDrawerPos(),
         bottomNavigationBuilder: (context, tabsRouter) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) {

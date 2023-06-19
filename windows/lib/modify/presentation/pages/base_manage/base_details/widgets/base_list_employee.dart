@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/modify/riverpob/providers/base/base_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../src/core/constants/constants.dart';
@@ -28,7 +29,7 @@ class _BaseListEmployeeState extends ConsumerState<BaseListEmployee> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(editUserProvider.notifier).updateOrders(context);
+        ref.read(baseProvider.notifier).getListEmployee();
       },
     );
     _scrollController = ScrollController();
@@ -57,15 +58,16 @@ class _BaseListEmployeeState extends ConsumerState<BaseListEmployee> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(editUserProvider);
-    return state.isLoadingOrders
+    final state = ref.watch(baseProvider);
+    final notifier = ref.read(baseProvider.notifier);
+    return state.employeesLoading!
         ? Center(
             child: CircularProgressIndicator(
               color: AppColors.greenMain,
               strokeWidth: 3.r,
             ),
           )
-        : state.orders.isEmpty
+        : state.employees!.isEmpty
             ? Center(
                 child: Text(
                   AppHelpers.getTranslation(TrKeys.thereIsNoOrdersForThisUser),
@@ -81,7 +83,7 @@ class _BaseListEmployeeState extends ConsumerState<BaseListEmployee> {
                 floatingActionButton: FloatingActionButton(
                   backgroundColor: AppColors.greenMain,
                   onPressed: () {
-                    context.pushRoute(const AddEmployeeRoute());
+                    context.pushRoute(AddEmployeeRoute());
                   },
                   child: Icon(
                     FlutterRemix.add_line,
@@ -96,36 +98,24 @@ class _BaseListEmployeeState extends ConsumerState<BaseListEmployee> {
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       padding: REdgeInsets.only(
-                        left: 15,
-                        right: 15,
-                        top: 14,
-                        bottom: state.isMoreLoadingOrders ? 0 : 20,
-                      ),
-                      itemCount: state.orders.length,
+                          left: 15, right: 15, top: 14, bottom: 20),
+                      itemCount: state.employees!.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        final order = state.orders[index];
-                        return OrderItem(
+                        final employees = state.employees![index];
+                        return EmployeeItem(
                           background: AppColors.mainBackground,
-                          order: order,
-                          onTap: () => context
-                              .pushRoute(OrderDetailsRoute(orderId: order.id)),
+                          employee: employees,
+                          onEdit: () {
+                            context.pushRoute(
+                                EditEmployeeRoute(employee: employees));
+                          },
+                          onDelete: () {
+                            notifier.deleteEmployee(employees.email!);
+                          },
                         );
                       },
                     ),
-                    if (state.isMoreLoadingOrders)
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.greenMain,
-                              strokeWidth: 2.r,
-                            ),
-                          ),
-                          20.verticalSpace,
-                        ],
-                      ),
                   ],
                 ),
               );

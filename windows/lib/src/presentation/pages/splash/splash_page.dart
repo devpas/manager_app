@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../../../core/routes/app_router.gr.dart';
 import '../../../core/utils/utils.dart';
@@ -19,6 +20,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   void initState() {
     super.initState();
+    // LocalStorage.instance.logout();
     Future.delayed(
       Duration.zero,
       () {

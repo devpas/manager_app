@@ -17,16 +17,22 @@ class BaseTypesModal extends ConsumerStatefulWidget {
       : super(key: key);
 
   @override
-  ConsumerState<BaseTypesModal> createState() => _BaseTypesModalState();
+  ConsumerState<BaseTypesModal> createState() =>
+      _BaseTypesModalState(baseTypeActive);
 }
 
 class _BaseTypesModalState extends ConsumerState<BaseTypesModal> {
+  late String baseTypeActive;
+
+  _BaseTypesModalState(this.baseTypeActive);
   @override
   void initState() {
     super.initState();
     Future.delayed(
       Duration.zero,
-      () {},
+      () {
+        print(baseTypeActive);
+      },
     );
   }
 
@@ -56,22 +62,23 @@ class _BaseTypesModalState extends ConsumerState<BaseTypesModal> {
               BaseTypeItem(
                 baseType: "Trồng trọt",
                 onTap: () {},
-                isSelected: state.activeRole == UserRole.admin,
+                isSelected: baseTypeActive == "Trồng trọt" ? true : false,
               ),
               BaseTypeItem(
                 baseType: "Chăn nuôi",
                 onTap: () {},
-                isSelected: state.activeRole == UserRole.seller,
+                isSelected: baseTypeActive == "Chăn nuôi" ? true : false,
               ),
               BaseTypeItem(
                 baseType: "Thu thập thông tin",
                 onTap: () {},
-                isSelected: state.activeRole == UserRole.deliveryman,
+                isSelected:
+                    baseTypeActive == "Thu thập thông tin" ? true : false,
               ),
               BaseTypeItem(
                 baseType: "Khác",
                 onTap: () {},
-                isSelected: state.activeRole == UserRole.manager,
+                isSelected: baseTypeActive == "" ? true : false,
               ),
               30.verticalSpace,
               ConfirmButton(

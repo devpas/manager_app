@@ -18,13 +18,7 @@ List<Widget> getBaseActions(BuildContext context) => [
               borderRadius: BorderRadius.circular(43.r),
             ),
           ),
-          onPressed: () => context.pushRoute(
-            BaseDetailsRoute(
-              uuid: "asdasdsadasdasd",
-              title: 'aaaaa',
-              from: OpenEditUserFrom.users,
-            ),
-          ),
+          onPressed: () {},
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

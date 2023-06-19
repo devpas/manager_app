@@ -4,12 +4,13 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/base/base_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:restart_app/restart_app.dart';
 
-import '../../../../src/core/routes/app_router.gr.dart';
-import '../../../../src/core/utils/utils.dart';
-import '../../../../src/riverpod/providers/providers.dart';
-import '../../theme/theme.dart';
 import '../../../../src/core/constants/constants.dart';
+import '../../../../src/core/routes/app_router.gr.dart';
+import '../../../../src/core/utils/app_helpers.dart';
+import '../../theme/theme.dart';
 import '../../components/components.dart';
 import 'widgets/w_main_drawer base.dart';
 
@@ -28,6 +29,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
       Duration.zero,
       () {
         ref.read(baseProvider.notifier).checkDataFolder();
+        ref.read(baseProvider.notifier).checkAccessBlock();
       },
     );
   }
@@ -69,9 +71,13 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
           preferredSize: const Size.fromHeight(60.0),
           child: CustomAppbarPOS(
             title: Text(
-              "VTNN-CẨM CHÂU HẬU GIANG",
+              state.baseInfomation["base_name"] ?? "",
               style: AppTypographies.styBlack12W400,
             ),
+            subtitle: notifier.checkShareMode()
+                ? "Trạng thái: chia sẽ bởi ${state.baseInfomation["owner_name"]}"
+                : "Trạng thái: Chủ sở hữu",
+            center: true,
             leading: Builder(
               builder: (context) => SmallIconButton(
                 icon: Icon(
@@ -84,17 +90,42 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
             ),
             actions: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                child: SmallIconButton(
-                  icon: const AvatarImage(
-                    imageUrl:
-                        "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
-                    radius: 25,
-                    width: 40,
-                    height: 40,
+                padding: const EdgeInsets.all(8.0),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    highlightColor: AppColors.transparent,
+                    splashColor: AppColors.transparent,
                   ),
-                  onPressed: () =>
-                      context.pushRoute(const NotificationsRoute()),
+                  child: PopupMenuButton<String>(
+                    initialValue: "profile",
+                    elevation: 0,
+                    itemBuilder: (context) {
+                      final listProfile = notifier.listProfile();
+                      return List.generate(
+                          listProfile.length,
+                          (index) => PopupMenuItem<String>(
+                                onTap: () {
+                                  notifier
+                                      .actionProfileMenu(listProfile[index]);
+                                },
+                                child: Text(
+                                  listProfile[index],
+                                  style: GoogleFonts.inter(
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ));
+                    },
+                    child: const AvatarImage(
+                      imageUrl:
+                          "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
+                      radius: 25,
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -108,56 +139,66 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
             physics: const CustomBouncingScrollPhysics(),
             child: Column(
               children: [
-                38.verticalSpace,
+                18.verticalSpace,
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: state.accessUserSettingBlock!
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.start,
                   children: [
-                    DashboardItemBase(
-                      iconData: FlutterRemix.store_2_line,
-                      title: "Hệ thống bán hàng",
-                      iconColor: AppColors.inProgressOrders,
-                      onTap: () {
-                        context.pushRoute(const MainPASRoute());
-                      },
-                    ),
-                    9.horizontalSpace,
-                    DashboardItemBase(
-                      iconData: FlutterRemix.base_station_fill,
-                      title: "Quản lý cơ sở",
-                      iconColor: AppColors.canceledOrders,
-                      onTap: () {
-                        context.pushRoute(const BaseManageRoute());
-                      },
-                    ),
+                    state.accessPosSystemBlock!
+                        ? DashboardItemBase(
+                            iconData: FlutterRemix.store_2_line,
+                            title: "Hệ thống bán hàng",
+                            iconColor: AppColors.inProgressOrders,
+                            onTap: () {
+                              context.pushRoute(const MainPASRoute());
+                            },
+                          )
+                        : const SizedBox(),
+                    state.accessBaseManagerBlock!
+                        ? DashboardItemBase(
+                            iconData: FlutterRemix.base_station_fill,
+                            title: "Quản lý cơ sở",
+                            iconColor: AppColors.canceledOrders,
+                            onTap: () {
+                              context.pushRoute(const BaseManageRoute());
+                            },
+                          )
+                        : const SizedBox(),
                   ],
                 ),
                 9.verticalSpace,
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: state.accessUserSettingBlock!
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.start,
                   children: [
-                    DashboardItemBase(
-                      iconData: FlutterRemix.user_6_fill,
-                      title: "Tài khoản",
-                      iconColor: AppColors.deliveredOrders,
-                      onTap: () {
-                        // ref
-                        //     .read(ordersProvider.notifier)
-                        //     .updateCompletedOrders(
-                        //       completedOrdersNotifier: ref
-                        //           .read(completedOrdersProvider.notifier),
-                        //     );
-                        // bottomBarNotifier.setActiveIndex(0);
-                      },
-                    ),
-                    9.horizontalSpace,
-                    DashboardItemBase(
-                      iconData: FlutterRemix.settings_2_fill,
-                      title: "Cấu hình chung",
-                      iconColor: AppColors.greenMain,
-                      onTap: () {
-                        // bottomBarNotifier.setActiveIndex(3);
-                      },
-                    ),
+                    state.accessUserSettingBlock!
+                        ? DashboardItemBase(
+                            iconData: FlutterRemix.user_6_fill,
+                            title: "Tài khoản",
+                            iconColor: AppColors.deliveredOrders,
+                            onTap: () {
+                              // ref
+                              //     .read(ordersProvider.notifier)
+                              //     .updateCompletedOrders(
+                              //       completedOrdersNotifier: ref
+                              //           .read(completedOrdersProvider.notifier),
+                              //     );
+                              // bottomBarNotifier.setActiveIndex(0);
+                            },
+                          )
+                        : const SizedBox(),
+                    state.accessUserSettingBlock!
+                        ? DashboardItemBase(
+                            iconData: FlutterRemix.settings_2_fill,
+                            title: "Cấu hình chung",
+                            iconColor: AppColors.greenMain,
+                            onTap: () {
+                              // bottomBarNotifier.setActiveIndex(3);
+                            },
+                          )
+                        : const SizedBox(),
                   ],
                 ),
               ],

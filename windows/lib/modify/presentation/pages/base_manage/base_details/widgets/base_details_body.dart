@@ -2,24 +2,28 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/utils/utils.dart';
 import '../../../../../../../src/riverpod/providers/providers.dart';
+import '../../../../../models/models.dart';
 import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
 import 'sub_page/base_type_modal.dart';
 
 class BaseDetailsBody extends ConsumerWidget {
   final OpenEditUserFrom from;
+  final BaseData base;
 
-  const BaseDetailsBody({Key? key, required this.from}) : super(key: key);
+  const BaseDetailsBody({Key? key, required this.from, required this.base})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editUserProvider);
-    final notifier = ref.read(editUserProvider.notifier);
-    return state.isLoading
+    final state = ref.watch(baseProvider);
+    final notifier = ref.read(baseProvider.notifier);
+    return state.baseLoading!
         ? Center(
             child: CircularProgressIndicator(
               color: AppColors.greenMain,
@@ -37,37 +41,37 @@ class BaseDetailsBody extends ConsumerWidget {
                   Align(
                     alignment: Alignment.center,
                     child: SelectImage(
-                      imageUrl: state.imageUrl,
+                      imageUrl: "",
                       file: state.image,
                       onChangePhoto: notifier.setImage,
                     ),
                   ),
-                  38.verticalSpace,
+                  20.verticalSpace,
                   CommonInputField(
-                    initialValue: state.firstname,
+                    initialValue: base.baseName,
                     label: "Tên cơ sở",
-                    onChanged: notifier.setFirstname,
+                    onChanged: (input) => {},
                     inputType: TextInputType.name,
                   ),
                   30.verticalSpace,
                   CommonInputField(
-                    initialValue: state.lastname,
+                    initialValue: base.ownerName,
                     label: "Chủ sở hữu",
-                    onChanged: notifier.setLastname,
+                    onChanged: (input) => {},
                     inputType: TextInputType.name,
                   ),
                   30.verticalSpace,
                   CommonInputField(
-                    initialValue: state.email,
+                    initialValue: base.email,
                     label: AppHelpers.getTranslation(TrKeys.email),
-                    onChanged: notifier.setEmail,
+                    onChanged: (input) => {},
                     inputType: TextInputType.emailAddress,
                   ),
                   30.verticalSpace,
                   CommonInputField(
-                    initialValue: state.phone,
+                    initialValue: base.phone,
                     label: AppHelpers.getTranslation(TrKeys.phone),
-                    onChanged: notifier.setPhone,
+                    onChanged: (input) => {},
                     inputType: TextInputType.phone,
                   ),
                   30.verticalSpace,
@@ -75,45 +79,17 @@ class BaseDetailsBody extends ConsumerWidget {
                     label: "Loại cơ sở",
                     onTap: () => showModalBottomSheet(
                       context: context,
-                      builder: (context) => const BaseTypesModal(
-                        baseTypeActive: "Trồng trọt",
+                      builder: (context) => BaseTypesModal(
+                        baseTypeActive: base.baseType!,
                       ),
                     ),
                     title: "Trồng trọt",
                   ),
-                  30.verticalSpace,
+                  170.verticalSpace,
                   CommonAccentButton(
                     title: AppHelpers.getTranslation(TrKeys.save),
-                    onPressed: () => notifier.updateUser(
-                      checkYourNetwork: () {
-                        AppHelpers.showCheckFlash(
-                          context,
-                          AppHelpers.getTranslation(
-                              TrKeys.checkYourNetworkConnection),
-                        );
-                      },
-                      afterUpdating: () {
-                        context.popRoute();
-                        switch (from) {
-                          case OpenEditUserFrom.deliveryBoys:
-                            ref
-                                .read(deliveryBoysProvider.notifier)
-                                .updateDeliveryMen(context);
-                            break;
-                          case OpenEditUserFrom.dashboard:
-                            ref
-                                .read(dashboardProvider.notifier)
-                                .updateCustomers(context);
-                            break;
-                          case OpenEditUserFrom.users:
-                            ref
-                                .read(usersProvider.notifier)
-                                .updateUsers(context);
-                            break;
-                        }
-                      },
-                    ),
-                    isLoading: state.isSaving,
+                    onPressed: () {},
+                    isLoading: false,
                   ),
                   30.verticalSpace,
                 ],

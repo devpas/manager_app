@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
+import '../../../modify/models/models.dart';
 import '../../models/models.dart';
 import '../constants/app_constants.dart';
 
@@ -199,19 +200,41 @@ class LocalStorage {
     deleteLoginData();
     deleteSelectedCurrency();
     deleteToken();
-    deleteKeyAccess();
+    deleteKeyAccessOwner();
+    deleteKeyAccessShare();
     deleteCookieAccess();
+    deleteBaseInformation();
+    setShareMode(false);
     final cookieManager = WebviewCookieManager();
     cookieManager.clearCookies();
   }
 
-  Future<void> setKeyAccess(String keyAccess) async {
+  Future<void> setBaseInfomation(String keyAccess) async {
     if (_preferences != null) {
-      _preferences!.setString("pas_key_access", keyAccess);
+      _preferences!.setString("base_infomation", keyAccess);
     }
   }
 
-  String getKeyAccess() => _preferences?.getString("pas_key_access") ?? '';
+  String getBaseInfomation() =>
+      _preferences?.getString("base_infomation") ?? '';
+
+  Future<void> setKeyAccessOwner(String keyAccess) async {
+    if (_preferences != null) {
+      _preferences!.setString("owner_key_access", keyAccess);
+    }
+  }
+
+  String getKeyAccessOwner() =>
+      _preferences?.getString("owner_key_access") ?? '';
+
+  Future<void> setKeyAccessShare(String keyAccess) async {
+    if (_preferences != null) {
+      _preferences!.setString("share_key_access", keyAccess);
+    }
+  }
+
+  String getKeyAccessShare() =>
+      _preferences?.getString("share_key_access") ?? '';
 
   Future<void> setCookieAccess(String cookie) async {
     if (_preferences != null) {
@@ -222,22 +245,25 @@ class LocalStorage {
   String getCookieAccess() =>
       _preferences?.getString("google_cookie_access") ?? '';
 
+  String getListRoleShare() => _preferences?.getString("list_role_share") ?? '';
+
+  Future<void> setListRoleShare(String listRole) async {
+    if (_preferences != null) {
+      _preferences?.setString("list_role_share", listRole);
+    }
+  }
+
   Future<void> setShareMode(bool selected) async {
     if (_preferences != null) {
       await _preferences!.setBool("share_mode", selected);
     }
   }
 
-  String getFileShareId() => _preferences?.getString("file_share_id") ?? '';
-
-  Future<void> setFileShareId(String fileShareId) async {
-    if (_preferences != null) {
-      _preferences!.setString("file_share_id", fileShareId);
-    }
-  }
-
   bool getShareMode() => _preferences?.getBool("share_mode") ?? false;
 
-  void deleteKeyAccess() => _preferences?.remove("pas_key_access");
+  void deleteKeyAccessOwner() => _preferences?.remove("owner_access_id");
+  void deleteKeyAccessShare() => _preferences?.remove("share_access_id");
   void deleteCookieAccess() => _preferences?.remove("google_cookie_access");
+  void deleteListRole() => _preferences?.remove("list_role_share");
+  void deleteBaseInformation() => _preferences?.remove("base_infomation");
 }

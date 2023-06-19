@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/modify/models/models.dart';
 import 'package:g_manager_app/src/presentation/theme/theme.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
@@ -10,22 +11,25 @@ import '../../../../../../../src/core/utils/utils.dart';
 import '../../../../../../../src/riverpod/providers/providers.dart';
 import '../../../../../../src/presentation/components/components.dart';
 import 'add_employee_details_body.dart';
+import 'edit_employee_details_body.dart';
 
-class AddEmployeePage extends ConsumerStatefulWidget {
-  final String? uuid;
+class EditEmployeePage extends ConsumerStatefulWidget {
+  final EmployeeData? employee;
 
-  const AddEmployeePage({
-    Key? key,
-    this.uuid,
-  }) : super(key: key);
+  const EditEmployeePage({Key? key, required this.employee}) : super(key: key);
 
   @override
-  ConsumerState<AddEmployeePage> createState() => _AddEmployeeState();
+  // ignore: no_logic_in_create_state
+  ConsumerState<EditEmployeePage> createState() => _EditEmployeeState(employee);
 }
 
-class _AddEmployeeState extends ConsumerState<AddEmployeePage>
+class _EditEmployeeState extends ConsumerState<EditEmployeePage>
     with TickerProviderStateMixin {
+  late EmployeeData? employee;
+
   late TabController _tabController;
+
+  _EditEmployeeState(this.employee);
 
   @override
   void initState() {
@@ -52,7 +56,7 @@ class _AddEmployeeState extends ConsumerState<AddEmployeePage>
         child: Scaffold(
           backgroundColor: AppColors.white,
           appBar: CustomAppbar(
-            title: "Thêm nhân viên",
+            title: "Chỉnh sửa nhân viên",
             leading: SmallIconButton(
               icon: Icon(
                 Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios,
@@ -61,7 +65,7 @@ class _AddEmployeeState extends ConsumerState<AddEmployeePage>
               onPressed: context.popRoute,
             ),
           ),
-          body: AddEmployeeDetailsBody(),
+          body: EditEmployeeDetailsBody(employee: employee),
         ),
       ),
     );

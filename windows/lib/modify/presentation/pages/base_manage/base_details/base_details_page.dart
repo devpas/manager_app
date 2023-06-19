@@ -1,15 +1,13 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/src/core/routes/app_router.gr.dart';
 
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/utils/utils.dart';
 import '../../../../../src/riverpod/providers/providers.dart';
+import '../../../../models/models.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
 import 'widgets/base_address.dart';
@@ -18,24 +16,26 @@ import 'widgets/base_list_employee.dart';
 import 'widgets/list_option.dart';
 
 class BaseDetailsPage extends ConsumerStatefulWidget {
-  final String? uuid;
-  final String title;
+  final BaseData? base;
   final OpenEditUserFrom from;
 
   const BaseDetailsPage({
     Key? key,
-    this.uuid,
-    required this.title,
+    required this.base,
     required this.from,
   }) : super(key: key);
 
   @override
-  ConsumerState<BaseDetailsPage> createState() => _EditUserPageState();
+  ConsumerState<BaseDetailsPage> createState() => _BaseDetailsPageState(base);
 }
 
-class _EditUserPageState extends ConsumerState<BaseDetailsPage>
+class _BaseDetailsPageState extends ConsumerState<BaseDetailsPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
+
+  late BaseData? base;
+
+  _BaseDetailsPageState(this.base);
 
   @override
   void initState() {
@@ -43,17 +43,7 @@ class _EditUserPageState extends ConsumerState<BaseDetailsPage>
     _tabController = TabController(length: 4, vsync: this);
     Future.delayed(
       Duration.zero,
-      () {
-        ref.read(editUserProvider.notifier).fetchUserDetails(
-              uuid: widget.uuid,
-              checkYourNetwork: () {
-                AppHelpers.showCheckFlash(
-                  context,
-                  AppHelpers.getTranslation(TrKeys.checkYourNetworkConnection),
-                );
-              },
-            );
-      },
+      () {},
     );
   }
 
@@ -114,7 +104,7 @@ class _EditUserPageState extends ConsumerState<BaseDetailsPage>
                   controller: _tabController,
                   physics: const CustomBouncingScrollPhysics(),
                   children: [
-                    BaseDetailsBody(from: widget.from),
+                    BaseDetailsBody(from: widget.from, base: base!),
                     BaseAddressBody(userData: state.userData),
                     const BaseListEmployee(),
                     const ListOption(),

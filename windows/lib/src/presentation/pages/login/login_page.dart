@@ -171,7 +171,7 @@ class LoginPage extends ConsumerWidget {
                             );
                           },
                           goToMain: () {
-                            context.replaceRoute(const MainRoute());
+                            context.replaceRoute(SignInWebviewRoute());
                           },
                         ),
                         child: Row(

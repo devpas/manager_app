@@ -10,6 +10,7 @@ import 'package:g_manager_app/src/core/constants/constants.dart';
 import 'package:g_manager_app/src/core/di/injection.dart';
 import 'package:g_manager_app/src/core/handlers/http_service.dart';
 import 'package:g_manager_app/src/core/utils/local_storage.dart';
+import 'package:g_manager_app/src/riverpod/providers/login_provider.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -56,6 +57,8 @@ class SignInWebviewPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final stateLogin = ref.watch(loginProvider);
+    final notifierLogin = ref.watch(loginProvider.notifier);
     return Scaffold(
       backgroundColor: const Color(0x00eceff3),
       floatingActionButton: FloatingActionButton(
@@ -93,8 +96,9 @@ class SignInWebviewPage extends ConsumerWidget {
                         var isConnect = await connectGAS(cookieGAS);
                         print(isConnect);
                         if (isConnect) {
-                          // ignore: use_build_context_synchronously
-                          context.pushRoute(const DashboardBaseRoute());
+                          notifierLogin.loginAdminSilent(goToMain: () {
+                            context.pushRoute(const DashboardBaseRoute());
+                          });
                         } else {}
                       }
                     }
