@@ -31,8 +31,6 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
       }
     }
 
-    print("asdsad");
-
     print(listParam);
 
     final data = {
@@ -67,6 +65,7 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
               return status! < 500;
             }),
       );
+      print(response2);
       return ApiResult.success(
         data: ProductsPasResponse.fromJson(response2.data),
       );
@@ -81,5 +80,151 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
   Future<ApiResult<ProductsPasResponse>> getStockCurrent(String alias) {
     // TODO: implement getStockCurrent
     throw UnimplementedError();
+  }
+
+  @override
+  Future<ApiResult<ProductsPasResponse>> addProduct(
+      ProductPasData product) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"product_data": product.toJson()}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/addProduct',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    print(response);
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2);
+      return ApiResult.success(
+        data: ProductsPasResponse.fromJson(response2.data),
+      );
+    } else {
+      return ApiResult.success(
+        data: ProductsPasResponse.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<ApiResult<ProductsPasResponse>> updateProduct(
+      ProductPasData product) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"product_data": product.toJson()}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/updateProduct',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    print(response);
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2);
+      return ApiResult.success(
+        data: ProductsPasResponse.fromJson(response2.data),
+      );
+    } else {
+      return ApiResult.success(
+        data: ProductsPasResponse.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<ApiResult<ProductsPasResponse>> deleteProduct(int productId) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"product_id": productId}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/deleteProduct',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    print(response);
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2);
+      return ApiResult.success(
+        data: ProductsPasResponse.fromJson(response2.data),
+      );
+    } else {
+      return ApiResult.success(
+        data: ProductsPasResponse.fromJson(response.data),
+      );
+    }
   }
 }

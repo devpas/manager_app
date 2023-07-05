@@ -1,6 +1,4 @@
 import 'package:auto_route/annotations.dart';
-import 'package:g_manager_app/modify/presentation/pages/sign_in_webview.dart';
-
 import '../../presentation/pages/pages.dart';
 import 'modals_route.dart';
 
@@ -183,6 +181,48 @@ import 'modals_route.dart';
     AutoRoute(
       path: '/signIn-webview',
       page: SignInWebviewPage,
+    ),
+    AutoRoute(
+      path: '/profile-user',
+      page: ProfileInfomationUserPage,
+    ),
+    AutoRoute(
+      path: '/categories-pas',
+      page: CategoriesPasPage,
+    ),
+    CustomRoute(
+      path: '/add-category-pas',
+      page: AddCategoryPasPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/edit-category-pas',
+      page: EditCategoryPasPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    AutoRoute(
+      path: '/products-pas',
+      page: ProductsPasPage,
+    ),
+    CustomRoute(
+      path: '/add-product-pas',
+      page: AddProductPasPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/edit-product-pas',
+      page: EditProductPasPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/pos-manage',
+      page: PosManagePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/products-manage',
+      page: ProductsManagePage,
+      customRouteBuilder: modalsPageRoute,
     ),
   ],
 )

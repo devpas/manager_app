@@ -11,9 +11,9 @@ import '../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../src/core/utils/utils.dart';
 import '../../../../../src/presentation/components/components.dart';
 import '../../../../../src/presentation/theme/theme.dart';
-import '../../pos_page/widgets/are_you_sure_modal_in_drawer.dart';
-import '../../pos_page/widgets/drawer_item_widget.dart';
-import '../../pos_page/widgets/settings_button.dart';
+import '../../pos/widgets/are_you_sure_modal_in_drawer.dart';
+import '../../pos/widgets/drawer_item_widget.dart';
+import '../../pos/widgets/settings_button.dart';
 
 class WMainDrawerBase extends ConsumerWidget {
   const WMainDrawerBase({Key? key}) : super(key: key);

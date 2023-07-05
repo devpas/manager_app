@@ -9,5 +9,6 @@ abstract class BaseRepository {
   Future<dynamic> updateEmployee(dynamic dataEmployee);
   Future<dynamic> deleteEmployee(String email);
   Future<dynamic> checkAccessBlock();
+  Future<dynamic> uploadFile(String name, String base64, String fileType);
   Future<ApiResult<EmployeeResponse>> getListEmplyees();
 }

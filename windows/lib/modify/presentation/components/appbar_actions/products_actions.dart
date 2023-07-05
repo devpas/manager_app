@@ -19,7 +19,7 @@ List<Widget> getProductsActions(BuildContext context) => [
               borderRadius: BorderRadius.circular(43.r),
             ),
           ),
-          onPressed: () => context.pushRoute(const AddProductRoute()),
+          onPressed: () => context.pushRoute(const AddProductPasRoute()),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -2,13 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/presentation/pages/pos_page/widgets/select_user_pos_modal.dart';
-import 'package:g_manager_app/modify/riverpob/providers/pos_system_pas/pos_system_pas_provider.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/utils/utils.dart';
-import '../../../../../../../src/riverpod/providers/providers.dart';
 import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
 

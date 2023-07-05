@@ -105,8 +105,8 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                           listProfile.length,
                           (index) => PopupMenuItem<String>(
                                 onTap: () {
-                                  notifier
-                                      .actionProfileMenu(listProfile[index]);
+                                  notifier.actionProfileMenu(
+                                      listProfile[index], context);
                                 },
                                 child: Text(
                                   listProfile[index],

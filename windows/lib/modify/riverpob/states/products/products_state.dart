@@ -4,11 +4,12 @@ import 'package:g_manager_app/modify/models/models.dart';
 part 'products_state.freezed.dart';
 
 @freezed
-class ProductsState with _$ProductsState {
-  const factory ProductsState(
+class ProductsPasState with _$ProductsPasState {
+  const factory ProductsPasState(
       {@Default([]) List<ProductPasData>? products,
       @Default([]) List<ProductPasData>? productsAfterFilter,
-      ProductPasData? productsSelected}) = _ProductsState;
+      @Default(false) bool? productsLoading,
+      ProductPasData? productsSelected}) = _ProductsPasState;
 
-  const ProductsState._();
+  const ProductsPasState._();
 }

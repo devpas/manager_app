@@ -5,6 +5,6 @@ import '../../notifiers/notifiers.dart';
 import '../../states/states.dart';
 
 final productsPASProvider =
-    StateNotifierProvider<ProductsNotifier, ProductsState>(
-  (ref) => ProductsNotifier(productsPASRepository),
+    StateNotifierProvider<ProductsPasNotifier, ProductsPasState>(
+  (ref) => ProductsPasNotifier(productsPASRepository),
 );

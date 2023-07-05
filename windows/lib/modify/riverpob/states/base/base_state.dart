@@ -24,6 +24,7 @@ class BaseState with _$BaseState {
     @Default(false) bool? accessGlobalSettingBlock,
     @Default({}) dynamic baseInfomation,
     XFile? image,
+    XFile? video,
   }) = _BaseState;
 
   const BaseState._();

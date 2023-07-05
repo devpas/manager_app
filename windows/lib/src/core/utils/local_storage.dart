@@ -253,6 +253,15 @@ class LocalStorage {
     }
   }
 
+  List<String> getListRoleCode() =>
+      _preferences?.getStringList("list_role_code") ?? [];
+
+  Future<void> setListRoleCode(List<String> listRoleCode) async {
+    if (_preferences != null) {
+      _preferences?.setStringList("list_role_code", listRoleCode);
+    }
+  }
+
   Future<void> setShareMode(bool selected) async {
     if (_preferences != null) {
       await _preferences!.setBool("share_mode", selected);

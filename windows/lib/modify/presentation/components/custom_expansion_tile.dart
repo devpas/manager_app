@@ -3,7 +3,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../src/models/models.dart';
+import '../../../modify/models/models.dart';
 import '../../../src/presentation/theme/theme.dart';
 import 'common_image.dart';
 import 'small_icon_button.dart';
@@ -41,7 +41,7 @@ class CustomExpansionTile extends StatefulWidget {
         ),
         super(key: key);
 
-  final CategoryData category;
+  final CategoryPasData category;
   final Function()? onEditTap;
   final Function()? onDeleteTap;
 
@@ -217,7 +217,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                                   width: 4,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: (widget.category.active ?? false)
+                                    color: widget.category.active == 1
                                         ? AppColors.greenMain
                                         : AppColors.totalPanelGradient1,
                                     borderRadius: const BorderRadius.only(
@@ -228,7 +228,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                                 ),
                                 11.horizontalSpace,
                                 CommonImage(
-                                  imageUrl: widget.category.img,
+                                  imageUrl: widget.category.img.toString(),
                                   width: 50,
                                   height: 50,
                                   radius: 10,
@@ -236,7 +236,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                                 8.horizontalSpace,
                                 Expanded(
                                   child: Text(
-                                    '${widget.category.translation?.title}',
+                                    '${widget.category.name}',
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.inter(

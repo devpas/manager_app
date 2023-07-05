@@ -74,3 +74,47 @@ class CommonInputField extends StatelessWidget {
     );
   }
 }
+
+class CommonText extends StatelessWidget {
+  final String label;
+  final String? initialValue;
+  final String? hintText;
+  final TextInputAction? inputAction;
+
+  const CommonText({
+    Key? key,
+    required this.label,
+    this.initialValue,
+    this.hintText,
+    this.inputAction,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          label,
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.w500,
+            fontSize: 12.sp,
+            letterSpacing: -0.4,
+            color: AppColors.black.withOpacity(0.3),
+          ),
+        ),
+        Text(
+          initialValue!,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.w400,
+            fontSize: 16.sp,
+            letterSpacing: -0.4,
+            color: AppColors.black,
+          ),
+        ),
+      ],
+    );
+  }
+}

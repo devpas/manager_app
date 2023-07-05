@@ -16,7 +16,7 @@ class ProductPasData {
     int? stockVolume,
     int? isCom,
     int? isScale,
-    String? attribute,
+    String? attributes,
     String? image,
     int? active,
     int? attributesetInstanceId,
@@ -37,7 +37,7 @@ class ProductPasData {
     _stockVolume = stockVolume;
     _isCom = isCom;
     _isScale = isScale;
-    _attribute = attribute;
+    _attributes = attributes;
     _image = image;
     _active = active;
     _attributesetInstanceId = attributesetInstanceId;
@@ -60,7 +60,7 @@ class ProductPasData {
     _stockVolume = json['stock_volume'];
     _isCom = json['is_com'];
     _isScale = json['is_scale'];
-    _attribute = json['attribute'];
+    _attributes = json['attributes'];
     _image = json['image'];
     _active = json['active'];
     _attributesetInstanceId = json["attributeset_instance_id"];
@@ -87,7 +87,7 @@ class ProductPasData {
   int? _stockVolume;
   int? _isCom;
   int? _isScale;
-  String? _attribute;
+  String? _attributes;
   String? _image;
   int? _active;
   int? _attributesetInstanceId;
@@ -109,7 +109,7 @@ class ProductPasData {
     int? stockVolume,
     int? isCom,
     int? isScale,
-    String? attribute,
+    String? attributes,
     String? image,
     int? active,
     int? attributesetInstanceId,
@@ -131,7 +131,7 @@ class ProductPasData {
         stockVolume: stockVolume ?? _stockVolume,
         isCom: isCom ?? _isCom,
         isScale: isScale ?? _isScale,
-        attribute: attribute ?? _attribute,
+        attributes: attributes ?? _attributes,
         image: image ?? _image,
         active: active ?? _active,
         attributesetInstanceId:
@@ -168,7 +168,7 @@ class ProductPasData {
 
   int? get isScale => _isScale;
 
-  String? get attribute => _attribute;
+  String? get attributes => _attributes;
 
   String? get image => _image;
 
@@ -191,12 +191,12 @@ class ProductPasData {
     map['price_sell'] = _priceSell;
     map['category_id'] = _categoryId;
     map['tax_cat'] = _taxCat;
-    map['attribute_id'] = _attribuseteId;
+    map['attributeset_id'] = _attribuseteId;
     map['stock_cost'] = _stockCost;
     map['stock_volume'] = _stockVolume;
     map['is_com'] = _isCom;
     map['is_scale'] = _isScale;
-    map['attribute'] = _attribute;
+    map['attributes'] = _attributes;
     map['image'] = _image;
     map['active'] = _active;
     map['attributeset_instance_id'] = _attributesetInstanceId;
@@ -205,5 +205,29 @@ class ProductPasData {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }
     return map;
+  }
+
+  ProductPasData initProduct() {
+    ProductPasData product = ProductPasData(
+        id: 0,
+        index: -1,
+        reference: "",
+        code: "",
+        name: "",
+        categoryId: -1,
+        priceBuy: 0,
+        priceSell: 0,
+        taxCat: -1,
+        attribuseteId: "",
+        attributesetInstanceId: -1,
+        stockCost: 0,
+        stockVolume: 0,
+        isCom: 0,
+        isScale: 0,
+        attributes: "",
+        image: "",
+        active: -1,
+        stocks: []);
+    return product;
   }
 }

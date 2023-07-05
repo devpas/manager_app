@@ -8,10 +8,10 @@ import '../../../models/data/category_data.dart';
 import '../../../models/data/product_data.dart';
 import '../../states/states.dart';
 
-class ProductsNotifier extends StateNotifier<ProductsState> {
-  ProductsNotifier(this._productsPASRepository)
+class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
+  ProductsPasNotifier(this._productsPASRepository)
       : super(
-          const ProductsState(),
+          const ProductsPasState(),
         );
 
   final ProductsPASRepository _productsPASRepository;
@@ -21,22 +21,26 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
   String productName = "";
   double priceBuy = -1;
   double priceSell = -1;
-  List<ProductPasData> listProductPos = [];
+  int minCategoryId = -1;
+  List<ProductPasData> listProductAfterSearch = [];
+  List<ProductPasData> listProductCache = [];
   Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
 
   Future<void> fetchProductsPos() async {
     final response = await _productsPASRepository.getProduct("");
     response.when(
       success: (data) async {
-        listProductPos = data.products!;
-        int minCategoryId = data.products![0].categoryId!;
+        listProductCache = data.products!;
+        minCategoryId = data.products![0].categoryId!;
         for (int i = 0; i < data.products!.length; i++) {
           if (data.products![i].categoryId! < minCategoryId) {
             minCategoryId = data.products![i].categoryId!;
           }
         }
-        fetchProductsByCategory(minCategoryId);
-        print(state.products!.length);
+        state = state.copyWith(
+            products: data.products!
+                .where((product) => product.categoryId == minCategoryId)
+                .toList());
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -44,6 +48,7 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
         }
       },
     );
+    state = state.copyWith(productsLoading: false);
   }
 
   Future<void> fetchProducts() async {
@@ -51,7 +56,7 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
     response.when(
       success: (data) async {
         state = state.copyWith(products: data.products);
-        listProductPos = state.products!;
+        listProductCache = state.products!;
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -62,6 +67,7 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
   }
 
   Future<void> fetchProductsByCategory(int? categoryId) async {
+    state = state.copyWith(productsLoading: true);
     String alias = "categoryId=$categoryId&";
     final response = await _productsPASRepository.getProduct(alias);
     response.when(
@@ -74,10 +80,11 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
         }
       },
     );
+    state = state.copyWith(productsLoading: false);
   }
 
   void getProductByCategory(int? categoryId) async {
-    var listProductAfterFilter = listProductPos;
+    var listProductAfterFilter = listProductCache;
     listProductAfterFilter = listProductAfterFilter
         .where((product) => product.categoryId == categoryId)
         .toList();
@@ -107,6 +114,7 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
   }
 
   void searchProducts(int categoryId) {
+    listProductAfterSearch = [];
     print("$categoryId,$codeRef,$productName,$priceBuy,$priceSell");
 
     List<List> searchParam = [];
@@ -129,41 +137,91 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
       searchParam.add(["priceSell", priceSell]);
     }
 
-    List<ProductPasData> listProductAfterSearch = [];
-
-    for (int i = 0; i < listProductPos.length; i++) {
+    for (int i = 0; i < listProductCache.length; i++) {
       List<List> valueProductForSearch = [];
       if (categoryId != -1) {
-        valueProductForSearch.add(["categoryId", listProductPos[i].categoryId]);
+        valueProductForSearch
+            .add(["categoryId", listProductCache[i].categoryId]);
       }
       if (codeRef != "") {
-        valueProductForSearch.add(["codeRef", listProductPos[i].reference]);
+        valueProductForSearch.add(["codeRef", listProductCache[i].reference]);
       }
       if (productName != "") {
         valueProductForSearch.add([
           "productName",
-          listProductPos[i]
+          listProductCache[i]
               .name!
               .toLowerCase()
               .contains(productName.toLowerCase())
         ]);
       }
       if (priceBuy != -1) {
-        valueProductForSearch.add(["priceBuy", listProductPos[i].priceBuy]);
+        valueProductForSearch.add(["priceBuy", listProductCache[i].priceBuy]);
       }
       if (priceSell != -1) {
-        valueProductForSearch.add(["priceSell", listProductPos[i].priceSell]);
+        valueProductForSearch.add(["priceSell", listProductCache[i].priceSell]);
       }
 
       if (unOrdDeepEq(searchParam, valueProductForSearch) == true) {
-        listProductAfterSearch.add(listProductPos[i]);
+        listProductAfterSearch.add(listProductCache[i]);
       }
-
-      state = state.copyWith(productsAfterFilter: listProductAfterSearch);
     }
+    state = state.copyWith(productsAfterFilter: listProductAfterSearch);
+  }
+
+  void resetSearch() {
+    state = state.copyWith(productsAfterFilter: []);
   }
 
   void setProductSelected(ProductPasData product) {
     state = state.copyWith(productsSelected: product);
+  }
+
+  Future<void> addProduct(ProductPasData product) async {
+    state = state.copyWith(productsLoading: true);
+    final response = await _productsPASRepository.addProduct(product);
+    response.when(
+      success: (data) async {
+        fetchProductsPos();
+      },
+      failure: (failure) {
+        if (failure == const NetworkExceptions.unauthorisedRequest()) {
+          debugPrint('==> get brands failure: $failure');
+        }
+      },
+    );
+    state = state.copyWith(productsLoading: false);
+  }
+
+  Future<void> updateProduct(ProductPasData product) async {
+    state = state.copyWith(productsLoading: true);
+    final response = await _productsPASRepository.updateProduct(product);
+    response.when(
+      success: (data) async {
+        fetchProductsPos();
+      },
+      failure: (failure) {
+        if (failure == const NetworkExceptions.unauthorisedRequest()) {
+          debugPrint('==> get brands failure: $failure');
+        }
+      },
+    );
+    state = state.copyWith(productsLoading: false);
+  }
+
+  Future<void> deleteProduct(int productId) async {
+    state = state.copyWith(productsLoading: true);
+    final response = await _productsPASRepository.deleteProduct(productId);
+    response.when(
+      success: (data) async {
+        fetchProductsPos();
+      },
+      failure: (failure) {
+        if (failure == const NetworkExceptions.unauthorisedRequest()) {
+          debugPrint('==> get brands failure: $failure');
+        }
+      },
+    );
+    state = state.copyWith(productsLoading: false);
   }
 }

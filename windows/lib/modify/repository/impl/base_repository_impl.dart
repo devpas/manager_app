@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:g_manager_app/modify/presentation/pages/base_manage/base_details/widgets/add_employee_page.dart';
+import 'package:g_manager_app/modify/presentation/pages/base/base_manage/base_details/widgets/add_employee_page.dart';
 import 'package:g_manager_app/src/core/utils/local_storage.dart';
 
 import '../../../src/core/di/injection.dart';
@@ -80,6 +80,7 @@ class BaseRepositoryImpl extends BaseRepository {
             return status! < 500;
           }),
     );
+    log(response.toString());
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);
@@ -266,6 +267,59 @@ class BaseRepositoryImpl extends BaseRepository {
           }),
     );
 
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      print(response);
+      dataJson = json.decode(response.toString());
+    }
+
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> uploadFile(
+      String name, String base64, String fileType) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {
+        "file": {
+          "file_name": name,
+          "file_content": base64,
+          "file_type": fileType
+        }
+      }
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    print(data);
+    var dataJson = {};
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=file/createFile',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);

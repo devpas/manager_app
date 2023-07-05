@@ -56,4 +56,27 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
   void setCategorySelected(CategoryPasData category) {
     state = state.copyWith(categorySelected: category);
   }
+
+  Future<void> addCategory(dynamic dataCategory) async {
+    final response = await _categoriesPASRepository.addCategory(dataCategory);
+    if (response["msg"] == "create category successful") {
+      fetchCategoriesAppscript();
+    }
+  }
+
+  Future<void> updateCategory(dynamic dataCategory) async {
+    final response =
+        await _categoriesPASRepository.updateCategory(dataCategory);
+    print(response);
+    if (response["msg"] == "update category successful") {
+      fetchCategoriesAppscript();
+    }
+  }
+
+  Future<void> deleteCategory(int categoryId) async {
+    final response = await _categoriesPASRepository.deleteCategory(categoryId);
+    if (response["msg"] == "delete category successful") {
+      fetchCategoriesAppscript();
+    }
+  }
 }

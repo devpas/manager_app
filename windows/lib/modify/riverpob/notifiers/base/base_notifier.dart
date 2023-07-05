@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/src/core/routes/app_router.gr.dart';
 import 'package:g_manager_app/src/core/utils/local_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:restart_app/restart_app.dart';
@@ -260,15 +260,18 @@ class BaseNotifier extends StateNotifier<BaseState> {
   void setAccessRoleBlock(List<RoleBlockData> listRoleBlock) {
     var roleBlock = getDataRoleBlock();
     var dataSave = [];
+    List<String> listRoleCode = [];
     roleBlock.then((data) {
       for (int i = 0; i < listRoleBlock.length; i++) {
         for (int j = 0; j < data.length; j++) {
           if (data[j]["code"] == listRoleBlock[i].code) {
             dataSave.add(data[j]["menu"]);
+            listRoleCode.add(data[j]["code"]);
           }
         }
       }
       LocalStorage.instance.setListRoleShare(jsonEncode(dataSave));
+      LocalStorage.instance.setListRoleCode(listRoleCode);
       checkAccessBlock();
     });
   }
@@ -278,13 +281,23 @@ class BaseNotifier extends StateNotifier<BaseState> {
       List<dynamic> listRoleBLock =
           jsonDecode(LocalStorage.instance.getListRoleShare());
       for (int i = 0; i < listRoleBLock.length; i++) {
-        if (listRoleBLock[i]["level_1"][0] == "pos-system") {
+        List<dynamic> level1 = listRoleBLock[i]["level_1"];
+        if (level1.where((e) => e == "pos-system").toList().isNotEmpty) {
           state = state.copyWith(accessPosSystemBlock: true);
-        } else if (listRoleBLock[i]["level_1"][0] == "base-manager") {
+        } else if (level1
+            .where((e) => e == "base-manager")
+            .toList()
+            .isNotEmpty) {
           state = state.copyWith(accessBaseManagerBlock: true);
-        } else if (listRoleBLock[i]["level_1"][0] == "user-setting") {
+        } else if (level1
+            .where((e) => e == "user-setting")
+            .toList()
+            .isNotEmpty) {
           state = state.copyWith(accessUserSettingBlock: true);
-        } else if (listRoleBLock[i]["level_1"][0] == "global-setting") {
+        } else if (level1
+            .where((e) => e == "global-setting")
+            .toList()
+            .isNotEmpty) {
           state = state.copyWith(accessGlobalSettingBlock: true);
         }
       }
@@ -363,9 +376,9 @@ class BaseNotifier extends StateNotifier<BaseState> {
     return listprofileMenu;
   }
 
-  void actionProfileMenu(String title) {
+  void actionProfileMenu(String title, BuildContext context) {
     if (title == "Thông tin cá nhân") {
-      print("nhảy vào trang profile");
+      context.pushRoute(const ProfileInfomationUserRoute());
     } else if (title == "Trở về cơ sở chính") {
       disableShareMode();
       Restart.restartApp();
@@ -377,7 +390,30 @@ class BaseNotifier extends StateNotifier<BaseState> {
 
   void setImage(XFile? file) {
     state = state.copyWith(image: file);
-    final bytes = File(file!.path).readAsBytesSync();
-    log(base64Encode(bytes));
+  }
+
+  void setVideo(XFile? file) {
+    state = state.copyWith(video: file);
+  }
+
+  Future<void> uploadFile(String fileName, XFile file, String fileType) async {
+    final connected = await AppConnectivity.connectivity();
+    if (connected) {
+      final bytes = File(file.path).readAsBytesSync();
+      final base64 = base64Encode(bytes);
+      final response =
+          await _baseRepository.uploadFile(fileName, base64, fileType);
+      if (response["msg"] == "create file successful") {
+        print("ok done");
+      }
+    } else {
+      state = state.copyWith(msgBase: "không thể kết nối tới Server");
+    }
+  }
+
+  List<String> getRoleCode() {
+    print(LocalStorage.instance.getListRoleCode());
+    List<String> listRoleCode = LocalStorage.instance.getListRoleCode();
+    return listRoleCode;
   }
 }

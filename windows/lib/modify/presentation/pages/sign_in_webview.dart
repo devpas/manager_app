@@ -96,9 +96,9 @@ class SignInWebviewPage extends ConsumerWidget {
                         var isConnect = await connectGAS(cookieGAS);
                         print(isConnect);
                         if (isConnect) {
-                          notifierLogin.loginAdminSilent(goToMain: () {
-                            context.pushRoute(const DashboardBaseRoute());
-                          });
+                          // notifierLogin.loginAdminSilent(goToMain: () {
+                          context.pushRoute(const DashboardBaseRoute());
+                          // });
                         } else {}
                       }
                     }
