@@ -22,7 +22,7 @@ class CategoryPasData {
     _id = json['id'];
     _name = json['name'];
     _parentId = json['parent_id'];
-    _img = json['img'];
+    _img = json['image'];
     _active = json['active'];
     if (json['children'] != null) {
       _children = [];
@@ -79,7 +79,7 @@ class CategoryPasData {
     map['id'] = _id;
     map['name'] = _name;
     map['parent_id'] = _parentId;
-    map['img'] = _img;
+    map['image'] = _img;
     map['active'] = _active;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();

@@ -118,6 +118,7 @@ class BaseRepositoryImpl extends BaseRepository {
       data: data,
       options: Options(
           headers: headers,
+          receiveTimeout: 100 * 1000,
           method: "POST",
           followRedirects: true,
           validateStatus: (status) {
@@ -134,6 +135,7 @@ class BaseRepositoryImpl extends BaseRepository {
             headers: headers,
             method: "GET",
             followRedirects: false,
+            receiveTimeout: 100 * 1000,
             validateStatus: (status) {
               return status! < 500;
             }),

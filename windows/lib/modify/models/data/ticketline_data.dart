@@ -6,8 +6,8 @@ class TicketLineData {
     int? ticketId,
     int? line,
     int? productId,
-    int? attributesetInstanceId,
-    int? unit,
+    String? attributesetInstanceId,
+    double? unit,
     double? price,
     int? taxId,
     String? attributes,
@@ -28,19 +28,20 @@ class TicketLineData {
     _ticketId = json['ticket'];
     _line = json['line'];
     _productId = json['product_id'];
-    _attributesetInstanceId = json['attributeset_instance_id'];
-    _unit = json['unit'];
-    _price = json['price'];
-    _taxId = json['tax_id'];
-    _attributes = json['attributes'];
+    _attributesetInstanceId = json['attributeset_instance_id'] ?? "";
+    _unit = double.parse(json['unit'].toString());
+    _price = double.parse(json['price'].toString());
+    // _taxId = json['tax_id'];
+    _taxId = 0;
+    _attributes = json['attributes'].toString();
   }
 
   int? _id;
   int? _ticketId;
   int? _line;
   int? _productId;
-  int? _attributesetInstanceId;
-  int? _unit;
+  String? _attributesetInstanceId;
+  double? _unit;
   double? _price;
   int? _taxId;
   String? _attributes;
@@ -50,8 +51,8 @@ class TicketLineData {
     int? ticketId,
     int? line,
     int? productId,
-    int? attributesetInstanceId,
-    int? unit,
+    String? attributesetInstanceId,
+    double? unit,
     double? price,
     int? taxId,
     String? attributes,
@@ -76,9 +77,9 @@ class TicketLineData {
 
   int? get productId => _productId;
 
-  int? get attributesetInstanceId => _attributesetInstanceId;
+  String? get attributesetInstanceId => _attributesetInstanceId;
 
-  int? get unit => _unit;
+  double? get unit => _unit;
 
   double? get price => _price;
 

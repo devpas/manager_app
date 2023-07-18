@@ -47,7 +47,8 @@ class _CustomDatePickerModalState extends State<CustomDatePickerModal> {
                 child: CupertinoDatePicker(
                   mode: CupertinoDatePickerMode.date,
                   initialDateTime: date,
-                  minimumDate: date,
+                  maximumDate: date,
+                  minimumDate: DateTime(2000),
                   onDateTimeChanged: (DateTime value) {
                     date = value;
                   },

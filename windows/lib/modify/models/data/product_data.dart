@@ -54,7 +54,8 @@ class ProductPasData {
     _priceBuy = json['price_buy'] + 0.0;
     _priceSell = json['price_sell'] + 0.0;
     _categoryId = json['category_id'];
-    _taxCat = json['tax_cat'];
+    // _taxCat = json['tax_cat'];
+    _taxCat = 0;
     _attribuseteId = json['_attribuseteId'];
     _stockCost = json['stock_cost'];
     _stockVolume = json['stock_volume'];

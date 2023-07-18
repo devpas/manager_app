@@ -13,7 +13,7 @@ class TicketData {
       DateTime? datenew,
       List<TicketLineData>? ticketlines,
       List<TaxlineData>? taxlines,
-      PaymentData? payment,
+      List<PaymentData>? payments,
       ReceiptData? receipt}) {
     _id = id;
     _title = title;
@@ -25,35 +25,40 @@ class TicketData {
     _datenew = datenew;
     _ticketlines = ticketlines;
     _taxlines = taxlines;
-    _payment = payment;
+    _payments = payments;
     _receipt = receipt;
   }
 
   TicketData.fromJson(dynamic json) {
-    _id = json['id'];
-    _title = json['title'];
-    _ticketType = json['ticket_type'];
-    _ticketId = json['ticket_id'];
-    _personId = json['person_id'];
-    _customerId = json['customer_id'];
-    _status = json['status'];
-    _datenew = json['datenew'];
-    if (json['ticketlines'] != null) {
+    _id = json['ticket_data']['ticket']['id'];
+    _title = json['ticket_data']['ticket']['title'];
+    _ticketType = json['ticket_data']['ticket']['ticket_type'];
+    _ticketId = json['ticket_data']['ticket']['ticket_id'];
+    _personId = json['ticket_data']['ticket']['person_id'];
+    _customerId = json['ticket_data']['ticket']['customer_id'];
+    _status = json['ticket_data']['ticket']['status'];
+    _datenew = DateTime.parse(json['date_new']);
+    if (json['ticket_data']['ticketlines'] != null) {
       _ticketlines = [];
-      json['ticketlines'].forEach((v) {
+      json['ticket_data']['ticketlines'].forEach((v) {
         _ticketlines?.add(TicketLineData.fromJson(v));
       });
     }
-    if (json['taxlines'] != null) {
+    if (json['ticket_data']['taxlines'] != null) {
       _taxlines = [];
-      json['taxlines'].forEach((v) {
+      json['ticket_data']['taxlines'].forEach((v) {
         _taxlines?.add(TaxlineData.fromJson(v));
       });
     }
-    _payment =
-        json['payment'] != null ? PaymentData.fromJson(json['payment']) : null;
-    _receipt =
-        json['receipt'] != null ? ReceiptData.fromJson(json['receipt']) : null;
+    if (json['ticket_data']['payments'] != null) {
+      _payments = [];
+      json['ticket_data']['payments'].forEach((v) {
+        _payments?.add(PaymentData.fromJson(v));
+      });
+    }
+    _receipt = json['ticket_data']['receipt'] != null
+        ? ReceiptData.fromJson(json['ticket_data']['receipt'])
+        : null;
   }
 
   int? _id;
@@ -66,7 +71,7 @@ class TicketData {
   DateTime? _datenew;
   List<TicketLineData>? _ticketlines;
   List<TaxlineData>? _taxlines;
-  PaymentData? _payment;
+  List<PaymentData>? _payments;
   ReceiptData? _receipt;
 
   TicketData copyWith(
@@ -80,7 +85,7 @@ class TicketData {
           DateTime? datenew,
           List<TicketLineData>? ticketlines,
           List<TaxlineData>? taxlines,
-          PaymentData? payment,
+          List<PaymentData>? payments,
           ReceiptData? receipt}) =>
       TicketData(
           id: id ?? _id,
@@ -93,7 +98,7 @@ class TicketData {
           datenew: datenew ?? _datenew,
           ticketlines: ticketlines ?? _ticketlines,
           taxlines: taxlines ?? _taxlines,
-          payment: payment ?? _payment,
+          payments: payments ?? _payments,
           receipt: receipt ?? _receipt);
 
   int? get id => _id;
@@ -116,7 +121,7 @@ class TicketData {
 
   List<TaxlineData>? get taxlines => _taxlines;
 
-  PaymentData? get payment => _payment;
+  List<PaymentData>? get payments => _payments;
 
   ReceiptData? get receipt => _receipt;
 
@@ -136,8 +141,8 @@ class TicketData {
     if (_ticketlines != null) {
       map['ticketlines'] = _ticketlines?.map((v) => v.toJson()).toList();
     }
-    if (_payment != null) {
-      map['payment'] = _payment?.toJson();
+    if (_payments != null) {
+      map['payments'] = _payments?.map((v) => v.toJson()).toList();
     }
     if (_receipt != null) {
       map['receipt'] = _receipt?.toJson();

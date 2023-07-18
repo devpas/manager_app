@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:g_manager_app/src/core/utils/local_storage.dart';
@@ -19,7 +20,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
   Future<dynamic> createTicket(ticket) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     var ticketJson = ticket.toJson();
-    print(ticketJson);
+    log(jsonEncode(ticketJson));
     var dataJson = {};
     final data = {
       "access_id": LocalStorage.instance.getKeyAccessOwner(),
@@ -40,7 +41,8 @@ class TicketsRepositoryImpl extends TicketsRepository {
             return status! < 500;
           }),
     );
-
+    // print(jsonEncode(data));
+    log(response.toString());
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);
@@ -65,8 +67,48 @@ class TicketsRepositoryImpl extends TicketsRepository {
   }
 
   @override
-  Future<ApiResult<TicketsResponse>> getTickets(String alias) {
-    // TODO: implement getTickets
-    throw UnimplementedError();
+  Future<ApiResult<TicketsResponse>> searchTickets(dynamic queryParam) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "query_param": queryParam
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=ticket/getTickets',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2.data);
+      return ApiResult.success(
+        data: TicketsResponse.fromJson(response2.data),
+      );
+    } else {
+      return ApiResult.success(
+        data: TicketsResponse.fromJson(response.data),
+      );
+    }
   }
 }

@@ -15,8 +15,8 @@ class ReceiptData {
   ReceiptData.fromJson(dynamic json) {
     _id = json['id'];
     _moneyId = json['money_id'];
-    _datenew = json['datenew'];
-    _attributes = json['attributes'];
+    _datenew = DateTime.parse(json['datenew']);
+    _attributes = json['attributes'].toString();
   }
 
   int? _id;

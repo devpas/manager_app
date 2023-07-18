@@ -34,14 +34,16 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
       taxlines: [],
       receipt: ReceiptData(
           id: 0, moneyId: 0, datenew: DateTime.now(), attributes: ""),
-      payment: PaymentData(
-          id: 0,
-          receiptId: 0,
-          payment: "",
-          total: 0,
-          transId: "",
-          returnMSG: "",
-          notes: ""));
+      payments: [
+        PaymentData(
+            id: 0,
+            receiptId: 0,
+            payment: "",
+            total: 0,
+            transId: "",
+            returnMSG: "",
+            notes: "")
+      ]);
 
   //customer + address
   List<List<dynamic>> customerPos = [
@@ -81,57 +83,57 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
   List money = [
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/500000_dong.jpg",
       "price": 500
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-02.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/200000_dong.jpg",
       "price": 200
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-04.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/100000_dong.jpg",
       "price": 100
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-06.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/50000_dong.jpg",
       "price": 50
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-08.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/20000_dong.jpg",
       "price": 20
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-10.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/10000_dong.jpg",
       "price": 10
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-12.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/5000_dong.jpg",
       "price": 5
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-14.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/2000_dong.jpg",
       "price": 2
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-16.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/1000_dong.jpg",
       "price": 1
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-18.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/500_dong.jpg",
       "price": 0.5
     },
     {
       "img":
-          "https://www.sbv.gov.vn/webcenter/cs/groups/cucphathanhkhoquy/documents/noidungtinh/c2j2/mdcy/~edisp/~export/SBVWEBAPP01SBV072320~3/338348-20.jpg",
+          "https://focusasiatravel.vn/wp-content/uploads/2021/03/200_dong.jpg",
       "price": 0.2
     },
   ];
@@ -150,14 +152,16 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         taxlines: [],
         receipt: ReceiptData(
             id: 0, moneyId: 0, datenew: DateTime.now(), attributes: ""),
-        payment: PaymentData(
-            id: 0,
-            receiptId: 0,
-            payment: "",
-            total: 0,
-            transId: "",
-            returnMSG: "",
-            notes: ""));
+        payments: [
+          PaymentData(
+              id: 0,
+              receiptId: 0,
+              payment: "",
+              total: 0,
+              transId: "",
+              returnMSG: "",
+              notes: "")
+        ]);
   }
 
   void addTicketline(ProductPasData product, int? index) {
@@ -168,7 +172,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         ticketId: listTicket[state.selectTicket!].ticketId,
         line: 1,
         productId: product.id,
-        attributesetInstanceId: 1,
+        attributesetInstanceId: "",
         unit: 1,
         price: double.parse("${product.priceSell}"),
         taxId: int.parse("${product.taxCat}"),
@@ -221,7 +225,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
           total = total +
               (listTicket[index].ticketlines![i].price! *
                   (1 + listTicket[index].ticketlines![i].taxId! / 100) *
-                  int.parse("${listTicket[index].ticketlines![i].unit}"));
+                  double.parse("${listTicket[index].ticketlines![i].unit}"));
         }
       }
     }
@@ -273,7 +277,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     listTicket[indexTicket].ticketlines![indexTicketline] =
         listTicket[indexTicket]
             .ticketlines![indexTicketline]
-            .copyWith(unit: int.parse(unit), price: double.parse(price));
+            .copyWith(unit: double.parse(unit), price: double.parse(price));
 
     state = state.copyWith(listTicket: listTicket);
   }
@@ -300,21 +304,24 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
           taxId: ticketline.taxId,
           receiptId: 0,
           base: ticketline.price,
-          amount: ticketline.price! * ticketline.taxId!));
+          amount: ticketline.price! * (ticketline.taxId! / 100 + 1)));
     }
+
     listTicket[state.selectTicket!] = listTicket[state.selectTicket!].copyWith(
         person: 1,
         customer: state.infoSelected![0][0],
         status: 1,
         taxlines: listTaxline,
-        payment: PaymentData(
-            id: 0,
-            receiptId: 0,
-            payment: "cash",
-            total: money,
-            transId: "",
-            returnMSG: "successful",
-            notes: ""),
+        payments: [
+          PaymentData(
+              id: 0,
+              receiptId: 0,
+              payment: "cash",
+              total: money,
+              transId: "",
+              returnMSG: "successful",
+              notes: "")
+        ],
         receipt: ReceiptData(
             id: 0, moneyId: 0, datenew: DateTime.now(), attributes: "{}"));
 

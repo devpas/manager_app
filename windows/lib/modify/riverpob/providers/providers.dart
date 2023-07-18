@@ -3,3 +3,4 @@ export 'printer/printer_provider.dart';
 export 'products/product_provider.dart';
 export 'categories/category_provider.dart';
 export 'base/base_provider.dart';
+export 'orders/order_provider.dart';

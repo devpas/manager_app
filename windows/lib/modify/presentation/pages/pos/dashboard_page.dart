@@ -5,9 +5,9 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/data/product_data.dart';
-import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/client/client_info_modal.dart';
-import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/order_detail/pay_info_modal_pas.dart';
-import 'package:g_manager_app/modify/presentation/pages/orders/add/widgets/order_detail/tickets/list_ticket_modal.dart';
+import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widgets/client/client_info_modal.dart';
+import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widgets/order_detail/pay_info_modal_pas.dart';
+import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widgets/order_detail/tickets/list_ticket_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_filter_modal.dart';
 
@@ -244,7 +244,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                   int.parse(
                                                           "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId}") /
                                                       100) *
-                                              int.parse(
+                                              double.parse(
                                                   "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit}")),
                                           style: statePos.selectTicketLine ==
                                                   index

@@ -9,7 +9,6 @@ import 'package:g_manager_app/src/core/utils/app_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
-import '../../../../../orders/add/widgets/order_detail/products/search_product_modal_in_order_detail_info_pas.dart';
 import 'search_category_modal_in_filter_products_pas.dart';
 
 class ListProductsFilterModal extends ConsumerWidget {

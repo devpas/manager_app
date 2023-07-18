@@ -24,7 +24,7 @@ class PaymentData {
     _id = json['id'];
     _receiptId = json['receipt_id'];
     _payment = json['payment'];
-    _total = json['total'];
+    _total = double.parse(json['total'].toString());
     _transId = json['trans_id'];
     _returnMSG = json['return_msg'];
     _notes = json['notes'];

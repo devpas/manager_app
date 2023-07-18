@@ -405,6 +405,28 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    OrdersPasRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.OrdersPasPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    OrderDetailsPasRoute.name: (routeData) {
+      final args = routeData.argsAs<OrderDetailsPasRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.OrderDetailsPasPage(
+          key: args.key,
+          order: args.order,
+        ),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -638,6 +660,14 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           ProductsManageRoute.name,
           path: '/products-manage',
+        ),
+        _i2.RouteConfig(
+          OrdersPasRoute.name,
+          path: '/orders-pas-manage',
+        ),
+        _i2.RouteConfig(
+          OrderDetailsPasRoute.name,
+          path: '/order-pas-details',
         ),
       ];
 }
@@ -1440,6 +1470,52 @@ class ProductsManageRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'ProductsManageRoute';
+}
+
+/// generated route for
+/// [_i1.OrdersPasPage]
+class OrdersPasRoute extends _i2.PageRouteInfo<void> {
+  const OrdersPasRoute()
+      : super(
+          OrdersPasRoute.name,
+          path: '/orders-pas-manage',
+        );
+
+  static const String name = 'OrdersPasRoute';
+}
+
+/// generated route for
+/// [_i1.OrderDetailsPasPage]
+class OrderDetailsPasRoute extends _i2.PageRouteInfo<OrderDetailsPasRouteArgs> {
+  OrderDetailsPasRoute({
+    _i3.Key? key,
+    required _i7.TicketData? order,
+  }) : super(
+          OrderDetailsPasRoute.name,
+          path: '/order-pas-details',
+          args: OrderDetailsPasRouteArgs(
+            key: key,
+            order: order,
+          ),
+        );
+
+  static const String name = 'OrderDetailsPasRoute';
+}
+
+class OrderDetailsPasRouteArgs {
+  const OrderDetailsPasRouteArgs({
+    this.key,
+    required this.order,
+  });
+
+  final _i3.Key? key;
+
+  final _i7.TicketData? order;
+
+  @override
+  String toString() {
+    return 'OrderDetailsPasRouteArgs{key: $key, order: $order}';
+  }
 }
 
 /// generated route for

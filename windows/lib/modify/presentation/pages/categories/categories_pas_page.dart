@@ -60,9 +60,7 @@ class _CategoriesPasPageState extends ConsumerState<CategoriesPasPage> {
       child: Scaffold(
         backgroundColor: AppColors.mainBackground,
         appBar: CustomAppbarPOS(
-          actions: (LocalStorage.instance.getLoginData()?.user?.role == 'admin')
-              ? addCategoriesActions(context)
-              : null,
+          actions: addCategoriesActions(context),
           title: Text(
             "Danh mục",
             style: AppTypographies.styBlack16W500,

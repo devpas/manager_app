@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:g_manager_app/src/core/utils/local_storage.dart';
@@ -36,6 +37,7 @@ class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
             return status! < 500;
           }),
     );
+    log(response.toString());
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);
@@ -131,7 +133,7 @@ class CategoriesRepositoryPASImpl extends CategoriesPASRepository {
             return status! < 500;
           }),
     );
-
+    log(response.toString());
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);

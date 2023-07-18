@@ -200,8 +200,9 @@ class WMainDrawerPos extends ConsumerWidget {
                         iconData: FlutterRemix.bill_line,
                         title: "Đơn hàng",
                         onTap: () {
-                          // context.popRoute();
-                          // context.pushRoute(const CategoriesRoute());
+                          context.popRoute();
+                          // context.pushRoute(const CategoriesPasRoute());
+                          context.pushRoute(const OrdersPasRoute());
                         },
                       )
                     : const SizedBox(),

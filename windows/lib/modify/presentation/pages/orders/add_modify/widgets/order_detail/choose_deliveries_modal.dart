@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/utils/utils.dart';
 import '../../../../../../../src/riverpod/providers/providers.dart';
-import '../../../../../../../modify/presentation/components/components.dart';
+import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
 
 class ChooseDeliveriesModal extends ConsumerStatefulWidget {

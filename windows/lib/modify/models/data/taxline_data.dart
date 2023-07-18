@@ -15,9 +15,10 @@ class TaxlineData {
   TaxlineData.fromJson(dynamic json) {
     _id = json['id'];
     _receiptId = json['receipt_id'];
-    _taxId = json['tax_id'];
-    _base = json['base'];
-    _amount = json['amount'];
+    // _taxId = json['tax_id'];
+    _taxId = 0;
+    _base = double.parse(json['base'].toString());
+    _amount = double.parse(json['amount'].toString());
   }
 
   int? _id;
