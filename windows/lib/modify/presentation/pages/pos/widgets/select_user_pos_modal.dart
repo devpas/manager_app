@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/riverpob/providers/pos_system_pas/pos_system_pas_provider.dart';
+import 'package:g_manager_app/modify/riverpob/providers/customers/customer_provider.dart';
+import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/utils/utils.dart';
@@ -24,14 +25,18 @@ class _SearchUserModalInClientInfoState
     super.initState();
     Future.delayed(
       Duration.zero,
-      () {},
+      () {
+        ref.read(customersProvider.notifier).fetchListCustomers();
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(posSystemPASProvider);
-    final notifier = ref.read(posSystemPASProvider.notifier);
+    final statePos = ref.watch(posSystemPASProvider);
+    final notifierPos = ref.read(posSystemPASProvider.notifier);
+    final state = ref.watch(customersProvider);
+    final notifier = ref.read(customersProvider.notifier);
     return Material(
       color: AppColors.mainBackground,
       child: Container(
@@ -44,13 +49,13 @@ class _SearchUserModalInClientInfoState
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SearchTextField(
+            const SearchTextField(
               // onChanged: (value) =>
               //     notifier.setUserQuery(context, value.trim()),
-              hintText: AppHelpers.getTranslation(TrKeys.searchUser),
+              hintText: "Tìm khách hàng",
             ),
             10.verticalSpace,
-            state.isUsersLoading
+            state.customers!.isEmpty
                 ? Padding(
                     padding: REdgeInsets.symmetric(vertical: 20.0),
                     child: CircularProgressIndicator(
@@ -62,15 +67,21 @@ class _SearchUserModalInClientInfoState
                     child: ListView.builder(
                       padding: REdgeInsets.symmetric(vertical: 10),
                       physics: const CustomBouncingScrollPhysics(),
-                      itemCount: state.customerPos!.length,
+                      itemCount: state.customers!.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        final user = state.customerPos![index];
+                        final customer = state.customers![index];
                         return SearchedItem(
-                          title: '${user[1]}',
-                          isSelected: state.infoSelected![0][0] == user[0],
+                          title: '${customer.name}',
+                          isSelected: false,
                           onTap: () {
-                            notifier.setSelectUserPos(user);
+                            var customerPos = [
+                              customer.id,
+                              customer.name,
+                              customer.address,
+                              customer.fileOrdersId ?? ""
+                            ];
+                            notifierPos.setSelectUserPos(customerPos);
                             context.popRoute();
                           },
                         );

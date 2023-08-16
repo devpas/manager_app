@@ -234,6 +234,16 @@ import 'modals_route.dart';
       page: OrderDetailsPasPage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/customers-pas-manage',
+      page: CustomersPasPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/add-customers',
+      page: AddCustomerPasPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
   ],
 )
 class $AppRouter {}

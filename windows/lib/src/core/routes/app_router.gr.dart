@@ -427,6 +427,24 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    CustomersPasRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.CustomersPasPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    AddCustomerPasRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AddCustomerPasPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -668,6 +686,14 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           OrderDetailsPasRoute.name,
           path: '/order-pas-details',
+        ),
+        _i2.RouteConfig(
+          CustomersPasRoute.name,
+          path: '/customers-pas-manage',
+        ),
+        _i2.RouteConfig(
+          AddCustomerPasRoute.name,
+          path: '/add-customers',
         ),
       ];
 }
@@ -1516,6 +1542,30 @@ class OrderDetailsPasRouteArgs {
   String toString() {
     return 'OrderDetailsPasRouteArgs{key: $key, order: $order}';
   }
+}
+
+/// generated route for
+/// [_i1.CustomersPasPage]
+class CustomersPasRoute extends _i2.PageRouteInfo<void> {
+  const CustomersPasRoute()
+      : super(
+          CustomersPasRoute.name,
+          path: '/customers-pas-manage',
+        );
+
+  static const String name = 'CustomersPasRoute';
+}
+
+/// generated route for
+/// [_i1.AddCustomerPasPage]
+class AddCustomerPasRoute extends _i2.PageRouteInfo<void> {
+  const AddCustomerPasRoute()
+      : super(
+          AddCustomerPasRoute.name,
+          path: '/add-customers',
+        );
+
+  static const String name = 'AddCustomerPasRoute';
 }
 
 /// generated route for

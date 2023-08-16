@@ -47,3 +47,5 @@ export '../../../modify/presentation/pages/pos/pos_manage/pos_manage.dart';
 export '../../../modify/presentation/pages/pos/pos_manage/products_manage/products_manage.dart';
 export '../../../modify/presentation/pages/orders/orders_page.dart';
 export '../../../modify/presentation/pages/orders/order_details/order_details_page.dart';
+export '../../../modify/presentation/pages/customers/customers_pas_page.dart';
+export '../../../modify/presentation/pages/customers/add/add_customer_pas_page.dart';

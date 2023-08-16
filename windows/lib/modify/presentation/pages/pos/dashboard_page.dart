@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -25,7 +27,7 @@ class DashboardPASPage extends ConsumerStatefulWidget {
 
 class _DashboardPageState extends ConsumerState<DashboardPASPage> {
   String message = "";
-  double heightContainerProduct = 340;
+  double heightContainerProduct = 320;
   String selectWarehouse = "warehouse_1";
   bool keyboardVisible = false;
   late FocusNode focusNode;
@@ -53,7 +55,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
         if (isVisible) {
           heightContainerProduct = 70;
         } else {
-          heightContainerProduct = 340;
+          heightContainerProduct = 320;
         }
       });
     });
@@ -91,7 +93,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 100,
+                            width: 80,
                             child: Text(
                               "Hàng",
                               style: AppTypographies.styBlack11W400Opacity40,
@@ -424,7 +426,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                   ),
                   Padding(
                     padding: REdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: stateProducts.products!.isNotEmpty
+                    child: stateCategories.categories!.isNotEmpty
                         ? SizedBox(
                             height: heightContainerProduct,
                             child: Row(
@@ -467,31 +469,38 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                     physics:
                                         const CustomBouncingScrollPhysics(),
                                     children: [
-                                      GridView.builder(
-                                        shrinkWrap: true,
-                                        primary: false,
-                                        itemCount:
-                                            stateProducts.products!.length,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          childAspectRatio: 1.75,
-                                          crossAxisCount: 2,
-                                        ),
-                                        itemBuilder: (context, index) {
-                                          final product =
-                                              stateProducts.products![index];
-                                          return TextButton(
-                                            onPressed: () {
-                                              notifierPos.addTicketline(product,
-                                                  statePos.selectTicket);
-                                            },
-                                            child: ProductsProductItemPOS(
-                                              selectWarehouse: selectWarehouse,
-                                              product: product,
-                                            ),
-                                          );
-                                        },
-                                      ),
+                                      stateProducts.products!.isNotEmpty
+                                          ? GridView.builder(
+                                              shrinkWrap: true,
+                                              primary: false,
+                                              itemCount: stateProducts
+                                                  .products!.length,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                childAspectRatio: 1.75,
+                                                crossAxisCount: 2,
+                                              ),
+                                              itemBuilder: (context, index) {
+                                                final product = stateProducts
+                                                    .products![index];
+                                                return TextButton(
+                                                  onPressed: () {
+                                                    notifierPos.addTicketline(
+                                                        product,
+                                                        statePos.selectTicket);
+                                                  },
+                                                  child: ProductsProductItemPOS(
+                                                    selectWarehouse:
+                                                        selectWarehouse,
+                                                    product: product,
+                                                  ),
+                                                );
+                                              },
+                                            )
+                                          : const Text(
+                                              "Không tìm thấy sản phẩm",
+                                              textAlign: TextAlign.center,
+                                            )
                                     ],
                                   ),
                                 )
@@ -512,7 +521,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         GestureDetector(
                           onTap: () {
                             if (statePos.listTicket![statePos.selectTicket!]
-                                .ticketlines!.isNotEmpty) {
+                                    .ticketlines!.isNotEmpty &&
+                                !statePos.createTicketLoading!) {
                               showModalBottomSheet(
                                 isScrollControlled: true,
                                 context: context,
@@ -650,6 +660,11 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            log(statePos.listTicket![statePos.selectTicket!]
+                                .ticketlines![statePos.selectTicketLine!].price
+                                .toString());
+                            log(statePos.selectTicketLine.toString());
+                            log(statePos.selectTicket.toString());
                             if (statePos.listTicket![statePos.selectTicket!]
                                     .ticketlines!.isNotEmpty &&
                                 !statePos.createTicketLoading!) {

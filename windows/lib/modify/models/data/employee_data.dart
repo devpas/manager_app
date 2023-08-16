@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:g_manager_app/modify/models/data/role_block_data.dart';
 
 class EmployeeData {
@@ -21,7 +19,6 @@ class EmployeeData {
     _name = json['name'];
     _phone = json['phone'];
     _email = json['email'];
-    print(json);
     if (json['role-block'] != null) {
       _listRoleBlock = [];
       json['role-block'].forEach((v) {

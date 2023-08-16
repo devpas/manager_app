@@ -33,7 +33,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             context.replaceRoute(SignInWebviewRoute());
           },
           goToSelectLang: () {
-            context.replaceRoute(SelectLangRoute(isRequired: true));
+            context.replaceRoute(SignInWebviewRoute());
           },
         );
         ref.read(splashProvider.notifier).getTranslations(context);

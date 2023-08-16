@@ -10,8 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../src/core/utils/utils.dart';
-import '../../../../../src/presentation/components/components.dart';
 import '../../../../../src/presentation/theme/theme.dart';
+import '../../../components/components.dart';
 import 'drawer_item_widget.dart';
 import 'settings_button.dart';
 
@@ -44,8 +44,9 @@ class WMainDrawerPos extends ConsumerWidget {
             ),
             Row(
               children: [
-                CommonImage(
-                  imageUrl: LocalStorage.instance.getLoginData()?.user?.img,
+                const AvatarImage(
+                  imageUrl:
+                      "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
                   radius: 30,
                   width: 60,
                   height: 60,
@@ -55,7 +56,7 @@ class WMainDrawerPos extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${LocalStorage.instance.getLoginData()?.user?.firstname} ${LocalStorage.instance.getLoginData()?.user?.lastname}',
+                      state.baseRootInfomation["owner_name"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w700,
                         fontSize: 20.sp,
@@ -65,7 +66,12 @@ class WMainDrawerPos extends ConsumerWidget {
                     ),
                     3.verticalSpace,
                     Text(
-                      '${LocalStorage.instance.getLoginData()?.user?.role?.toUpperCase()}',
+                      notifier.checkShareMode()
+                          ? notifier.getRoleName(notifier
+                              .getRoleCode()
+                              .where((e) => e.contains("pos-"))
+                              .first)
+                          : "Chủ cơ sở",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
@@ -174,27 +180,26 @@ class WMainDrawerPos extends ConsumerWidget {
                         },
                       )
                     : const SizedBox(),
-                notifier.checkAccessPage("pos-system", "pos-categories")
-                    ? DrawerItemWidget(
-                        iconData: FlutterRemix.settings_line,
-                        title: "Danh mục",
-                        onTap: () {
-                          context.popRoute();
-                          // context.pushRoute(const CategoriesPasRoute());
-                          context.pushRoute(const PosManageRoute());
-                        },
-                      )
-                    : const SizedBox(),
-                notifier.checkAccessPage("pos-system", "pos-users")
+                notifier.checkAccessPage("pos-system", "pos-customer")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.user_3_line,
-                        title: "Nhân viên",
+                        title: "Khách hàng và cửa hàng",
                         onTap: () {
-                          // context.popRoute();
-                          // context.pushRoute(const CategoriesRoute());
+                          context.popRoute();
+                          context.pushRoute(const CustomersPasRoute());
                         },
                       )
                     : const SizedBox(),
+                // notifier.checkAccessPage("pos-system", "pos-users")
+                //     ? DrawerItemWidget(
+                //         iconData: FlutterRemix.user_3_line,
+                //         title: "Nhân viên",
+                //         onTap: () {
+                //           // context.popRoute();
+                //           // context.pushRoute(const CategoriesRoute());
+                //         },
+                //       )
+                //     : const SizedBox(),
                 notifier.checkAccessPage("pos-system", "pos-orders")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.bill_line,
@@ -206,23 +211,34 @@ class WMainDrawerPos extends ConsumerWidget {
                         },
                       )
                     : const SizedBox(),
-                notifier.checkAccessPage("pos-system", "pos-report")
+                // notifier.checkAccessPage("pos-system", "pos-report")
+                //     ? DrawerItemWidget(
+                //         iconData: FlutterRemix.file_paper_2_line,
+                //         title: "Báo cáo",
+                //         onTap: () {
+                //           // context.popRoute();
+                //           // context.pushRoute(const CategoriesRoute());
+                //         },
+                //       )
+                //     : const SizedBox(),
+                // notifier.checkAccessPage("pos-system", "pos-settings")
+                //     ? DrawerItemWidget(
+                //         iconData: FlutterRemix.settings_3_line,
+                //         title: "Cấu hình",
+                //         onTap: () {
+                //           // context.popRoute();
+                //           // context.pushRoute(const CategoriesRoute());
+                //         },
+                //       )
+                //     : const SizedBox(),
+                notifier.checkAccessPage("pos-system", "pos-categories")
                     ? DrawerItemWidget(
-                        iconData: FlutterRemix.file_paper_2_line,
-                        title: "Báo cáo",
+                        iconData: FlutterRemix.settings_line,
+                        title: "Quản trị",
                         onTap: () {
-                          // context.popRoute();
-                          // context.pushRoute(const CategoriesRoute());
-                        },
-                      )
-                    : const SizedBox(),
-                notifier.checkAccessPage("pos-system", "pos-settings")
-                    ? DrawerItemWidget(
-                        iconData: FlutterRemix.settings_3_line,
-                        title: "Cấu hình",
-                        onTap: () {
-                          // context.popRoute();
-                          // context.pushRoute(const CategoriesRoute());
+                          context.popRoute();
+                          // context.pushRoute(const CategoriesPasRoute());
+                          context.pushRoute(const PosManageRoute());
                         },
                       )
                     : const SizedBox(),

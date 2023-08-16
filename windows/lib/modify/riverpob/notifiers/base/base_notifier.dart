@@ -79,7 +79,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
               createDataRequest: false,
               baseInfomation: response["data"]["base_infomation"]);
         }
-
+        state = state.copyWith(
+            baseRootInfomation: response["data"]["base_infomation"]);
         LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
       }
     } else {
@@ -99,7 +100,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
         Future.delayed(const Duration(milliseconds: 300), () {
           state = state.copyWith(
               createDataRequest: false,
-              baseInfomation: response["data"]["base_infomation"]);
+              baseInfomation: response["data"]["base_infomation"],
+              baseRootInfomation: response["data"]["base_infomation"]);
           LocalStorage.instance
               .setKeyAccessOwner(response["data"]["key_access"]);
         });
@@ -204,10 +206,12 @@ class BaseNotifier extends StateNotifier<BaseState> {
     );
   }
 
-  void switchBase(BaseData base) {
+  void switchBase(BaseData base) async {
+    // for (int i = 0; i < base.listRoleBlock!.length; i++) {
+    //   print(base.listRoleBlock![i].code);
+    // }
     LocalStorage.instance.setShareMode(true);
     LocalStorage.instance.setKeyAccessShare(base.keyAccess!);
-    setAccessRoleBlock(base.listRoleBlock!);
     var baseInfomation = {
       "base_name": base.baseName,
       "owner_name": base.ownerName,
@@ -218,7 +222,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
     };
     LocalStorage.instance.setBaseInfomation(jsonEncode(baseInfomation));
     state = state.copyWith(baseInfomation: baseInfomation);
-    Restart.restartApp();
+    setAccessRoleBlock(base.listRoleBlock!);
   }
 
   void updateRoleCodeSelected(String roleCode) {
@@ -270,9 +274,16 @@ class BaseNotifier extends StateNotifier<BaseState> {
           }
         }
       }
+      print(listRoleCode);
       LocalStorage.instance.setListRoleShare(jsonEncode(dataSave));
       LocalStorage.instance.setListRoleCode(listRoleCode);
       checkAccessBlock();
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () {
+          Restart.restartApp();
+        },
+      );
     });
   }
 
@@ -365,7 +376,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
   }
 
   List<String> listProfile() {
-    List<String> profileShareMenu = ["Thông tin cá nhân", "Trở về cơ sở chính"];
+    List<String> profileShareMenu = ["Thông tin cơ sở", "Trở về cơ sở chính"];
     List<String> profileOwnerMenu = ["Thông tin cá nhân", "Đăng xuất"];
     List<String> listprofileMenu = [];
     if (checkShareMode()) {
@@ -412,8 +423,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
   }
 
   List<String> getRoleCode() {
-    print(LocalStorage.instance.getListRoleCode());
     List<String> listRoleCode = LocalStorage.instance.getListRoleCode();
+    print(listRoleCode);
     return listRoleCode;
   }
 }

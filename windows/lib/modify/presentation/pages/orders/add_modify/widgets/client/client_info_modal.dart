@@ -69,7 +69,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                 ),
                 59.verticalSpace,
                 SelectWithAddButton(
-                  label: AppHelpers.getTranslation("Hách hàng"),
+                  label: AppHelpers.getTranslation("Khách hàng"),
                   title: state.infoSelected!.isNotEmpty
                       ? state.infoSelected![0][1]
                       : "Tên người dùng",

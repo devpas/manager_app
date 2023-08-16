@@ -67,57 +67,57 @@ class _BaseListEmployeeState extends ConsumerState<BaseListEmployee> {
               strokeWidth: 3.r,
             ),
           )
-        : state.employees!.isEmpty
-            ? Center(
-                child: Text(
-                  AppHelpers.getTranslation(TrKeys.thereIsNoOrdersForThisUser),
-                  style: GoogleFonts.inter(
-                    fontSize: 18.sp,
-                    color: AppColors.black,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: -0.4,
-                  ),
-                ),
-              )
-            : Scaffold(
-                floatingActionButton: FloatingActionButton(
-                  backgroundColor: AppColors.greenMain,
-                  onPressed: () {
-                    context.pushRoute(AddEmployeeRoute());
-                  },
-                  child: Icon(
-                    FlutterRemix.add_line,
-                    size: 20.r,
-                    color: AppColors.white,
-                  ),
-                ),
-                body: ListView(
-                  physics: const CustomBouncingScrollPhysics(),
-                  controller: _scrollController,
-                  children: [
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: REdgeInsets.only(
-                          left: 15, right: 15, top: 14, bottom: 20),
-                      itemCount: state.employees!.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final employees = state.employees![index];
-                        return EmployeeItem(
-                          background: AppColors.mainBackground,
-                          employee: employees,
-                          onEdit: () {
-                            context.pushRoute(
-                                EditEmployeeRoute(employee: employees));
-                          },
-                          onDelete: () {
-                            notifier.deleteEmployee(employees.email!);
-                          },
-                        );
-                      },
+        : Scaffold(
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: AppColors.greenMain,
+              onPressed: () {
+                context.pushRoute(AddEmployeeRoute());
+              },
+              child: Icon(
+                FlutterRemix.add_line,
+                size: 20.r,
+                color: AppColors.white,
+              ),
+            ),
+            body: state.employees!.isEmpty
+                ? Center(
+                    child: Text(
+                      "Không tìm thấy nhân viên",
+                      style: GoogleFonts.inter(
+                        fontSize: 18.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -0.4,
+                      ),
                     ),
-                  ],
-                ),
-              );
+                  )
+                : ListView(
+                    physics: const CustomBouncingScrollPhysics(),
+                    controller: _scrollController,
+                    children: [
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: REdgeInsets.only(
+                            left: 15, right: 15, top: 14, bottom: 20),
+                        itemCount: state.employees!.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final employees = state.employees![index];
+                          return EmployeeItem(
+                            background: AppColors.mainBackground,
+                            employee: employees,
+                            onEdit: () {
+                              context.pushRoute(
+                                  EditEmployeeRoute(employee: employees));
+                            },
+                            onDelete: () {
+                              notifier.deleteEmployee(employees.email!);
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+          );
   }
 }

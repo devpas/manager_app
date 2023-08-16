@@ -59,6 +59,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
     final statePos = ref.watch(posSystemPASProvider);
     final stateProduct = ref.watch(productsPASProvider);
     final notifierPos = ref.read(posSystemPASProvider.notifier);
+    final notifierProduct = ref.read(productsPASProvider.notifier);
     return Material(
       color: AppColors.white,
       child: Padding(
@@ -71,7 +72,8 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${stateProduct.products!.where((product) => product.id == ticketline!.productId).toList().first.name}",
+              "${notifierProduct.listProductCache.where((product) => product.id == ticketline!.productId).toList().first.name}",
+              // "${stateProduct.products!.where((product) => product.id == ticketline!.productId).toList().first.name}",
               style: AppTypographies.styBlack22W500,
             ),
             40.verticalSpace,
@@ -233,7 +235,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                     notifierPos.convertNumberZero(
                         double.parse(priceController.text) *
                             (int.parse("${ticketline!.taxId}") / 100) *
-                            int.parse(unitController.text)),
+                            double.parse(unitController.text)),
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
@@ -262,7 +264,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                     notifierPos.convertNumberZero(
                         double.parse(priceController.text) *
                             (1 + int.parse("${ticketline!.taxId}") / 100) *
-                            int.parse(unitController.text)),
+                            double.parse(unitController.text)),
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,

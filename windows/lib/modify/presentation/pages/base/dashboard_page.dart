@@ -76,7 +76,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
             ),
             subtitle: notifier.checkShareMode()
                 ? "Trạng thái: chia sẽ bởi ${state.baseInfomation["owner_name"]}"
-                : "Trạng thái: Chủ sở hữu",
+                : "Trạng thái: Chủ sở hữu ",
             center: true,
             leading: Builder(
               builder: (context) => SmallIconButton(

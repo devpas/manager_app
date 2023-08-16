@@ -96,13 +96,13 @@ class _ProfileInfomationUserPageState
                 label: "Địa chỉ",
               ),
               150.verticalSpace,
-              CommonAccentButton(
-                title: AppHelpers.getTranslation(TrKeys.save),
-                onPressed: () {
-                  notifier.uploadFile("logo", state.image!, "image");
-                },
-                isLoading: false,
-              ),
+              // CommonAccentButton(
+              //   title: AppHelpers.getTranslation(TrKeys.save),
+              //   onPressed: () {
+              //     notifier.uploadFile("logo", state.image!, "image");
+              //   },
+              //   isLoading: false,
+              // ),
             ],
           ),
         ),

@@ -9,8 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../src/core/utils/utils.dart';
-import '../../../../../src/presentation/components/components.dart';
 import '../../../../../src/presentation/theme/theme.dart';
+import '../../../../riverpob/providers/base/base_provider.dart';
+import '../../../components/components.dart';
 import '../../pos/widgets/are_you_sure_modal_in_drawer.dart';
 import '../../pos/widgets/drawer_item_widget.dart';
 import '../../pos/widgets/settings_button.dart';
@@ -20,6 +21,8 @@ class WMainDrawerBase extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(baseProvider);
+    final notifier = ref.read(baseProvider.notifier);
     return Drawer(
       backgroundColor: AppColors.white,
       width: double.infinity,
@@ -42,8 +45,9 @@ class WMainDrawerBase extends ConsumerWidget {
             ),
             Row(
               children: [
-                CommonImage(
-                  imageUrl: LocalStorage.instance.getLoginData()?.user?.img,
+                const AvatarImage(
+                  imageUrl:
+                      "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
                   radius: 30,
                   width: 60,
                   height: 60,
@@ -53,7 +57,7 @@ class WMainDrawerBase extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${LocalStorage.instance.getLoginData()?.user?.firstname} ${LocalStorage.instance.getLoginData()?.user?.lastname}',
+                      state.baseRootInfomation["owner_name"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w700,
                         fontSize: 20.sp,
@@ -63,7 +67,7 @@ class WMainDrawerBase extends ConsumerWidget {
                     ),
                     3.verticalSpace,
                     Text(
-                      '${LocalStorage.instance.getLoginData()?.user?.role?.toUpperCase()}',
+                      state.baseRootInfomation["email"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
@@ -152,24 +156,22 @@ class WMainDrawerBase extends ConsumerWidget {
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               children: [
-                if (LocalStorage.instance.getLoginData()?.user?.role == 'admin')
-                  DrawerItemWidget(
-                    iconData: FlutterRemix.store_2_line,
-                    title: AppHelpers.getTranslation(TrKeys.shops),
-                    onTap: () {
-                      context.popRoute();
-                      context.pushRoute(const MainPASRoute());
-                    },
-                  ),
-                if (LocalStorage.instance.getLoginData()?.user?.role == 'admin')
-                  DrawerItemWidget(
-                    iconData: FlutterRemix.base_station_line,
-                    title: AppHelpers.getTranslation(TrKeys.reviews),
-                    onTap: () {
-                      context.popRoute();
-                      context.pushRoute(const ReviewsRoute());
-                    },
-                  ),
+                // DrawerItemWidget(
+                //   iconData: FlutterRemix.store_2_line,
+                //   title: AppHelpers.getTranslation(TrKeys.shops),
+                //   onTap: () {
+                //     context.popRoute();
+                //     context.pushRoute(const MainPASRoute());
+                //   },
+                // ),
+                // DrawerItemWidget(
+                //   iconData: FlutterRemix.base_station_line,
+                //   title: AppHelpers.getTranslation(TrKeys.reviews),
+                //   onTap: () {
+                //     context.popRoute();
+                //     context.pushRoute(const ReviewsRoute());
+                //   },
+                // ),
                 DrawerItemWidget(
                     iconData: FlutterRemix.home_2_fill,
                     title: "trang chính cũ",

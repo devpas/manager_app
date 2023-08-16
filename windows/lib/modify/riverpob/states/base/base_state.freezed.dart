@@ -32,6 +32,7 @@ mixin _$BaseState {
   bool? get accessUserSettingBlock => throw _privateConstructorUsedError;
   bool? get accessGlobalSettingBlock => throw _privateConstructorUsedError;
   dynamic get baseInfomation => throw _privateConstructorUsedError;
+  dynamic get baseRootInfomation => throw _privateConstructorUsedError;
   XFile? get image => throw _privateConstructorUsedError;
   XFile? get video => throw _privateConstructorUsedError;
 
@@ -62,6 +63,7 @@ abstract class $BaseStateCopyWith<$Res> {
       bool? accessUserSettingBlock,
       bool? accessGlobalSettingBlock,
       dynamic baseInfomation,
+      dynamic baseRootInfomation,
       XFile? image,
       XFile? video});
 }
@@ -95,6 +97,7 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
     Object? accessUserSettingBlock = freezed,
     Object? accessGlobalSettingBlock = freezed,
     Object? baseInfomation = freezed,
+    Object? baseRootInfomation = freezed,
     Object? image = freezed,
     Object? video = freezed,
   }) {
@@ -163,6 +166,10 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.baseInfomation
           : baseInfomation // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      baseRootInfomation: freezed == baseRootInfomation
+          ? _value.baseRootInfomation
+          : baseRootInfomation // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -199,6 +206,7 @@ abstract class _$$_BaseStateCopyWith<$Res> implements $BaseStateCopyWith<$Res> {
       bool? accessUserSettingBlock,
       bool? accessGlobalSettingBlock,
       dynamic baseInfomation,
+      dynamic baseRootInfomation,
       XFile? image,
       XFile? video});
 }
@@ -230,6 +238,7 @@ class __$$_BaseStateCopyWithImpl<$Res>
     Object? accessUserSettingBlock = freezed,
     Object? accessGlobalSettingBlock = freezed,
     Object? baseInfomation = freezed,
+    Object? baseRootInfomation = freezed,
     Object? image = freezed,
     Object? video = freezed,
   }) {
@@ -298,6 +307,10 @@ class __$$_BaseStateCopyWithImpl<$Res>
           ? _value.baseInfomation
           : baseInfomation // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      baseRootInfomation: freezed == baseRootInfomation
+          ? _value.baseRootInfomation
+          : baseRootInfomation // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -330,6 +343,7 @@ class _$_BaseState extends _BaseState {
       this.accessUserSettingBlock = false,
       this.accessGlobalSettingBlock = false,
       this.baseInfomation = const {},
+      this.baseRootInfomation = const {},
       this.image,
       this.video})
       : _base = base,
@@ -401,13 +415,16 @@ class _$_BaseState extends _BaseState {
   @JsonKey()
   final dynamic baseInfomation;
   @override
+  @JsonKey()
+  final dynamic baseRootInfomation;
+  @override
   final XFile? image;
   @override
   final XFile? video;
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, image: $image, video: $video)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, image: $image, video: $video)';
   }
 
   @override
@@ -446,31 +463,35 @@ class _$_BaseState extends _BaseState {
                 other.accessGlobalSettingBlock == accessGlobalSettingBlock) &&
             const DeepCollectionEquality()
                 .equals(other.baseInfomation, baseInfomation) &&
+            const DeepCollectionEquality()
+                .equals(other.baseRootInfomation, baseRootInfomation) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.video, video) || other.video == video));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_base),
-      baseSelected,
-      baseLoading,
-      employeesLoading,
-      createDataRequest,
-      msgBase,
-      const DeepCollectionEquality().hash(_employees),
-      blockSelected,
-      roleCodeSelected,
-      roleNameSelected,
-      noteAddEmployee,
-      accessPosSystemBlock,
-      accessBaseManagerBlock,
-      accessUserSettingBlock,
-      accessGlobalSettingBlock,
-      const DeepCollectionEquality().hash(baseInfomation),
-      image,
-      video);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(_base),
+        baseSelected,
+        baseLoading,
+        employeesLoading,
+        createDataRequest,
+        msgBase,
+        const DeepCollectionEquality().hash(_employees),
+        blockSelected,
+        roleCodeSelected,
+        roleNameSelected,
+        noteAddEmployee,
+        accessPosSystemBlock,
+        accessBaseManagerBlock,
+        accessUserSettingBlock,
+        accessGlobalSettingBlock,
+        const DeepCollectionEquality().hash(baseInfomation),
+        const DeepCollectionEquality().hash(baseRootInfomation),
+        image,
+        video
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -497,6 +518,7 @@ abstract class _BaseState extends BaseState {
       final bool? accessUserSettingBlock,
       final bool? accessGlobalSettingBlock,
       final dynamic baseInfomation,
+      final dynamic baseRootInfomation,
       final XFile? image,
       final XFile? video}) = _$_BaseState;
   const _BaseState._() : super._();
@@ -533,6 +555,8 @@ abstract class _BaseState extends BaseState {
   bool? get accessGlobalSettingBlock;
   @override
   dynamic get baseInfomation;
+  @override
+  dynamic get baseRootInfomation;
   @override
   XFile? get image;
   @override

@@ -65,9 +65,7 @@ class _PosManagePageState extends ConsumerState<PosManagePage> {
             children: [
               18.verticalSpace,
               Row(
-                mainAxisAlignment: state.accessUserSettingBlock!
-                    ? MainAxisAlignment.spaceBetween
-                    : MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DashboardItemBase(
                     iconData: FlutterRemix.user_6_fill,
@@ -95,16 +93,14 @@ class _PosManagePageState extends ConsumerState<PosManagePage> {
               ),
               9.verticalSpace,
               Row(
-                mainAxisAlignment: state.accessUserSettingBlock!
-                    ? MainAxisAlignment.spaceBetween
-                    : MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DashboardItemBase(
                     iconData: FlutterRemix.store_2_line,
                     title: "Bán hàng",
                     iconColor: AppColors.inProgressOrders,
                     onTap: () {
-                      context.pushRoute(const MainPASRoute());
+                      // context.pushRoute(const MainPASRoute());
                     },
                   ),
                   DashboardItemBase(

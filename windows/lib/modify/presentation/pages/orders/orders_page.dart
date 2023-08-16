@@ -76,9 +76,11 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
       if (state.tickets!.length <= limitItemLoaded) {
         lengthItem = state.tickets!.length;
       } else {
-        if (state.tickets!.length < limitItemLoaded * pageIndexSelected) {
+        print(state.tickets!.length);
+        print(limitItemLoaded * valueCurrentPage);
+        if (state.tickets!.length < limitItemLoaded * valueCurrentPage) {
           lengthItem =
-              state.tickets!.length - limitItemLoaded * (pageIndexSelected - 1);
+              state.tickets!.length - limitItemLoaded * (valueCurrentPage - 1);
         } else {
           lengthItem = limitItemLoaded;
         }
@@ -111,10 +113,16 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
     // print("index: $index");
     // print("pageSelected: $pageIndexSelected");
     // print("value: $value");
-    if (index == 4) {
-      print("case 1");
+    int maxPage = getLengthPage(ref.watch(orderPasProvider), false) - 1;
+    if (index == 4 && (pageIndexExtend < maxPage - 3)) {
       setState(() {
-        pageIndexExtend = pageIndexExtend + 3;
+        int pageCalulate = pageIndexExtend + 3;
+        int page_wrong = maxPage - pageCalulate;
+        if (page_wrong > 0 && page_wrong < 3) {
+          pageIndexExtend = pageIndexExtend + page_wrong;
+        } else {
+          pageIndexExtend = pageCalulate;
+        }
         pageIndexSelected = 1;
       });
     } else if (index == 0 && pageIndexExtend > 1) {
@@ -131,8 +139,6 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
   }
 
   int getIndexFirstItemOfPage(int index) {
-    print(valueCurrentPage);
-    print(pageIndexExtend);
     int indexItem = 0;
     if (valueCurrentPage == 1) {
       indexItem = index;
@@ -302,7 +308,6 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
                                                             listLimitItemPerPage[
                                                                 index];
                                                       });
-                                                      print(limitItemLoaded);
                                                     },
                                                     child: Text(
                                                       listProfile[index]

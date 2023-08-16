@@ -29,7 +29,7 @@ class SelectPaymentPosModal extends ConsumerWidget {
           children: [
             24.verticalSpace,
             Text(
-              AppHelpers.getTranslation(TrKeys.selectPayment),
+              "Chọn hình thức thanh toán",
               style: AppTypographies.styBlack22W500,
             ),
             24.verticalSpace,

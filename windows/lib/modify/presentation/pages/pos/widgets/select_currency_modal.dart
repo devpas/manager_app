@@ -29,7 +29,7 @@ class SelectCurrencyPosModal extends ConsumerWidget {
           children: [
             24.verticalSpace,
             Text(
-              AppHelpers.getTranslation(TrKeys.selectCurrency),
+              "Chọn loại tiền tệ",
               style: AppTypographies.styBlack22W500,
             ),
             24.verticalSpace,

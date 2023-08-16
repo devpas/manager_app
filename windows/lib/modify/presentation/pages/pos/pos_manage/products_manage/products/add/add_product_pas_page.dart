@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -114,7 +115,9 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
               initialValue: product!.priceBuy.toString(),
               label: "Giá mua",
               onChanged: (v) {
-                product = product!.copyWith(priceBuy: double.parse(v));
+                if (v != "") {
+                  product = product!.copyWith(priceBuy: double.parse(v));
+                }
               },
               inputType: TextInputType.number,
               inputAction: TextInputAction.next,
@@ -124,7 +127,9 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
               initialValue: product!.priceSell.toString(),
               label: "Giá bán",
               onChanged: (v) {
-                product = product!.copyWith(priceSell: double.parse(v));
+                if (v != "") {
+                  product = product!.copyWith(priceSell: double.parse(v));
+                }
               },
               inputType: TextInputType.number,
               inputAction: TextInputAction.next,
@@ -138,7 +143,10 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                       initialValue: product!.priceBuy.toString(),
                       label: "Giá sau chiết khấu",
                       onChanged: (v) {
-                        product = product!.copyWith(priceSell: double.parse(v));
+                        if (v != "") {
+                          product =
+                              product!.copyWith(priceSell: double.parse(v));
+                        }
                       },
                       inputAction: TextInputAction.next,
                     ),
@@ -289,8 +297,6 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                   onChanged: (value) {
                     setState(() {
                       activeCheckBox = !activeCheckBox;
-                      product =
-                          product!.copyWith(active: activeCheckBox ? 1 : 0);
                     });
                   },
                 ),
@@ -318,14 +324,14 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                 }
                 setState(() {
                   product = product!.copyWith(
+                      active: activeCheckBox ? 1 : 0,
                       attributes: listProperties.toString(),
                       image: base64,
                       categoryId: parentCategoryId);
-                  print(product!.toJson());
                   productsNotifier.addProduct(product!);
                 });
               },
-              isLoading: false,
+              isLoading: productsState.productsLoading!,
             ),
             30.verticalSpace,
           ],

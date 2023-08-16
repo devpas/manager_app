@@ -48,7 +48,7 @@ class BaseItem extends StatelessWidget {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 210,
+                            width: 200,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +102,6 @@ class BaseItem extends StatelessWidget {
                                           color:
                                               AppColors.black.withOpacity(0.05),
                                         ),
-                                        padding: const EdgeInsets.all(8),
                                         child: active
                                             ? const Icon(FlutterRemix.stop_fill)
                                             : const Icon(
@@ -111,7 +110,7 @@ class BaseItem extends StatelessWidget {
                                       onPressed: onSwitch,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 5),
+                                      padding: const EdgeInsets.only(left: 3),
                                       child: Text("${base.baseStatus}",
                                           style: TextStyle(
                                               color: base.baseStatus == "Ready"

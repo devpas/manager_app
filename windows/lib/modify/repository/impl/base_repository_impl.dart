@@ -362,7 +362,7 @@ class BaseRepositoryImpl extends BaseRepository {
             return status! < 500;
           }),
     );
-
+    log(response.toString());
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
       String url2 = location.substring(1, location.length - 1);

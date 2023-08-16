@@ -23,6 +23,7 @@ class BaseState with _$BaseState {
     @Default(false) bool? accessUserSettingBlock,
     @Default(false) bool? accessGlobalSettingBlock,
     @Default({}) dynamic baseInfomation,
+    @Default({}) dynamic baseRootInfomation,
     XFile? image,
     XFile? video,
   }) = _BaseState;

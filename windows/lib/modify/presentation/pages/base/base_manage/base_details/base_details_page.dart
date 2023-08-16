@@ -37,14 +37,53 @@ class _BaseDetailsPageState extends ConsumerState<BaseDetailsPage>
 
   _BaseDetailsPageState(this.base);
 
+  List<Widget> listTabName = [];
+  List<Widget> listTab = [];
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    print(base!.shareStatus);
+    if (base!.shareStatus == "owner") {
+      _tabController = TabController(length: 4, vsync: this);
+    } else {
+      _tabController = TabController(length: 2, vsync: this);
+    }
+    tabBase();
     Future.delayed(
       Duration.zero,
       () {},
     );
+  }
+
+  void tabBase() {
+    if (base!.shareStatus == "owner") {
+      setState(() {
+        listTabName = [
+          const Tab(text: "Cơ sở"),
+          const Tab(text: "Địa điểm"),
+          const Tab(text: "Nhân sự"),
+          const Tab(text: "Tùy chọn"),
+        ];
+        listTab = [
+          BaseDetailsBody(from: widget.from, base: base!),
+          BaseAddressItem(base: base!),
+          const BaseListEmployee(),
+          const ListOption(),
+        ];
+      });
+    } else {
+      setState(() {
+        listTabName = [
+          const Tab(text: "Cơ sở"),
+          const Tab(text: "Địa điểm"),
+        ];
+        listTab = [
+          BaseDetailsBody(from: widget.from, base: base!),
+          BaseAddressItem(base: base!),
+        ];
+      });
+    }
   }
 
   @override
@@ -83,32 +122,21 @@ class _BaseDetailsPageState extends ConsumerState<BaseDetailsPage>
               Container(
                 color: AppColors.white,
                 child: TabBar(
-                  indicatorColor: AppColors.greenMain,
-                  indicatorWeight: 2,
-                  labelPadding: EdgeInsets.zero,
-                  controller: _tabController,
-                  labelColor: AppColors.black,
-                  unselectedLabelColor: AppColors.unselectedTabBar,
-                  unselectedLabelStyle: AppTypographies.styUnselected14W500,
-                  labelStyle: AppTypographies.styBlack14W500,
-                  tabs: const [
-                    Tab(text: "Cơ sở"),
-                    Tab(text: "Địa điểm"),
-                    Tab(text: "Nhân sự"),
-                    Tab(text: "Tùy chọn"),
-                  ],
-                ),
+                    indicatorColor: AppColors.greenMain,
+                    indicatorWeight: 2,
+                    labelPadding: EdgeInsets.zero,
+                    controller: _tabController,
+                    labelColor: AppColors.black,
+                    unselectedLabelColor: AppColors.unselectedTabBar,
+                    unselectedLabelStyle: AppTypographies.styUnselected14W500,
+                    labelStyle: AppTypographies.styBlack14W500,
+                    tabs: listTabName),
               ),
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
                   physics: const CustomBouncingScrollPhysics(),
-                  children: [
-                    BaseDetailsBody(from: widget.from, base: base!),
-                    BaseAddressItem(base: base!),
-                    const BaseListEmployee(),
-                    const ListOption(),
-                  ],
+                  children: listTab,
                 ),
               ),
             ],

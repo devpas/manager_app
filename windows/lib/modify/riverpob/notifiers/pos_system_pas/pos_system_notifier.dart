@@ -47,10 +47,10 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
 
   //customer + address
   List<List<dynamic>> customerPos = [
-    [1, "Khách lẻ", "Không có địa chỉ cụ thể"],
-    [2, "Đại lý cấp 3", "tổ 1 ấp 3"],
-    [3, "Đại lý cấp 2", "xã An Hữu"],
-    [4, "Đại lý cấp 1", "xã An Thái trung"]
+    [1, "Khách lẻ", "Không có địa chỉ cụ thể", ""],
+    [2, "Đại lý cấp 3", "tổ 1 ấp 3", ""],
+    [3, "Đại lý cấp 2", "xã An Hữu", ""],
+    [4, "Đại lý cấp 1", "xã An Thái trung", ""]
   ];
   //unit
   List<List<dynamic>> unitPos = [
@@ -258,6 +258,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
   void setSelectUserPos(List<dynamic> user) {
     infoSelected[0] = user;
     state = state.copyWith(infoSelected: infoSelected);
+    print(infoSelected[0]);
   }
 
   void setSelectUnitPos(List<dynamic> unit) {
@@ -328,8 +329,8 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     final connected = await AppConnectivity.connectivity();
     if (connected) {
       state = state.copyWith(createTicketLoading: true);
-      final response = await _ticketsRepository
-          .createTicket(listTicket[state.selectTicket!]);
+      final response = await _ticketsRepository.createTicket(
+          listTicket[state.selectTicket!], state.infoSelected![0][3]);
       if (response["data"]["msg"] == "create ticket successful!") {
         deleteTicket(state.selectTicket);
       }

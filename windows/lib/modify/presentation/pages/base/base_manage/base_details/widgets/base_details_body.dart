@@ -72,11 +72,13 @@ class BaseDetailsBody extends ConsumerWidget {
                     title: "Trồng trọt",
                   ),
                   170.verticalSpace,
-                  CommonAccentButton(
-                    title: AppHelpers.getTranslation(TrKeys.save),
-                    onPressed: () {},
-                    isLoading: false,
-                  ),
+                  base!.shareStatus == "owner"
+                      ? CommonAccentButton(
+                          title: AppHelpers.getTranslation(TrKeys.save),
+                          onPressed: () {},
+                          isLoading: false,
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),

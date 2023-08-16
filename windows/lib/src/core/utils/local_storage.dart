@@ -205,6 +205,8 @@ class LocalStorage {
     deleteCookieAccess();
     deleteBaseInformation();
     setShareMode(false);
+    deleteUserInformation();
+    deleteListRole();
     final cookieManager = WebviewCookieManager();
     cookieManager.clearCookies();
   }
@@ -217,6 +219,15 @@ class LocalStorage {
 
   String getBaseInfomation() =>
       _preferences?.getString("base_infomation") ?? '';
+
+  Future<void> setUserInfomation(String keyAccess) async {
+    if (_preferences != null) {
+      _preferences!.setString("user_infomation", keyAccess);
+    }
+  }
+
+  String getUserInfomation() =>
+      _preferences?.getString("user_infomation") ?? '';
 
   Future<void> setKeyAccessOwner(String keyAccess) async {
     if (_preferences != null) {
@@ -275,4 +286,5 @@ class LocalStorage {
   void deleteCookieAccess() => _preferences?.remove("google_cookie_access");
   void deleteListRole() => _preferences?.remove("list_role_share");
   void deleteBaseInformation() => _preferences?.remove("base_infomation");
+  void deleteUserInformation() => _preferences?.remove("user_infomation");
 }

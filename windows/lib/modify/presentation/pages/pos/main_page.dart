@@ -69,7 +69,10 @@ class MainPASPage extends ConsumerWidget {
                         return List.generate(
                             listProfile.length,
                             (index) => PopupMenuItem<String>(
-                                  onTap: () {},
+                                  onTap: () {
+                                    notifierBase.actionProfileMenu(
+                                        listProfile[index], context);
+                                  },
                                   child: Text(
                                     listProfile[index],
                                     style: GoogleFonts.inter(

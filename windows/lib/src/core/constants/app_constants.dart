@@ -34,8 +34,11 @@ class AppConstants {
   static const String baseUrlAppscript =
       'https://script.google.com/macros/s/AKfycbwBFeT0LUiVsdYHspd8gV95GweilFDIRrGr6kh0o2k/dev';
 
-  static const cookieDev =
-      "__Secure-1PSID=XAgvZtgrprRbD_Q4fwyNuVSjKa0pDdy5pJblcK_N4qxeq7g5A1hxXFcEep5skzM1mhdctQ.;";
+  // static const String baseUrlAppscript =
+  //     'https://script.google.com/macros/s/AKfycbyl5qpw8JroLkdRhHDRjIY5OetJERnp0p3rqFwg4koreByNVZdpg2sF7cpG2oEEnKlu/exec';
+
+  // static const cookieDev =
+  //     "__Secure-1PSID=XAgvZtgrprRbD_Q4fwyNuVSjKa0pDdy5pJblcK_N4qxeq7g5A1hxXFcEep5skzM1mhdctQ.;";
 
   /// locales
   static const String localeCodeEn = 'en';
