@@ -224,4 +224,51 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     );
     state = state.copyWith(productsLoading: false);
   }
+
+  Future<void> getListWarehouses() async {
+    state = state.copyWith(warehouseLoading: true);
+    final response = await _productsPASRepository.getListWarehouses();
+    if (response["data"] != null) {
+      state = state.copyWith(
+          warehouse: response["data"],
+          warehouseLoading: false,
+          warehouseSelected: response["data"][0]);
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> addWarehouse(dynamic data) async {
+    state = state.copyWith(warehouseLoading: true);
+    final response = await _productsPASRepository.addWarehouse(data);
+    if (response["msg"] == "add warehouse successful") {
+      await getListWarehouses();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> updateWarehouse(dynamic data) async {
+    state = state.copyWith(warehouseLoading: true);
+    final response = await _productsPASRepository.updateWarehouse(data);
+    if (response["msg"] == "update warehouse successful") {
+      await getListWarehouses();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> deleteWarehouse(int warehouseId) async {
+    state = state.copyWith(warehouseLoading: true);
+    final response = await _productsPASRepository.deleteWarehouse(warehouseId);
+    if (response["msg"] == "delete warehouse successful") {
+      await getListWarehouses();
+    } else {
+      print(response);
+    }
+  }
+
+  void setWarehouseSelected(dynamic warehouse) {
+    state = state.copyWith(warehouseSelected: warehouse);
+  }
 }

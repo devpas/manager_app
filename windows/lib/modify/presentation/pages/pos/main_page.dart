@@ -148,11 +148,6 @@ class MainPASPage extends ConsumerWidget {
                         isSelected: bottomBarState.activeIndex == 2,
                       ),
                       _barItem(
-                        icon: FlutterRemix.shopping_bag_3_line,
-                        label: "Sản phẩm",
-                        isSelected: bottomBarState.activeIndex == 3,
-                      ),
-                      _barItem(
                         icon: FlutterRemix.user_smile_line,
                         label:
                             LocalStorage.instance.getLoginData()?.user?.role ==
@@ -160,6 +155,11 @@ class MainPASPage extends ConsumerWidget {
                                 ? "Vận chuyển"
                                 : "Người dùng",
                         isSelected: bottomBarState.activeIndex == 4,
+                      ),
+                      _barItem(
+                        icon: FlutterRemix.message_2_line,
+                        label: "Chat",
+                        isSelected: bottomBarState.activeIndex == 3,
                       ),
                     ],
                   ),

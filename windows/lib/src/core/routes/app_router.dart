@@ -244,6 +244,31 @@ import 'modals_route.dart';
       page: AddCustomerPasPage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/options-manager',
+      page: OptionsManagePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/list-warhouse',
+      page: ListStocksPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/add-warehouse',
+      page: AddWarehousePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/update-warehouse',
+      page: UpdateWarehousePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/product-in-warehouse',
+      page: ProductsInWarehousePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
   ],
 )
 class $AppRouter {}

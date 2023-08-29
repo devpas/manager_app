@@ -67,7 +67,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
                 title: "Sản phẩm theo kho",
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  // context.pushRoute(const ProductsManageRoute());
+                  context.pushRoute(const ProductsInWarehouseRoute());
                 },
               ),
               DashboardItemBase(
@@ -339,11 +339,11 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
           leading: Builder(
             builder: (context) => SmallIconButton(
               icon: Icon(
-                FlutterRemix.menu_line,
+                FlutterRemix.arrow_left_s_line,
                 size: 24.r,
                 color: AppColors.black,
               ),
-              onPressed: Scaffold.of(context).openDrawer,
+              onPressed: context.popRoute,
             ),
           ),
         ),

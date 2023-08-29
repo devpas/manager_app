@@ -19,40 +19,44 @@ class CategoryPosItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthWidget = MediaQuery.of(context).size.width;
+    double widthHeight = MediaQuery.of(context).size.height;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          height: 40,
-          width: 100,
-          child: Material(
-            borderRadius: BorderRadius.circular(8),
-            color: isSelected ? AppColors.greenMain : AppColors.white,
-            child: InkWell(
+          height: widthHeight * 0.0348,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 3),
+            child: Material(
               borderRadius: BorderRadius.circular(8),
-              onTap: onTap,
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        title,
-                        style: isSelected
-                            ? AppTypographies.styWhite10W500
-                            : AppTypographies.styBlack10W500,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+              color: isSelected ? AppColors.greenMain : AppColors.white,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: onTap,
+                child: Padding(
+                  padding: const EdgeInsets.all(1),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          title,
+                          style: isSelected
+                              ? AppTypographies.styWhite10W500
+                              : AppTypographies.styBlack10W500,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-        5.verticalSpace,
+        4.5.verticalSpace,
       ],
     );
   }

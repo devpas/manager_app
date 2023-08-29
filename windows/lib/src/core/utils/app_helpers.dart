@@ -221,15 +221,15 @@ class AppHelpers {
       builder: (BuildContext context, FlashController controller) {
         return Flash(
           controller: controller,
-          backgroundColor: AppColors.mainBackground,
+          // backgroundColor: AppColors.mainBackground,
           position: FlashPosition.top,
-          borderRadius: BorderRadius.circular(8.r),
-          behavior: FlashBehavior.floating,
-          margin: REdgeInsets.all(15),
-          brightness: Brightness.light,
-          barrierBlur: 1.5.r,
-          barrierColor: Colors.black38,
-          barrierDismissible: true,
+          // borderRadius: BorderRadius.circular(8.r),
+          // behavior: FlashBehavior.floating,
+          // margin: REdgeInsets.all(15),
+          // brightness: Brightness.light,
+          // barrierBlur: 1.5.r,
+          // barrierColor: Colors.black38,
+          // barrierDismissible: true,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.r),

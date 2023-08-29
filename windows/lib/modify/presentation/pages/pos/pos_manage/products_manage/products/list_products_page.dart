@@ -138,7 +138,7 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
                             } else {
                               product = state.productsAfterFilter![index];
                             }
-                            return ListProductsProductItemPas(
+                            return ProductsProductItemPas(
                               product: product,
                               onTap: () async {
                                 notifier.setProductSelected(product);

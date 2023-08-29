@@ -107,6 +107,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
         data: TicketsResponse.fromJson(response2.data),
       );
     } else {
+      print(response.data);
       return ApiResult.success(
         data: TicketsResponse.fromJson(response.data),
       );

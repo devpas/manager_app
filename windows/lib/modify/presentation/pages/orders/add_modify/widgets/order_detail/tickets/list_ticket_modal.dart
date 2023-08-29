@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/presentation/components/buttons/ticket_item.dart';
+import 'package:g_manager_app/modify/riverpob/providers/customers/customer_provider.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 
 import '../../../../../../components/components.dart';
@@ -21,8 +22,10 @@ class _ListTicketModalState extends ConsumerState<ListTicketModal> {
 
   @override
   Widget build(BuildContext context) {
-    var state = ref.watch(posSystemPASProvider);
+    final state = ref.watch(posSystemPASProvider);
     final notifier = ref.read(posSystemPASProvider.notifier);
+    final stateCustomer = ref.watch(customersProvider);
+    final notifierCustomer = ref.watch(customersProvider.notifier);
     return Material(
       color: AppColors.mainBackground,
       child: Container(
@@ -42,7 +45,8 @@ class _ListTicketModalState extends ConsumerState<ListTicketModal> {
               itemBuilder: (context, index) {
                 final ticket = state.listTicket![index];
                 return TicketItem(
-                  title: "${ticket.title}" "\n ${state.infoSelected![0][1]}",
+                  title: "${ticket.title}"
+                      "\n ${notifierCustomer.getNameCustomeById(ticket.customerId!)}",
                   isSelected: index == selectTicket ? true : false,
                   onDelete: () {
                     print(index);

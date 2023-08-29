@@ -46,7 +46,7 @@ class TicketItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      title + "\n khách lẻ",
+                      title,
                       style: isSelected
                           ? AppTypographies.styGreen16W500
                           : AppTypographies.styBlack16W500,

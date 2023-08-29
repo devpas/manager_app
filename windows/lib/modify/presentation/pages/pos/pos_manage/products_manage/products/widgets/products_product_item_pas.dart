@@ -9,12 +9,12 @@ import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
 import '../../../../../../../../src/core/constants/constants.dart';
 
-class ListProductsProductItemPas extends StatelessWidget {
+class ProductsProductItemPas extends StatelessWidget {
   final ProductPasData product;
   final Function() onTap;
   final Function() onDeleteTap;
 
-  const ListProductsProductItemPas({
+  const ProductsProductItemPas({
     Key? key,
     required this.product,
     required this.onTap,
@@ -30,7 +30,7 @@ class ListProductsProductItemPas extends StatelessWidget {
     final String price = isOutOfStock
         ? AppHelpers.getTranslation(TrKeys.outOfStock)
         : NumberFormat.currency(
-            symbol: LocalStorage.instance.getSelectedCurrency()?.symbol,
+            symbol: "",
           ).format(hasDiscount
             ? ((product.priceSell ?? 0) - (product.taxCat ?? 0))
             : product.priceSell);

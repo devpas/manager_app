@@ -49,3 +49,8 @@ export '../../../modify/presentation/pages/orders/orders_page.dart';
 export '../../../modify/presentation/pages/orders/order_details/order_details_page.dart';
 export '../../../modify/presentation/pages/customers/customers_pas_page.dart';
 export '../../../modify/presentation/pages/customers/add/add_customer_pas_page.dart';
+export '../../../modify/presentation/pages/pos/pos_manage/options_manage/options_manage.dart';
+export '../../../modify/presentation/pages/pos/pos_manage/products_manage/warehouse/list_warehouses.dart';
+export '../../../modify/presentation/pages/pos/pos_manage/products_manage/warehouse/add/add_warehouse.dart';
+export '../../../modify/presentation/pages/pos/pos_manage/products_manage/warehouse/update/update_warehouse.dart';
+export '../../../modify/presentation/pages/pos/pos_manage/products_manage/products/product_in_warehouse/product_in_warehouse.dart';

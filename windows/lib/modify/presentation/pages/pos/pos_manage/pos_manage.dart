@@ -108,7 +108,7 @@ class _PosManagePageState extends ConsumerState<PosManagePage> {
                     title: "Tùy chỉnh",
                     iconColor: AppColors.greenMain,
                     onTap: () {
-                      // bottomBarNotifier.setActiveIndex(3);
+                      context.pushRoute(const OptionsManageRoute());
                     },
                   )
                 ],

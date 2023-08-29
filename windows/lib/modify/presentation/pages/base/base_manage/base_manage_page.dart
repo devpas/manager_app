@@ -117,12 +117,7 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> {
                         children: [
                           ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
-                            padding: REdgeInsets.only(
-                              top: 20,
-                              left: 15,
-                              right: 15,
-                              bottom: 10,
-                            ),
+                            padding: REdgeInsets.all(8),
                             shrinkWrap: true,
                             itemCount: stateBase.base!.length,
                             itemBuilder: (context, index) {

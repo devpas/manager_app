@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:g_manager_app/modify/models/data/stocks.dart';
 
 class ProductPasData {
@@ -65,6 +67,7 @@ class ProductPasData {
     _image = json['image'];
     _active = json['active'];
     _attributesetInstanceId = json["attributeset_instance_id"];
+    json['stocks'] = jsonDecode(json['stocks']);
     _stocks = json['stocks'] != null
         ? List<StockData>.from(json['stocks'].map((x) => StockData.fromJson(x)))
         : null;

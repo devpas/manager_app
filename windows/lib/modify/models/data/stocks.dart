@@ -1,16 +1,24 @@
+import 'dart:developer';
+
 class StockData {
   StockData({
-    String? warehouse,
+    int? id,
     int? stockCurrent,
+    int? stockMin,
+    int? stockMax,
     List<StockData>? children,
   }) {
-    _warehouse = warehouse;
+    _id = id;
+    _stockMin = stockMin;
+    _stockMax = stockMax;
     _stockCurrent = stockCurrent;
     _children = children;
   }
 
   StockData.fromJson(dynamic json) {
-    _warehouse = json['warehouse'];
+    _id = json['warehouse_id'];
+    _stockMin = json["stock_min"];
+    _stockMax = json["stock_max"];
     _stockCurrent = json['stock_current'];
     _children = json['children'] != null
         ? List<StockData>.from(
@@ -18,22 +26,32 @@ class StockData {
         : null;
   }
 
-  String? _warehouse;
+  int? _id;
   int? _stockCurrent;
+  int? _stockMin;
+  int? _stockMax;
   List<StockData>? _children;
 
   StockData copyWith({
-    String? warehouse,
+    int? id,
+    int? stockMin,
+    int? stockMax,
     int? stockCurrent,
     List<StockData>? children,
   }) =>
       StockData(
-        warehouse: warehouse ?? _warehouse,
+        id: id ?? _id,
+        stockMin: stockMin ?? stockMin,
+        stockMax: stockMax ?? stockMax,
         stockCurrent: stockCurrent ?? _stockCurrent,
         children: children ?? _children,
       );
 
-  String? get warehouse => _warehouse;
+  int? get id => _id;
+
+  int? get stockMin => _stockMin;
+
+  int? get stockMax => _stockMax;
 
   int? get stockCurrent => _stockCurrent;
 
@@ -41,7 +59,9 @@ class StockData {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['warehouse'] = _warehouse;
+    map['warehouse_id'] = _id;
+    map['stock_min'] = _stockMin;
+    map['stock_max'] = _stockMax;
     map['stock_current'] = _stockCurrent;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();

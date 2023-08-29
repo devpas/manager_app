@@ -13,11 +13,14 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
 
   final CustomersRepository _customersRepository;
 
+  List<CustomerData> listCustomers = [];
+
   Future<void> fetchListCustomers() async {
     final response = await _customersRepository.getListCustomers("");
     response.when(
       success: (data) async {
         state = state.copyWith(customers: data.customers);
+        listCustomers = data.customers!;
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -41,7 +44,26 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     );
   }
 
-  void selectCustomer(CustomerData customer) {
-    state = state.copyWith(customerSelected: customer);
+  void selectCustomer(int customerId) {
+    if (customerId != 0) {
+      CustomerData? customer;
+      for (int i = 0; i < listCustomers.length; i++) {
+        if (listCustomers[i].id == customerId) {
+          customer = listCustomers[i];
+          state = state.copyWith(customerSelected: customer);
+        }
+      }
+    }
+  }
+
+  String getNameCustomeById(int customerId) {
+    String nameCustomer = "Khách lẻ";
+    for (int i = 0; i < listCustomers.length; i++) {
+      if (listCustomers[i].id == customerId) {
+        nameCustomer = listCustomers[i].name!;
+        break;
+      }
+    }
+    return nameCustomer;
   }
 }

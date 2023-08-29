@@ -183,7 +183,7 @@ class WMainDrawerPos extends ConsumerWidget {
                 notifier.checkAccessPage("pos-system", "pos-customer")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.user_3_line,
-                        title: "Khách hàng và cửa hàng",
+                        title: "Khách hàng",
                         onTap: () {
                           context.popRoute();
                           context.pushRoute(const CustomersPasRoute());

@@ -445,6 +445,55 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    OptionsManageRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.OptionsManagePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ListStocksRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ListStocksPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    AddWarehouseRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AddWarehousePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    UpdateWarehouseRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateWarehouseRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.UpdateWarehousePage(
+          args.warehouse,
+          key: args.key,
+        ),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ProductsInWarehouseRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ProductsInWarehousePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -694,6 +743,26 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           AddCustomerPasRoute.name,
           path: '/add-customers',
+        ),
+        _i2.RouteConfig(
+          OptionsManageRoute.name,
+          path: '/options-manager',
+        ),
+        _i2.RouteConfig(
+          ListStocksRoute.name,
+          path: '/list-warhouse',
+        ),
+        _i2.RouteConfig(
+          AddWarehouseRoute.name,
+          path: '/add-warehouse',
+        ),
+        _i2.RouteConfig(
+          UpdateWarehouseRoute.name,
+          path: '/update-warehouse',
+        ),
+        _i2.RouteConfig(
+          ProductsInWarehouseRoute.name,
+          path: '/product-in-warehouse',
         ),
       ];
 }
@@ -1566,6 +1635,88 @@ class AddCustomerPasRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'AddCustomerPasRoute';
+}
+
+/// generated route for
+/// [_i1.OptionsManagePage]
+class OptionsManageRoute extends _i2.PageRouteInfo<void> {
+  const OptionsManageRoute()
+      : super(
+          OptionsManageRoute.name,
+          path: '/options-manager',
+        );
+
+  static const String name = 'OptionsManageRoute';
+}
+
+/// generated route for
+/// [_i1.ListStocksPage]
+class ListStocksRoute extends _i2.PageRouteInfo<void> {
+  const ListStocksRoute()
+      : super(
+          ListStocksRoute.name,
+          path: '/list-warhouse',
+        );
+
+  static const String name = 'ListStocksRoute';
+}
+
+/// generated route for
+/// [_i1.AddWarehousePage]
+class AddWarehouseRoute extends _i2.PageRouteInfo<void> {
+  const AddWarehouseRoute()
+      : super(
+          AddWarehouseRoute.name,
+          path: '/add-warehouse',
+        );
+
+  static const String name = 'AddWarehouseRoute';
+}
+
+/// generated route for
+/// [_i1.UpdateWarehousePage]
+class UpdateWarehouseRoute extends _i2.PageRouteInfo<UpdateWarehouseRouteArgs> {
+  UpdateWarehouseRoute({
+    required dynamic warehouse,
+    _i3.Key? key,
+  }) : super(
+          UpdateWarehouseRoute.name,
+          path: '/update-warehouse',
+          args: UpdateWarehouseRouteArgs(
+            warehouse: warehouse,
+            key: key,
+          ),
+        );
+
+  static const String name = 'UpdateWarehouseRoute';
+}
+
+class UpdateWarehouseRouteArgs {
+  const UpdateWarehouseRouteArgs({
+    required this.warehouse,
+    this.key,
+  });
+
+  final dynamic warehouse;
+
+  final _i3.Key? key;
+
+  @override
+  String toString() {
+    return 'UpdateWarehouseRouteArgs{warehouse: $warehouse, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i1.ProductsInWarehousePage]
+class ProductsInWarehouseRoute extends _i2.PageRouteInfo<void> {
+  const ProductsInWarehouseRoute()
+      : super(
+          ProductsInWarehouseRoute.name,
+          path: '/product-in-warehouse',
+        );
+
+  static const String name = 'ProductsInWarehouseRoute';
 }
 
 /// generated route for

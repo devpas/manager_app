@@ -9,6 +9,9 @@ class ProductsPasState with _$ProductsPasState {
       {@Default([]) List<ProductPasData>? products,
       @Default([]) List<ProductPasData>? productsAfterFilter,
       @Default(false) bool? productsLoading,
+      @Default(false) bool? warehouseLoading,
+      @Default([]) List<dynamic>? warehouse,
+      @Default({}) dynamic warehouseSelected,
       ProductPasData? productsSelected}) = _ProductsPasState;
 
   const ProductsPasState._();

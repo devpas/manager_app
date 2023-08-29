@@ -12,11 +12,14 @@ import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widget
 import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widgets/order_detail/tickets/list_ticket_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_filter_modal.dart';
+import 'package:g_manager_app/modify/riverpob/providers/customers/customer_provider.dart';
+import 'package:marquee/marquee.dart';
 
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import '../../theme/theme.dart';
 import '../../components/components.dart';
 import 'pos_manage/products_manage/products/widgets/products_product_item_pos.dart';
+import 'widgets/product_short_infomation_modal.dart';
 
 class DashboardPASPage extends ConsumerStatefulWidget {
   const DashboardPASPage({Key? key}) : super(key: key);
@@ -27,10 +30,11 @@ class DashboardPASPage extends ConsumerStatefulWidget {
 
 class _DashboardPageState extends ConsumerState<DashboardPASPage> {
   String message = "";
-  double heightContainerProduct = 320;
-  String selectWarehouse = "warehouse_1";
+  int selectWarehouseId = 0;
   bool keyboardVisible = false;
   late FocusNode focusNode;
+  bool keyboardActive = false;
+  double heightContainerProduct = 40;
 
   void showKeyboard() {
     focusNode.requestFocus();
@@ -46,6 +50,17 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     });
   }
 
+  double setHeighProductContainer(double height) {
+    setState(() {
+      if (keyboardActive) {
+        heightContainerProduct = height * 0.1;
+      } else {
+        heightContainerProduct = height * 0.425;
+      }
+    });
+    return heightContainerProduct;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -53,9 +68,9 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     KeyboardVisibilityController().onChange.listen((isVisible) {
       setState(() {
         if (isVisible) {
-          heightContainerProduct = 70;
+          keyboardActive = true;
         } else {
-          heightContainerProduct = 320;
+          keyboardActive = false;
         }
       });
     });
@@ -79,6 +94,10 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     final notifierCategories = ref.read(categoriesPASProvider.notifier);
     final notifierProducts = ref.read(productsPASProvider.notifier);
     final notifierBase = ref.read(baseProvider.notifier);
+    final stateCustomer = ref.watch(customersProvider);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.mainBackground,
@@ -93,14 +112,14 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 80,
+                            width: screenWidth * 0.25,
                             child: Text(
                               "Hàng",
                               style: AppTypographies.styBlack11W400Opacity40,
                             ),
                           ),
                           SizedBox(
-                            width: 50,
+                            width: screenWidth * 0.1,
                             child: Text(
                               "Giá",
                               style: AppTypographies.styBlack11W400Opacity40,
@@ -108,7 +127,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 40,
+                            width: screenWidth * 0.1,
                             child: Text(
                               "SL",
                               style: AppTypographies.styBlack11W400Opacity40,
@@ -116,7 +135,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 40,
+                            width: screenWidth * 0.1,
                             child: Text(
                               "%",
                               style: AppTypographies.styBlack11W400Opacity40,
@@ -124,7 +143,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 80,
+                            width: screenWidth * 0.2,
                             child: Text(
                               "Giá + %",
                               style: AppTypographies.styBlack11W400Opacity40,
@@ -132,7 +151,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 80,
+                            width: screenWidth * 0.20,
                             child: Text(
                               "Tiền",
                               style: AppTypographies.styBlack11W400Opacity40,
@@ -144,9 +163,9 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                    padding: const EdgeInsets.fromLTRB(0, 1, 0, 1),
                     child: SizedBox(
-                      height: 210,
+                      height: screenHeight * 0.25,
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         physics: const CustomBouncingScrollPhysics(),
@@ -161,7 +180,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                               notifierPos.updateIndex("ticketLine", index);
                             },
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                              padding:
+                                  const EdgeInsets.fromLTRB(0, 1.5, 0, 1.5),
                               child: Container(
                                 height: 30,
                                 color: Colors.white,
@@ -171,52 +191,52 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 100,
+                                        width: screenWidth * 0.25,
                                         child: Text(
                                           "${notifierProducts.listProductCache.where((product) => product.id == statePos.listTicket![statePos.selectTicket!].ticketlines![index].productId).toList().first.name}",
                                           style: statePos.selectTicketLine ==
                                                   index
-                                              ? AppTypographies.styGreen11W700
-                                              : AppTypographies.styBlack11W700,
+                                              ? AppTypographies.styGreen11W400
+                                              : AppTypographies.styBlack11W400,
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 50,
+                                        width: screenWidth * 0.1,
                                         child: Text(
                                           notifierPos.convertNumberZero(
                                               double.parse(
                                                   "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].price}")),
                                           style: statePos.selectTicketLine ==
                                                   index
-                                              ? AppTypographies.styGreen11W700
-                                              : AppTypographies.styBlack11W700,
+                                              ? AppTypographies.styGreen11W400
+                                              : AppTypographies.styBlack11W400,
                                           textAlign: TextAlign.right,
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 40,
+                                        width: screenWidth * 0.1,
                                         child: Text(
                                           "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit}",
                                           style: statePos.selectTicketLine ==
                                                   index
-                                              ? AppTypographies.styGreen11W700
-                                              : AppTypographies.styBlack11W700,
+                                              ? AppTypographies.styGreen11W400
+                                              : AppTypographies.styBlack11W400,
                                           textAlign: TextAlign.right,
                                         ),
                                       ),
                                       SizedBox(
                                         width: 40,
                                         child: Text(
-                                          "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId}%",
+                                          "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId}",
                                           style: statePos.selectTicketLine ==
                                                   index
-                                              ? AppTypographies.styGreen11W700
-                                              : AppTypographies.styBlack11W700,
+                                              ? AppTypographies.styGreen11W400
+                                              : AppTypographies.styBlack11W400,
                                           textAlign: TextAlign.right,
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 80,
+                                        width: screenWidth * 0.2,
                                         child: Text(
                                           notifierPos.convertNumberZero(statePos
                                                   .listTicket![
@@ -229,13 +249,13 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                       100)),
                                           style: statePos.selectTicketLine ==
                                                   index
-                                              ? AppTypographies.styGreen11W700
-                                              : AppTypographies.styBlack11W700,
+                                              ? AppTypographies.styGreen11W400
+                                              : AppTypographies.styBlack11W400,
                                           textAlign: TextAlign.right,
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 80,
+                                        width: screenWidth * 0.2,
                                         child: Text(
                                           notifierPos.convertNumberZero(statePos
                                                   .listTicket![
@@ -250,8 +270,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                   "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit}")),
                                           style: statePos.selectTicketLine ==
                                                   index
-                                              ? AppTypographies.styGreen11W700
-                                              : AppTypographies.styBlack11W700,
+                                              ? AppTypographies.styGreen11W400
+                                              : AppTypographies.styBlack11W400,
                                           textAlign: TextAlign.right,
                                         ),
                                       ),
@@ -265,177 +285,170 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
-                    child: Container(
-                      height: 40,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return const ListTicketModal();
-                                  },
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                child: Container(
-                                  width: 150,
-                                  alignment: Alignment.center,
-                                  padding: REdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 7,
-                                  ),
+                  Container(
+                    height: screenHeight * 0.045,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) {
+                                  return const ClientInfoModal();
+                                },
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: Container(
+                                  width: screenWidth * 0.35,
+                                  height: 30.r,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(53.r),
-                                    color: const Color.fromARGB(
-                                        255, 202, 199, 199),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.inProgressOrders
+                                        .withOpacity(0.1),
                                   ),
-                                  child: Text(
-                                    statePos.listTicket != null
-                                        ? "${statePos.listTicket![statePos.selectTicket!].title}"
-                                        : "",
-                                    textAlign: TextAlign.center,
-                                    style: AppTypographies.styBlack10W500,
-                                  ),
-                                ),
-                              ),
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                    child: Row(
+                                      children: [
+                                        statePos.infoSelected![0][1] !=
+                                                    "Khách lẻ" &&
+                                                statePos.infoSelected != null
+                                            ? Expanded(
+                                                child: stateCustomer
+                                                            .customerSelected!
+                                                            .name
+                                                            .toString()
+                                                            .length <
+                                                        30
+                                                    ? Text(stateCustomer
+                                                        .customerSelected!.name
+                                                        .toString())
+                                                    : Marquee(
+                                                        text: stateCustomer
+                                                            .customerSelected!
+                                                            .name
+                                                            .toString(),
+                                                        blankSpace: 90,
+                                                        velocity: 50,
+                                                        accelerationCurve:
+                                                            Curves.linear,
+                                                        decelerationCurve:
+                                                            Curves.easeOut,
+                                                      ),
+                                              )
+                                            : const Text("khách lẻ"),
+                                      ],
+                                    ),
+                                  )),
                             ),
-                            GestureDetector(
-                              onTap: () {
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              notifierCategories.setCategorySelected(
+                                  notifierCategories.noCategory);
+                              Future.delayed(const Duration(milliseconds: 30),
+                                  () {
+                                notifierProducts.setProductSelected(
+                                    ProductPasData().initProduct());
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   context: context,
-                                  builder: (context) {
-                                    return const ClientInfoModal();
-                                  },
+                                  builder: (context) => ProductsFilterModal(),
                                 );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: Container(
-                                    width: 30.r,
-                                    height: 30.r,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: AppColors.inProgressOrders
-                                          .withOpacity(0.1),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 20.r,
-                                      color: AppColors.inProgressOrders,
-                                    )),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                notifierCategories.setCategorySelected(
-                                    notifierCategories.noCategory);
-                                Future.delayed(const Duration(milliseconds: 30),
-                                    () {
-                                  notifierProducts.setProductSelected(
-                                      ProductPasData().initProduct());
-                                  showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) => ProductsFilterModal(),
-                                  );
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: Container(
-                                    width: 30.r,
-                                    height: 30.r,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: AppColors.canceledOrders
-                                          .withOpacity(0.1),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Icon(
-                                      Icons.search,
-                                      size: 20.r,
-                                      color: AppColors.canceledOrders,
-                                    )),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: Container(
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: Container(
                                   width: 30.r,
                                   height: 30.r,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.r),
-                                    color: AppColors.deliveredOrders
+                                    color: AppColors.canceledOrders
                                         .withOpacity(0.1),
                                   ),
                                   alignment: Alignment.center,
                                   child: Icon(
-                                    Icons.print,
+                                    Icons.search,
                                     size: 20.r,
-                                    color: AppColors.deliveredOrders,
-                                  ),
+                                    color: AppColors.canceledOrders,
+                                  )),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: Container(
+                                width: 30.r,
+                                height: 30.r,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: AppColors.deliveredOrders
+                                      .withOpacity(0.1),
+                                ),
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.print,
+                                  size: 20.r,
+                                  color: AppColors.deliveredOrders,
                                 ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                print("Mở ngăn kéo");
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: Container(
-                                  width: 30.r,
-                                  height: 30.r,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    color: Colors.red.withOpacity(0.1),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    Icons.wallet,
-                                    size: 20.r,
-                                    color: Colors.red,
-                                  ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print("Mở ngăn kéo");
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: Container(
+                                width: 30.r,
+                                height: 30.r,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: Colors.red.withOpacity(0.1),
+                                ),
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.wallet,
+                                  size: 20.r,
+                                  color: Colors.red,
                                 ),
                               ),
                             ),
-                            Text("TS: ", style: AppTypographies.styBlack11W400),
-                            Expanded(
-                              child: Text(
-                                  notifierPos.totalMoneyCalculator(
-                                      statePos.selectTicket!, true),
-                                  textAlign: TextAlign.center,
-                                  style: AppTypographies.styBlack11W400),
-                            )
-                          ],
-                        ),
+                          ),
+                          Text("TS: ", style: AppTypographies.styBlack11W400),
+                          Expanded(
+                            child: Text(
+                                notifierPos.totalMoneyCalculator(
+                                    statePos.selectTicket!, true),
+                                textAlign: TextAlign.right,
+                                style: AppTypographies.styBlack11W400),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: REdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: stateCategories.categories!.isNotEmpty
-                        ? SizedBox(
-                            height: heightContainerProduct,
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 100,
+                  stateCategories.categories!.isNotEmpty
+                      ? SizedBox(
+                          height: setHeighProductContainer(screenHeight),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                child: SizedBox(
+                                  width: screenWidth * 0.25,
                                   child: ListView.builder(
                                     scrollDirection: Axis.vertical,
-                                    padding: REdgeInsets.symmetric(vertical: 5),
                                     physics:
                                         const CustomBouncingScrollPhysics(),
                                     itemCount:
@@ -463,8 +476,11 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                     },
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 310,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                child: SizedBox(
+                                  width: screenWidth * 0.75,
                                   child: ListView(
                                     physics:
                                         const CustomBouncingScrollPhysics(),
@@ -477,21 +493,31 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                   .products!.length,
                                               gridDelegate:
                                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                                childAspectRatio: 1.75,
+                                                childAspectRatio: 2.1,
                                                 crossAxisCount: 2,
                                               ),
                                               itemBuilder: (context, index) {
                                                 final product = stateProducts
                                                     .products![index];
-                                                return TextButton(
-                                                  onPressed: () {
+                                                return GestureDetector(
+                                                  onLongPress: () {
+                                                    showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return ProductShortInfoModal(
+                                                            product: product);
+                                                      },
+                                                    );
+                                                  },
+                                                  onTap: () {
                                                     notifierPos.addTicketline(
                                                         product,
                                                         statePos.selectTicket);
                                                   },
                                                   child: ProductsProductItemPOS(
-                                                    selectWarehouse:
-                                                        selectWarehouse,
+                                                    selectWarehouseId:
+                                                        selectWarehouseId,
                                                     product: product,
                                                   ),
                                                 );
@@ -503,38 +529,29 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                             )
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
-                          )
-                        : CircularProgressIndicator(
-                            strokeWidth: 3.r,
-                            color: AppColors.greenMain,
+                                ),
+                              )
+                            ],
                           ),
-                  ),
+                        )
+                      : CircularProgressIndicator(
+                          strokeWidth: 3.r,
+                          color: AppColors.greenMain,
+                        ),
                   Padding(
-                    padding: REdgeInsets.fromLTRB(0, 10, 0, 0),
+                    padding: REdgeInsets.fromLTRB(0, 3, 0, 0),
                     child: Container(
-                      height: 40,
+                      height: screenHeight * 0.045,
                       color: Colors.white,
                       child: Row(children: [
                         GestureDetector(
                           onTap: () {
-                            if (statePos.listTicket![statePos.selectTicket!]
-                                    .ticketlines!.isNotEmpty &&
-                                !statePos.createTicketLoading!) {
-                              showModalBottomSheet(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (context) {
-                                  return SizedBox(
-                                      height: 550,
-                                      child: PayInfoModal(double.parse(
-                                          notifierPos.totalMoneyCalculator(
-                                              statePos.selectTicket!, false))));
-                                },
-                              );
-                            }
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return const ListTicketModal();
+                              },
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
@@ -543,34 +560,17 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                               height: 30.r,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.r),
-                                color: notifierPos.listTicket.isNotEmpty
-                                    ? (notifierPos
-                                            .listTicket[statePos.selectTicket!]
-                                            .ticketlines!
-                                            .isNotEmpty
-                                        ? Colors.green.withOpacity(0.1)
-                                        : Colors.grey.withOpacity(0.1))
-                                    : Colors.grey.withOpacity(0.1),
+                                color: Colors.pinkAccent.withOpacity(0.1),
                               ),
                               alignment: Alignment.center,
-                              child: statePos.createTicketLoading!
-                                  ? const CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: AppColors.greenMain,
-                                    )
-                                  : Icon(
-                                      FlutterRemix.money_dollar_box_line,
-                                      size: 20.r,
-                                      color: notifierPos.listTicket.isNotEmpty
-                                          ? (notifierPos
-                                                  .listTicket[
-                                                      statePos.selectTicket!]
-                                                  .ticketlines!
-                                                  .isNotEmpty
-                                              ? Colors.green
-                                              : Colors.grey)
-                                          : Colors.grey.withOpacity(0.1),
-                                    ),
+                              child: Text(
+                                "${statePos.listTicket!.length}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.pinkAccent,
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ),
                         ),
@@ -660,11 +660,6 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            log(statePos.listTicket![statePos.selectTicket!]
-                                .ticketlines![statePos.selectTicketLine!].price
-                                .toString());
-                            log(statePos.selectTicketLine.toString());
-                            log(statePos.selectTicket.toString());
                             if (statePos.listTicket![statePos.selectTicket!]
                                     .ticketlines!.isNotEmpty &&
                                 !statePos.createTicketLoading!) {
@@ -774,7 +769,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           ),
                         )),
                         const SizedBox(
-                          width: 60,
+                          width: 40,
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
                             child: SizedBox(
@@ -789,6 +784,65 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                 ),
                               ),
                             ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (statePos.listTicket![statePos.selectTicket!]
+                                    .ticketlines!.isNotEmpty &&
+                                !statePos.createTicketLoading!) {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) {
+                                  return SizedBox(
+                                      height: 550,
+                                      child: PayInfoModal(double.parse(
+                                          notifierPos.totalMoneyCalculator(
+                                              statePos.selectTicket!, false))));
+                                },
+                              );
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                            child: Container(
+                                width: 50.r,
+                                height: 30.r,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: notifierPos.listTicket.isNotEmpty
+                                      ? (notifierPos
+                                              .listTicket[
+                                                  statePos.selectTicket!]
+                                              .ticketlines!
+                                              .isNotEmpty
+                                          ? Colors.green.withOpacity(0.1)
+                                          : Colors.grey.withOpacity(0.1))
+                                      : Colors.grey.withOpacity(0.1),
+                                ),
+                                alignment: Alignment.center,
+                                child: statePos.createTicketLoading!
+                                    ? const CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: AppColors.greenMain,
+                                      )
+                                    : Text(
+                                        "=",
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          color: notifierPos
+                                                  .listTicket.isNotEmpty
+                                              ? (notifierPos
+                                                      .listTicket[statePos
+                                                          .selectTicket!]
+                                                      .ticketlines!
+                                                      .isNotEmpty
+                                                  ? Colors.green
+                                                  : Colors.grey)
+                                              : Colors.grey.withOpacity(0.1),
+                                        ),
+                                      )),
                           ),
                         ),
                       ]),

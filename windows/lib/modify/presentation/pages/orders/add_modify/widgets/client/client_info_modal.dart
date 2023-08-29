@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/widgets/select_user_pos_modal.dart';
+import 'package:g_manager_app/modify/riverpob/providers/customers/customer_provider.dart';
 import 'package:g_manager_app/modify/riverpob/providers/pos_system_pas/pos_system_pas_provider.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
@@ -51,6 +52,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
   Widget build(BuildContext context) {
     final state = ref.watch(posSystemPASProvider);
     final notifier = ref.read(posSystemPASProvider.notifier);
+    final notifierCustomer = ref.read(customersProvider.notifier);
     return Material(
       color: AppColors.white,
       child: Stack(
@@ -125,6 +127,8 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                 CommonAccentButton(
                     title: AppHelpers.getTranslation(TrKeys.save),
                     onPressed: () {
+                      notifier
+                          .updateCustomerInTicket(state.infoSelected![0][0]);
                       context.popRoute();
                     }),
                 40.verticalSpace,

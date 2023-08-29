@@ -82,6 +82,8 @@ class _SearchUserModalInClientInfoState
                               customer.fileOrdersId ?? ""
                             ];
                             notifierPos.setSelectUserPos(customerPos);
+                            notifier
+                                .selectCustomer(statePos.infoSelected![0][0]);
                             context.popRoute();
                           },
                         );

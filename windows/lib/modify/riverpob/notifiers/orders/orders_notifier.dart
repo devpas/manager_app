@@ -21,6 +21,8 @@ class OrdersPasNotifier extends StateNotifier<OrdersPasState> {
   String customerId = "";
   String personId = "";
   String textSearch = "";
+  bool desc = false;
+  int limit = 0;
   List<TicketData> listCacheOrder = [];
 
   void quickSearchOrders() {
@@ -52,6 +54,12 @@ class OrdersPasNotifier extends StateNotifier<OrdersPasState> {
     }
     if (personId != "") {
       queryParam.add({"key": "person_id", "value": personId.toString()});
+    }
+    if (limit > 0) {
+      queryParam.add({"key": "limit", "value": limit.toString()});
+    }
+    if (desc) {
+      queryParam.add({"key": "desc", "value": desc.toString()});
     }
 
     print(queryParam);

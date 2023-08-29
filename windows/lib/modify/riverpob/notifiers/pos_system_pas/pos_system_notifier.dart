@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:g_manager_app/src/core/di/dependency_manager.dart';
 import 'package:g_manager_app/src/repository/repository.dart';
 import 'package:intl/intl.dart';
 
@@ -203,9 +202,15 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
   }
 
   void addTicket() {
+    infoSelected[0] = customerPos[0];
+    infoSelected[1] = unitPos[0];
+    infoSelected[2] = paymentPos[0];
+
     listTicket.add(initTicket());
     state = state.copyWith(
-        listTicket: listTicket, selectTicket: listTicket.length - 1);
+        listTicket: listTicket,
+        selectTicket: listTicket.length - 1,
+        infoSelected: infoSelected);
   }
 
   void deleteTicket(index) {
@@ -237,7 +242,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     }
   }
 
-  String convertNumberZero(number, [String unit = "đ"]) {
+  String convertNumberZero(number, [String unit = ""]) {
     String numb = "0";
     number = double.parse((number).toStringAsFixed(2));
     double resultAfterRounded =
@@ -310,7 +315,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
 
     listTicket[state.selectTicket!] = listTicket[state.selectTicket!].copyWith(
         person: 1,
-        customer: state.infoSelected![0][0],
+        customerId: state.infoSelected![0][0],
         status: 1,
         taxlines: listTaxline,
         payments: [
@@ -338,5 +343,12 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     } else {
       print("no connection");
     }
+  }
+
+  void updateCustomerInTicket(int customerId) {
+    listTicket[state.selectTicket!] =
+        listTicket[state.selectTicket!].copyWith(customerId: customerId);
+    state = state.copyWith(listTicket: listTicket);
+    print(state.listTicket![state.selectTicket!].customerId);
   }
 }

@@ -80,7 +80,7 @@ class TicketData {
           int? ticketType,
           int? ticketId,
           int? person,
-          int? customer,
+          int? customerId,
           int? status,
           DateTime? datenew,
           List<TicketLineData>? ticketlines,

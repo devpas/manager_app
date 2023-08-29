@@ -19,8 +19,10 @@ class DashboardItemBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
-      width: 180,
+      width: screenWidth * 0.45,
       child: Material(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.r),
@@ -29,7 +31,7 @@ class DashboardItemBase extends StatelessWidget {
           onTap: onTap,
           child: Container(
             width: double.infinity,
-            height: 100.r,
+            height: screenHeight * 0.125,
             padding: REdgeInsets.all(14),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.r),

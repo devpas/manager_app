@@ -33,6 +33,15 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
     Future.delayed(
       Duration.zero,
       () {
+        if (ref.watch(orderPasProvider).tickets!.isEmpty) {
+          ref.read(orderPasProvider.notifier).dateStart =
+              DateTime.now().subtract(const Duration(days: 7300));
+          ref.read(orderPasProvider.notifier).limit = 20;
+          ref.read(orderPasProvider.notifier).desc = true;
+          ref.read(orderPasProvider.notifier).searchOrders();
+          valueCurrentPage = 1;
+          pageIndexSelected = 0;
+        }
         // ref.read(ordersProvider.notifier).setTabController(_tabController);
       },
     );
