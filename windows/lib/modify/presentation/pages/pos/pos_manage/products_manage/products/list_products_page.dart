@@ -94,6 +94,7 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
               hintText: AppHelpers.getTranslation(TrKeys.searchProducts),
               suffixIcon: SmallIconButton(
                 onPressed: () {
+                  notifier.productName = "";
                   showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
@@ -150,7 +151,6 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
                                 }
                               },
                               onDeleteTap: () {
-                                print(product.id);
                                 showDialog(
                                   barrierDismissible: false,
                                   context: context,

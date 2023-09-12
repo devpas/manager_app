@@ -15,6 +15,7 @@ import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
 import 'widgets/list_warehouse_actions.dart';
 import 'widgets/product_in_warehouse.dart';
+import 'widgets/select_warehouse_modal.dart';
 
 class ProductsInWarehousePage extends ConsumerStatefulWidget {
   const ProductsInWarehousePage({Key? key}) : super(key: key);
@@ -32,6 +33,8 @@ class _ProductsInWarehousePageState
   TextEditingController stockMaxController = TextEditingController();
 
   String stockCurrent = "0";
+
+  ProductPasData? productSelected;
 
   @override
   void initState() {
@@ -110,7 +113,43 @@ class _ProductsInWarehousePageState
                 onPressed: context.popRoute,
               ),
             ),
-            actions: getListWarehouse(context)),
+            actions: [
+              Padding(
+                padding: REdgeInsets.fromLTRB(0, 10, 10, 10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: AppColors.greenMain,
+                    minimumSize: Size(110.r, 35.r),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(43.r),
+                    ),
+                  ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => const SelectWarehouseModal(),
+                    );
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.edit,
+                        color: AppColors.white,
+                        size: 16.r,
+                      ),
+                      4.horizontalSpace,
+                      Text(
+                        state.warehouseSelected["name"] ?? "",
+                        style: AppTypographies.styWhite12W500,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              15.horizontalSpace,
+            ]),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -143,7 +182,7 @@ class _ProductsInWarehousePageState
                 : state.products!.isEmpty
                     ? Center(
                         child: Text(
-                          "Không tìm thấy cơ sở",
+                          "Không tìm thấy sản phẩm",
                           style: GoogleFonts.inter(
                             fontSize: 18.sp,
                             color: AppColors.black,
@@ -166,7 +205,14 @@ class _ProductsInWarehousePageState
                                 padding: const EdgeInsets.all(2.0),
                                 child: ProductByWarehouse(
                                   product: product,
+                                  selected: productSelected != null &&
+                                          product.id == productSelected!.id
+                                      ? true
+                                      : false,
                                   onTap: () async {
+                                    setState(() {
+                                      productSelected = product;
+                                    });
                                     getStock(notifier, state, product);
                                   },
                                 ),
@@ -196,16 +242,35 @@ class _ProductsInWarehousePageState
                               SizedBox(
                                   width: screenWidth * 0.58,
                                   child: Text(stockCurrent)),
-                              SizedBox(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print("save");
-                                  },
-                                  child: const Icon(
-                                    Icons.save,
-                                  ),
-                                ),
-                              )
+                              !state.updateStockLoading!
+                                  ? SizedBox(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          var stockData = {
+                                            "product_id": productSelected!.id,
+                                            "warehouse_id":
+                                                state.warehouseSelected["id"],
+                                            "stock_min": int.parse(
+                                                stockMinController.text),
+                                            "stock_max": int.parse(
+                                                stockMaxController.text),
+                                            "stock_current": 0
+                                          };
+                                          notifier.updateStockLimit(stockData);
+                                        },
+                                        child: const Icon(
+                                          Icons.save,
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: Center(
+                                          child: CircularProgressIndicator(
+                                        color: AppColors.greenMain,
+                                      )),
+                                    )
                             ],
                           ),
                           10.verticalSpace,
@@ -215,6 +280,7 @@ class _ProductsInWarehousePageState
                                   width: screenWidth * 0.15,
                                   child: const Text("SL tối đa")),
                               SizedBox(
+                                  height: 30,
                                   width: screenWidth * 0.25,
                                   child: TextFormField(
                                     controller: stockMaxController,
@@ -245,6 +311,7 @@ class _ProductsInWarehousePageState
                                 ),
                               ),
                               SizedBox(
+                                  height: 30,
                                   width: screenWidth * 0.25,
                                   child: TextFormField(
                                     controller: stockMinController,

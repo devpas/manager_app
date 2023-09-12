@@ -66,17 +66,49 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
 
   List<TicketData> listTicket = [];
 
-  void initListTicket() {
+  void initListTicketMoveProduct() {
+    TicketData ticket = TicketData(
+        id: -99999,
+        title: DateFormat.yMd().add_Hms().format(DateTime.now()),
+        ticketType: 0,
+        ticketId: 0,
+        personId: 0,
+        customerId: 0,
+        status: 0,
+        datenew: DateTime.now(),
+        ticketlines: [],
+        taxlines: [],
+        receipt: ReceiptData(
+            id: 0, moneyId: 0, datenew: DateTime.now(), attributes: ""),
+        payments: [
+          PaymentData(
+              id: 0,
+              receiptId: 0,
+              payment: "",
+              total: 0,
+              transId: "",
+              returnMSG: "",
+              notes: "")
+        ]);
+
     listTicket.add(ticket);
-    infoSelected[0] = customerPos[0];
-    infoSelected[1] = unitPos[0];
-    infoSelected[2] = paymentPos[0];
     state = state.copyWith(
-        infoSelected: infoSelected,
-        listTicket: listTicket,
-        customerPos: customerPos,
-        unitPos: unitPos,
-        paymentPos: paymentPos);
+        listTicket: listTicket, selectTicket: listTicket.length - 1);
+  }
+
+  void initListTicket() {
+    if (listTicket.isEmpty) {
+      listTicket.add(ticket);
+      infoSelected[0] = customerPos[0];
+      infoSelected[1] = unitPos[0];
+      infoSelected[2] = paymentPos[0];
+      state = state.copyWith(
+          infoSelected: infoSelected,
+          listTicket: listTicket,
+          customerPos: customerPos,
+          unitPos: unitPos,
+          paymentPos: paymentPos);
+    }
   }
 
   List money = [
@@ -298,7 +330,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     }
   }
 
-  Future<void> createOrder(double money) async {
+  Future<void> createOrder(double money, int reason) async {
     List<TaxlineData> listTaxline = [];
     for (int i = 0;
         i < listTicket[state.selectTicket!].ticketlines!.length;
@@ -335,7 +367,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     if (connected) {
       state = state.copyWith(createTicketLoading: true);
       final response = await _ticketsRepository.createTicket(
-          listTicket[state.selectTicket!], state.infoSelected![0][3]);
+          listTicket[state.selectTicket!], state.infoSelected![0][3], reason);
       if (response["data"]["msg"] == "create ticket successful!") {
         deleteTicket(state.selectTicket);
       }
@@ -350,5 +382,53 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         listTicket[state.selectTicket!].copyWith(customerId: customerId);
     state = state.copyWith(listTicket: listTicket);
     print(state.listTicket![state.selectTicket!].customerId);
+  }
+
+  Future<void> moveProduct(int warehouseIdSend, int warehouseIdTake) async {
+    List<TaxlineData> listTaxline = [];
+    for (int i = 0;
+        i < listTicket[state.selectTicket!].ticketlines!.length;
+        i++) {
+      TicketLineData ticketline =
+          listTicket[state.selectTicket!].ticketlines![i];
+      listTaxline.add(TaxlineData(
+          id: 0,
+          taxId: ticketline.taxId,
+          receiptId: 0,
+          base: ticketline.price,
+          amount: ticketline.price! * (ticketline.taxId! / 100 + 1)));
+    }
+
+    listTicket[state.selectTicket!] = listTicket[state.selectTicket!].copyWith(
+        person: 1,
+        customerId: state.infoSelected![0][0],
+        status: 1,
+        taxlines: listTaxline,
+        payments: [
+          PaymentData(
+              id: 0,
+              receiptId: 0,
+              payment: "cash",
+              total: 0,
+              transId: "",
+              returnMSG: "successful",
+              notes: "")
+        ],
+        receipt: ReceiptData(
+            id: 0, moneyId: 0, datenew: DateTime.now(), attributes: "{}"));
+
+    final connected = await AppConnectivity.connectivity();
+    if (connected) {
+      state = state.copyWith(createTicketLoading: true);
+      final response = await _ticketsRepository.moveProduct(
+          listTicket[state.selectTicket!], warehouseIdSend, warehouseIdTake);
+      if (response["data"]["msg"] == "move product successful!") {
+        deleteTicket(state.selectTicket);
+        initListTicketMoveProduct();
+      }
+      state = state.copyWith(createTicketLoading: false);
+    } else {
+      print("no connection");
+    }
   }
 }

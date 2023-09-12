@@ -494,6 +494,24 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    StockDiaryRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.StockDiaryPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    MoveProductRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.MoveProductPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -763,6 +781,14 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           ProductsInWarehouseRoute.name,
           path: '/product-in-warehouse',
+        ),
+        _i2.RouteConfig(
+          StockDiaryRoute.name,
+          path: '/stock-diary',
+        ),
+        _i2.RouteConfig(
+          MoveProductRoute.name,
+          path: '/move-product',
         ),
       ];
 }
@@ -1717,6 +1743,30 @@ class ProductsInWarehouseRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'ProductsInWarehouseRoute';
+}
+
+/// generated route for
+/// [_i1.StockDiaryPage]
+class StockDiaryRoute extends _i2.PageRouteInfo<void> {
+  const StockDiaryRoute()
+      : super(
+          StockDiaryRoute.name,
+          path: '/stock-diary',
+        );
+
+  static const String name = 'StockDiaryRoute';
+}
+
+/// generated route for
+/// [_i1.MoveProductPage]
+class MoveProductRoute extends _i2.PageRouteInfo<void> {
+  const MoveProductRoute()
+      : super(
+          MoveProductRoute.name,
+          path: '/move-product',
+        );
+
+  static const String name = 'MoveProductRoute';
 }
 
 /// generated route for

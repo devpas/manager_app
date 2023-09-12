@@ -21,9 +21,10 @@ mixin _$ProductsPasState {
       throw _privateConstructorUsedError;
   bool? get productsLoading => throw _privateConstructorUsedError;
   bool? get warehouseLoading => throw _privateConstructorUsedError;
+  bool? get updateStockLoading => throw _privateConstructorUsedError;
   List<dynamic>? get warehouse => throw _privateConstructorUsedError;
   dynamic get warehouseSelected => throw _privateConstructorUsedError;
-  ProductPasData? get productsSelected => throw _privateConstructorUsedError;
+  ProductPasData? get productSelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductsPasStateCopyWith<ProductsPasState> get copyWith =>
@@ -41,9 +42,10 @@ abstract class $ProductsPasStateCopyWith<$Res> {
       List<ProductPasData>? productsAfterFilter,
       bool? productsLoading,
       bool? warehouseLoading,
+      bool? updateStockLoading,
       List<dynamic>? warehouse,
       dynamic warehouseSelected,
-      ProductPasData? productsSelected});
+      ProductPasData? productSelected});
 }
 
 /// @nodoc
@@ -63,9 +65,10 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
     Object? productsAfterFilter = freezed,
     Object? productsLoading = freezed,
     Object? warehouseLoading = freezed,
+    Object? updateStockLoading = freezed,
     Object? warehouse = freezed,
     Object? warehouseSelected = freezed,
-    Object? productsSelected = freezed,
+    Object? productSelected = freezed,
   }) {
     return _then(_value.copyWith(
       products: freezed == products
@@ -84,6 +87,10 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
           ? _value.warehouseLoading
           : warehouseLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      updateStockLoading: freezed == updateStockLoading
+          ? _value.updateStockLoading
+          : updateStockLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       warehouse: freezed == warehouse
           ? _value.warehouse
           : warehouse // ignore: cast_nullable_to_non_nullable
@@ -92,9 +99,9 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
           ? _value.warehouseSelected
           : warehouseSelected // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      productsSelected: freezed == productsSelected
-          ? _value.productsSelected
-          : productsSelected // ignore: cast_nullable_to_non_nullable
+      productSelected: freezed == productSelected
+          ? _value.productSelected
+          : productSelected // ignore: cast_nullable_to_non_nullable
               as ProductPasData?,
     ) as $Val);
   }
@@ -113,9 +120,10 @@ abstract class _$$_ProductsPasStateCopyWith<$Res>
       List<ProductPasData>? productsAfterFilter,
       bool? productsLoading,
       bool? warehouseLoading,
+      bool? updateStockLoading,
       List<dynamic>? warehouse,
       dynamic warehouseSelected,
-      ProductPasData? productsSelected});
+      ProductPasData? productSelected});
 }
 
 /// @nodoc
@@ -133,9 +141,10 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
     Object? productsAfterFilter = freezed,
     Object? productsLoading = freezed,
     Object? warehouseLoading = freezed,
+    Object? updateStockLoading = freezed,
     Object? warehouse = freezed,
     Object? warehouseSelected = freezed,
-    Object? productsSelected = freezed,
+    Object? productSelected = freezed,
   }) {
     return _then(_$_ProductsPasState(
       products: freezed == products
@@ -154,6 +163,10 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
           ? _value.warehouseLoading
           : warehouseLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      updateStockLoading: freezed == updateStockLoading
+          ? _value.updateStockLoading
+          : updateStockLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       warehouse: freezed == warehouse
           ? _value._warehouse
           : warehouse // ignore: cast_nullable_to_non_nullable
@@ -162,9 +175,9 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
           ? _value.warehouseSelected
           : warehouseSelected // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      productsSelected: freezed == productsSelected
-          ? _value.productsSelected
-          : productsSelected // ignore: cast_nullable_to_non_nullable
+      productSelected: freezed == productSelected
+          ? _value.productSelected
+          : productSelected // ignore: cast_nullable_to_non_nullable
               as ProductPasData?,
     ));
   }
@@ -178,9 +191,10 @@ class _$_ProductsPasState extends _ProductsPasState {
       final List<ProductPasData>? productsAfterFilter = const [],
       this.productsLoading = false,
       this.warehouseLoading = false,
+      this.updateStockLoading = false,
       final List<dynamic>? warehouse = const [],
       this.warehouseSelected = const {},
-      this.productsSelected})
+      this.productSelected})
       : _products = products,
         _productsAfterFilter = productsAfterFilter,
         _warehouse = warehouse,
@@ -215,6 +229,9 @@ class _$_ProductsPasState extends _ProductsPasState {
   @override
   @JsonKey()
   final bool? warehouseLoading;
+  @override
+  @JsonKey()
+  final bool? updateStockLoading;
   final List<dynamic>? _warehouse;
   @override
   @JsonKey()
@@ -230,11 +247,11 @@ class _$_ProductsPasState extends _ProductsPasState {
   @JsonKey()
   final dynamic warehouseSelected;
   @override
-  final ProductPasData? productsSelected;
+  final ProductPasData? productSelected;
 
   @override
   String toString() {
-    return 'ProductsPasState(products: $products, productsAfterFilter: $productsAfterFilter, productsLoading: $productsLoading, warehouseLoading: $warehouseLoading, warehouse: $warehouse, warehouseSelected: $warehouseSelected, productsSelected: $productsSelected)';
+    return 'ProductsPasState(products: $products, productsAfterFilter: $productsAfterFilter, productsLoading: $productsLoading, warehouseLoading: $warehouseLoading, updateStockLoading: $updateStockLoading, warehouse: $warehouse, warehouseSelected: $warehouseSelected, productSelected: $productSelected)';
   }
 
   @override
@@ -249,12 +266,14 @@ class _$_ProductsPasState extends _ProductsPasState {
                 other.productsLoading == productsLoading) &&
             (identical(other.warehouseLoading, warehouseLoading) ||
                 other.warehouseLoading == warehouseLoading) &&
+            (identical(other.updateStockLoading, updateStockLoading) ||
+                other.updateStockLoading == updateStockLoading) &&
             const DeepCollectionEquality()
                 .equals(other._warehouse, _warehouse) &&
             const DeepCollectionEquality()
                 .equals(other.warehouseSelected, warehouseSelected) &&
-            (identical(other.productsSelected, productsSelected) ||
-                other.productsSelected == productsSelected));
+            (identical(other.productSelected, productSelected) ||
+                other.productSelected == productSelected));
   }
 
   @override
@@ -264,9 +283,10 @@ class _$_ProductsPasState extends _ProductsPasState {
       const DeepCollectionEquality().hash(_productsAfterFilter),
       productsLoading,
       warehouseLoading,
+      updateStockLoading,
       const DeepCollectionEquality().hash(_warehouse),
       const DeepCollectionEquality().hash(warehouseSelected),
-      productsSelected);
+      productSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -281,9 +301,10 @@ abstract class _ProductsPasState extends ProductsPasState {
       final List<ProductPasData>? productsAfterFilter,
       final bool? productsLoading,
       final bool? warehouseLoading,
+      final bool? updateStockLoading,
       final List<dynamic>? warehouse,
       final dynamic warehouseSelected,
-      final ProductPasData? productsSelected}) = _$_ProductsPasState;
+      final ProductPasData? productSelected}) = _$_ProductsPasState;
   const _ProductsPasState._() : super._();
 
   @override
@@ -295,11 +316,13 @@ abstract class _ProductsPasState extends ProductsPasState {
   @override
   bool? get warehouseLoading;
   @override
+  bool? get updateStockLoading;
+  @override
   List<dynamic>? get warehouse;
   @override
   dynamic get warehouseSelected;
   @override
-  ProductPasData? get productsSelected;
+  ProductPasData? get productSelected;
   @override
   @JsonKey(ignore: true)
   _$$_ProductsPasStateCopyWith<_$_ProductsPasState> get copyWith =>

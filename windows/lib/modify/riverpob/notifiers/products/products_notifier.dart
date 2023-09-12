@@ -169,12 +169,26 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(productsAfterFilter: listProductAfterSearch);
   }
 
+  List<ProductPasData> searchAndAddProductInTicketByRefCode(String refCode) {
+    print(refCode);
+    List<ProductPasData> listProductSearchByRefCode = [];
+    listProductSearchByRefCode = listProductCache
+        .where((product) =>
+            product.reference!.toLowerCase().contains(refCode.toLowerCase()))
+        .toList();
+    return listProductSearchByRefCode;
+  }
+
   void resetSearch() {
+    productName = "";
+    priceBuy = -1;
+    priceSell = -1;
+    codeRef = "";
     state = state.copyWith(productsAfterFilter: []);
   }
 
   void setProductSelected(ProductPasData product) {
-    state = state.copyWith(productsSelected: product);
+    state = state.copyWith(productSelected: product);
   }
 
   Future<void> addProduct(ProductPasData product) async {
@@ -270,5 +284,28 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
 
   void setWarehouseSelected(dynamic warehouse) {
     state = state.copyWith(warehouseSelected: warehouse);
+  }
+
+  Future<void> updateStockLimit(dynamic stockData) async {
+    state = state.copyWith(updateStockLoading: true);
+    final response = await _productsPASRepository.updateStockLimit(stockData);
+    if (response["msg"] == "update stocks successful") {
+      await fetchProducts();
+      state = state.copyWith(updateStockLoading: false);
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> addStockDiary(dynamic stockData) async {
+    state = state.copyWith(updateStockLoading: true);
+    final response = await _productsPASRepository.addStockDiary(stockData);
+
+    if (response["msg"] != "") {
+      await fetchProducts();
+      state = state.copyWith(updateStockLoading: false);
+    } else {
+      print(response);
+    }
   }
 }

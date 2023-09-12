@@ -8,6 +8,8 @@ abstract class ProductsPASRepository {
   Future<dynamic> addWarehouse(dynamic dataWarehouse);
   Future<dynamic> updateWarehouse(dynamic dataWarehouse);
   Future<dynamic> deleteWarehouse(int warehouseId);
+  Future<dynamic> updateStockLimit(dynamic stockData);
+  Future<dynamic> addStockDiary(dynamic diaryData);
   Future<ApiResult<ProductsPasResponse>> addProduct(ProductPasData product);
   Future<ApiResult<ProductsPasResponse>> updateProduct(ProductPasData product);
   Future<ApiResult<ProductsPasResponse>> deleteProduct(int productId);

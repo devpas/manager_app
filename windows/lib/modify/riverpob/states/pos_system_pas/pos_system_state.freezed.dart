@@ -277,7 +277,7 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
 
 class _$_PosSystemState extends _PosSystemState {
   const _$_PosSystemState(
-      {final List<TicketData>? listTicket,
+      {final List<TicketData>? listTicket = const [],
       final List<List<dynamic>>? customerPos,
       final List<List<dynamic>>? unitPos,
       final List<List<dynamic>>? paymentPos,
@@ -302,6 +302,7 @@ class _$_PosSystemState extends _PosSystemState {
 
   final List<TicketData>? _listTicket;
   @override
+  @JsonKey()
   List<TicketData>? get listTicket {
     final value = _listTicket;
     if (value == null) return null;

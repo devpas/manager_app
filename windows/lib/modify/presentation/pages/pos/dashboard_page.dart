@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/data/product_data.dart';
@@ -89,7 +85,6 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     final stateCategories = ref.watch(categoriesPASProvider);
     final stateProducts = ref.watch(productsPASProvider);
     final statePos = ref.watch(posSystemPASProvider);
-    final stateBase = ref.watch(baseProvider);
     final notifierPos = ref.read(posSystemPASProvider.notifier);
     final notifierCategories = ref.read(categoriesPASProvider.notifier);
     final notifierProducts = ref.read(productsPASProvider.notifier);
@@ -169,7 +164,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         physics: const CustomBouncingScrollPhysics(),
-                        itemCount: statePos.listTicket != null
+                        itemCount: statePos.listTicket!.isNotEmpty
                             ? statePos.listTicket![statePos.selectTicket!]
                                 .ticketlines!.length
                             : 0,
@@ -318,33 +313,35 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                         const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                     child: Row(
                                       children: [
-                                        statePos.infoSelected![0][1] !=
-                                                    "Khách lẻ" &&
-                                                statePos.infoSelected != null
-                                            ? Expanded(
-                                                child: stateCustomer
+                                        statePos.infoSelected!.isNotEmpty
+                                            ? statePos.infoSelected![0][1] !=
+                                                    "Khách lẻ"
+                                                ? Expanded(
+                                                    child: stateCustomer
+                                                                .customerSelected!
+                                                                .name
+                                                                .toString()
+                                                                .length <
+                                                            30
+                                                        ? Text(stateCustomer
                                                             .customerSelected!
                                                             .name
-                                                            .toString()
-                                                            .length <
-                                                        30
-                                                    ? Text(stateCustomer
-                                                        .customerSelected!.name
-                                                        .toString())
-                                                    : Marquee(
-                                                        text: stateCustomer
-                                                            .customerSelected!
-                                                            .name
-                                                            .toString(),
-                                                        blankSpace: 90,
-                                                        velocity: 50,
-                                                        accelerationCurve:
-                                                            Curves.linear,
-                                                        decelerationCurve:
-                                                            Curves.easeOut,
-                                                      ),
-                                              )
-                                            : const Text("khách lẻ"),
+                                                            .toString())
+                                                        : Marquee(
+                                                            text: stateCustomer
+                                                                .customerSelected!
+                                                                .name
+                                                                .toString(),
+                                                            blankSpace: 90,
+                                                            velocity: 50,
+                                                            accelerationCurve:
+                                                                Curves.linear,
+                                                            decelerationCurve:
+                                                                Curves.easeOut,
+                                                          ),
+                                                  )
+                                                : const Text("khách lẻ")
+                                            : const Text("Khách lẻ"),
                                       ],
                                     ),
                                   )),
@@ -511,9 +508,16 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                     );
                                                   },
                                                   onTap: () {
-                                                    notifierPos.addTicketline(
-                                                        product,
-                                                        statePos.selectTicket);
+                                                    if (product
+                                                            .stocks![
+                                                                selectWarehouseId]
+                                                            .stockCurrent !=
+                                                        0) {
+                                                      notifierPos.addTicketline(
+                                                          product,
+                                                          statePos
+                                                              .selectTicket);
+                                                    }
                                                   },
                                                   child: ProductsProductItemPOS(
                                                     selectWarehouseId:
@@ -564,7 +568,9 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "${statePos.listTicket!.length}",
+                                statePos.listTicket!.isNotEmpty
+                                    ? statePos.listTicket!.length.toString()
+                                    : "1",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.pinkAccent,

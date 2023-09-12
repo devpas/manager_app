@@ -17,10 +17,11 @@ class TicketsRepositoryImpl extends TicketsRepository {
   };
 
   @override
-  Future<dynamic> createTicket(ticket, fileOrdersId) async {
+  Future<dynamic> createTicket(ticket, fileOrdersId, reason) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     var ticketJson = ticket.toJson();
     ticketJson["file_orders_id"] = fileOrdersId;
+    ticketJson["reason"] = reason;
     log(jsonEncode(ticketJson));
     var dataJson = {};
     final data = {
@@ -112,5 +113,59 @@ class TicketsRepositoryImpl extends TicketsRepository {
         data: TicketsResponse.fromJson(response.data),
       );
     }
+  }
+
+  @override
+  Future<dynamic> moveProduct(ticket, send, take) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var ticketJson = ticket.toJson();
+    var dataJson = {};
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {
+        "ticketlines_data": ticketJson["ticketlines"],
+        "warehouse_id_send": send,
+        "warehouse_id_take": take
+      }
+    };
+    log(jsonEncode(data));
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=ticket/moveProduct',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    // print(jsonEncode(data));
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+
+    print(dataJson);
+
+    return dataJson;
   }
 }

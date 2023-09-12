@@ -269,6 +269,16 @@ import 'modals_route.dart';
       page: ProductsInWarehousePage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/stock-diary',
+      page: StockDiaryPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/move-product',
+      page: MoveProductPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
   ],
 )
 class $AppRouter {}

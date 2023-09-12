@@ -124,15 +124,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
                 iconData: FlutterRemix.star_line,
                 title: "Chiếc khấu",
                 iconColor: AppColors.canceledOrders,
-                onTap: () {
-                  // ref
-                  //     .read(ordersProvider.notifier)
-                  //     .updateCompletedOrders(
-                  //       completedOrdersNotifier: ref
-                  //           .read(completedOrdersProvider.notifier),
-                  //     );
-                  // bottomBarNotifier.setActiveIndex(0);
-                },
+                onTap: () {},
               ),
             ],
           ),
@@ -153,13 +145,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
                 title: "Nhật ký kho",
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  // ref
-                  //     .read(ordersProvider.notifier)
-                  //     .updateCompletedOrders(
-                  //       completedOrdersNotifier: ref
-                  //           .read(completedOrdersProvider.notifier),
-                  //     );
-                  // bottomBarNotifier.setActiveIndex(0);
+                  context.pushRoute(const StockDiaryRoute());
                 },
               ),
             ],
@@ -173,7 +159,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
                 title: "Chuyển hàng nội bộ",
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  // context.pushRoute(const ProductsManageRoute());
+                  context.pushRoute(const MoveProductRoute());
                 },
               ),
               const SizedBox(

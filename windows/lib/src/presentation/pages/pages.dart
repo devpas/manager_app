@@ -54,3 +54,5 @@ export '../../../modify/presentation/pages/pos/pos_manage/products_manage/wareho
 export '../../../modify/presentation/pages/pos/pos_manage/products_manage/warehouse/add/add_warehouse.dart';
 export '../../../modify/presentation/pages/pos/pos_manage/products_manage/warehouse/update/update_warehouse.dart';
 export '../../../modify/presentation/pages/pos/pos_manage/products_manage/products/product_in_warehouse/product_in_warehouse.dart';
+export '../../../modify/presentation/pages/pos/pos_manage/products_manage/warehouse/stock_diary/stock_diary.dart';
+export '../../../modify/presentation/pages/pos/pos_manage/products_manage/warehouse/move_product.dart';

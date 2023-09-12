@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/modify/models/data/product_data.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:g_manager_app/src/core/utils/app_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,14 @@ import 'search_category_modal_in_filter_products_pas.dart';
 
 class ProductsFilterModal extends ConsumerWidget {
   ProductsFilterModal({Key? key}) : super(key: key);
+
+  String ProductNameSelected(ProductPasData product) {
+    String title = "Tìm sản phẩm";
+    if (product.id != 0) {
+      title = product.name!;
+    }
+    return title;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -196,15 +205,17 @@ class ProductsFilterModal extends ConsumerWidget {
                   );
                 });
               },
-              title:
-                  "${state.productsSelected!.id != 0 ? state.productsSelected!.name : 'Chọn sản phẩm'}",
+              title: ProductNameSelected(state.productSelected!),
             ),
             40.verticalSpace,
             CommonAccentButton(
               title: 'Show result',
               onPressed: () {
-                notifierPos.addTicketline(
-                    state.productsSelected!, statePos.selectTicket);
+                if (ProductNameSelected(state.productSelected!) !=
+                    "Tìm sản phẩm") {
+                  notifierPos.addTicketline(
+                      state.productSelected!, statePos.selectTicket);
+                }
                 context.popRoute();
               },
             ),

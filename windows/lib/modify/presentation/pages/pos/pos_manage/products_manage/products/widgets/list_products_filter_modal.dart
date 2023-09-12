@@ -16,10 +16,8 @@ class ListProductsFilterModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     final stateCategory = ref.watch(categoriesPASProvider);
-    final notifierCategory = ref.read(categoriesPASProvider.notifier);
     return Material(
       color: AppColors.white,
       child: Padding(

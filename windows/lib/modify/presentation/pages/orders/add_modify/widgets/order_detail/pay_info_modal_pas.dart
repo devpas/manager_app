@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
@@ -8,6 +9,7 @@ import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/utils/utils.dart';
 import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
+import '../../../../pos/pos_manage/products_manage/warehouse/stock_diary/widgets/select_with_option_mini_button.dart';
 
 class PayInfoModal extends ConsumerStatefulWidget {
   final double totalMoneyFromTicket;
@@ -34,6 +36,16 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
   double refundsMoney = 0;
 
   bool editMoney = false;
+
+  List<List> reason = [
+    ["(Xuất)bán hàng", -1],
+    ["(Xuất)trả hàng", -2],
+    ["(Xuất)hỏng vỡ", -3],
+    ["(Nhập)mua vào", 1],
+    ["(Nhập)hàng trả", 2],
+  ];
+
+  int reasonSelected = -1;
 
   _PayInfoModalState(this.totalMoneyFromTicket);
 
@@ -130,7 +142,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
                               style: AppTypographies.styBlack14W400)
                         ],
                       ),
-                      50.verticalSpace,
+                      40.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -142,7 +154,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
                               style: AppTypographies.styBlack14W400)
                         ],
                       ),
-                      50.verticalSpace,
+                      40.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -154,7 +166,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
                               style: AppTypographies.styBlack14W400)
                         ],
                       ),
-                      50.verticalSpace,
+                      40.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -166,7 +178,83 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
                               style: AppTypographies.styBlack14W400)
                         ],
                       ),
-                      50.verticalSpace,
+                      40.verticalSpace,
+                      SizedBox(
+                        child: SelectWithOptionMiniButton(
+                          iconData: FlutterRemix.arrow_down_s_line,
+                          label: 'Danh mục',
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => Material(
+                                color: AppColors.white,
+                                child: Padding(
+                                  padding:
+                                      REdgeInsets.symmetric(horizontal: 15.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      24.verticalSpace,
+                                      Text(
+                                        "Chọn lý do",
+                                        style: AppTypographies.styBlack22W500,
+                                      ),
+                                      24.verticalSpace,
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const CustomBouncingScrollPhysics(),
+                                        itemCount: reason.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            leading: Container(
+                                              height: 20.r,
+                                              width: 20.r,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
+                                                color: reasonSelected ==
+                                                        reason[index][1]
+                                                    ? AppColors.white
+                                                    : AppColors.transparent,
+                                                border: Border.all(
+                                                  color: reasonSelected ==
+                                                          reason[index][1]
+                                                      ? AppColors.greenMain
+                                                      : AppColors.productBorder,
+                                                  width: reasonSelected ==
+                                                          reason[index][1]
+                                                      ? 6.r
+                                                      : 2.r,
+                                                ),
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                reasonSelected =
+                                                    reason[index][1];
+                                              });
+                                              context.popRoute();
+                                            },
+                                            title: Text(
+                                                reason[index][0].toString()),
+                                          );
+                                        },
+                                      ),
+                                      50.verticalSpace,
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          title: reason
+                              .where((r) => r[1] == reasonSelected)
+                              .first[0],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -253,7 +341,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal>
                         height: 40,
                         width: 100,
                         onPressed: () {
-                          notifier.createOrder(totalMoney);
+                          notifier.createOrder(totalMoney, reasonSelected);
                           notifierProducts.fetchProductsPos();
                           context.popRoute();
                         })

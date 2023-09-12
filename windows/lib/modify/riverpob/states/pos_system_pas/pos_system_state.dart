@@ -6,7 +6,7 @@ part 'pos_system_state.freezed.dart';
 @freezed
 class PosSystemState with _$PosSystemState {
   const factory PosSystemState(
-      {List<TicketData>? listTicket,
+      {@Default([]) List<TicketData>? listTicket,
       List<List<dynamic>>? customerPos,
       List<List<dynamic>>? unitPos,
       List<List<dynamic>>? paymentPos,
