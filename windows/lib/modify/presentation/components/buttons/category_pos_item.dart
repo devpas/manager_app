@@ -19,7 +19,6 @@ class CategoryPosItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double widthWidget = MediaQuery.of(context).size.width;
     double widthHeight = MediaQuery.of(context).size.height;
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -42,9 +41,7 @@ class CategoryPosItem extends StatelessWidget {
                         child: Text(
                           textAlign: TextAlign.center,
                           title,
-                          style: isSelected
-                              ? AppTypographies.styWhite10W500
-                              : AppTypographies.styBlack10W500,
+                          style: isSelected ? AppTypographies.styWhite10W500 : AppTypographies.styBlack10W500,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),

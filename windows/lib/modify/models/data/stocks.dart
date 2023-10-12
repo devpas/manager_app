@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class StockData {
   StockData({
     int? id,
@@ -20,10 +18,7 @@ class StockData {
     _stockMin = json["stock_min"];
     _stockMax = json["stock_max"];
     _stockCurrent = json['stock_current'];
-    _children = json['children'] != null
-        ? List<StockData>.from(
-            json['children'].map((x) => StockData.fromJson(x)))
-        : null;
+    _children = json['children'] != null ? List<StockData>.from(json['children'].map((x) => StockData.fromJson(x))) : null;
   }
 
   int? _id;

@@ -11,11 +11,7 @@ import '../../../modify/models/models.dart';
 import '../products_repository.dart';
 
 class ProductsRepositoryPASImpl extends ProductsPASRepository {
-  Map<String, String> headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Cookie": ""
-  };
+  Map<String, String> headers = {"Content-Type": "application/json", "Accept": "application/json", "Cookie": ""};
   @override
   Future<ApiResult<ProductsPasResponse>> getProduct(String alias) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
@@ -37,10 +33,7 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
 
     print(listParam);
 
-    final data = {
-      "access_id": LocalStorage.instance.getKeyAccessOwner(),
-      "query_param": listParam
-    };
+    final data = {"access_id": LocalStorage.instance.getKeyAccessOwner(), "query_param": listParam};
     if (LocalStorage.instance.getShareMode()) {
       data["access_id"] = LocalStorage.instance.getKeyAccessShare();
     }
@@ -88,8 +81,7 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
   }
 
   @override
-  Future<ApiResult<ProductsPasResponse>> addProduct(
-      ProductPasData product) async {
+  Future<ApiResult<ProductsPasResponse>> addProduct(ProductPasData product) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
 
     final data = {
@@ -137,8 +129,7 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
   }
 
   @override
-  Future<ApiResult<ProductsPasResponse>> updateProduct(
-      ProductPasData product) async {
+  Future<ApiResult<ProductsPasResponse>> updateProduct(ProductPasData product) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
 
     final data = {
@@ -238,10 +229,7 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     List<dynamic> listParam = [];
     var dataJson = {};
-    final data = {
-      "access_id": LocalStorage.instance.getKeyAccessOwner(),
-      "query_param": listParam
-    };
+    final data = {"access_id": LocalStorage.instance.getKeyAccessOwner(), "query_param": listParam};
     if (LocalStorage.instance.getShareMode()) {
       data["access_id"] = LocalStorage.instance.getKeyAccessShare();
     }
@@ -497,6 +485,540 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
             }),
       );
       print(response2.data["data"]);
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> getListTaxCustomer() async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    List<dynamic> listParam = [];
+    var dataJson = {};
+    final data = {"access_id": LocalStorage.instance.getKeyAccessOwner(), "query_param": listParam};
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/getListTaxCusCategories',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2.data["data"]);
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> addTaxCusCategory(dataTaxCusCategory) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_customer_category_data": dataTaxCusCategory}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/addTaxCusCategory',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> updateTaxCusCategory(dataTaxCusCategory) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_customer_category_data": dataTaxCusCategory}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/updateTaxCusCategory',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> deleteTaxCusCategory(taxCusCategoryId) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_customer_category_id": taxCusCategoryId}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/deleteTaxCusCategory',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> getListTaxCategories() async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    List<dynamic> listParam = [];
+    var dataJson = {};
+    final data = {"access_id": LocalStorage.instance.getKeyAccessOwner(), "query_param": listParam};
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/getListTaxCategories',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2.data["data"]);
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> addTaxCategory(dataTaxCategory) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_category_data": dataTaxCategory}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/addTaxCategory',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> updateTaxCategory(dataTaxCategory) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_category_data": dataTaxCategory}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/updateTaxCategory',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> deleteTaxCategory(taxCategoryId) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_category_id": taxCategoryId}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/deleteTaxCategory',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> getListTaxes() async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    List<dynamic> listParam = [];
+    var dataJson = {};
+    final data = {"access_id": LocalStorage.instance.getKeyAccessOwner(), "query_param": listParam};
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/getListTaxes',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2.data["data"]);
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> addTax(dataTax) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_data": dataTax}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/addTax',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> updateTax(dataTax) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_data": dataTax}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/updateTax',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
+
+  @override
+  Future<dynamic> deleteTax(taxId) async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"tax_id": taxId}
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=product/deleteTax',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
       dataJson = json.decode(response2.toString());
     } else {
       dataJson = json.decode(response.toString());

@@ -20,10 +20,22 @@ mixin _$ProductsPasState {
   List<ProductPasData>? get productsAfterFilter =>
       throw _privateConstructorUsedError;
   bool? get productsLoading => throw _privateConstructorUsedError;
-  bool? get warehouseLoading => throw _privateConstructorUsedError;
   bool? get updateStockLoading => throw _privateConstructorUsedError;
+  bool? get taxCusCategoryLoading => throw _privateConstructorUsedError;
   List<dynamic>? get warehouse => throw _privateConstructorUsedError;
   dynamic get warehouseSelected => throw _privateConstructorUsedError;
+  bool? get warehouseLoading => throw _privateConstructorUsedError;
+  List<dynamic>? get taxCusCategories => throw _privateConstructorUsedError;
+  dynamic get taxCusCategorySelected => throw _privateConstructorUsedError;
+  List<dynamic>? get taxCategories => throw _privateConstructorUsedError;
+  dynamic get taxCategorySelected => throw _privateConstructorUsedError;
+  bool? get taxCategoryLoading => throw _privateConstructorUsedError;
+  List<dynamic>? get taxes => throw _privateConstructorUsedError;
+  dynamic get taxSelected => throw _privateConstructorUsedError;
+  bool? get taxLoading => throw _privateConstructorUsedError;
+  List<dynamic>? get printers => throw _privateConstructorUsedError;
+  dynamic get printerSelected => throw _privateConstructorUsedError;
+  bool? get printerLoading => throw _privateConstructorUsedError;
   ProductPasData? get productSelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -41,10 +53,22 @@ abstract class $ProductsPasStateCopyWith<$Res> {
       {List<ProductPasData>? products,
       List<ProductPasData>? productsAfterFilter,
       bool? productsLoading,
-      bool? warehouseLoading,
       bool? updateStockLoading,
+      bool? taxCusCategoryLoading,
       List<dynamic>? warehouse,
       dynamic warehouseSelected,
+      bool? warehouseLoading,
+      List<dynamic>? taxCusCategories,
+      dynamic taxCusCategorySelected,
+      List<dynamic>? taxCategories,
+      dynamic taxCategorySelected,
+      bool? taxCategoryLoading,
+      List<dynamic>? taxes,
+      dynamic taxSelected,
+      bool? taxLoading,
+      List<dynamic>? printers,
+      dynamic printerSelected,
+      bool? printerLoading,
       ProductPasData? productSelected});
 }
 
@@ -64,10 +88,22 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
     Object? products = freezed,
     Object? productsAfterFilter = freezed,
     Object? productsLoading = freezed,
-    Object? warehouseLoading = freezed,
     Object? updateStockLoading = freezed,
+    Object? taxCusCategoryLoading = freezed,
     Object? warehouse = freezed,
     Object? warehouseSelected = freezed,
+    Object? warehouseLoading = freezed,
+    Object? taxCusCategories = freezed,
+    Object? taxCusCategorySelected = freezed,
+    Object? taxCategories = freezed,
+    Object? taxCategorySelected = freezed,
+    Object? taxCategoryLoading = freezed,
+    Object? taxes = freezed,
+    Object? taxSelected = freezed,
+    Object? taxLoading = freezed,
+    Object? printers = freezed,
+    Object? printerSelected = freezed,
+    Object? printerLoading = freezed,
     Object? productSelected = freezed,
   }) {
     return _then(_value.copyWith(
@@ -83,13 +119,13 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
           ? _value.productsLoading
           : productsLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
-      warehouseLoading: freezed == warehouseLoading
-          ? _value.warehouseLoading
-          : warehouseLoading // ignore: cast_nullable_to_non_nullable
-              as bool?,
       updateStockLoading: freezed == updateStockLoading
           ? _value.updateStockLoading
           : updateStockLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      taxCusCategoryLoading: freezed == taxCusCategoryLoading
+          ? _value.taxCusCategoryLoading
+          : taxCusCategoryLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
       warehouse: freezed == warehouse
           ? _value.warehouse
@@ -99,6 +135,54 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
           ? _value.warehouseSelected
           : warehouseSelected // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      warehouseLoading: freezed == warehouseLoading
+          ? _value.warehouseLoading
+          : warehouseLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      taxCusCategories: freezed == taxCusCategories
+          ? _value.taxCusCategories
+          : taxCusCategories // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      taxCusCategorySelected: freezed == taxCusCategorySelected
+          ? _value.taxCusCategorySelected
+          : taxCusCategorySelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      taxCategories: freezed == taxCategories
+          ? _value.taxCategories
+          : taxCategories // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      taxCategorySelected: freezed == taxCategorySelected
+          ? _value.taxCategorySelected
+          : taxCategorySelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      taxCategoryLoading: freezed == taxCategoryLoading
+          ? _value.taxCategoryLoading
+          : taxCategoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      taxes: freezed == taxes
+          ? _value.taxes
+          : taxes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      taxSelected: freezed == taxSelected
+          ? _value.taxSelected
+          : taxSelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      taxLoading: freezed == taxLoading
+          ? _value.taxLoading
+          : taxLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      printers: freezed == printers
+          ? _value.printers
+          : printers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      printerSelected: freezed == printerSelected
+          ? _value.printerSelected
+          : printerSelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      printerLoading: freezed == printerLoading
+          ? _value.printerLoading
+          : printerLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       productSelected: freezed == productSelected
           ? _value.productSelected
           : productSelected // ignore: cast_nullable_to_non_nullable
@@ -119,10 +203,22 @@ abstract class _$$_ProductsPasStateCopyWith<$Res>
       {List<ProductPasData>? products,
       List<ProductPasData>? productsAfterFilter,
       bool? productsLoading,
-      bool? warehouseLoading,
       bool? updateStockLoading,
+      bool? taxCusCategoryLoading,
       List<dynamic>? warehouse,
       dynamic warehouseSelected,
+      bool? warehouseLoading,
+      List<dynamic>? taxCusCategories,
+      dynamic taxCusCategorySelected,
+      List<dynamic>? taxCategories,
+      dynamic taxCategorySelected,
+      bool? taxCategoryLoading,
+      List<dynamic>? taxes,
+      dynamic taxSelected,
+      bool? taxLoading,
+      List<dynamic>? printers,
+      dynamic printerSelected,
+      bool? printerLoading,
       ProductPasData? productSelected});
 }
 
@@ -140,10 +236,22 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
     Object? products = freezed,
     Object? productsAfterFilter = freezed,
     Object? productsLoading = freezed,
-    Object? warehouseLoading = freezed,
     Object? updateStockLoading = freezed,
+    Object? taxCusCategoryLoading = freezed,
     Object? warehouse = freezed,
     Object? warehouseSelected = freezed,
+    Object? warehouseLoading = freezed,
+    Object? taxCusCategories = freezed,
+    Object? taxCusCategorySelected = freezed,
+    Object? taxCategories = freezed,
+    Object? taxCategorySelected = freezed,
+    Object? taxCategoryLoading = freezed,
+    Object? taxes = freezed,
+    Object? taxSelected = freezed,
+    Object? taxLoading = freezed,
+    Object? printers = freezed,
+    Object? printerSelected = freezed,
+    Object? printerLoading = freezed,
     Object? productSelected = freezed,
   }) {
     return _then(_$_ProductsPasState(
@@ -159,13 +267,13 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
           ? _value.productsLoading
           : productsLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
-      warehouseLoading: freezed == warehouseLoading
-          ? _value.warehouseLoading
-          : warehouseLoading // ignore: cast_nullable_to_non_nullable
-              as bool?,
       updateStockLoading: freezed == updateStockLoading
           ? _value.updateStockLoading
           : updateStockLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      taxCusCategoryLoading: freezed == taxCusCategoryLoading
+          ? _value.taxCusCategoryLoading
+          : taxCusCategoryLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
       warehouse: freezed == warehouse
           ? _value._warehouse
@@ -175,6 +283,54 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
           ? _value.warehouseSelected
           : warehouseSelected // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      warehouseLoading: freezed == warehouseLoading
+          ? _value.warehouseLoading
+          : warehouseLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      taxCusCategories: freezed == taxCusCategories
+          ? _value._taxCusCategories
+          : taxCusCategories // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      taxCusCategorySelected: freezed == taxCusCategorySelected
+          ? _value.taxCusCategorySelected
+          : taxCusCategorySelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      taxCategories: freezed == taxCategories
+          ? _value._taxCategories
+          : taxCategories // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      taxCategorySelected: freezed == taxCategorySelected
+          ? _value.taxCategorySelected
+          : taxCategorySelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      taxCategoryLoading: freezed == taxCategoryLoading
+          ? _value.taxCategoryLoading
+          : taxCategoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      taxes: freezed == taxes
+          ? _value._taxes
+          : taxes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      taxSelected: freezed == taxSelected
+          ? _value.taxSelected
+          : taxSelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      taxLoading: freezed == taxLoading
+          ? _value.taxLoading
+          : taxLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      printers: freezed == printers
+          ? _value._printers
+          : printers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      printerSelected: freezed == printerSelected
+          ? _value.printerSelected
+          : printerSelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      printerLoading: freezed == printerLoading
+          ? _value.printerLoading
+          : printerLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       productSelected: freezed == productSelected
           ? _value.productSelected
           : productSelected // ignore: cast_nullable_to_non_nullable
@@ -190,14 +346,30 @@ class _$_ProductsPasState extends _ProductsPasState {
       {final List<ProductPasData>? products = const [],
       final List<ProductPasData>? productsAfterFilter = const [],
       this.productsLoading = false,
-      this.warehouseLoading = false,
       this.updateStockLoading = false,
+      this.taxCusCategoryLoading = false,
       final List<dynamic>? warehouse = const [],
       this.warehouseSelected = const {},
+      this.warehouseLoading = false,
+      final List<dynamic>? taxCusCategories = const [],
+      this.taxCusCategorySelected = const {},
+      final List<dynamic>? taxCategories = const [],
+      this.taxCategorySelected = const {},
+      this.taxCategoryLoading = false,
+      final List<dynamic>? taxes = const [],
+      this.taxSelected = const {},
+      this.taxLoading = false,
+      final List<dynamic>? printers = const [],
+      this.printerSelected = const {},
+      this.printerLoading = false,
       this.productSelected})
       : _products = products,
         _productsAfterFilter = productsAfterFilter,
         _warehouse = warehouse,
+        _taxCusCategories = taxCusCategories,
+        _taxCategories = taxCategories,
+        _taxes = taxes,
+        _printers = printers,
         super._();
 
   final List<ProductPasData>? _products;
@@ -228,10 +400,10 @@ class _$_ProductsPasState extends _ProductsPasState {
   final bool? productsLoading;
   @override
   @JsonKey()
-  final bool? warehouseLoading;
+  final bool? updateStockLoading;
   @override
   @JsonKey()
-  final bool? updateStockLoading;
+  final bool? taxCusCategoryLoading;
   final List<dynamic>? _warehouse;
   @override
   @JsonKey()
@@ -247,11 +419,80 @@ class _$_ProductsPasState extends _ProductsPasState {
   @JsonKey()
   final dynamic warehouseSelected;
   @override
+  @JsonKey()
+  final bool? warehouseLoading;
+  final List<dynamic>? _taxCusCategories;
+  @override
+  @JsonKey()
+  List<dynamic>? get taxCusCategories {
+    final value = _taxCusCategories;
+    if (value == null) return null;
+    if (_taxCusCategories is EqualUnmodifiableListView)
+      return _taxCusCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final dynamic taxCusCategorySelected;
+  final List<dynamic>? _taxCategories;
+  @override
+  @JsonKey()
+  List<dynamic>? get taxCategories {
+    final value = _taxCategories;
+    if (value == null) return null;
+    if (_taxCategories is EqualUnmodifiableListView) return _taxCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final dynamic taxCategorySelected;
+  @override
+  @JsonKey()
+  final bool? taxCategoryLoading;
+  final List<dynamic>? _taxes;
+  @override
+  @JsonKey()
+  List<dynamic>? get taxes {
+    final value = _taxes;
+    if (value == null) return null;
+    if (_taxes is EqualUnmodifiableListView) return _taxes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final dynamic taxSelected;
+  @override
+  @JsonKey()
+  final bool? taxLoading;
+  final List<dynamic>? _printers;
+  @override
+  @JsonKey()
+  List<dynamic>? get printers {
+    final value = _printers;
+    if (value == null) return null;
+    if (_printers is EqualUnmodifiableListView) return _printers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final dynamic printerSelected;
+  @override
+  @JsonKey()
+  final bool? printerLoading;
+  @override
   final ProductPasData? productSelected;
 
   @override
   String toString() {
-    return 'ProductsPasState(products: $products, productsAfterFilter: $productsAfterFilter, productsLoading: $productsLoading, warehouseLoading: $warehouseLoading, updateStockLoading: $updateStockLoading, warehouse: $warehouse, warehouseSelected: $warehouseSelected, productSelected: $productSelected)';
+    return 'ProductsPasState(products: $products, productsAfterFilter: $productsAfterFilter, productsLoading: $productsLoading, updateStockLoading: $updateStockLoading, taxCusCategoryLoading: $taxCusCategoryLoading, warehouse: $warehouse, warehouseSelected: $warehouseSelected, warehouseLoading: $warehouseLoading, taxCusCategories: $taxCusCategories, taxCusCategorySelected: $taxCusCategorySelected, taxCategories: $taxCategories, taxCategorySelected: $taxCategorySelected, taxCategoryLoading: $taxCategoryLoading, taxes: $taxes, taxSelected: $taxSelected, taxLoading: $taxLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, productSelected: $productSelected)';
   }
 
   @override
@@ -264,29 +505,64 @@ class _$_ProductsPasState extends _ProductsPasState {
                 .equals(other._productsAfterFilter, _productsAfterFilter) &&
             (identical(other.productsLoading, productsLoading) ||
                 other.productsLoading == productsLoading) &&
-            (identical(other.warehouseLoading, warehouseLoading) ||
-                other.warehouseLoading == warehouseLoading) &&
             (identical(other.updateStockLoading, updateStockLoading) ||
                 other.updateStockLoading == updateStockLoading) &&
+            (identical(other.taxCusCategoryLoading, taxCusCategoryLoading) ||
+                other.taxCusCategoryLoading == taxCusCategoryLoading) &&
             const DeepCollectionEquality()
                 .equals(other._warehouse, _warehouse) &&
             const DeepCollectionEquality()
                 .equals(other.warehouseSelected, warehouseSelected) &&
+            (identical(other.warehouseLoading, warehouseLoading) ||
+                other.warehouseLoading == warehouseLoading) &&
+            const DeepCollectionEquality()
+                .equals(other._taxCusCategories, _taxCusCategories) &&
+            const DeepCollectionEquality()
+                .equals(other.taxCusCategorySelected, taxCusCategorySelected) &&
+            const DeepCollectionEquality()
+                .equals(other._taxCategories, _taxCategories) &&
+            const DeepCollectionEquality()
+                .equals(other.taxCategorySelected, taxCategorySelected) &&
+            (identical(other.taxCategoryLoading, taxCategoryLoading) ||
+                other.taxCategoryLoading == taxCategoryLoading) &&
+            const DeepCollectionEquality().equals(other._taxes, _taxes) &&
+            const DeepCollectionEquality()
+                .equals(other.taxSelected, taxSelected) &&
+            (identical(other.taxLoading, taxLoading) ||
+                other.taxLoading == taxLoading) &&
+            const DeepCollectionEquality().equals(other._printers, _printers) &&
+            const DeepCollectionEquality()
+                .equals(other.printerSelected, printerSelected) &&
+            (identical(other.printerLoading, printerLoading) ||
+                other.printerLoading == printerLoading) &&
             (identical(other.productSelected, productSelected) ||
                 other.productSelected == productSelected));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_products),
-      const DeepCollectionEquality().hash(_productsAfterFilter),
-      productsLoading,
-      warehouseLoading,
-      updateStockLoading,
-      const DeepCollectionEquality().hash(_warehouse),
-      const DeepCollectionEquality().hash(warehouseSelected),
-      productSelected);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(_products),
+        const DeepCollectionEquality().hash(_productsAfterFilter),
+        productsLoading,
+        updateStockLoading,
+        taxCusCategoryLoading,
+        const DeepCollectionEquality().hash(_warehouse),
+        const DeepCollectionEquality().hash(warehouseSelected),
+        warehouseLoading,
+        const DeepCollectionEquality().hash(_taxCusCategories),
+        const DeepCollectionEquality().hash(taxCusCategorySelected),
+        const DeepCollectionEquality().hash(_taxCategories),
+        const DeepCollectionEquality().hash(taxCategorySelected),
+        taxCategoryLoading,
+        const DeepCollectionEquality().hash(_taxes),
+        const DeepCollectionEquality().hash(taxSelected),
+        taxLoading,
+        const DeepCollectionEquality().hash(_printers),
+        const DeepCollectionEquality().hash(printerSelected),
+        printerLoading,
+        productSelected
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -300,10 +576,22 @@ abstract class _ProductsPasState extends ProductsPasState {
       {final List<ProductPasData>? products,
       final List<ProductPasData>? productsAfterFilter,
       final bool? productsLoading,
-      final bool? warehouseLoading,
       final bool? updateStockLoading,
+      final bool? taxCusCategoryLoading,
       final List<dynamic>? warehouse,
       final dynamic warehouseSelected,
+      final bool? warehouseLoading,
+      final List<dynamic>? taxCusCategories,
+      final dynamic taxCusCategorySelected,
+      final List<dynamic>? taxCategories,
+      final dynamic taxCategorySelected,
+      final bool? taxCategoryLoading,
+      final List<dynamic>? taxes,
+      final dynamic taxSelected,
+      final bool? taxLoading,
+      final List<dynamic>? printers,
+      final dynamic printerSelected,
+      final bool? printerLoading,
       final ProductPasData? productSelected}) = _$_ProductsPasState;
   const _ProductsPasState._() : super._();
 
@@ -314,13 +602,37 @@ abstract class _ProductsPasState extends ProductsPasState {
   @override
   bool? get productsLoading;
   @override
-  bool? get warehouseLoading;
-  @override
   bool? get updateStockLoading;
+  @override
+  bool? get taxCusCategoryLoading;
   @override
   List<dynamic>? get warehouse;
   @override
   dynamic get warehouseSelected;
+  @override
+  bool? get warehouseLoading;
+  @override
+  List<dynamic>? get taxCusCategories;
+  @override
+  dynamic get taxCusCategorySelected;
+  @override
+  List<dynamic>? get taxCategories;
+  @override
+  dynamic get taxCategorySelected;
+  @override
+  bool? get taxCategoryLoading;
+  @override
+  List<dynamic>? get taxes;
+  @override
+  dynamic get taxSelected;
+  @override
+  bool? get taxLoading;
+  @override
+  List<dynamic>? get printers;
+  @override
+  dynamic get printerSelected;
+  @override
+  bool? get printerLoading;
   @override
   ProductPasData? get productSelected;
   @override

@@ -2,19 +2,7 @@ import 'package:g_manager_app/modify/models/models.dart';
 import 'package:intl/intl.dart';
 
 class TicketData {
-  TicketData(
-      {int? id,
-      String? title,
-      int? ticketType,
-      int? ticketId,
-      int? personId,
-      int? customerId,
-      int? status,
-      DateTime? datenew,
-      List<TicketLineData>? ticketlines,
-      List<TaxlineData>? taxlines,
-      List<PaymentData>? payments,
-      ReceiptData? receipt}) {
+  TicketData({int? id, String? title, int? ticketType, int? ticketId, String? personId, String? customerId, int? status, DateTime? datenew, List<TicketLineData>? ticketlines, List<TaxlineData>? taxlines, List<PaymentData>? payments, ReceiptData? receipt}) {
     _id = id;
     _title = title;
     _ticketType = ticketType;
@@ -56,17 +44,15 @@ class TicketData {
         _payments?.add(PaymentData.fromJson(v));
       });
     }
-    _receipt = json['ticket_data']['receipt'] != null
-        ? ReceiptData.fromJson(json['ticket_data']['receipt'])
-        : null;
+    _receipt = json['ticket_data']['receipt'] != null ? ReceiptData.fromJson(json['ticket_data']['receipt']) : null;
   }
 
   int? _id;
   String? _title;
   int? _ticketType;
   int? _ticketId;
-  int? _personId;
-  int? _customerId;
+  String? _personId;
+  String? _customerId;
   int? _status;
   DateTime? _datenew;
   List<TicketLineData>? _ticketlines;
@@ -74,32 +60,19 @@ class TicketData {
   List<PaymentData>? _payments;
   ReceiptData? _receipt;
 
-  TicketData copyWith(
-          {int? id,
-          String? title,
-          int? ticketType,
-          int? ticketId,
-          int? person,
-          int? customerId,
-          int? status,
-          DateTime? datenew,
-          List<TicketLineData>? ticketlines,
-          List<TaxlineData>? taxlines,
-          List<PaymentData>? payments,
-          ReceiptData? receipt}) =>
-      TicketData(
-          id: id ?? _id,
-          title: title ?? _title,
-          ticketType: ticketType ?? _ticketType,
-          ticketId: ticketId ?? _ticketId,
-          personId: personId ?? _personId,
-          customerId: customerId ?? _customerId,
-          status: status ?? _status,
-          datenew: datenew ?? _datenew,
-          ticketlines: ticketlines ?? _ticketlines,
-          taxlines: taxlines ?? _taxlines,
-          payments: payments ?? _payments,
-          receipt: receipt ?? _receipt);
+  TicketData copyWith({int? id, String? title, int? ticketType, int? ticketId, String? personId, String? customerId, int? status, DateTime? datenew, List<TicketLineData>? ticketlines, List<TaxlineData>? taxlines, List<PaymentData>? payments, ReceiptData? receipt}) => TicketData(
+      id: id ?? _id,
+      title: title ?? _title,
+      ticketType: ticketType ?? _ticketType,
+      ticketId: ticketId ?? _ticketId,
+      personId: personId ?? _personId,
+      customerId: customerId ?? _customerId,
+      status: status ?? _status,
+      datenew: datenew ?? _datenew,
+      ticketlines: ticketlines ?? _ticketlines,
+      taxlines: taxlines ?? _taxlines,
+      payments: payments ?? _payments,
+      receipt: receipt ?? _receipt);
 
   int? get id => _id;
 
@@ -109,9 +82,9 @@ class TicketData {
 
   int? get ticketId => _ticketId;
 
-  int? get personId => _personId;
+  String? get personId => _personId;
 
-  int? get customerId => _customerId;
+  String? get customerId => _customerId;
 
   int? get status => _status;
 

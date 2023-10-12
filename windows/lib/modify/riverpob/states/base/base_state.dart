@@ -24,6 +24,12 @@ class BaseState with _$BaseState {
     @Default(false) bool? accessGlobalSettingBlock,
     @Default({}) dynamic baseInfomation,
     @Default({}) dynamic baseRootInfomation,
+    @Default(0) double moneyWallet,
+    @Default(false) bool? moneyWalletLoading,
+    @Default(false) bool? sendMoneyLoading,
+    @Default([]) List<dynamic>? printers,
+    @Default({}) dynamic printerSelected,
+    @Default(false) bool? printerLoading,
     XFile? image,
     XFile? video,
   }) = _BaseState;

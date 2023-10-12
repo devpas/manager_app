@@ -14,9 +14,7 @@ import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
 
 class ProductEditModal extends ConsumerStatefulWidget {
-  const ProductEditModal(
-      this.ticketline, this.ticketIndex, this.ticketLineIndex,
-      {super.key});
+  const ProductEditModal(this.ticketline, this.ticketIndex, this.ticketLineIndex, {super.key});
 
   final TicketLineData? ticketline;
 
@@ -25,13 +23,11 @@ class ProductEditModal extends ConsumerStatefulWidget {
   final int? ticketLineIndex;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ProductEditModalState(ticketline, ticketIndex, ticketLineIndex);
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProductEditModalState(ticketline, ticketIndex, ticketLineIndex);
 }
 
 class _ProductEditModalState extends ConsumerState<ProductEditModal> {
-  _ProductEditModalState(
-      this.ticketline, this.ticketIndex, this.ticketLineIndex);
+  _ProductEditModalState(this.ticketline, this.ticketIndex, this.ticketLineIndex);
 
   final TicketLineData? ticketline;
 
@@ -40,17 +36,15 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
   final int? ticketLineIndex;
 
   TextEditingController unitController = TextEditingController(text: "0");
-  TextEditingController priceAndTaxController =
-      TextEditingController(text: "0");
+  TextEditingController priceAndTaxController = TextEditingController(text: "0");
   TextEditingController priceController = TextEditingController(text: "0");
 
   @override
   void initState() {
     super.initState();
     unitController.text = ticketline!.unit.toString();
-    priceAndTaxController.text =
-        (ticketline!.price! * (1 + int.parse("${ticketline!.taxId}") / 100))
-            .toStringAsFixed(2);
+    //ticketline!.taxId! = 0
+    priceAndTaxController.text = (ticketline!.price! * (1 + 0 / 100)).toStringAsFixed(2);
     priceController.text = ticketline!.price!.toStringAsFixed(2);
   }
 
@@ -90,9 +84,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.number,
               controller: unitController,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
               onChanged: (input) => {},
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
@@ -122,15 +114,12 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
             TextFormField(
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
               onChanged: (input) => {
                 if (input.isNotEmpty)
                   {
-                    priceAndTaxController.text =
-                        (double.parse(input) * (1 + ticketline!.taxId! / 100))
-                            .toStringAsFixed(2),
+                    // ticketline!.taxId! = 0
+                    priceAndTaxController.text = (double.parse(input) * (1 + 0 / 100)).toStringAsFixed(2),
                   }
               },
               controller: priceController,
@@ -163,18 +152,13 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.number,
               controller: priceAndTaxController,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+              //ticketline!.taxId! = 0
               onChanged: (input) => {
-                priceController.text =
-                    (double.parse(input) / (1 + ticketline!.taxId! / 100))
-                        .toStringAsFixed(2),
+                priceController.text = (double.parse(input) / (1 + 0 / 100)).toStringAsFixed(2),
                 if (input.isNotEmpty)
                   {
-                    priceController.text =
-                        (double.parse(input) / (1 + ticketline!.taxId! / 100))
-                            .toStringAsFixed(2),
+                    priceController.text = (double.parse(input) / (1 + 0 / 100)).toStringAsFixed(2),
                   }
               },
               style: GoogleFonts.inter(
@@ -206,7 +190,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                 ),
                 Expanded(
                   child: Text(
-                    "${ticketline!.taxId}%",
+                    "${notifierProduct.taxCalculate(statePos.infoSelected![0][4], ticketline!.taxId!)}%",
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
@@ -232,10 +216,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                 ),
                 Expanded(
                   child: Text(
-                    notifierPos.convertNumberZero(
-                        double.parse(priceController.text) *
-                            (int.parse("${ticketline!.taxId}") / 100) *
-                            double.parse(unitController.text)),
+                    notifierPos.convertNumberZero(double.parse(priceController.text) * (notifierProduct.taxCalculate(statePos.infoSelected![0][4], ticketline!.taxId!) / 100) * double.parse(unitController.text)),
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
@@ -261,10 +242,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                 ),
                 Expanded(
                   child: Text(
-                    notifierPos.convertNumberZero(
-                        double.parse(priceController.text) *
-                            (1 + int.parse("${ticketline!.taxId}") / 100) *
-                            double.parse(unitController.text)),
+                    notifierPos.convertNumberZero(double.parse(priceController.text) * (1 + notifierProduct.taxCalculate(statePos.infoSelected![0][4], ticketline!.taxId!) / 100) * double.parse(unitController.text)),
                     textAlign: TextAlign.right,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w400,
@@ -285,12 +263,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                   ConfirmButton(
                     title: 'Đồng ý',
                     onTap: () {
-                      notifierPos.editUnitProduct(
-                          unitController.text,
-                          priceController.text,
-                          ticketline!.id,
-                          ticketIndex,
-                          ticketLineIndex);
+                      notifierPos.editUnitProduct(unitController.text, priceController.text, ticketline!.id, ticketIndex, ticketLineIndex);
                       Navigator.pop(context);
                     },
                   ),

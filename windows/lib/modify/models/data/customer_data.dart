@@ -1,32 +1,33 @@
-//customer {id,searchkey,tax_id,name,tax_category,card,max_debt,address,address2,postal,city,region,country,firstnam,lastname,email,phone,phone2,fax,notes,visible,curdate,curdebt}
 class CustomerData {
-  CustomerData({
-    int? id,
-    String? searchkey,
-    String? taxId,
-    String? name,
-    String? taxCategory,
-    String? card,
-    double? maxDebt,
-    String? address,
-    String? address2,
-    String? postal,
-    String? city,
-    String? region,
-    String? country,
-    String? firstname,
-    String? lastname,
-    String? email,
-    String? phone,
-    String? phone2,
-    String? fax,
-    String? note,
-    int? visible,
-    DateTime? curdate,
-    String? curdebt,
-    String? fileOrdersId,
-    List<CustomerData>? children,
-  }) {
+  CustomerData(
+      {String? id,
+      String? searchkey,
+      String? taxId,
+      String? name,
+      String? taxCategory,
+      String? card,
+      double? maxDebt,
+      String? address,
+      String? address2,
+      String? postal,
+      String? city,
+      String? region,
+      String? country,
+      String? firstname,
+      String? lastname,
+      String? email,
+      String? phone,
+      String? phone2,
+      String? fax,
+      String? note,
+      int? visible,
+      DateTime? curdate,
+      double? curDebt,
+      String? fileOrdersId,
+      List<CustomerData>? children,
+      String? fileOrderId,
+      DateTime? createDate,
+      String? ngt}) {
     _id = id;
     _searchkey = searchkey;
     _taxId = _taxId;
@@ -48,37 +49,42 @@ class CustomerData {
     _fax = fax;
     _note = note;
     _visible = visible;
-    _curdate = _curdate;
-    _curdebt = _curdebt;
+    _curdate = curdate;
+    _curDebt = curDebt;
     _fileOrdersId = fileOrdersId;
     _children = children;
+    _fileOrdersId = fileOrderId;
+    _createDate = createDate;
+    _ngt = ngt;
   }
 
   CustomerData.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
-    _searchkey = json['search_key'];
+    _searchkey = json['search_key'].toString();
     _taxId = json['tax_id'];
     _name = json['name'];
-    _taxCategory = json['tax_category'];
+    _taxCategory = json['customer_category_id'];
     _card = json['card'];
-    _maxDebt = json['max_debt'] + 0.0;
+    _maxDebt = double.parse(json['max_debt'].toString()) + 0.0;
     _address = json['address'];
     _address2 = json['address2'];
-    _postal = json['postal'];
+    _postal = json['postal'].toString();
     _city = json['city'];
     _region = json['region'];
     _country = json['country'];
     _firstname = json['firstname'];
     _lastname = json['lastname'];
     _email = json['email'];
-    _phone = json['phone'];
+    _phone = json['phone'].toString();
     _phone2 = json['phone2'];
     _fax = json['fax'];
-    _note = json['note'];
+    _note = json['notes'];
     _visible = json['visible'];
-    _curdate = DateTime.now();
-    _curdebt = json['curdebt'];
+    _curdate = json["cur_date"] != "" ? DateTime.parse(json["cur_date"]) : DateTime.parse("0001-01-01 00:00:00");
+    _curDebt = double.parse(json['cur_debt'].toString()) + 0.0;
     _fileOrdersId = json['file_orders_id'];
+    _createDate = DateTime.parse(json['create_date']);
+    _ngt = json['ngt'];
     if (json['children'] != null) {
       _children = [];
       json['children'].forEach((v) {
@@ -87,7 +93,7 @@ class CustomerData {
     }
   }
 
-  int? _id;
+  String? _id;
   String? _searchkey;
   String? _taxId;
   String? _name;
@@ -109,12 +115,14 @@ class CustomerData {
   String? _note;
   int? _visible;
   DateTime? _curdate;
-  String? _curdebt;
+  double? _curDebt;
   String? _fileOrdersId;
+  DateTime? _createDate;
+  String? _ngt;
   List<CustomerData>? _children;
 
   CustomerData copyWith({
-    int? id,
+    String? id,
     String? searchkey,
     String? taxId,
     String? name,
@@ -136,8 +144,10 @@ class CustomerData {
     String? note,
     int? visible,
     DateTime? curdate,
-    String? curdebt,
+    double? curDebt,
     String? fileOrdersId,
+    DateTime? createDate,
+    String? ngt,
     List<CustomerData>? children,
   }) =>
       CustomerData(
@@ -163,10 +173,13 @@ class CustomerData {
           note: note ?? _note,
           visible: visible ?? _visible,
           curdate: curdate ?? _curdate,
-          curdebt: curdebt ?? _curdebt,
-          children: children ?? _children);
+          curDebt: curDebt ?? _curDebt,
+          children: children ?? _children,
+          fileOrderId: fileOrdersId ?? _fileOrdersId,
+          createDate: createDate ?? _createDate,
+          ngt: ngt ?? _ngt);
 
-  int? get id => _id;
+  String? get id => _id;
 
   String? get searchkey => _searchkey;
 
@@ -210,21 +223,25 @@ class CustomerData {
 
   DateTime? get curdate => _curdate;
 
-  String? get curdebt => _curdebt;
+  double? get curDebt => _curDebt;
 
   String? get fileOrdersId => _fileOrdersId;
+
+  DateTime? get createDate => _createDate;
+
+  String? get ngt => _ngt;
 
   List<CustomerData>? get children => _children;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
-    map['searchkey'] = _searchkey;
+    map['search_key'] = _searchkey;
     map['taxId'] = _taxId;
     map['name'] = _name;
-    map['taxCategory'] = _taxCategory;
+    map['customer_category_id'] = _taxCategory;
     map['card'] = _card;
-    map['maxDebt'] = _maxDebt;
+    map['max_debt'] = _maxDebt;
     map['address'] = _address;
     map['address2'] = _address2;
     map['postal'] = _postal;
@@ -237,14 +254,49 @@ class CustomerData {
     map['phone'] = _phone;
     map['phone2'] = _phone2;
     map['fax'] = _fax;
-    map['note'] = _note;
+    map['notes'] = _note;
     map['visible'] = _visible;
-    map['curdate'] = _curdate;
-    map['curdebt'] = _curdebt;
+    map['cur_date'] = _curdate;
+    map['cur_debt'] = _curDebt;
     map['file_orders_id'] = _fileOrdersId;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }
+    map['create_date'] = _createDate;
+    map['ngt'] = _ngt;
     return map;
+  }
+
+  CustomerData initCustomer() {
+    CustomerData customer = CustomerData(
+      id: "",
+      searchkey: "",
+      taxId: "",
+      name: "",
+      taxCategory: "",
+      card: "",
+      maxDebt: 0.0,
+      address: "",
+      address2: "",
+      postal: "",
+      city: "",
+      region: "",
+      country: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      phone: "",
+      phone2: "",
+      fax: "",
+      note: "",
+      visible: 0,
+      curdate: DateTime.now(),
+      curDebt: 0.0,
+      fileOrdersId: "",
+      createDate: DateTime.now(),
+      ngt: "",
+      children: [],
+    );
+    return customer;
   }
 }

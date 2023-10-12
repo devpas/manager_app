@@ -445,6 +445,19 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    UpdateCustomerPasRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateCustomerPasRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.UpdateCustomerPasPage(
+          key: args.key,
+          customer: args.customer,
+        ),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     OptionsManageRoute.name: (routeData) {
       return _i2.CustomPage<dynamic>(
         routeData: routeData,
@@ -507,6 +520,148 @@ class AppRouter extends _i2.RootStackRouter {
       return _i2.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.MoveProductPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ListCustomerTypeRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ListCustomerTypePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    AddTaxCusCategoryRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AddTaxCusCategoryPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    UpdateTaxCusCategoryRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateTaxCusCategoryRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.UpdateTaxCusCategoryPage(
+          args.taxCusCategory,
+          key: args.key,
+        ),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ListTaxCategoriesRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ListTaxCategoriesPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    AddTaxCategoryRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AddTaxCategoryPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    UpdateTaxCategoryRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateTaxCategoryRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.UpdateTaxCategoryPage(
+          args.taxCategory,
+          key: args.key,
+        ),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ListTaxesRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ListTaxesPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    AddTaxRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AddTaxPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    UpdateTaxRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateTaxRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.UpdateTaxPage(
+          args.tax,
+          key: args.key,
+        ),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    AccountPosRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AccountPosPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    SettingManageRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.SettingManagePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ListPrinterRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ListPrinterPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    AddPrinterRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AddPrinterPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    UpdatePrinterRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdatePrinterRouteArgs>();
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: _i1.UpdatePrinterPage(
+          args.printer,
+          key: args.key,
+        ),
         customRouteBuilder: _i4.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
@@ -763,6 +918,10 @@ class AppRouter extends _i2.RootStackRouter {
           path: '/add-customers',
         ),
         _i2.RouteConfig(
+          UpdateCustomerPasRoute.name,
+          path: '/add-customers',
+        ),
+        _i2.RouteConfig(
           OptionsManageRoute.name,
           path: '/options-manager',
         ),
@@ -789,6 +948,62 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           MoveProductRoute.name,
           path: '/move-product',
+        ),
+        _i2.RouteConfig(
+          ListCustomerTypeRoute.name,
+          path: '/list-customer_type',
+        ),
+        _i2.RouteConfig(
+          AddTaxCusCategoryRoute.name,
+          path: '/add-customer_type',
+        ),
+        _i2.RouteConfig(
+          UpdateTaxCusCategoryRoute.name,
+          path: '/update-customer_type',
+        ),
+        _i2.RouteConfig(
+          ListTaxCategoriesRoute.name,
+          path: '/list-tax_categories',
+        ),
+        _i2.RouteConfig(
+          AddTaxCategoryRoute.name,
+          path: '/add-tax_category',
+        ),
+        _i2.RouteConfig(
+          UpdateTaxCategoryRoute.name,
+          path: '/update-tax_category',
+        ),
+        _i2.RouteConfig(
+          ListTaxesRoute.name,
+          path: '/list-taxes',
+        ),
+        _i2.RouteConfig(
+          AddTaxRoute.name,
+          path: '/add-tax',
+        ),
+        _i2.RouteConfig(
+          UpdateTaxRoute.name,
+          path: '/update-tax',
+        ),
+        _i2.RouteConfig(
+          AccountPosRoute.name,
+          path: '/account-pos',
+        ),
+        _i2.RouteConfig(
+          SettingManageRoute.name,
+          path: '/global-setting',
+        ),
+        _i2.RouteConfig(
+          ListPrinterRoute.name,
+          path: '/list-printers',
+        ),
+        _i2.RouteConfig(
+          AddPrinterRoute.name,
+          path: '/add-printers',
+        ),
+        _i2.RouteConfig(
+          UpdatePrinterRoute.name,
+          path: '/update-printers',
         ),
       ];
 }
@@ -1664,6 +1879,41 @@ class AddCustomerPasRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [_i1.UpdateCustomerPasPage]
+class UpdateCustomerPasRoute
+    extends _i2.PageRouteInfo<UpdateCustomerPasRouteArgs> {
+  UpdateCustomerPasRoute({
+    _i3.Key? key,
+    required _i7.CustomerData customer,
+  }) : super(
+          UpdateCustomerPasRoute.name,
+          path: '/add-customers',
+          args: UpdateCustomerPasRouteArgs(
+            key: key,
+            customer: customer,
+          ),
+        );
+
+  static const String name = 'UpdateCustomerPasRoute';
+}
+
+class UpdateCustomerPasRouteArgs {
+  const UpdateCustomerPasRouteArgs({
+    this.key,
+    required this.customer,
+  });
+
+  final _i3.Key? key;
+
+  final _i7.CustomerData customer;
+
+  @override
+  String toString() {
+    return 'UpdateCustomerPasRouteArgs{key: $key, customer: $customer}';
+  }
+}
+
+/// generated route for
 /// [_i1.OptionsManagePage]
 class OptionsManageRoute extends _i2.PageRouteInfo<void> {
   const OptionsManageRoute()
@@ -1767,6 +2017,264 @@ class MoveProductRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'MoveProductRoute';
+}
+
+/// generated route for
+/// [_i1.ListCustomerTypePage]
+class ListCustomerTypeRoute extends _i2.PageRouteInfo<void> {
+  const ListCustomerTypeRoute()
+      : super(
+          ListCustomerTypeRoute.name,
+          path: '/list-customer_type',
+        );
+
+  static const String name = 'ListCustomerTypeRoute';
+}
+
+/// generated route for
+/// [_i1.AddTaxCusCategoryPage]
+class AddTaxCusCategoryRoute extends _i2.PageRouteInfo<void> {
+  const AddTaxCusCategoryRoute()
+      : super(
+          AddTaxCusCategoryRoute.name,
+          path: '/add-customer_type',
+        );
+
+  static const String name = 'AddTaxCusCategoryRoute';
+}
+
+/// generated route for
+/// [_i1.UpdateTaxCusCategoryPage]
+class UpdateTaxCusCategoryRoute
+    extends _i2.PageRouteInfo<UpdateTaxCusCategoryRouteArgs> {
+  UpdateTaxCusCategoryRoute({
+    required dynamic taxCusCategory,
+    _i3.Key? key,
+  }) : super(
+          UpdateTaxCusCategoryRoute.name,
+          path: '/update-customer_type',
+          args: UpdateTaxCusCategoryRouteArgs(
+            taxCusCategory: taxCusCategory,
+            key: key,
+          ),
+        );
+
+  static const String name = 'UpdateTaxCusCategoryRoute';
+}
+
+class UpdateTaxCusCategoryRouteArgs {
+  const UpdateTaxCusCategoryRouteArgs({
+    required this.taxCusCategory,
+    this.key,
+  });
+
+  final dynamic taxCusCategory;
+
+  final _i3.Key? key;
+
+  @override
+  String toString() {
+    return 'UpdateTaxCusCategoryRouteArgs{taxCusCategory: $taxCusCategory, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i1.ListTaxCategoriesPage]
+class ListTaxCategoriesRoute extends _i2.PageRouteInfo<void> {
+  const ListTaxCategoriesRoute()
+      : super(
+          ListTaxCategoriesRoute.name,
+          path: '/list-tax_categories',
+        );
+
+  static const String name = 'ListTaxCategoriesRoute';
+}
+
+/// generated route for
+/// [_i1.AddTaxCategoryPage]
+class AddTaxCategoryRoute extends _i2.PageRouteInfo<void> {
+  const AddTaxCategoryRoute()
+      : super(
+          AddTaxCategoryRoute.name,
+          path: '/add-tax_category',
+        );
+
+  static const String name = 'AddTaxCategoryRoute';
+}
+
+/// generated route for
+/// [_i1.UpdateTaxCategoryPage]
+class UpdateTaxCategoryRoute
+    extends _i2.PageRouteInfo<UpdateTaxCategoryRouteArgs> {
+  UpdateTaxCategoryRoute({
+    required dynamic taxCategory,
+    _i3.Key? key,
+  }) : super(
+          UpdateTaxCategoryRoute.name,
+          path: '/update-tax_category',
+          args: UpdateTaxCategoryRouteArgs(
+            taxCategory: taxCategory,
+            key: key,
+          ),
+        );
+
+  static const String name = 'UpdateTaxCategoryRoute';
+}
+
+class UpdateTaxCategoryRouteArgs {
+  const UpdateTaxCategoryRouteArgs({
+    required this.taxCategory,
+    this.key,
+  });
+
+  final dynamic taxCategory;
+
+  final _i3.Key? key;
+
+  @override
+  String toString() {
+    return 'UpdateTaxCategoryRouteArgs{taxCategory: $taxCategory, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i1.ListTaxesPage]
+class ListTaxesRoute extends _i2.PageRouteInfo<void> {
+  const ListTaxesRoute()
+      : super(
+          ListTaxesRoute.name,
+          path: '/list-taxes',
+        );
+
+  static const String name = 'ListTaxesRoute';
+}
+
+/// generated route for
+/// [_i1.AddTaxPage]
+class AddTaxRoute extends _i2.PageRouteInfo<void> {
+  const AddTaxRoute()
+      : super(
+          AddTaxRoute.name,
+          path: '/add-tax',
+        );
+
+  static const String name = 'AddTaxRoute';
+}
+
+/// generated route for
+/// [_i1.UpdateTaxPage]
+class UpdateTaxRoute extends _i2.PageRouteInfo<UpdateTaxRouteArgs> {
+  UpdateTaxRoute({
+    required dynamic tax,
+    _i3.Key? key,
+  }) : super(
+          UpdateTaxRoute.name,
+          path: '/update-tax',
+          args: UpdateTaxRouteArgs(
+            tax: tax,
+            key: key,
+          ),
+        );
+
+  static const String name = 'UpdateTaxRoute';
+}
+
+class UpdateTaxRouteArgs {
+  const UpdateTaxRouteArgs({
+    required this.tax,
+    this.key,
+  });
+
+  final dynamic tax;
+
+  final _i3.Key? key;
+
+  @override
+  String toString() {
+    return 'UpdateTaxRouteArgs{tax: $tax, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i1.AccountPosPage]
+class AccountPosRoute extends _i2.PageRouteInfo<void> {
+  const AccountPosRoute()
+      : super(
+          AccountPosRoute.name,
+          path: '/account-pos',
+        );
+
+  static const String name = 'AccountPosRoute';
+}
+
+/// generated route for
+/// [_i1.SettingManagePage]
+class SettingManageRoute extends _i2.PageRouteInfo<void> {
+  const SettingManageRoute()
+      : super(
+          SettingManageRoute.name,
+          path: '/global-setting',
+        );
+
+  static const String name = 'SettingManageRoute';
+}
+
+/// generated route for
+/// [_i1.ListPrinterPage]
+class ListPrinterRoute extends _i2.PageRouteInfo<void> {
+  const ListPrinterRoute()
+      : super(
+          ListPrinterRoute.name,
+          path: '/list-printers',
+        );
+
+  static const String name = 'ListPrinterRoute';
+}
+
+/// generated route for
+/// [_i1.AddPrinterPage]
+class AddPrinterRoute extends _i2.PageRouteInfo<void> {
+  const AddPrinterRoute()
+      : super(
+          AddPrinterRoute.name,
+          path: '/add-printers',
+        );
+
+  static const String name = 'AddPrinterRoute';
+}
+
+/// generated route for
+/// [_i1.UpdatePrinterPage]
+class UpdatePrinterRoute extends _i2.PageRouteInfo<UpdatePrinterRouteArgs> {
+  UpdatePrinterRoute({
+    required dynamic printer,
+    _i3.Key? key,
+  }) : super(
+          UpdatePrinterRoute.name,
+          path: '/update-printers',
+          args: UpdatePrinterRouteArgs(
+            printer: printer,
+            key: key,
+          ),
+        );
+
+  static const String name = 'UpdatePrinterRoute';
+}
+
+class UpdatePrinterRouteArgs {
+  const UpdatePrinterRouteArgs({
+    required this.printer,
+    this.key,
+  });
+
+  final dynamic printer;
+
+  final _i3.Key? key;
+
+  @override
+  String toString() {
+    return 'UpdatePrinterRouteArgs{printer: $printer, key: $key}';
+  }
 }
 
 /// generated route for

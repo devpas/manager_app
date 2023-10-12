@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/models.dart';
-import '../../../src/core/constants/constants.dart';
-import '../../../src/core/utils/utils.dart';
 import '../../../src/presentation/theme/theme.dart';
 
 class EmployeeItem extends StatelessWidget {
@@ -30,8 +28,7 @@ class EmployeeItem extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12.r),
             child: Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
               child: Column(
                 children: [
                   12.verticalSpace,

@@ -21,6 +21,7 @@ mixin _$CustomersState {
   List<CustomerData>? get customersAfterFilter =>
       throw _privateConstructorUsedError;
   CustomerData? get customerSelected => throw _privateConstructorUsedError;
+  bool? get customerLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CustomersStateCopyWith<CustomersState> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $CustomersStateCopyWith<$Res> {
       {List<CustomerData>? customers,
       List<ShopData>? shops,
       List<CustomerData>? customersAfterFilter,
-      CustomerData? customerSelected});
+      CustomerData? customerSelected,
+      bool? customerLoading});
 }
 
 /// @nodoc
@@ -57,6 +59,7 @@ class _$CustomersStateCopyWithImpl<$Res, $Val extends CustomersState>
     Object? shops = freezed,
     Object? customersAfterFilter = freezed,
     Object? customerSelected = freezed,
+    Object? customerLoading = freezed,
   }) {
     return _then(_value.copyWith(
       customers: freezed == customers
@@ -75,6 +78,10 @@ class _$CustomersStateCopyWithImpl<$Res, $Val extends CustomersState>
           ? _value.customerSelected
           : customerSelected // ignore: cast_nullable_to_non_nullable
               as CustomerData?,
+      customerLoading: freezed == customerLoading
+          ? _value.customerLoading
+          : customerLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -91,7 +98,8 @@ abstract class _$$_CustomersStateCopyWith<$Res>
       {List<CustomerData>? customers,
       List<ShopData>? shops,
       List<CustomerData>? customersAfterFilter,
-      CustomerData? customerSelected});
+      CustomerData? customerSelected,
+      bool? customerLoading});
 }
 
 /// @nodoc
@@ -109,6 +117,7 @@ class __$$_CustomersStateCopyWithImpl<$Res>
     Object? shops = freezed,
     Object? customersAfterFilter = freezed,
     Object? customerSelected = freezed,
+    Object? customerLoading = freezed,
   }) {
     return _then(_$_CustomersState(
       customers: freezed == customers
@@ -127,6 +136,10 @@ class __$$_CustomersStateCopyWithImpl<$Res>
           ? _value.customerSelected
           : customerSelected // ignore: cast_nullable_to_non_nullable
               as CustomerData?,
+      customerLoading: freezed == customerLoading
+          ? _value.customerLoading
+          : customerLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -138,7 +151,8 @@ class _$_CustomersState extends _CustomersState {
       {final List<CustomerData>? customers = const [],
       final List<ShopData>? shops = const [],
       final List<CustomerData>? customersAfterFilter = const [],
-      this.customerSelected})
+      this.customerSelected,
+      this.customerLoading = false})
       : _customers = customers,
         _shops = shops,
         _customersAfterFilter = customersAfterFilter,
@@ -180,10 +194,13 @@ class _$_CustomersState extends _CustomersState {
 
   @override
   final CustomerData? customerSelected;
+  @override
+  @JsonKey()
+  final bool? customerLoading;
 
   @override
   String toString() {
-    return 'CustomersState(customers: $customers, shops: $shops, customersAfterFilter: $customersAfterFilter, customerSelected: $customerSelected)';
+    return 'CustomersState(customers: $customers, shops: $shops, customersAfterFilter: $customersAfterFilter, customerSelected: $customerSelected, customerLoading: $customerLoading)';
   }
 
   @override
@@ -197,7 +214,9 @@ class _$_CustomersState extends _CustomersState {
             const DeepCollectionEquality()
                 .equals(other._customersAfterFilter, _customersAfterFilter) &&
             (identical(other.customerSelected, customerSelected) ||
-                other.customerSelected == customerSelected));
+                other.customerSelected == customerSelected) &&
+            (identical(other.customerLoading, customerLoading) ||
+                other.customerLoading == customerLoading));
   }
 
   @override
@@ -206,7 +225,8 @@ class _$_CustomersState extends _CustomersState {
       const DeepCollectionEquality().hash(_customers),
       const DeepCollectionEquality().hash(_shops),
       const DeepCollectionEquality().hash(_customersAfterFilter),
-      customerSelected);
+      customerSelected,
+      customerLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +240,8 @@ abstract class _CustomersState extends CustomersState {
       {final List<CustomerData>? customers,
       final List<ShopData>? shops,
       final List<CustomerData>? customersAfterFilter,
-      final CustomerData? customerSelected}) = _$_CustomersState;
+      final CustomerData? customerSelected,
+      final bool? customerLoading}) = _$_CustomersState;
   const _CustomersState._() : super._();
 
   @override
@@ -231,6 +252,8 @@ abstract class _CustomersState extends CustomersState {
   List<CustomerData>? get customersAfterFilter;
   @override
   CustomerData? get customerSelected;
+  @override
+  bool? get customerLoading;
   @override
   @JsonKey(ignore: true)
   _$$_CustomersStateCopyWith<_$_CustomersState> get copyWith =>

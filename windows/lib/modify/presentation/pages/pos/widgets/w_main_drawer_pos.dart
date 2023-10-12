@@ -9,17 +9,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/routes/app_router.gr.dart';
-import '../../../../../src/core/utils/utils.dart';
 import '../../../../../src/presentation/theme/theme.dart';
 import '../../../components/components.dart';
 import 'drawer_item_widget.dart';
 import 'settings_button.dart';
 
-class WMainDrawerPos extends ConsumerWidget {
+class WMainDrawerPos extends ConsumerStatefulWidget {
   const WMainDrawerPos({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _WMainDrawerPosState();
+}
+
+class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(baseProvider);
     final notifier = ref.read(baseProvider.notifier);
     return Drawer(
@@ -45,8 +49,7 @@ class WMainDrawerPos extends ConsumerWidget {
             Row(
               children: [
                 const AvatarImage(
-                  imageUrl:
-                      "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
+                  imageUrl: "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
                   radius: 30,
                   width: 60,
                   height: 60,
@@ -66,12 +69,7 @@ class WMainDrawerPos extends ConsumerWidget {
                     ),
                     3.verticalSpace,
                     Text(
-                      notifier.checkShareMode()
-                          ? notifier.getRoleName(notifier
-                              .getRoleCode()
-                              .where((e) => e.contains("pos-"))
-                              .first)
-                          : "Chủ cơ sở",
+                      notifier.checkShareMode() ? notifier.getRoleName(notifier.getRoleCode().where((e) => e.contains("pos-")).first) : "Chủ cơ sở",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
@@ -123,14 +121,25 @@ class WMainDrawerPos extends ConsumerWidget {
                                 style: AppTypographies.styWhite12W500,
                               ),
                               1.verticalSpace,
-                              Text(
-                                '\$55 800',
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                  color: AppColors.white,
-                                ),
-                              ),
+                              state.moneyWalletLoading!
+                                  ? const SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.white,
+                                          strokeWidth: 2,
+                                        ),
+                                      ),
+                                    )
+                                  : Text(
+                                      notifier.convertNumberZero(state.moneyWallet, fixed: 3),
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: AppColors.white,
+                                      ),
+                                    ),
                             ],
                           )
                         ],

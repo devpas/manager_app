@@ -7,8 +7,7 @@ final GetIt getIt = GetIt.instance;
 
 void setUpDependencies() {
   getIt.registerLazySingleton<HttpService>(() => HttpService());
-  getIt.registerLazySingleton<HttpServiceAppscript>(
-      () => HttpServiceAppscript());
+  getIt.registerLazySingleton<HttpServiceAppscript>(() => HttpServiceAppscript());
   getIt.registerSingleton<AuthRepository>(AuthRepositoryImpl());
   getIt.registerSingleton<OrdersRepository>(OrdersRepositoryImpl());
   getIt.registerSingleton<ShopsRepository>(ShopsRepositoryImpl());
@@ -21,8 +20,7 @@ void setUpDependencies() {
   getIt.registerSingleton<SettingsRepository>(SettingsSettingsRepositoryImpl());
   getIt.registerSingleton<PaymentsRepository>(PaymentsRepositoryImpl());
   getIt.registerSingleton<DashboardRepository>(DashboardRepositoryImpl());
-  getIt.registerSingleton<CategoriesPASRepository>(
-      CategoriesRepositoryPASImpl());
+  getIt.registerSingleton<CategoriesPASRepository>(CategoriesRepositoryPASImpl());
   getIt.registerSingleton<ProductsPASRepository>(ProductsRepositoryPASImpl());
   getIt.registerSingleton<TicketsRepository>(TicketsRepositoryImpl());
   getIt.registerSingleton<BaseRepository>(BaseRepositoryImpl());

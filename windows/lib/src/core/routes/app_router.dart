@@ -245,6 +245,11 @@ import 'modals_route.dart';
       customRouteBuilder: modalsPageRoute,
     ),
     CustomRoute(
+      path: '/add-customers',
+      page: UpdateCustomerPasPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
       path: '/options-manager',
       page: OptionsManagePage,
       customRouteBuilder: modalsPageRoute,
@@ -277,6 +282,76 @@ import 'modals_route.dart';
     CustomRoute(
       path: '/move-product',
       page: MoveProductPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/list-customer_type',
+      page: ListCustomerTypePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/add-customer_type',
+      page: AddTaxCusCategoryPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/update-customer_type',
+      page: UpdateTaxCusCategoryPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/list-tax_categories',
+      page: ListTaxCategoriesPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/add-tax_category',
+      page: AddTaxCategoryPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/update-tax_category',
+      page: UpdateTaxCategoryPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/list-taxes',
+      page: ListTaxesPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/add-tax',
+      page: AddTaxPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/update-tax',
+      page: UpdateTaxPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/account-pos',
+      page: AccountPosPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/global-setting',
+      page: SettingManagePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/list-printers',
+      page: ListPrinterPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/add-printers',
+      page: AddPrinterPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/update-printers',
+      page: UpdatePrinterPage,
       customRouteBuilder: modalsPageRoute,
     ),
   ],

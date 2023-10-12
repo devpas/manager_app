@@ -5,6 +5,7 @@ export 'data/payment_data.dart';
 export 'data/taxline_data.dart';
 export 'data/customer_data.dart';
 export 'data/category_data.dart';
+export 'data/ConvertVietnameseCharacter.dart';
 export 'response/single_category_response.dart';
 export 'response/categories_response.dart';
 export 'data/product_data.dart';

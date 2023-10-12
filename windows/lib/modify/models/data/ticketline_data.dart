@@ -9,7 +9,7 @@ class TicketLineData {
     String? attributesetInstanceId,
     double? unit,
     double? price,
-    int? taxId,
+    String? taxId,
     String? attributes,
   }) {
     _id = id;
@@ -31,8 +31,7 @@ class TicketLineData {
     _attributesetInstanceId = json['attributeset_instance_id'] ?? "";
     _unit = double.parse(json['unit'].toString());
     _price = double.parse(json['price'].toString());
-    // _taxId = json['tax_id'];
-    _taxId = 0;
+    _taxId = json['tax_id'];
     _attributes = json['attributes'].toString();
   }
 
@@ -43,7 +42,7 @@ class TicketLineData {
   String? _attributesetInstanceId;
   double? _unit;
   double? _price;
-  int? _taxId;
+  String? _taxId;
   String? _attributes;
 
   TicketLineData copyWith({
@@ -54,20 +53,11 @@ class TicketLineData {
     String? attributesetInstanceId,
     double? unit,
     double? price,
-    int? taxId,
+    String? taxId,
     String? attributes,
   }) =>
       TicketLineData(
-          id: id ?? _id,
-          ticketId: ticket ?? _ticketId,
-          line: line ?? _line,
-          productId: productId ?? _productId,
-          attributesetInstanceId:
-              attributesetInstanceId ?? _attributesetInstanceId,
-          unit: unit ?? _unit,
-          price: price ?? _price,
-          taxId: taxId ?? _taxId,
-          attributes: attributes ?? _attributes);
+          id: id ?? _id, ticketId: ticket ?? _ticketId, line: line ?? _line, productId: productId ?? _productId, attributesetInstanceId: attributesetInstanceId ?? _attributesetInstanceId, unit: unit ?? _unit, price: price ?? _price, taxId: taxId ?? _taxId, attributes: attributes ?? _attributes);
 
   int? get id => _id;
 
@@ -83,7 +73,7 @@ class TicketLineData {
 
   double? get price => _price;
 
-  int? get taxId => _taxId;
+  String? get taxId => _taxId;
 
   String? get attributes => _attributes;
 

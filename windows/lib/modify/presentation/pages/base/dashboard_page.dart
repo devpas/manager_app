@@ -5,11 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/base/base_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restart_app/restart_app.dart';
-
-import '../../../../src/core/constants/constants.dart';
 import '../../../../src/core/routes/app_router.gr.dart';
-import '../../../../src/core/utils/app_helpers.dart';
 import '../../theme/theme.dart';
 import '../../components/components.dart';
 import 'widgets/w_main_drawer base.dart';
@@ -30,6 +26,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
       () {
         ref.read(baseProvider.notifier).checkDataFolder();
         ref.read(baseProvider.notifier).checkAccessBlock();
+        ref.read(baseProvider.notifier).loadPrinterActive();
       },
     );
   }
@@ -48,8 +45,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
             children: [
               Center(child: Text(state.msgBase!)),
               5.verticalSpace,
-              state.msgBase ==
-                      "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không"
+              state.msgBase == "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không"
                   ? AccentAddButton(
                       onPressed: () {
                         notifier.createDataFolder();
@@ -74,9 +70,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
               state.baseInfomation["base_name"] ?? "",
               style: AppTypographies.styBlack12W400,
             ),
-            subtitle: notifier.checkShareMode()
-                ? "Trạng thái: chia sẽ bởi ${state.baseInfomation["owner_name"]}"
-                : "Trạng thái: Chủ sở hữu ",
+            subtitle: notifier.checkShareMode() ? "Trạng thái: chia sẽ bởi ${state.baseInfomation["owner_name"]}" : "Trạng thái: Chủ sở hữu ",
             center: true,
             leading: Builder(
               builder: (context) => SmallIconButton(
@@ -105,8 +99,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                           listProfile.length,
                           (index) => PopupMenuItem<String>(
                                 onTap: () {
-                                  notifier.actionProfileMenu(
-                                      listProfile[index], context);
+                                  notifier.actionProfileMenu(listProfile[index], context);
                                 },
                                 child: Text(
                                   listProfile[index],
@@ -119,8 +112,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                               ));
                     },
                     child: const AvatarImage(
-                      imageUrl:
-                          "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
+                      imageUrl: "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
                       radius: 25,
                       width: 40,
                       height: 40,
@@ -141,9 +133,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
               children: [
                 18.verticalSpace,
                 Row(
-                  mainAxisAlignment: state.accessUserSettingBlock!
-                      ? MainAxisAlignment.spaceBetween
-                      : MainAxisAlignment.start,
+                  mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
                   children: [
                     state.accessPosSystemBlock!
                         ? DashboardItemBase(
@@ -169,9 +159,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                 ),
                 9.verticalSpace,
                 Row(
-                  mainAxisAlignment: state.accessUserSettingBlock!
-                      ? MainAxisAlignment.spaceBetween
-                      : MainAxisAlignment.start,
+                  mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
                   children: [
                     state.accessUserSettingBlock!
                         ? DashboardItemBase(
@@ -179,23 +167,17 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                             title: "Tài khoản",
                             iconColor: AppColors.deliveredOrders,
                             onTap: () {
-                              // ref
-                              //     .read(ordersProvider.notifier)
-                              //     .updateCompletedOrders(
-                              //       completedOrdersNotifier: ref
-                              //           .read(completedOrdersProvider.notifier),
-                              //     );
-                              // bottomBarNotifier.setActiveIndex(0);
+                              context.pushRoute(const AccountPosRoute());
                             },
                           )
                         : const SizedBox(),
-                    state.accessUserSettingBlock!
+                    state.accessGlobalSettingBlock!
                         ? DashboardItemBase(
                             iconData: FlutterRemix.settings_2_fill,
                             title: "Cấu hình chung",
                             iconColor: AppColors.greenMain,
                             onTap: () {
-                              // bottomBarNotifier.setActiveIndex(3);
+                              context.pushRoute(const SettingManageRoute());
                             },
                           )
                         : const SizedBox(),

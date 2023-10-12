@@ -37,10 +37,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
             minCategoryId = data.products![i].categoryId!;
           }
         }
-        state = state.copyWith(
-            products: data.products!
-                .where((product) => product.categoryId == minCategoryId)
-                .toList());
+        state = state.copyWith(products: data.products!.where((product) => product.categoryId == minCategoryId).toList());
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -85,26 +82,18 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
 
   void getProductByCategory(int? categoryId) async {
     var listProductAfterFilter = listProductCache;
-    listProductAfterFilter = listProductAfterFilter
-        .where((product) => product.categoryId == categoryId)
-        .toList();
+    listProductAfterFilter = listProductAfterFilter.where((product) => product.categoryId == categoryId).toList();
     state = state.copyWith(products: listProductAfterFilter);
   }
 
-  void filterProduct(CategoryPasData categorySelected,
-      List<ProductPasData> data, String productName) {
+  void filterProduct(CategoryPasData categorySelected, List<ProductPasData> data, String productName) {
     print(categorySelected.id);
     if (categorySelected.id != -1) {
-      data = data
-          .where((product) => product.categoryId == categorySelected.id)
-          .toList();
+      data = data.where((product) => product.categoryId == categorySelected.id).toList();
     }
 
     if (productName.isNotEmpty) {
-      data = data
-          .where((product) =>
-              product.name!.toLowerCase().contains(productName.toLowerCase()))
-          .toList();
+      data = data.where((product) => product.name!.toLowerCase().contains(productName.toLowerCase())).toList();
     }
 
     Future.delayed(const Duration(milliseconds: 100), () {
@@ -125,10 +114,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
       searchParam.add(["codeRef", codeRef]);
     }
     if (productName != "") {
-      searchParam.add([
-        "productName",
-        productName.toLowerCase().contains(productName.toLowerCase())
-      ]);
+      searchParam.add(["productName", productName.toLowerCase().contains(productName.toLowerCase())]);
     }
     if (priceBuy != -1) {
       searchParam.add(["priceBuy", priceBuy]);
@@ -140,20 +126,13 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     for (int i = 0; i < listProductCache.length; i++) {
       List<List> valueProductForSearch = [];
       if (categoryId != -1) {
-        valueProductForSearch
-            .add(["categoryId", listProductCache[i].categoryId]);
+        valueProductForSearch.add(["categoryId", listProductCache[i].categoryId]);
       }
       if (codeRef != "") {
         valueProductForSearch.add(["codeRef", listProductCache[i].reference]);
       }
       if (productName != "") {
-        valueProductForSearch.add([
-          "productName",
-          listProductCache[i]
-              .name!
-              .toLowerCase()
-              .contains(productName.toLowerCase())
-        ]);
+        valueProductForSearch.add(["productName", listProductCache[i].name!.toLowerCase().contains(productName.toLowerCase())]);
       }
       if (priceBuy != -1) {
         valueProductForSearch.add(["priceBuy", listProductCache[i].priceBuy]);
@@ -172,10 +151,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
   List<ProductPasData> searchAndAddProductInTicketByRefCode(String refCode) {
     print(refCode);
     List<ProductPasData> listProductSearchByRefCode = [];
-    listProductSearchByRefCode = listProductCache
-        .where((product) =>
-            product.reference!.toLowerCase().contains(refCode.toLowerCase()))
-        .toList();
+    listProductSearchByRefCode = listProductCache.where((product) => product.reference!.toLowerCase().contains(refCode.toLowerCase())).toList();
     return listProductSearchByRefCode;
   }
 
@@ -243,10 +219,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(warehouseLoading: true);
     final response = await _productsPASRepository.getListWarehouses();
     if (response["data"] != null) {
-      state = state.copyWith(
-          warehouse: response["data"],
-          warehouseLoading: false,
-          warehouseSelected: response["data"][0]);
+      state = state.copyWith(warehouse: response["data"], warehouseLoading: false, warehouseSelected: response["data"][0]);
     } else {
       print(response);
     }
@@ -307,5 +280,137 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     } else {
       print(response);
     }
+  }
+
+  Future<void> getListCustomerType() async {
+    state = state.copyWith(taxCusCategoryLoading: true);
+    final response = await _productsPASRepository.getListTaxCustomer();
+    if (response["data"] != null) {
+      state = state.copyWith(taxCusCategories: response["data"], taxCusCategoryLoading: false, taxCusCategorySelected: response["data"][0]);
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> addTaxCusCategory(dynamic data) async {
+    state = state.copyWith(taxCusCategoryLoading: true);
+    final response = await _productsPASRepository.addTaxCusCategory(data);
+    if (response["msg"] == "add tax customer category successful") {
+      await getListCustomerType();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> updateTaxCusCategory(dynamic data) async {
+    state = state.copyWith(taxCusCategoryLoading: true);
+    final response = await _productsPASRepository.updateTaxCusCategory(data);
+    if (response["msg"] == "update tax customer category successful") {
+      await getListCustomerType();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> deleteTaxCusCategory(dynamic data) async {
+    state = state.copyWith(taxCusCategoryLoading: true);
+    final response = await _productsPASRepository.deleteTaxCusCategory(data);
+    if (response["msg"] == "delete tax customer category successful") {
+      await getListCustomerType();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> getListTaxCategories() async {
+    state = state.copyWith(taxCategoryLoading: true);
+    final response = await _productsPASRepository.getListTaxCategories();
+    if (response["data"] != null) {
+      state = state.copyWith(taxCategories: response["data"], taxCategoryLoading: false, taxCategorySelected: response["data"][0]);
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> addTaxCategory(dynamic data) async {
+    state = state.copyWith(taxCategoryLoading: true);
+    final response = await _productsPASRepository.addTaxCategory(data);
+    if (response["msg"] == "add tax category successful") {
+      await getListTaxCategories();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> updateTaxCategory(dynamic data) async {
+    state = state.copyWith(taxCategoryLoading: true);
+    final response = await _productsPASRepository.updateTaxCategory(data);
+    if (response["msg"] == "update tax category successful") {
+      await getListTaxCategories();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> deleteTaxCategory(dynamic data) async {
+    state = state.copyWith(taxCategoryLoading: true);
+    final response = await _productsPASRepository.deleteTaxCategory(data);
+    if (response["msg"] == "delete tax category successful") {
+      await getListTaxCategories();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> getListTaxes() async {
+    state = state.copyWith(taxLoading: true);
+    final response = await _productsPASRepository.getListTaxes();
+    if (response["data"] != null) {
+      state = state.copyWith(taxes: response["data"], taxLoading: false, taxSelected: response["data"][0]);
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> addTax(dynamic data) async {
+    state = state.copyWith(taxLoading: true);
+    final response = await _productsPASRepository.addTax(data);
+    if (response["msg"] == "add tax successful") {
+      await getListTaxes();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> updateTax(dynamic data) async {
+    state = state.copyWith(taxLoading: true);
+    final response = await _productsPASRepository.updateTax(data);
+    if (response["msg"] == "update tax successful") {
+      await getListTaxes();
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> deleteTax(dynamic data) async {
+    state = state.copyWith(taxLoading: true);
+    final response = await _productsPASRepository.deleteTax(data);
+    if (response["msg"] == "delete tax successful") {
+      await getListTaxes();
+    } else {
+      print(response);
+    }
+  }
+
+  double taxCalculate(String taxCusCategory, String taxCategory) {
+    var taxes = state.taxes!;
+    double tax = 0.0;
+    for (int i = 0; i < taxes.length; i++) {
+      if (taxes[i]["tax_category_id"] == taxCategory && taxes[i]["tax_customer_category_id"] == taxCusCategory) {
+        tax = double.parse(taxes[i]["rate"].toString());
+      }
+    }
+    print(tax);
+    return tax;
   }
 }

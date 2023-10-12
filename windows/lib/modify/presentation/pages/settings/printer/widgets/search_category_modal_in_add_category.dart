@@ -3,14 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/categories/category_provider.dart';
 
-import '../../../../../../src/core/constants/constants.dart';
-import '../../../../../../src/core/utils/utils.dart';
-import '../../../../../../src/riverpod/providers/providers.dart';
+import '../../../../../../../../src/core/constants/constants.dart';
+import '../../../../../../../../src/core/utils/utils.dart';
 import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
 
-class SearchCustomerModalInAddCustomer extends ConsumerWidget {
-  const SearchCustomerModalInAddCustomer({Key? key}) : super(key: key);
+class SearchCategoryModalInAddCategory extends ConsumerWidget {
+  const SearchCategoryModalInAddCategory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

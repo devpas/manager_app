@@ -46,8 +46,7 @@ class WMainDrawerBase extends ConsumerWidget {
             Row(
               children: [
                 const AvatarImage(
-                  imageUrl:
-                      "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
+                  imageUrl: "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
                   radius: 30,
                   width: 60,
                   height: 60,
@@ -120,7 +119,7 @@ class WMainDrawerBase extends ConsumerWidget {
                               ),
                               1.verticalSpace,
                               Text(
-                                '\$55 800',
+                                notifier.convertNumberZero(state.moneyWallet, fixed: 3),
                                 style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16,

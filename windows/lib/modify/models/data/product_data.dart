@@ -12,7 +12,7 @@ class ProductPasData {
     double? priceBuy,
     double? priceSell,
     int? categoryId,
-    int? taxCat,
+    String? taxCat,
     String? attribuseteId,
     int? stockCost,
     int? stockVolume,
@@ -23,6 +23,10 @@ class ProductPasData {
     int? active,
     int? attributesetInstanceId,
     List<StockData>? stocks,
+    int? maxStockCurrent,
+    List<dynamic>? listImport,
+    double? priceBuyAuto,
+    int? isAuto,
     List<ProductPasData>? children,
   }) {
     _index = index;
@@ -44,6 +48,10 @@ class ProductPasData {
     _active = active;
     _attributesetInstanceId = attributesetInstanceId;
     _stocks = stocks;
+    _maxStockCurrent = maxStockCurrent;
+    _listImport = listImport;
+    _priceBuyAuto = priceBuyAuto;
+    _isAuto = isAuto;
     _children = children;
   }
 
@@ -57,7 +65,7 @@ class ProductPasData {
     _priceSell = json['price_sell'] + 0.0;
     _categoryId = json['category_id'];
     // _taxCat = json['tax_cat'];
-    _taxCat = 0;
+    _taxCat = json['tax_cat'];
     _attribuseteId = json['_attribuseteId'];
     _stockCost = json['stock_cost'];
     _stockVolume = json['stock_volume'];
@@ -68,13 +76,19 @@ class ProductPasData {
     _active = json['active'];
     _attributesetInstanceId = json["attributeset_instance_id"];
     json['stocks'] = jsonDecode(json['stocks']);
-    _stocks = json['stocks'] != null
-        ? List<StockData>.from(json['stocks'].map((x) => StockData.fromJson(x)))
-        : null;
-    _children = json['children'] != null
-        ? List<ProductPasData>.from(
-            json['children'].map((x) => ProductPasData.fromJson(x)))
-        : null;
+    _stocks = json['stocks'] != null ? List<StockData>.from(json['stocks'].map((x) => StockData.fromJson(x))) : null;
+    _maxStockCurrent = json["max_stock_current"];
+    if (json['list_import'] != null) {
+      _listImport = [];
+      json['list_import'] = jsonDecode(json['list_import']);
+      json['list_import'].forEach((v) {
+        _listImport!.add(v);
+      });
+    }
+    print(json["price_buy_auto"]);
+    _priceBuyAuto = json["price_buy_auto"] + 0.0;
+    _isAuto = json["is_auto"];
+    _children = json['children'] != null ? List<ProductPasData>.from(json['children'].map((x) => ProductPasData.fromJson(x))) : null;
   }
 
   int? _index;
@@ -85,7 +99,7 @@ class ProductPasData {
   double? _priceBuy;
   double? _priceSell;
   int? _categoryId;
-  int? _taxCat;
+  String? _taxCat;
   String? _attribuseteId;
   int? _stockCost;
   int? _stockVolume;
@@ -96,6 +110,10 @@ class ProductPasData {
   int? _active;
   int? _attributesetInstanceId;
   List<StockData>? _stocks;
+  int? _maxStockCurrent;
+  List<dynamic>? _listImport;
+  double? _priceBuyAuto;
+  int? _isAuto;
   List<ProductPasData>? _children;
 
   ProductPasData copyWith({
@@ -107,7 +125,7 @@ class ProductPasData {
     double? priceBuy,
     double? priceSell,
     int? categoryId,
-    int? taxCat,
+    String? taxCat,
     String? attribuseteId,
     int? stockCost,
     int? stockVolume,
@@ -118,6 +136,10 @@ class ProductPasData {
     int? active,
     int? attributesetInstanceId,
     List<StockData>? stocks,
+    int? maxStockCurrent,
+    List<dynamic>? listImport,
+    double? priceBuyAuto,
+    int? isAuto,
     List<ProductPasData>? children,
   }) =>
       ProductPasData(
@@ -138,9 +160,12 @@ class ProductPasData {
         attributes: attributes ?? _attributes,
         image: image ?? _image,
         active: active ?? _active,
-        attributesetInstanceId:
-            attributesetInstanceId ?? _attributesetInstanceId,
+        attributesetInstanceId: attributesetInstanceId ?? _attributesetInstanceId,
         stocks: stocks ?? _stocks,
+        maxStockCurrent: maxStockCurrent ?? _maxStockCurrent,
+        listImport: listImport ?? _listImport,
+        priceBuyAuto: priceBuyAuto ?? _priceBuyAuto,
+        isAuto: isAuto ?? _isAuto,
         children: children ?? _children,
       );
 
@@ -160,7 +185,7 @@ class ProductPasData {
 
   int? get categoryId => _categoryId;
 
-  int? get taxCat => _taxCat;
+  String? get taxCat => _taxCat;
 
   String? get attribuseteId => _attribuseteId;
 
@@ -181,6 +206,14 @@ class ProductPasData {
   int? get attributesetInstanceId => _attributesetInstanceId;
 
   List<StockData>? get stocks => _stocks;
+
+  int? get maxStockCurrent => _maxStockCurrent;
+
+  List<dynamic>? get listImport => _listImport;
+
+  double? get priceBuyAuto => _priceBuyAuto;
+
+  int? get isAuto => _isAuto;
 
   List<ProductPasData>? get children => _children;
 
@@ -208,6 +241,10 @@ class ProductPasData {
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }
+    map['max_stock_current'] = _maxStockCurrent;
+    map["list_import"] = _listImport;
+    map["price_buy_auto"] = _priceBuyAuto;
+    map["is_auto"] = _isAuto;
     return map;
   }
 
@@ -221,7 +258,7 @@ class ProductPasData {
         categoryId: -1,
         priceBuy: 0,
         priceSell: 0,
-        taxCat: -1,
+        taxCat: "",
         attribuseteId: "",
         attributesetInstanceId: -1,
         stockCost: 0,
@@ -231,7 +268,12 @@ class ProductPasData {
         attributes: "",
         image: "",
         active: -1,
-        stocks: []);
+        stocks: [],
+        maxStockCurrent: 0,
+        listImport: [],
+        priceBuyAuto: 0,
+        isAuto: 0);
+    print(product);
     return product;
   }
 }

@@ -10,14 +10,17 @@ import '../../../theme/theme.dart';
 
 class CustomerItemWidget extends StatelessWidget {
   final CustomerData customer;
+  final Function() onChat;
   final Function() onEditCustomerTap;
   final Function() onEditRoleTap;
-
+  final Function() onDeleteTap;
   const CustomerItemWidget({
     Key? key,
     required this.customer,
     required this.onEditCustomerTap,
     required this.onEditRoleTap,
+    required this.onDeleteTap,
+    required this.onChat,
   }) : super(key: key);
 
   @override
@@ -45,7 +48,7 @@ class CustomerItemWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: REdgeInsets.symmetric(horizontal: 16),
+                  padding: REdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
                       Row(
@@ -62,20 +65,28 @@ class CustomerItemWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(
-                                          width: 280,
-                                          child: Text(
-                                            '${customer.name}',
-                                            style:
-                                                AppTypographies.styBlack14W500,
-                                          ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 280,
+                                              child: Text(
+                                                '${customer.name}',
+                                                style: AppTypographies.styBlack14W500,
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: onDeleteTap,
+                                              child: const Padding(
+                                                padding: EdgeInsets.only(bottom: 15),
+                                                child: Icon(Icons.close),
+                                              ),
+                                            )
+                                          ],
                                         ),
                                         8.verticalSpace,
                                         Row(
@@ -84,16 +95,14 @@ class CustomerItemWidget extends StatelessWidget {
                                               width: 150,
                                               child: Text(
                                                 customer.searchkey ?? '',
-                                                style: AppTypographies
-                                                    .styBlack12W400,
+                                                style: AppTypographies.styBlack12W400,
                                               ),
                                             ),
                                             SizedBox(
                                               width: 100,
                                               child: Text(
                                                 'role',
-                                                style: AppTypographies
-                                                    .styBlack12W400,
+                                                style: AppTypographies.styBlack12W400,
                                               ),
                                             )
                                           ],
@@ -121,7 +130,7 @@ class CustomerItemWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: 170,
+                                width: 200,
                                 child: Text(
                                   customer.email ?? '',
                                   style: AppTypographies.styBlack12W400,
@@ -135,24 +144,21 @@ class CustomerItemWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   CircleIconButton(
-                                    backgroundColor:
-                                        AppColors.black.withOpacity(0.05),
+                                    backgroundColor: AppColors.black.withOpacity(0.05),
                                     iconData: FlutterRemix.message_2_line,
                                     iconColor: AppColors.black,
-                                    onTap: onEditCustomerTap,
+                                    onTap: onChat,
                                   ),
                                   4.horizontalSpace,
                                   CircleIconButton(
-                                    backgroundColor:
-                                        AppColors.black.withOpacity(0.05),
+                                    backgroundColor: AppColors.black.withOpacity(0.05),
                                     iconData: FlutterRemix.pencil_line,
                                     iconColor: AppColors.black,
                                     onTap: onEditCustomerTap,
                                   ),
                                   4.horizontalSpace,
                                   CircleIconButton(
-                                    backgroundColor:
-                                        AppColors.black.withOpacity(0.05),
+                                    backgroundColor: AppColors.black.withOpacity(0.05),
                                     iconData: FlutterRemix.user_settings_line,
                                     iconColor: AppColors.black,
                                     onTap: onEditRoleTap,

@@ -4,10 +4,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widgets/order_detail/pay_info_modal_pas.dart';
-import 'package:g_manager_app/modify/presentation/pages/orders/widgets/select_time_modal_in_orders.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
-import 'package:g_manager_app/modify/riverpob/providers/customers/customer_provider.dart';
 
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:intl/intl.dart';
@@ -33,15 +30,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
   late FocusNode focusNode;
   bool keyboardActive = false;
   double heightContainerProduct = 40;
-  List<String> reason = [
-    "(Nhập)mua vào",
-    "(Nhập)trả hàng",
-    "(Nhập)chuyển kho",
-    "(Xuất)bán hàng",
-    "(Xuất)trả hàng",
-    "(Xuất)hong vo",
-    "(Xuất)chuyển kho"
-  ];
+  List<String> reason = ["(Nhập)mua vào", "(Nhập)trả hàng", "(Nhập)chuyển kho", "(Xuất)bán hàng", "(Xuất)trả hàng", "(Xuất)hong vo", "(Xuất)chuyển kho"];
 
   DateTime dateMoveProduct = DateTime.now();
 
@@ -105,13 +94,13 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
     final stateCategories = ref.watch(categoriesPASProvider);
     final stateProducts = ref.watch(productsPASProvider);
     final statePos = ref.watch(posSystemPASProvider);
+    final stateBase = ref.watch(baseProvider);
     final notifierPos = ref.read(posSystemPASProvider.notifier);
     final notifierProducts = ref.read(productsPASProvider.notifier);
     final notifierBase = ref.read(baseProvider.notifier);
     final notifierCategories = ref.read(categoriesPASProvider.notifier);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
     return WillPopScope(
       onWillPop: () async {
         notifierPos.deleteTicket(statePos.selectTicket);
@@ -184,10 +173,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: const CustomBouncingScrollPhysics(),
-                          itemCount: statePos.listTicket!.isNotEmpty
-                              ? statePos.listTicket![statePos.selectTicket!]
-                                  .ticketlines!.length
-                              : 0,
+                          itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return GestureDetector(
@@ -195,38 +181,26 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                 notifierPos.updateIndex("ticketLine", index);
                               },
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 1.5, 0, 1.5),
+                                padding: const EdgeInsets.fromLTRB(0, 1.5, 0, 1.5),
                                 child: Container(
                                   height: 30,
                                   color: Colors.white,
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                     child: Row(
                                       children: [
                                         SizedBox(
                                           width: screenWidth * 0.5,
                                           child: Text(
                                             "${notifierProducts.listProductCache.where((product) => product.id == statePos.listTicket![statePos.selectTicket!].ticketlines![index].productId).toList().first.name}",
-                                            style: statePos.selectTicketLine ==
-                                                    index
-                                                ? AppTypographies.styGreen11W400
-                                                : AppTypographies
-                                                    .styBlack11W400,
+                                            style: statePos.selectTicketLine == index ? AppTypographies.styGreen11W400 : AppTypographies.styBlack11W400,
                                           ),
                                         ),
                                         SizedBox(
                                           width: screenWidth * 0.15,
                                           child: Text(
-                                            notifierPos.convertNumberZero(
-                                                double.parse(
-                                                    "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].price}")),
-                                            style: statePos.selectTicketLine ==
-                                                    index
-                                                ? AppTypographies.styGreen11W400
-                                                : AppTypographies
-                                                    .styBlack11W400,
+                                            notifierPos.convertNumberZero(double.parse("${statePos.listTicket![statePos.selectTicket!].ticketlines![index].price}")),
+                                            style: statePos.selectTicketLine == index ? AppTypographies.styGreen11W400 : AppTypographies.styBlack11W400,
                                             textAlign: TextAlign.right,
                                           ),
                                         ),
@@ -234,11 +208,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                           width: screenWidth * 0.25,
                                           child: Text(
                                             "${statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit}",
-                                            style: statePos.selectTicketLine ==
-                                                    index
-                                                ? AppTypographies.styGreen11W400
-                                                : AppTypographies
-                                                    .styBlack11W400,
+                                            style: statePos.selectTicketLine == index ? AppTypographies.styGreen11W400 : AppTypographies.styBlack11W400,
                                             textAlign: TextAlign.right,
                                           ),
                                         ),
@@ -267,8 +237,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                         isScrollControlled: true,
                                         context: context,
                                         builder: (context) {
-                                          return CustomDatePickerModal(
-                                              onDateSaved: (DateTime? date) {
+                                          return CustomDatePickerModal(onDateSaved: (DateTime? date) {
                                             setState(() {
                                               dateMoveProduct = date!;
                                             });
@@ -277,30 +246,23 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                       );
                                     },
                                     child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
                                           width: screenWidth * 0.24,
                                           height: 30.r,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: AppColors.inProgressOrders
-                                                .withOpacity(0.1),
+                                            borderRadius: BorderRadius.circular(10),
+                                            color: AppColors.inProgressOrders.withOpacity(0.1),
                                           ),
                                           alignment: Alignment.centerLeft,
                                           child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                5, 0, 5, 0),
+                                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                             child: Row(
                                               children: [
                                                 Expanded(
                                                     child: Text(
-                                                  DateFormat.yMd()
-                                                      .add_Hms()
-                                                      .format(dateMoveProduct),
-                                                  style: AppTypographies
-                                                      .styBlack12W400,
+                                                  DateFormat.yMd().add_Hms().format(dateMoveProduct),
+                                                  style: AppTypographies.styBlack12W400,
                                                 ))
                                               ],
                                             ),
@@ -313,8 +275,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                       SizedBox(
                                         width: screenWidth * 0.355,
                                         child: SelectWithOptionMiniButton(
-                                          iconData:
-                                              FlutterRemix.arrow_down_s_line,
+                                          iconData: FlutterRemix.arrow_down_s_line,
                                           label: 'Kho hàng',
                                           onTap: () {
                                             showModalBottomSheet(
@@ -322,77 +283,43 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                               builder: (context) => Material(
                                                 color: AppColors.white,
                                                 child: Padding(
-                                                  padding:
-                                                      REdgeInsets.symmetric(
-                                                          horizontal: 15.0),
+                                                  padding: REdgeInsets.symmetric(horizontal: 15.0),
                                                   child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisSize: MainAxisSize.min,
                                                     children: [
                                                       24.verticalSpace,
                                                       Text(
                                                         "Chọn kho hàng",
-                                                        style: AppTypographies
-                                                            .styBlack22W500,
+                                                        style: AppTypographies.styBlack22W500,
                                                       ),
                                                       24.verticalSpace,
                                                       ListView.builder(
                                                         shrinkWrap: true,
-                                                        physics:
-                                                            const CustomBouncingScrollPhysics(),
-                                                        itemCount: stateProducts
-                                                            .warehouse!.length,
-                                                        itemBuilder:
-                                                            (context, index) {
+                                                        physics: const CustomBouncingScrollPhysics(),
+                                                        itemCount: stateProducts.warehouse!.length,
+                                                        itemBuilder: (context, index) {
                                                           return ListTile(
                                                             leading: Container(
                                                               height: 20.r,
                                                               width: 20.r,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.r),
-                                                                color: warehouse1Index ==
-                                                                        index
-                                                                    ? AppColors
-                                                                        .white
-                                                                    : AppColors
-                                                                        .transparent,
-                                                                border:
-                                                                    Border.all(
-                                                                  color: warehouse1Index == index
-                                                                      ? AppColors
-                                                                          .greenMain
-                                                                      : AppColors
-                                                                          .productBorder,
-                                                                  width: warehouse1Index ==
-                                                                          index
-                                                                      ? 6.r
-                                                                      : 2.r,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(10.r),
+                                                                color: warehouse1Index == index ? AppColors.white : AppColors.transparent,
+                                                                border: Border.all(
+                                                                  color: warehouse1Index == index ? AppColors.greenMain : AppColors.productBorder,
+                                                                  width: warehouse1Index == index ? 6.r : 2.r,
                                                                 ),
                                                               ),
                                                             ),
                                                             onTap: () {
                                                               setState(() {
-                                                                selectWarehouseId =
-                                                                    index;
-                                                                warehouse1Index =
-                                                                    index;
+                                                                selectWarehouseId = index;
+                                                                warehouse1Index = index;
                                                               });
-                                                              context
-                                                                  .popRoute();
+                                                              context.popRoute();
                                                             },
-                                                            title: Text(
-                                                                stateProducts
-                                                                    .warehouse![
-                                                                        index]
-                                                                        ["name"]
-                                                                    .toString()),
+                                                            title: Text(stateProducts.warehouse![index]["name"].toString()),
                                                           );
                                                         },
                                                       ),
@@ -403,9 +330,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                               ),
                                             );
                                           },
-                                          title: stateProducts
-                                                  .warehouse![warehouse1Index]
-                                              ["name"],
+                                          title: stateProducts.warehouse![warehouse1Index]["name"],
                                         ),
                                       ),
                                     ],
@@ -416,8 +341,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                       SizedBox(
                                         width: screenWidth * 0.355,
                                         child: SelectWithOptionMiniButton(
-                                          iconData:
-                                              FlutterRemix.arrow_down_s_line,
+                                          iconData: FlutterRemix.arrow_down_s_line,
                                           label: 'Kho hàng',
                                           onTap: () {
                                             showModalBottomSheet(
@@ -425,75 +349,42 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                               builder: (context) => Material(
                                                 color: AppColors.white,
                                                 child: Padding(
-                                                  padding:
-                                                      REdgeInsets.symmetric(
-                                                          horizontal: 15.0),
+                                                  padding: REdgeInsets.symmetric(horizontal: 15.0),
                                                   child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisSize: MainAxisSize.min,
                                                     children: [
                                                       24.verticalSpace,
                                                       Text(
                                                         "Chọn kho hàng",
-                                                        style: AppTypographies
-                                                            .styBlack22W500,
+                                                        style: AppTypographies.styBlack22W500,
                                                       ),
                                                       24.verticalSpace,
                                                       ListView.builder(
                                                         shrinkWrap: true,
-                                                        physics:
-                                                            const CustomBouncingScrollPhysics(),
-                                                        itemCount: stateProducts
-                                                            .warehouse!.length,
-                                                        itemBuilder:
-                                                            (context, index) {
+                                                        physics: const CustomBouncingScrollPhysics(),
+                                                        itemCount: stateProducts.warehouse!.length,
+                                                        itemBuilder: (context, index) {
                                                           return ListTile(
                                                             leading: Container(
                                                               height: 20.r,
                                                               width: 20.r,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.r),
-                                                                color: warehouse2Index ==
-                                                                        index
-                                                                    ? AppColors
-                                                                        .white
-                                                                    : AppColors
-                                                                        .transparent,
-                                                                border:
-                                                                    Border.all(
-                                                                  color: warehouse2Index == index
-                                                                      ? AppColors
-                                                                          .greenMain
-                                                                      : AppColors
-                                                                          .productBorder,
-                                                                  width: warehouse2Index ==
-                                                                          index
-                                                                      ? 6.r
-                                                                      : 2.r,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(10.r),
+                                                                color: warehouse2Index == index ? AppColors.white : AppColors.transparent,
+                                                                border: Border.all(
+                                                                  color: warehouse2Index == index ? AppColors.greenMain : AppColors.productBorder,
+                                                                  width: warehouse2Index == index ? 6.r : 2.r,
                                                                 ),
                                                               ),
                                                             ),
                                                             onTap: () {
                                                               setState(() {
-                                                                warehouse2Index =
-                                                                    index;
+                                                                warehouse2Index = index;
                                                               });
-                                                              context
-                                                                  .popRoute();
+                                                              context.popRoute();
                                                             },
-                                                            title: Text(
-                                                                stateProducts
-                                                                    .warehouse![
-                                                                        index]
-                                                                        ["name"]
-                                                                    .toString()),
+                                                            title: Text(stateProducts.warehouse![index]["name"].toString()),
                                                           );
                                                         },
                                                       ),
@@ -504,9 +395,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                               ),
                                             );
                                           },
-                                          title: stateProducts
-                                                  .warehouse![warehouse2Index]
-                                              ["name"],
+                                          title: stateProducts.warehouse![warehouse2Index]["name"],
                                         ),
                                       ),
                                     ],
@@ -521,34 +410,22 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                             child: Row(
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                                   child: SizedBox(
                                     width: screenWidth * 0.25,
                                     child: ListView.builder(
                                       scrollDirection: Axis.vertical,
-                                      physics:
-                                          const CustomBouncingScrollPhysics(),
-                                      itemCount:
-                                          stateCategories.categories!.length,
+                                      physics: const CustomBouncingScrollPhysics(),
+                                      itemCount: stateCategories.categories!.length,
                                       shrinkWrap: false,
                                       itemBuilder: (context, index) {
                                         return CategoryPosItem(
-                                          title:
-                                              '${stateCategories.categories![index].name}',
-                                          isSelected:
-                                              statePos.selectCategory == index
-                                                  ? true
-                                                  : false,
+                                          title: '${stateCategories.categories![index].name}',
+                                          isSelected: statePos.selectCategory == index ? true : false,
                                           onTap: () {
                                             setState(() {
-                                              notifierPos.updateIndex(
-                                                  "category", index);
-                                              notifierProducts
-                                                  .getProductByCategory(
-                                                      stateCategories
-                                                          .categories![index]
-                                                          .id);
+                                              notifierPos.updateIndex("category", index);
+                                              notifierProducts.getProductByCategory(stateCategories.categories![index].id);
                                             });
                                           },
                                         );
@@ -557,60 +434,40 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                                   child: SizedBox(
                                     width: screenWidth * 0.75,
                                     child: ListView(
-                                      physics:
-                                          const CustomBouncingScrollPhysics(),
+                                      physics: const CustomBouncingScrollPhysics(),
                                       children: [
                                         stateProducts.products!.isNotEmpty
                                             ? GridView.builder(
                                                 shrinkWrap: true,
                                                 primary: false,
-                                                itemCount: stateProducts
-                                                    .products!.length,
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                itemCount: stateProducts.products!.length,
+                                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                                   childAspectRatio: 2.1,
                                                   crossAxisCount: 2,
                                                 ),
                                                 itemBuilder: (context, index) {
-                                                  final product = stateProducts
-                                                      .products![index];
+                                                  final product = stateProducts.products![index];
                                                   return GestureDetector(
                                                     onLongPress: () {
                                                       showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
+                                                        isScrollControlled: true,
                                                         context: context,
                                                         builder: (context) {
-                                                          return ProductShortInfoModal(
-                                                              product: product);
+                                                          return ProductShortInfoModal(product: product);
                                                         },
                                                       );
                                                     },
                                                     onTap: () {
-                                                      if (product.stocks!
-                                                              .where((warehouse) =>
-                                                                  warehouse
-                                                                      .id ==
-                                                                  selectWarehouseId)
-                                                              .toList()
-                                                              .first
-                                                              .stockCurrent! >
-                                                          0) {
-                                                        notifierPos.addTicketline(
-                                                            product,
-                                                            statePos
-                                                                .selectTicket);
+                                                      if (product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent! > 0) {
+                                                        notifierPos.moveProductTicketline(product, statePos.selectTicket, selectWarehouseId);
                                                       }
                                                     },
-                                                    child:
-                                                        ProductsProductItemPOS(
-                                                      selectWarehouseId:
-                                                          selectWarehouseId,
+                                                    child: ProductsProductItemPOS(
+                                                      selectWarehouseId: selectWarehouseId,
                                                       product: product,
                                                     ),
                                                   );
@@ -643,16 +500,13 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                     dismissKeyboard();
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                     child: Container(
                                       width: 30.r,
                                       height: 30.r,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                        color:
-                                            Colors.lightBlue.withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(20.r),
+                                        color: Colors.lightBlue.withOpacity(0.1),
                                       ),
                                       alignment: Alignment.center,
                                       child: Icon(
@@ -668,16 +522,13 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                     showKeyboard();
                                   },
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                     child: Container(
                                       width: 30.r,
                                       height: 30.r,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                        color:
-                                            Colors.lightBlue.withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(20.r),
+                                        color: Colors.lightBlue.withOpacity(0.1),
                                       ),
                                       alignment: Alignment.center,
                                       child: Icon(
@@ -691,14 +542,11 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                           GestureDetector(
                             onTap: () {
                               if (!statePos.createTicketLoading!) {
-                                notifierPos.deleteTicketline(
-                                    statePos.selectTicket,
-                                    statePos.selectTicketLine);
+                                notifierPos.deleteTicketline(statePos.selectTicket, statePos.selectTicketLine);
                                 setState(() {
                                   statePos.selectTicketLine;
                                   if (statePos.selectTicketLine! > 0) {
-                                    notifierPos.updateIndex("ticketLine",
-                                        statePos.selectTicketLine! - 1);
+                                    notifierPos.updateIndex("ticketLine", statePos.selectTicketLine! - 1);
                                   }
                                 });
                               }
@@ -710,38 +558,24 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                 height: 30.r,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.r),
-                                  color: statePos.createTicketLoading!
-                                      ? Colors.grey.withOpacity(0.1)
-                                      : Colors.red.withOpacity(0.1),
+                                  color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.red.withOpacity(0.1),
                                 ),
                                 alignment: Alignment.center,
                                 child: Icon(
                                   Icons.close,
                                   size: 20.r,
-                                  color: statePos.createTicketLoading!
-                                      ? Colors.grey
-                                      : Colors.red,
+                                  color: statePos.createTicketLoading! ? Colors.grey : Colors.red,
                                 ),
                               ),
                             ),
                           ),
                           GestureDetector(
                             onTap: () {
-                              if (statePos.listTicket![statePos.selectTicket!]
-                                      .ticketlines!.isNotEmpty &&
-                                  !statePos.createTicketLoading!) {
+                              if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   context: context,
-                                  builder: (context) =>
-                                      ProductEditModal(
-                                          statePos
-                                                  .listTicket![
-                                                      statePos.selectTicket!]
-                                                  .ticketlines![
-                                              statePos.selectTicketLine!],
-                                          statePos.selectTicketLine,
-                                          statePos.selectTicket),
+                                  builder: (context) => ProductEditModal(statePos.listTicket![statePos.selectTicket!].ticketlines![statePos.selectTicketLine!], statePos.selectTicketLine, statePos.selectTicket),
                                 );
                               }
                             },
@@ -752,29 +586,22 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                 height: 30.r,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.r),
-                                  color: statePos.createTicketLoading!
-                                      ? Colors.grey.withOpacity(0.1)
-                                      : Colors.orange.withOpacity(0.1),
+                                  color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
                                 ),
                                 alignment: Alignment.center,
                                 child: Icon(
                                   Icons.edit,
                                   size: 20.r,
-                                  color: statePos.createTicketLoading!
-                                      ? Colors.grey
-                                      : Colors.orange,
+                                  color: statePos.createTicketLoading! ? Colors.grey : Colors.orange,
                                 ),
                               ),
                             ),
                           ),
                           GestureDetector(
                             onTap: () {
-                              notifierCategories.setCategorySelected(
-                                  notifierCategories.noCategory);
-                              Future.delayed(const Duration(milliseconds: 30),
-                                  () {
-                                notifierProducts.setProductSelected(
-                                    ProductPasData().initProduct());
+                              notifierCategories.setCategorySelected(notifierCategories.noCategory);
+                              Future.delayed(const Duration(milliseconds: 30), () {
+                                notifierProducts.setProductSelected(ProductPasData().initProduct());
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   context: context,
@@ -789,8 +616,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                   height: 30.r,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.r),
-                                    color: AppColors.canceledOrders
-                                        .withOpacity(0.1),
+                                    color: AppColors.canceledOrders.withOpacity(0.1),
                                   ),
                                   alignment: Alignment.center,
                                   child: Icon(
@@ -824,13 +650,10 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                           GestureDetector(
                             onTap: () {
                               if (barCodeController.text != "") {
-                                List<ProductPasData> result = notifierProducts
-                                    .searchAndAddProductInTicketByRefCode(
-                                        barCodeController.text);
+                                List<ProductPasData> result = notifierProducts.searchAndAddProductInTicketByRefCode(barCodeController.text);
                                 print(result.length);
                                 if (result.isNotEmpty) {
-                                  notifierPos.addTicketline(
-                                      result[0], statePos.selectTicket);
+                                  notifierPos.addTicketline(result[0], statePos.selectTicket);
                                 }
                               }
                             },
@@ -846,16 +669,14 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                   alignment: Alignment.center,
                                   child: const Text(
                                     "iilllii",
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.blue),
+                                    style: TextStyle(fontSize: 20, color: Colors.blue),
                                   )),
                             ),
                           ),
                           GestureDetector(
                             onTap: () {
                               if (warehouse1Index != warehouse2Index) {
-                                notifierPos.moveProduct(
-                                    warehouse1Index, warehouse2Index);
+                                notifierPos.moveProduct(warehouse1Index, warehouse2Index, "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}");
                               }
                             },
                             child: Padding(
@@ -865,15 +686,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                   height: 30.r,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.r),
-                                    color: notifierPos.listTicket.isNotEmpty
-                                        ? (notifierPos
-                                                .listTicket[
-                                                    statePos.selectTicket!]
-                                                .ticketlines!
-                                                .isNotEmpty
-                                            ? Colors.green.withOpacity(0.1)
-                                            : Colors.grey.withOpacity(0.1))
-                                        : Colors.grey.withOpacity(0.1),
+                                    color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green.withOpacity(0.1) : Colors.grey.withOpacity(0.1)) : Colors.grey.withOpacity(0.1),
                                   ),
                                   alignment: Alignment.center,
                                   child: statePos.createTicketLoading!
@@ -885,16 +698,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                           "=",
                                           style: TextStyle(
                                             fontSize: 30,
-                                            color: notifierPos
-                                                    .listTicket.isNotEmpty
-                                                ? (notifierPos
-                                                        .listTicket[statePos
-                                                            .selectTicket!]
-                                                        .ticketlines!
-                                                        .isNotEmpty
-                                                    ? Colors.green
-                                                    : Colors.grey)
-                                                : Colors.grey.withOpacity(0.1),
+                                            color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green : Colors.grey) : Colors.grey.withOpacity(0.1),
                                           ),
                                         )),
                             ),

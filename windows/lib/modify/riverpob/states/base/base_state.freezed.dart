@@ -33,6 +33,12 @@ mixin _$BaseState {
   bool? get accessGlobalSettingBlock => throw _privateConstructorUsedError;
   dynamic get baseInfomation => throw _privateConstructorUsedError;
   dynamic get baseRootInfomation => throw _privateConstructorUsedError;
+  double get moneyWallet => throw _privateConstructorUsedError;
+  bool? get moneyWalletLoading => throw _privateConstructorUsedError;
+  bool? get sendMoneyLoading => throw _privateConstructorUsedError;
+  List<dynamic>? get printers => throw _privateConstructorUsedError;
+  dynamic get printerSelected => throw _privateConstructorUsedError;
+  bool? get printerLoading => throw _privateConstructorUsedError;
   XFile? get image => throw _privateConstructorUsedError;
   XFile? get video => throw _privateConstructorUsedError;
 
@@ -64,6 +70,12 @@ abstract class $BaseStateCopyWith<$Res> {
       bool? accessGlobalSettingBlock,
       dynamic baseInfomation,
       dynamic baseRootInfomation,
+      double moneyWallet,
+      bool? moneyWalletLoading,
+      bool? sendMoneyLoading,
+      List<dynamic>? printers,
+      dynamic printerSelected,
+      bool? printerLoading,
       XFile? image,
       XFile? video});
 }
@@ -98,6 +110,12 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
     Object? accessGlobalSettingBlock = freezed,
     Object? baseInfomation = freezed,
     Object? baseRootInfomation = freezed,
+    Object? moneyWallet = null,
+    Object? moneyWalletLoading = freezed,
+    Object? sendMoneyLoading = freezed,
+    Object? printers = freezed,
+    Object? printerSelected = freezed,
+    Object? printerLoading = freezed,
     Object? image = freezed,
     Object? video = freezed,
   }) {
@@ -170,6 +188,30 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.baseRootInfomation
           : baseRootInfomation // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      moneyWallet: null == moneyWallet
+          ? _value.moneyWallet
+          : moneyWallet // ignore: cast_nullable_to_non_nullable
+              as double,
+      moneyWalletLoading: freezed == moneyWalletLoading
+          ? _value.moneyWalletLoading
+          : moneyWalletLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      sendMoneyLoading: freezed == sendMoneyLoading
+          ? _value.sendMoneyLoading
+          : sendMoneyLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      printers: freezed == printers
+          ? _value.printers
+          : printers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      printerSelected: freezed == printerSelected
+          ? _value.printerSelected
+          : printerSelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      printerLoading: freezed == printerLoading
+          ? _value.printerLoading
+          : printerLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -207,6 +249,12 @@ abstract class _$$_BaseStateCopyWith<$Res> implements $BaseStateCopyWith<$Res> {
       bool? accessGlobalSettingBlock,
       dynamic baseInfomation,
       dynamic baseRootInfomation,
+      double moneyWallet,
+      bool? moneyWalletLoading,
+      bool? sendMoneyLoading,
+      List<dynamic>? printers,
+      dynamic printerSelected,
+      bool? printerLoading,
       XFile? image,
       XFile? video});
 }
@@ -239,6 +287,12 @@ class __$$_BaseStateCopyWithImpl<$Res>
     Object? accessGlobalSettingBlock = freezed,
     Object? baseInfomation = freezed,
     Object? baseRootInfomation = freezed,
+    Object? moneyWallet = null,
+    Object? moneyWalletLoading = freezed,
+    Object? sendMoneyLoading = freezed,
+    Object? printers = freezed,
+    Object? printerSelected = freezed,
+    Object? printerLoading = freezed,
     Object? image = freezed,
     Object? video = freezed,
   }) {
@@ -311,6 +365,30 @@ class __$$_BaseStateCopyWithImpl<$Res>
           ? _value.baseRootInfomation
           : baseRootInfomation // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      moneyWallet: null == moneyWallet
+          ? _value.moneyWallet
+          : moneyWallet // ignore: cast_nullable_to_non_nullable
+              as double,
+      moneyWalletLoading: freezed == moneyWalletLoading
+          ? _value.moneyWalletLoading
+          : moneyWalletLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      sendMoneyLoading: freezed == sendMoneyLoading
+          ? _value.sendMoneyLoading
+          : sendMoneyLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      printers: freezed == printers
+          ? _value._printers
+          : printers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      printerSelected: freezed == printerSelected
+          ? _value.printerSelected
+          : printerSelected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      printerLoading: freezed == printerLoading
+          ? _value.printerLoading
+          : printerLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -344,10 +422,17 @@ class _$_BaseState extends _BaseState {
       this.accessGlobalSettingBlock = false,
       this.baseInfomation = const {},
       this.baseRootInfomation = const {},
+      this.moneyWallet = 0,
+      this.moneyWalletLoading = false,
+      this.sendMoneyLoading = false,
+      final List<dynamic>? printers = const [],
+      this.printerSelected = const {},
+      this.printerLoading = false,
       this.image,
       this.video})
       : _base = base,
         _employees = employees,
+        _printers = printers,
         super._();
 
   final List<BaseData>? _base;
@@ -418,13 +503,39 @@ class _$_BaseState extends _BaseState {
   @JsonKey()
   final dynamic baseRootInfomation;
   @override
+  @JsonKey()
+  final double moneyWallet;
+  @override
+  @JsonKey()
+  final bool? moneyWalletLoading;
+  @override
+  @JsonKey()
+  final bool? sendMoneyLoading;
+  final List<dynamic>? _printers;
+  @override
+  @JsonKey()
+  List<dynamic>? get printers {
+    final value = _printers;
+    if (value == null) return null;
+    if (_printers is EqualUnmodifiableListView) return _printers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final dynamic printerSelected;
+  @override
+  @JsonKey()
+  final bool? printerLoading;
+  @override
   final XFile? image;
   @override
   final XFile? video;
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, image: $image, video: $video)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, image: $image, video: $video)';
   }
 
   @override
@@ -465,6 +576,17 @@ class _$_BaseState extends _BaseState {
                 .equals(other.baseInfomation, baseInfomation) &&
             const DeepCollectionEquality()
                 .equals(other.baseRootInfomation, baseRootInfomation) &&
+            (identical(other.moneyWallet, moneyWallet) ||
+                other.moneyWallet == moneyWallet) &&
+            (identical(other.moneyWalletLoading, moneyWalletLoading) ||
+                other.moneyWalletLoading == moneyWalletLoading) &&
+            (identical(other.sendMoneyLoading, sendMoneyLoading) ||
+                other.sendMoneyLoading == sendMoneyLoading) &&
+            const DeepCollectionEquality().equals(other._printers, _printers) &&
+            const DeepCollectionEquality()
+                .equals(other.printerSelected, printerSelected) &&
+            (identical(other.printerLoading, printerLoading) ||
+                other.printerLoading == printerLoading) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.video, video) || other.video == video));
   }
@@ -489,6 +611,12 @@ class _$_BaseState extends _BaseState {
         accessGlobalSettingBlock,
         const DeepCollectionEquality().hash(baseInfomation),
         const DeepCollectionEquality().hash(baseRootInfomation),
+        moneyWallet,
+        moneyWalletLoading,
+        sendMoneyLoading,
+        const DeepCollectionEquality().hash(_printers),
+        const DeepCollectionEquality().hash(printerSelected),
+        printerLoading,
         image,
         video
       ]);
@@ -519,6 +647,12 @@ abstract class _BaseState extends BaseState {
       final bool? accessGlobalSettingBlock,
       final dynamic baseInfomation,
       final dynamic baseRootInfomation,
+      final double moneyWallet,
+      final bool? moneyWalletLoading,
+      final bool? sendMoneyLoading,
+      final List<dynamic>? printers,
+      final dynamic printerSelected,
+      final bool? printerLoading,
       final XFile? image,
       final XFile? video}) = _$_BaseState;
   const _BaseState._() : super._();
@@ -557,6 +691,18 @@ abstract class _BaseState extends BaseState {
   dynamic get baseInfomation;
   @override
   dynamic get baseRootInfomation;
+  @override
+  double get moneyWallet;
+  @override
+  bool? get moneyWalletLoading;
+  @override
+  bool? get sendMoneyLoading;
+  @override
+  List<dynamic>? get printers;
+  @override
+  dynamic get printerSelected;
+  @override
+  bool? get printerLoading;
   @override
   XFile? get image;
   @override

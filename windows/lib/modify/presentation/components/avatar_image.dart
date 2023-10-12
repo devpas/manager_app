@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../src/core/constants/constants.dart';
 import '../../../src/presentation/theme/theme.dart';
 
 class AvatarImage extends StatelessWidget {
@@ -27,7 +25,7 @@ class AvatarImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius.r),
       child: CachedNetworkImage(
-        imageUrl: '$imageUrl',
+        imageUrl: '$imageUrl' != "" ? '$imageUrl' : "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
         width: width,
         height: height,
         fit: BoxFit.cover,

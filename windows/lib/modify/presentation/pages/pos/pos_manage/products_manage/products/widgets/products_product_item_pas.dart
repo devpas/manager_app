@@ -24,16 +24,12 @@ class ProductsProductItemPas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isOutOfStock = product.stocks == null || product.stocks!.isEmpty;
-    final bool hasDiscount = isOutOfStock
-        ? false
-        : (product.taxCat != null && (product.taxCat ?? 0) > 0);
+    final bool hasDiscount = isOutOfStock ? false : (product.taxCat != null);
     final String price = isOutOfStock
         ? AppHelpers.getTranslation(TrKeys.outOfStock)
         : NumberFormat.currency(
             symbol: "",
-          ).format(hasDiscount
-            ? ((product.priceSell ?? 0) - (product.taxCat ?? 0))
-            : product.priceSell);
+          ).format(hasDiscount ? ((product.priceSell ?? 0)) : product.priceSell);
     return Column(
       children: [
         Material(
@@ -83,8 +79,7 @@ class ProductsProductItemPas extends StatelessWidget {
                                       color: AppColors.black.withOpacity(0.05),
                                     ),
                                     padding: const EdgeInsets.all(8),
-                                    child:
-                                        SvgPicture.asset(AppAssets.svgIcEdit),
+                                    child: SvgPicture.asset(AppAssets.svgIcEdit),
                                   ),
                                   onPressed: onTap,
                                 ),
@@ -97,8 +92,7 @@ class ProductsProductItemPas extends StatelessWidget {
                                       color: AppColors.black.withOpacity(0.05),
                                     ),
                                     padding: const EdgeInsets.all(8),
-                                    child:
-                                        SvgPicture.asset(AppAssets.svgIcDelete),
+                                    child: SvgPicture.asset(AppAssets.svgIcDelete),
                                   ),
                                   onPressed: onDeleteTap,
                                 ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../modify/presentation/theme/theme.dart';
-import '../common_image.dart';
-import '../hero_photo_view_wrapper.dart';
 
 class TicketItem extends StatelessWidget {
   final String title;
@@ -47,9 +45,7 @@ class TicketItem extends StatelessWidget {
                   Expanded(
                     child: Text(
                       title,
-                      style: isSelected
-                          ? AppTypographies.styGreen16W500
-                          : AppTypographies.styBlack16W500,
+                      style: isSelected ? AppTypographies.styGreen16W500 : AppTypographies.styBlack16W500,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,8 +41,7 @@ class SelectWithSearchPosButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             onTap: onTap,
             child: Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
               padding: const EdgeInsets.all(16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

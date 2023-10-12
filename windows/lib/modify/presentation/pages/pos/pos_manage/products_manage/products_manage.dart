@@ -17,8 +17,7 @@ class ProductsManagePage extends ConsumerStatefulWidget {
   ConsumerState<ProductsManagePage> createState() => _ProductsManagePageState();
 }
 
-class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
-    with TickerProviderStateMixin {
+class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with TickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
@@ -124,7 +123,9 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
                 iconData: FlutterRemix.star_line,
                 title: "Chiếc khấu",
                 iconColor: AppColors.canceledOrders,
-                onTap: () {},
+                onTap: () {
+                  context.pushRoute(const ListTaxesRoute());
+                },
               ),
             ],
           ),
@@ -137,15 +138,15 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
                 title: "Khách hàng",
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  // context.pushRoute(const ProductsManageRoute());
+                  context.pushRoute(const ListCustomerTypeRoute());
                 },
               ),
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Nhật ký kho",
+                title: "Mục chiếc khấu",
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  context.pushRoute(const StockDiaryRoute());
+                  context.pushRoute(const ListTaxCategoriesRoute());
                 },
               ),
             ],
@@ -162,9 +163,14 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage>
                   context.pushRoute(const MoveProductRoute());
                 },
               ),
-              const SizedBox(
-                width: 190,
-              )
+              DashboardItemBase(
+                iconData: FlutterRemix.star_line,
+                title: "Nhật ký kho",
+                iconColor: AppColors.canceledOrders,
+                onTap: () {
+                  context.pushRoute(const StockDiaryRoute());
+                },
+              ),
             ],
           ),
           18.verticalSpace,

@@ -27,10 +27,20 @@ class OrdersPasNotifier extends StateNotifier<OrdersPasState> {
 
   void quickSearchOrders() {
     print(listCacheOrder.length);
-    state = state.copyWith(
-        ticketsAfterFilter: listCacheOrder
-            .where((e) => e.ticketId.toString().contains(textSearch))
-            .toList());
+    state = state.copyWith(ticketsAfterFilter: listCacheOrder.where((e) => e.ticketId.toString().contains(textSearch)).toList());
+  }
+
+  void resetSearch() {
+    dateStart = DateTime.now();
+    dateEnd = DateTime.now();
+    ticketType = 0;
+    customerId = "";
+    personId = "";
+    textSearch = "";
+    desc = false;
+    limit = 0;
+    listCacheOrder = [];
+    state = state.copyWith(ticketsAfterFilter: []);
   }
 
   Future<void> searchOrders() async {
@@ -88,9 +98,5 @@ class OrdersPasNotifier extends StateNotifier<OrdersPasState> {
       },
     );
     state = state.copyWith(isTicketsLoading: false);
-  }
-
-  void resetSearch() {
-    state = state.copyWith(ticketsAfterFilter: []);
   }
 }

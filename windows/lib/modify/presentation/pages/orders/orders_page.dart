@@ -22,8 +22,7 @@ class OrdersPasPage extends ConsumerStatefulWidget {
   ConsumerState<OrdersPasPage> createState() => _OrdersPasPageState();
 }
 
-class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
-    with TickerProviderStateMixin {
+class _OrdersPasPageState extends ConsumerState<OrdersPasPage> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -33,15 +32,13 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
     Future.delayed(
       Duration.zero,
       () {
-        if (ref.watch(orderPasProvider).tickets!.isEmpty) {
-          ref.read(orderPasProvider.notifier).dateStart =
-              DateTime.now().subtract(const Duration(days: 7300));
-          ref.read(orderPasProvider.notifier).limit = 20;
-          ref.read(orderPasProvider.notifier).desc = true;
-          ref.read(orderPasProvider.notifier).searchOrders();
-          valueCurrentPage = 1;
-          pageIndexSelected = 0;
-        }
+        ref.read(orderPasProvider.notifier).resetSearch();
+        ref.read(orderPasProvider.notifier).dateStart = DateTime.now().subtract(const Duration(days: 7300));
+        ref.read(orderPasProvider.notifier).limit = 20;
+        ref.read(orderPasProvider.notifier).desc = true;
+        ref.read(orderPasProvider.notifier).searchOrders();
+        valueCurrentPage = 1;
+        pageIndexSelected = 0;
         // ref.read(ordersProvider.notifier).setTabController(_tabController);
       },
     );
@@ -73,10 +70,8 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
       if (state.ticketsAfterFilter!.length <= limitItemLoaded) {
         lengthItem = state.ticketsAfterFilter!.length;
       } else {
-        if (state.ticketsAfterFilter!.length <
-            limitItemLoaded * pageIndexSelected) {
-          lengthItem = state.ticketsAfterFilter!.length -
-              limitItemLoaded * (pageIndexSelected - 1);
+        if (state.ticketsAfterFilter!.length < limitItemLoaded * pageIndexSelected) {
+          lengthItem = state.ticketsAfterFilter!.length - limitItemLoaded * (pageIndexSelected - 1);
         } else {
           lengthItem = limitItemLoaded;
         }
@@ -88,8 +83,7 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
         print(state.tickets!.length);
         print(limitItemLoaded * valueCurrentPage);
         if (state.tickets!.length < limitItemLoaded * valueCurrentPage) {
-          lengthItem =
-              state.tickets!.length - limitItemLoaded * (valueCurrentPage - 1);
+          lengthItem = state.tickets!.length - limitItemLoaded * (valueCurrentPage - 1);
         } else {
           lengthItem = limitItemLoaded;
         }
@@ -105,8 +99,7 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
       pageIndexSelected = 0;
     } else {
       if (state.ticketsAfterFilter!.isNotEmpty) {
-        lengthPage =
-            (state.ticketsAfterFilter!.length / limitItemLoaded).ceil();
+        lengthPage = (state.ticketsAfterFilter!.length / limitItemLoaded).ceil();
       } else {
         lengthPage = (state.tickets!.length / limitItemLoaded).ceil();
       }
@@ -249,10 +242,7 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
                               },
                               child: Text(
                                 "${index + pageIndexExtend}",
-                                style: TextStyle(
-                                    color: pageIndexSelected == index
-                                        ? AppColors.greenMain
-                                        : Colors.black),
+                                style: TextStyle(color: pageIndexSelected == index ? AppColors.greenMain : Colors.black),
                               ));
                         }),
                     TextButton(
@@ -266,8 +256,7 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
                                 top: 20,
                                 left: 15,
                                 right: 15,
-                                bottom:
-                                    MediaQuery.of(context).viewInsets.bottom,
+                                bottom: MediaQuery.of(context).viewInsets.bottom,
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -276,8 +265,7 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
                                     children: [
                                       Expanded(
                                         child: CommonInputField(
-                                          initialValue:
-                                              notifier.ticketId.toString(),
+                                          initialValue: notifier.ticketId.toString(),
                                           label: "Đến Trang",
                                           onChanged: (e) {
                                             if (e != "") {
@@ -290,8 +278,7 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            0, 20, 0, 0),
+                                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                                         child: Text(
                                           "/${getLengthPage(state, false)}",
                                           style: GoogleFonts.inter(
@@ -306,33 +293,27 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
                                         initialValue: 50.toString(),
                                         elevation: 0,
                                         itemBuilder: (context) {
-                                          final listProfile =
-                                              listLimitItemPerPage;
+                                          final listProfile = listLimitItemPerPage;
                                           return List.generate(
                                               listProfile.length,
                                               (index) => PopupMenuItem<String>(
                                                     onTap: () {
                                                       setState(() {
-                                                        limitItemLoaded =
-                                                            listLimitItemPerPage[
-                                                                index];
+                                                        limitItemLoaded = listLimitItemPerPage[index];
                                                       });
                                                     },
                                                     child: Text(
-                                                      listProfile[index]
-                                                          .toString(),
+                                                      listProfile[index].toString(),
                                                       style: GoogleFonts.inter(
                                                         fontSize: 13.sp,
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                        fontWeight: FontWeight.w500,
                                                         color: AppColors.black,
                                                       ),
                                                     ),
                                                   ));
                                         },
                                         child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              10, 20, 10, 0),
+                                          padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
                                           child: Text(
                                             "Đơn hàng/trang: ${limitItemLoaded.toString()}",
                                             style: GoogleFonts.inter(
@@ -387,13 +368,11 @@ class _OrdersPasPageState extends ConsumerState<OrdersPasPage>
                             if (state.ticketsAfterFilter!.isNotEmpty) {
                               order = state.ticketsAfterFilter![index];
                             } else {
-                              order = state
-                                  .tickets![getIndexFirstItemOfPage(index)];
+                              order = state.tickets![getIndexFirstItemOfPage(index)];
                             }
                             return OrderPasItem(
                               order: order,
-                              onTap: () => context.pushRoute(
-                                  OrderDetailsPasRoute(order: order)),
+                              onTap: () => context.pushRoute(OrderDetailsPasRoute(order: order)),
                             );
                           },
                         ),

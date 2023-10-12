@@ -6,15 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/data/product_data.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_product_item_pas.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../../../src/core/utils/utils.dart';
-import '../../../../../../../src/riverpod/providers/providers.dart';
 import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
 import 'widgets/list_products_filter_modal.dart';
-import 'widgets/products_product_item.dart';
 import 'widgets/w_delete_product_dialog.dart';
 
 class ProductsPasPage extends ConsumerStatefulWidget {
@@ -36,11 +33,9 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(productsPASProvider.notifier).fetchProductsByCategory(
-            ref.read(productsPASProvider.notifier).minCategoryId);
+        ref.read(productsPASProvider.notifier).fetchProductsByCategory(ref.read(productsPASProvider.notifier).minCategoryId);
         if (ref.watch(categoriesPASProvider).categorySelected == null) {
-          ref.read(categoriesPASProvider.notifier).setCategorySelected(
-              ref.watch(categoriesPASProvider).categories![0]);
+          ref.read(categoriesPASProvider.notifier).setCategorySelected(ref.watch(categoriesPASProvider).categories![0]);
         }
       },
     );
@@ -129,9 +124,7 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
                             bottom: 0,
                           ),
                           shrinkWrap: true,
-                          itemCount: state.productsAfterFilter!.isEmpty
-                              ? state.products!.length
-                              : state.productsAfterFilter!.length,
+                          itemCount: state.productsAfterFilter!.isEmpty ? state.products!.length : state.productsAfterFilter!.length,
                           itemBuilder: (context, index) {
                             ProductPasData product;
                             if (state.productsAfterFilter!.isEmpty) {

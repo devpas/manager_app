@@ -3,8 +3,7 @@
 //],
 
 class TaxlineData {
-  TaxlineData(
-      {int? id, int? receiptId, int? taxId, double? base, double? amount}) {
+  TaxlineData({int? id, int? receiptId, String? taxId, double? base, double? amount}) {
     _id = id;
     _receiptId = receiptId;
     _taxId = taxId;
@@ -15,22 +14,21 @@ class TaxlineData {
   TaxlineData.fromJson(dynamic json) {
     _id = json['id'];
     _receiptId = json['receipt_id'];
-    // _taxId = json['tax_id'];
-    _taxId = 0;
+    _taxId = json['tax_id'];
     _base = double.parse(json['base'].toString());
     _amount = double.parse(json['amount'].toString());
   }
 
   int? _id;
   int? _receiptId;
-  int? _taxId;
+  String? _taxId;
   double? _base;
   double? _amount;
 
   TaxlineData copyWith({
     int? id,
     int? receiptId,
-    int? taxId,
+    String? taxId,
     double? base,
     double? amount,
   }) =>
@@ -46,7 +44,7 @@ class TaxlineData {
 
   int? get receiptId => _receiptId;
 
-  int? get taxId => _taxId;
+  String? get taxId => _taxId;
 
   double? get base => _base;
 

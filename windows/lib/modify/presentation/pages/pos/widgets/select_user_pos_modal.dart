@@ -14,12 +14,10 @@ class SelectUserPosModal extends ConsumerStatefulWidget {
   const SelectUserPosModal({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<SelectUserPosModal> createState() =>
-      _SearchUserModalInClientInfoState();
+  ConsumerState<SelectUserPosModal> createState() => _SearchUserModalInClientInfoState();
 }
 
-class _SearchUserModalInClientInfoState
-    extends ConsumerState<SelectUserPosModal> {
+class _SearchUserModalInClientInfoState extends ConsumerState<SelectUserPosModal> {
   @override
   void initState() {
     super.initState();
@@ -71,22 +69,20 @@ class _SearchUserModalInClientInfoState
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final customer = state.customers![index];
-                        return SearchedItem(
-                          title: '${customer.name}',
-                          isSelected: false,
-                          onTap: () {
-                            var customerPos = [
-                              customer.id,
-                              customer.name,
-                              customer.address,
-                              customer.fileOrdersId ?? ""
-                            ];
-                            notifierPos.setSelectUserPos(customerPos);
-                            notifier
-                                .selectCustomer(statePos.infoSelected![0][0]);
-                            context.popRoute();
-                          },
-                        );
+                        if (customer.visible == 1) {
+                          return SearchedItem(
+                            title: '${customer.name}',
+                            isSelected: false,
+                            onTap: () {
+                              var customerPos = [customer.id, customer.name, customer.address, customer.fileOrdersId ?? "", customer.taxCategory];
+                              notifierPos.setSelectUserPos(customerPos);
+                              notifier.selectCustomer(statePos.infoSelected![0][0]);
+                              context.popRoute();
+                            },
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
                       },
                     ),
                   ),

@@ -52,7 +52,6 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
   Widget build(BuildContext context) {
     final state = ref.watch(posSystemPASProvider);
     final notifier = ref.read(posSystemPASProvider.notifier);
-    final notifierCustomer = ref.read(customersProvider.notifier);
     return Material(
       color: AppColors.white,
       child: Stack(
@@ -72,9 +71,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                 59.verticalSpace,
                 SelectWithAddButton(
                   label: AppHelpers.getTranslation("Khách hàng"),
-                  title: state.infoSelected!.isNotEmpty
-                      ? state.infoSelected![0][1]
-                      : "Tên người dùng",
+                  title: state.infoSelected!.isNotEmpty ? state.infoSelected![0][1] : "Tên người dùng",
                   onSelectTap: () {
                     showModalBottomSheet(
                       context: context,
@@ -88,9 +85,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                   padding: REdgeInsets.only(top: 30.0),
                   child: SelectWithAddButton(
                     label: AppHelpers.getTranslation("Địa chỉ"),
-                    title: state.infoSelected!.isEmpty
-                        ? "địa chỉ"
-                        : state.infoSelected![0][2],
+                    title: state.infoSelected!.isEmpty ? "địa chỉ" : state.infoSelected![0][2],
                     onSelectTap: () => showModalBottomSheet(
                       context: context,
                       builder: (context) => const SelectAddressPosModal(),
@@ -100,9 +95,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                 30.verticalSpace,
                 SelectWithAddButton(
                   label: AppHelpers.getTranslation("Đơn vị tiền tệ"),
-                  title: state.infoSelected!.isNotEmpty
-                      ? state.infoSelected![1][2]
-                      : "Chọn loại tiền",
+                  title: state.infoSelected!.isNotEmpty ? state.infoSelected![1][2] : "Chọn loại tiền",
                   onSelectTap: () {
                     showModalBottomSheet(
                       context: context,
@@ -113,9 +106,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                 30.verticalSpace,
                 SelectWithAddButton(
                   label: AppHelpers.getTranslation("Phương thức thanh toán"),
-                  title: state.infoSelected!.isNotEmpty
-                      ? state.infoSelected![2][1]
-                      : "Chọn phương thức",
+                  title: state.infoSelected!.isNotEmpty ? state.infoSelected![2][1] : "Chọn phương thức",
                   onSelectTap: () {
                     showModalBottomSheet(
                       context: context,
@@ -127,8 +118,7 @@ class _ClientInfoModalState extends ConsumerState<ClientInfoModal> {
                 CommonAccentButton(
                     title: AppHelpers.getTranslation(TrKeys.save),
                     onPressed: () {
-                      notifier
-                          .updateCustomerInTicket(state.infoSelected![0][0]);
+                      notifier.updateCustomerInTicket(state.infoSelected![0][0]);
                       context.popRoute();
                     }),
                 40.verticalSpace,

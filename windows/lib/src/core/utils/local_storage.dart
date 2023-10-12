@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
@@ -42,8 +43,7 @@ class LocalStorage {
     }
   }
 
-  bool getLangSelected() =>
-      _preferences?.getBool(AppConstants.keyLangSelected) ?? false;
+  bool getLangSelected() => _preferences?.getBool(AppConstants.keyLangSelected) ?? false;
 
   Future<void> setToken(String token) async {
     if (_preferences != null) {
@@ -61,9 +61,7 @@ class LocalStorage {
     }
   }
 
-  String getLocaleCode() =>
-      _preferences?.getString(AppConstants.keyLocaleCode) ??
-      AppConstants.localeCodeEn;
+  String getLocaleCode() => _preferences?.getString(AppConstants.keyLocaleCode) ?? AppConstants.localeCodeEn;
 
   Future<void> setAppThemeMode(bool isDarkMode) async {
     if (_preferences != null) {
@@ -71,11 +69,9 @@ class LocalStorage {
     }
   }
 
-  bool getAppThemeMode() =>
-      _preferences?.getBool(AppConstants.keyAppThemeMode) ?? false;
+  bool getAppThemeMode() => _preferences?.getBool(AppConstants.keyAppThemeMode) ?? false;
 
-  void deleteAppThemeMode() =>
-      _preferences?.remove(AppConstants.keyAppThemeMode);
+  void deleteAppThemeMode() => _preferences?.remove(AppConstants.keyAppThemeMode);
 
   Future<void> setLanguageData(LanguageData? langData) async {
     if (_preferences != null) {
@@ -110,16 +106,13 @@ class LocalStorage {
 
   Future<void> setSettingsList(List<SettingsData> settings) async {
     if (_preferences != null) {
-      final List<String> strings =
-          settings.map((setting) => jsonEncode(setting.toJson())).toList();
-      await _preferences!
-          .setStringList(AppConstants.keyGlobalSettings, strings);
+      final List<String> strings = settings.map((setting) => jsonEncode(setting.toJson())).toList();
+      await _preferences!.setStringList(AppConstants.keyGlobalSettings, strings);
     }
   }
 
   List<SettingsData> getSettingsList() {
-    final List<String> settings =
-        _preferences?.getStringList(AppConstants.keyGlobalSettings) ?? [];
+    final List<String> settings = _preferences?.getStringList(AppConstants.keyGlobalSettings) ?? [];
     final List<SettingsData> settingsList = settings
         .map(
           (setting) => SettingsData.fromJson(jsonDecode(setting)),
@@ -128,8 +121,7 @@ class LocalStorage {
     return settingsList;
   }
 
-  void deleteSettingsList() =>
-      _preferences?.remove(AppConstants.keyGlobalSettings);
+  void deleteSettingsList() => _preferences?.remove(AppConstants.keyGlobalSettings);
 
   Future<void> setTranslations(Map<String, dynamic>? translations) async {
     if (_preferences != null) {
@@ -139,8 +131,7 @@ class LocalStorage {
   }
 
   Map<String, dynamic> getTranslations() {
-    final String encoded =
-        _preferences?.getString(AppConstants.keyTranslations) ?? '';
+    final String encoded = _preferences?.getString(AppConstants.keyTranslations) ?? '';
     if (encoded.isEmpty) {
       return {};
     }
@@ -148,20 +139,17 @@ class LocalStorage {
     return decoded;
   }
 
-  void deleteTranslations() =>
-      _preferences?.remove(AppConstants.keyTranslations);
+  void deleteTranslations() => _preferences?.remove(AppConstants.keyTranslations);
 
   Future<void> setSelectedCurrency(CurrencyData? currency) async {
     if (_preferences != null) {
       final String currencyString = jsonEncode(currency?.toJson());
-      await _preferences!
-          .setString(AppConstants.keySelectedCurrency, currencyString);
+      await _preferences!.setString(AppConstants.keySelectedCurrency, currencyString);
     }
   }
 
   CurrencyData? getSelectedCurrency() {
-    final savedString =
-        _preferences?.getString(AppConstants.keySelectedCurrency);
+    final savedString = _preferences?.getString(AppConstants.keySelectedCurrency);
     if (savedString == null) {
       return null;
     }
@@ -172,8 +160,7 @@ class LocalStorage {
     return CurrencyData.fromJson(map);
   }
 
-  void deleteSelectedCurrency() =>
-      _preferences?.remove(AppConstants.keySelectedCurrency);
+  void deleteSelectedCurrency() => _preferences?.remove(AppConstants.keySelectedCurrency);
 
   Future<void> setLoginData(LoginData? user) async {
     if (_preferences != null) {
@@ -209,6 +196,7 @@ class LocalStorage {
     deleteListRole();
     final cookieManager = WebviewCookieManager();
     cookieManager.clearCookies();
+    Restart.restartApp();
   }
 
   Future<void> setBaseInfomation(String keyAccess) async {
@@ -217,8 +205,7 @@ class LocalStorage {
     }
   }
 
-  String getBaseInfomation() =>
-      _preferences?.getString("base_infomation") ?? '';
+  String getBaseInfomation() => _preferences?.getString("base_infomation") ?? '';
 
   Future<void> setUserInfomation(String keyAccess) async {
     if (_preferences != null) {
@@ -226,8 +213,7 @@ class LocalStorage {
     }
   }
 
-  String getUserInfomation() =>
-      _preferences?.getString("user_infomation") ?? '';
+  String getUserInfomation() => _preferences?.getString("user_infomation") ?? '';
 
   Future<void> setKeyAccessOwner(String keyAccess) async {
     if (_preferences != null) {
@@ -235,8 +221,7 @@ class LocalStorage {
     }
   }
 
-  String getKeyAccessOwner() =>
-      _preferences?.getString("owner_key_access") ?? '';
+  String getKeyAccessOwner() => _preferences?.getString("owner_key_access") ?? '';
 
   Future<void> setKeyAccessShare(String keyAccess) async {
     if (_preferences != null) {
@@ -244,8 +229,7 @@ class LocalStorage {
     }
   }
 
-  String getKeyAccessShare() =>
-      _preferences?.getString("share_key_access") ?? '';
+  String getKeyAccessShare() => _preferences?.getString("share_key_access") ?? '';
 
   Future<void> setCookieAccess(String cookie) async {
     if (_preferences != null) {
@@ -253,8 +237,7 @@ class LocalStorage {
     }
   }
 
-  String getCookieAccess() =>
-      _preferences?.getString("google_cookie_access") ?? '';
+  String getCookieAccess() => _preferences?.getString("google_cookie_access") ?? '';
 
   String getListRoleShare() => _preferences?.getString("list_role_share") ?? '';
 
@@ -264,12 +247,19 @@ class LocalStorage {
     }
   }
 
-  List<String> getListRoleCode() =>
-      _preferences?.getStringList("list_role_code") ?? [];
+  List<String> getListRoleCode() => _preferences?.getStringList("list_role_code") ?? [];
 
   Future<void> setListRoleCode(List<String> listRoleCode) async {
     if (_preferences != null) {
       _preferences?.setStringList("list_role_code", listRoleCode);
+    }
+  }
+
+  String getPrinterActive() => _preferences?.getString("printer_active") ?? '{"id": "-1", "name": "no connect printer", "address": "", "type": "no connect"}';
+
+  Future<void> setPrinterActive(String printer) async {
+    if (_preferences != null) {
+      _preferences?.setString("printer_active", printer);
     }
   }
 

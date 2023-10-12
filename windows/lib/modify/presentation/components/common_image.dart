@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../src/core/constants/constants.dart';
 import '../../../src/presentation/theme/theme.dart';
 
 class CommonImage extends StatelessWidget {
@@ -24,11 +22,12 @@ class CommonImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("image" + imageUrl.toString());
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius.r),
       child: CachedNetworkImage(
         // imageUrl: '${AppConstants.imageBaseUrl}/$imageUrl',
-        imageUrl: imageUrl!,
+        imageUrl: '$imageUrl' != "" ? '$imageUrl' : "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
         width: width,
         height: height,
         fit: BoxFit.cover,
@@ -85,8 +84,7 @@ class CommonVideo extends StatelessWidget {
       borderRadius: BorderRadius.circular(radius.r),
       child: CachedNetworkImage(
         // imageUrl: '${AppConstants.imageBaseUrl}/$imageUrl',
-        imageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4D8aORvij6shCc1acJSqtfIb6g3vWigLWbw&usqp=CAU',
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4D8aORvij6shCc1acJSqtfIb6g3vWigLWbw&usqp=CAU',
         width: width,
         height: height,
         fit: BoxFit.cover,

@@ -24,19 +24,16 @@ import 'widgets/search_discount_modal_in_edit_product.dart';
 import 'widgets/search_property_modal_in_edit_product.dart';
 
 class EditProductPasPage extends ConsumerStatefulWidget {
-  const EditProductPasPage({Key? key, required this.productData})
-      : super(key: key);
+  const EditProductPasPage({Key? key, required this.productData}) : super(key: key);
 
   final ProductPasData productData;
 
   @override
   // ignore: no_logic_in_create_state
-  ConsumerState<EditProductPasPage> createState() =>
-      _EditProductPasPage(productData);
+  ConsumerState<EditProductPasPage> createState() => _EditProductPasPage(productData);
 }
 
-class _EditProductPasPage extends ConsumerState<EditProductPasPage>
-    with TickerProviderStateMixin {
+class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerProviderStateMixin {
   late TabController _tabController;
 
   final ProductPasData productData;
@@ -52,6 +49,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
   bool showCategoryCheckBox = true;
   bool typeDataCheckBox = true;
   bool activeCheckBox = true;
+  bool activeCheckBoxAuto = false;
 
   List<CategoryPasData>? categoriesSearch = [];
   int parentCategoryId = 1;
@@ -74,6 +72,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
           listProperties = jsonDecode(productData.attributes!);
           parentCategoryId = productData.categoryId!;
           activeCheckBox = productData.active == 1 ? true : false;
+          activeCheckBoxAuto = productData.isAuto == 1 ? true : false;
         });
       },
     );
@@ -81,8 +80,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
     _tabController = TabController(length: 3, vsync: this);
   }
 
-  Widget mainTab(
-      ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+  Widget mainTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
     final state = ref.watch(categoriesPASProvider);
     final notifier = ref.read(categoriesPASProvider.notifier);
     return SingleChildScrollView(
@@ -132,24 +130,73 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
               inputAction: TextInputAction.next,
             ),
             30.verticalSpace,
-            CommonInputField(
-              initialValue: productData.priceBuy.toString(),
-              label: "Giá mua",
-              onChanged: (v) {
-                product = product!.copyWith(priceBuy: double.parse(v));
-              },
-              inputType: TextInputType.number,
-              inputAction: TextInputAction.next,
+            Row(
+              children: [
+                Expanded(
+                  child: !activeCheckBoxAuto
+                      ? CommonInputField(
+                          initialValue: productData.priceBuy.toString(),
+                          label: "Giá mua",
+                          onChanged: (v) {
+                            product = product!.copyWith(priceBuy: double.parse(v));
+                          },
+                          inputType: TextInputType.number,
+                          inputAction: TextInputAction.next,
+                        )
+                      : AbsorbPointer(
+                          absorbing: true,
+                          child: CommonInputField(
+                            initialValue: productData.priceBuyAuto.toString(),
+                            label: "Giá mua",
+                            onChanged: (v) {
+                              // product = product!.copyWith(priceBuy: double.parse(v));
+                            },
+                            inputType: TextInputType.number,
+                            inputAction: TextInputAction.next,
+                          ),
+                        ),
+                ),
+                10.horizontalSpace,
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: SizedBox(
+                      width: 200,
+                      child: Row(
+                        children: [
+                          RoundedCheckBox(
+                            value: activeCheckBoxAuto,
+                            onChanged: (value) {
+                              setState(() {
+                                activeCheckBoxAuto = !activeCheckBoxAuto;
+                                product = product!.copyWith(active: activeCheckBoxAuto ? 1 : 0);
+                              });
+                            },
+                          ),
+                          10.horizontalSpace,
+                          Text(
+                            'tính giá tự động',
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                              color: activeCheckBoxAuto ? AppColors.black : AppColors.black.withOpacity(0.5),
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ],
             ),
             30.verticalSpace,
-            CommonInputField(
-              initialValue: productData.priceSell.toString(),
-              label: "Giá bán",
-              onChanged: (v) {
-                product = product!.copyWith(priceSell: double.parse(v));
-              },
-              inputType: TextInputType.number,
-              inputAction: TextInputAction.next,
+            SizedBox(
+              child: CommonInputField(
+                initialValue: productData.priceSell.toString(),
+                label: "Giá bán",
+                onChanged: (v) {
+                  product = product!.copyWith(priceSell: double.parse(v));
+                },
+                inputType: TextInputType.number,
+                inputAction: TextInputAction.next,
+              ),
             ),
             30.verticalSpace,
             SizedBox(
@@ -170,10 +217,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                     width: 100,
                     child: CommonInputField(
                       label: "% chiết khấu",
-                      initialValue: (((productData.priceSell! * 100) /
-                                  productData.priceBuy!) -
-                              100)
-                          .toString(),
+                      initialValue: (((productData.priceSell! * 100) / productData.priceBuy!) - 100).toStringAsFixed(2).toString(),
                       onChanged: (v) {
                         product = product!.copyWith(priceSell: double.parse(v));
                       },
@@ -198,19 +242,13 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
             30.verticalSpace,
             SelectWithSearchButton(
               label: AppHelpers.getTranslation(TrKeys.parentCategory),
-              title: parentCategoryId == -1
-                  ? "Chọn danh mục cấp trên"
-                  : state.categories!
-                      .where((c) => c.id == parentCategoryId)
-                      .first
-                      .name!,
+              title: parentCategoryId == -1 ? "Chọn danh mục cấp trên" : state.categories!.where((c) => c.id == parentCategoryId).first.name!,
               onTap: () {
                 categoriesSearch = state.categories!;
                 showModalBottomSheet(
                     context: context,
                     builder: (context) {
-                      return StatefulBuilder(builder:
-                          (BuildContext context, StateSetter setModelState) {
+                      return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
                         return Material(
                           color: AppColors.mainBackground,
                           child: Container(
@@ -226,20 +264,14 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                                 SearchTextField(
                                   onChanged: (v) {
                                     setModelState(() {
-                                      categoriesSearch = state.categories!
-                                          .where((e) => e.name!
-                                              .toLowerCase()
-                                              .contains(v.toLowerCase()))
-                                          .toList();
+                                      categoriesSearch = state.categories!.where((e) => e.name!.toLowerCase().contains(v.toLowerCase())).toList();
                                     });
                                   },
-                                  hintText: AppHelpers.getTranslation(
-                                      TrKeys.searchCategory),
+                                  hintText: AppHelpers.getTranslation(TrKeys.searchCategory),
                                 ),
                                 10.verticalSpace,
                                 SearchedItem(
-                                  title: AppHelpers.getTranslation(
-                                      TrKeys.noCategory),
+                                  title: AppHelpers.getTranslation(TrKeys.noCategory),
                                   isSelected: false,
                                   onTap: () {
                                     setState(() {
@@ -254,22 +286,18 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                                 ),
                                 Expanded(
                                   child: ListView.builder(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    physics:
-                                        const CustomBouncingScrollPhysics(),
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    physics: const CustomBouncingScrollPhysics(),
                                     itemCount: categoriesSearch!.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      final parentCategory =
-                                          categoriesSearch![index];
+                                      final parentCategory = categoriesSearch![index];
                                       return SearchedItem(
                                         title: '${parentCategory.name}',
                                         isSelected: false,
                                         onTap: () {
                                           setState(() {
-                                            parentCategoryId =
-                                                parentCategory.id!;
+                                            parentCategoryId = parentCategory.id!;
                                           });
                                           print(parentCategoryId);
                                           Navigator.pop(context);
@@ -314,8 +342,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                   onChanged: (value) {
                     setState(() {
                       activeCheckBox = !activeCheckBox;
-                      product =
-                          product!.copyWith(active: activeCheckBox ? 1 : 0);
+                      product = product!.copyWith(active: activeCheckBox ? 1 : 0);
                     });
                   },
                 ),
@@ -325,9 +352,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: activeCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: activeCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -342,10 +367,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                   base64 = base64Encode(bytes);
                 }
                 setState(() {
-                  product = product!.copyWith(
-                      attributes: jsonEncode(listProperties),
-                      image: base64,
-                      categoryId: parentCategoryId);
+                  product = product!.copyWith(attributes: jsonEncode(listProperties), image: base64, categoryId: parentCategoryId);
                   productsNotifier.updateProduct(product!);
                   context.popRoute();
                 });
@@ -359,8 +381,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
     );
   }
 
-  Widget stockTab(
-      ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+  Widget stockTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -406,9 +427,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: showCategoryCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: showCategoryCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -430,9 +449,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: subsidiaryCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: subsidiaryCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -454,9 +471,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: measuresCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: measuresCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -467,8 +482,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
     );
   }
 
-  Widget propertiesTab(
-      ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+  Widget propertiesTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -525,9 +539,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
-                        color: typeDataCheckBox
-                            ? AppColors.black
-                            : AppColors.black.withOpacity(0.5),
+                        color: typeDataCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                       ),
                     ),
                   ],
@@ -549,9 +561,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
-                        color: !typeDataCheckBox
-                            ? AppColors.black
-                            : AppColors.black.withOpacity(0.5),
+                        color: !typeDataCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                       ),
                     ),
                   ],
@@ -564,19 +574,9 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                 AccentAddButton(
                     title: "thêm",
                     onPressed: () {
-                      if (keyProperties != "" &&
-                          valueProperties != "" &&
-                          listProperties
-                              .where(
-                                  (element) => element["key"] == keyProperties)
-                              .toList()
-                              .isEmpty) {
+                      if (keyProperties != "" && valueProperties != "" && listProperties.where((element) => element["key"] == keyProperties).toList().isEmpty) {
                         setState(() {
-                          var property = {
-                            "key": keyProperties,
-                            "value": valueProperties,
-                            "type": typeDataCheckBox ? "String" : "number"
-                          };
+                          var property = {"key": keyProperties, "value": valueProperties, "type": typeDataCheckBox ? "String" : "number"};
                           listProperties.add(property);
                           keyProperties = "";
                           valueProperties = "";
@@ -631,7 +631,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
         child: Scaffold(
           appBar: CustomAppbarPOS(
             title: Text(
-              "Thêm sản phẩm",
+              "Cập nhật sản phẩm",
               style: AppTypographies.styBlack16W500,
               textAlign: TextAlign.center,
             ),
@@ -673,11 +673,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage>
                   child: TabBarView(
                     controller: _tabController,
                     physics: const CustomBouncingScrollPhysics(),
-                    children: [
-                      mainTab(state, notifier),
-                      stockTab(state, notifier),
-                      propertiesTab(state, notifier)
-                    ],
+                    children: [mainTab(state, notifier), stockTab(state, notifier), propertiesTab(state, notifier)],
                   ),
                 ),
               ],

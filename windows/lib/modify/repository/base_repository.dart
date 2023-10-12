@@ -9,6 +9,12 @@ abstract class BaseRepository {
   Future<dynamic> updateEmployee(dynamic dataEmployee);
   Future<dynamic> deleteEmployee(String email);
   Future<dynamic> checkAccessBlock();
+  Future<dynamic> getMoneyWallet(String email);
   Future<dynamic> uploadFile(String name, String base64, String fileType);
+  Future<dynamic> createTicket(TicketData ticket, int reason);
   Future<ApiResult<EmployeeResponse>> getListEmplyees();
+  Future<dynamic> getListPrinters();
+  Future<dynamic> addPrinter(dynamic printerData);
+  Future<dynamic> updatePrinter(dynamic printerData);
+  Future<dynamic> deletePrinter(int printerId);
 }

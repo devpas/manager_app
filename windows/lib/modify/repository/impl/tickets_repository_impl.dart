@@ -10,18 +10,15 @@ import '../../../modify/models/models.dart';
 import '../tickets_repository.dart';
 
 class TicketsRepositoryImpl extends TicketsRepository {
-  Map<String, String> headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Cookie": ""
-  };
+  Map<String, String> headers = {"Content-Type": "application/json", "Accept": "application/json", "Cookie": ""};
 
   @override
-  Future<dynamic> createTicket(ticket, fileOrdersId, reason) async {
+  Future<dynamic> createTicket(ticket, fileOrdersId, reason, warehouseId) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     var ticketJson = ticket.toJson();
     ticketJson["file_orders_id"] = fileOrdersId;
     ticketJson["reason"] = reason;
+    ticketJson["warehouse_id"] = warehouseId;
     log(jsonEncode(ticketJson));
     var dataJson = {};
     final data = {
@@ -43,7 +40,6 @@ class TicketsRepositoryImpl extends TicketsRepository {
             return status! < 500;
           }),
     );
-    // print(jsonEncode(data));
     log(response.toString());
     if (response.statusCode == 302) {
       String location = response.headers['location'].toString();
@@ -71,10 +67,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
   @override
   Future<ApiResult<TicketsResponse>> searchTickets(dynamic queryParam) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
-    final data = {
-      "access_id": LocalStorage.instance.getKeyAccessOwner(),
-      "query_param": queryParam
-    };
+    final data = {"access_id": LocalStorage.instance.getKeyAccessOwner(), "query_param": queryParam};
     if (LocalStorage.instance.getShareMode()) {
       data["access_id"] = LocalStorage.instance.getKeyAccessShare();
     }
@@ -122,11 +115,7 @@ class TicketsRepositoryImpl extends TicketsRepository {
     var dataJson = {};
     final data = {
       "access_id": LocalStorage.instance.getKeyAccessOwner(),
-      "data": {
-        "ticketlines_data": ticketJson["ticketlines"],
-        "warehouse_id_send": send,
-        "warehouse_id_take": take
-      }
+      "data": {"ticketlines_data": ticketJson["ticketlines"], "warehouse_id_send": send, "warehouse_id_take": take}
     };
     log(jsonEncode(data));
     if (LocalStorage.instance.getShareMode()) {

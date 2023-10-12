@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 
 import '../../../src/core/constants/constants.dart';
 import '../../../src/core/utils/utils.dart';
@@ -30,8 +29,7 @@ class OrderPasItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
             onTap: onTap,
             child: Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
               child: Column(
                 children: [
                   12.verticalSpace,
@@ -90,7 +88,7 @@ class OrderPasItem extends StatelessWidget {
                               style: AppTypographies.styBlack12W500Opacity50,
                             ),
                             Text(
-                              '${order.ticketlines!.length}',
+                              '${order.ticketlines != null ? order.ticketlines!.length : 0}',
                               style: AppTypographies.styBlack14W500,
                             ),
                           ],

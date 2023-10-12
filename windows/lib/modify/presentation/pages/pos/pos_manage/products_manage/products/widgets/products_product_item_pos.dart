@@ -26,7 +26,7 @@ class ProductsProductItemPOS extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: AppColors.white,
           child: SizedBox(
-            height: widthHeight * 0.076,
+            height: widthHeight * 0.08,
             width: widthWidget * 0.36,
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
@@ -51,19 +51,7 @@ class ProductsProductItemPOS extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              product.stocks!
-                                      .where((warehouse) =>
-                                          warehouse.id == selectWarehouseId)
-                                      .toList()
-                                      .isNotEmpty
-                                  ? product.stocks!
-                                      .where((warehouse) =>
-                                          warehouse.id == selectWarehouseId)
-                                      .toList()
-                                      .first
-                                      .stockCurrent
-                                      .toString()
-                                  : "0",
+                              product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().isNotEmpty ? product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent.toString() : "0",
                               style: AppTypographies.styBlack11W400,
                             ),
                           ),

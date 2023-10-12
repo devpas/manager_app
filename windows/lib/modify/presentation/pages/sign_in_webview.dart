@@ -31,11 +31,7 @@ class SignInWebviewPage extends ConsumerWidget {
   bool isLogin = false;
 
   Future<bool> connectGAS(String cookie) async {
-    Map<String, String> headers = {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Cookie": cookie
-    };
+    Map<String, String> headers = {"Content-Type": "application/json", "Accept": "application/json", "Cookie": cookie};
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.get(
       '?api=connectGAS',
@@ -57,8 +53,8 @@ class SignInWebviewPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final stateLogin = ref.watch(loginProvider);
-    final notifierLogin = ref.watch(loginProvider.notifier);
+    // final stateLogin = ref.watch(loginProvider);
+    // final notifierLogin = ref.watch(loginProvider.notifier);
     return Scaffold(
       backgroundColor: const Color(0x00eceff3),
       floatingActionButton: FloatingActionButton(

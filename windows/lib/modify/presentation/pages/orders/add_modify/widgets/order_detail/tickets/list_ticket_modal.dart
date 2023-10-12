@@ -13,8 +13,7 @@ class ListTicketModal extends ConsumerStatefulWidget {
   const ListTicketModal({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ListTicketModalState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ListTicketModalState();
 }
 
 class _ListTicketModalState extends ConsumerState<ListTicketModal> {
@@ -51,12 +50,18 @@ class _ListTicketModalState extends ConsumerState<ListTicketModal> {
                   onDelete: () {
                     print(index);
                     notifier.deleteTicket(index);
-                    notifier.updateIndex(
-                        "ticket", state.listTicket!.length - 1);
+                    notifier.updateIndex("ticket", state.listTicket!.length - 1);
                   },
                   onTap: () {
                     setState(() {
                       selectTicket = index;
+                      var customerPos = ["", "Khách lẻ", "Không có địa chỉ cụ thể", "", ""];
+                      if (state.listTicket![index].customerId != "") {
+                        var customer = stateCustomer.customers!.where((c) => c.id == state.listTicket![index].customerId!).toList()[0];
+                        customerPos = [customer.id!, customer.name!, customer.address!, customer.fileOrdersId ?? "", customer.taxCategory!];
+                      }
+                      notifier.setSelectUserPos(customerPos);
+                      notifierCustomer.selectCustomer(state.infoSelected![0][0]);
                       notifier.updateIndex("ticket", index);
                       context.popRoute();
                     });
