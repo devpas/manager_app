@@ -703,6 +703,12 @@ class AppRouter extends _i2.RootStackRouter {
         child: const _i1.DashboardPASPage(),
       );
     },
+    ProccessRoute.name: (routeData) {
+      return _i2.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i1.ProccessPage(),
+      );
+    },
   };
 
   @override
@@ -842,7 +848,12 @@ class AppRouter extends _i2.RootStackRouter {
               DashboardPASRoute.name,
               path: 'dashboard-pas',
               parent: MainPASRoute.name,
-            )
+            ),
+            _i2.RouteConfig(
+              ProccessRoute.name,
+              path: 'process-pas',
+              parent: MainPASRoute.name,
+            ),
           ],
         ),
         _i2.RouteConfig(
@@ -2347,4 +2358,16 @@ class DashboardPASRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'DashboardPASRoute';
+}
+
+/// generated route for
+/// [_i1.ProccessPage]
+class ProccessRoute extends _i2.PageRouteInfo<void> {
+  const ProccessRoute()
+      : super(
+          ProccessRoute.name,
+          path: 'process-pas',
+        );
+
+  static const String name = 'ProccessRoute';
 }

@@ -156,6 +156,10 @@ import 'modals_route.dart';
           path: 'dashboard-pas',
           page: DashboardPASPage,
         ),
+        AutoRoute(
+          path: 'process-pas',
+          page: ProccessPage,
+        ),
       ],
     ),
     CustomRoute(

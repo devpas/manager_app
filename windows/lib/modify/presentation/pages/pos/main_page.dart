@@ -4,6 +4,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
+import 'package:g_manager_app/src/presentation/pages/pages.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../src/core/routes/app_router.gr.dart';
@@ -30,6 +31,10 @@ class MainPASPage extends ConsumerWidget {
         extendBody: true,
         routes: const [
           DashboardPASRoute(),
+          ProccessRoute(),
+          ProccessRoute(),
+          ProccessRoute(),
+          ProccessRoute(),
         ],
         appBarBuilder: (context, tabsRouter) {
           return PreferredSize(
@@ -39,9 +44,7 @@ class MainPASPage extends ConsumerWidget {
                 stateBase.baseInfomation["base_name"] ?? "",
                 style: AppTypographies.styBlack12W400,
               ),
-              subtitle: notifierBase.checkShareMode()
-                  ? "${notifierBase.getRoleName(notifierBase.getRoleCode().where((e) => e.contains("pos-")).first)}-bán hàng-kho 1"
-                  : "Chủ cơ sở-bán hàng-kho 1",
+              subtitle: notifierBase.checkShareMode() ? "${notifierBase.getRoleName(notifierBase.getRoleCode().where((e) => e.contains("pos-")).first)}-bán hàng-kho 1" : "Chủ cơ sở-bán hàng-kho 1",
               center: true,
               leading: Builder(
                 builder: (context) => SmallIconButton(
@@ -70,8 +73,7 @@ class MainPASPage extends ConsumerWidget {
                             listProfile.length,
                             (index) => PopupMenuItem<String>(
                                   onTap: () {
-                                    notifierBase.actionProfileMenu(
-                                        listProfile[index], context);
+                                    notifierBase.actionProfileMenu(listProfile[index], context);
                                   },
                                   child: Text(
                                     listProfile[index],
@@ -84,8 +86,7 @@ class MainPASPage extends ConsumerWidget {
                                 ));
                       },
                       child: const AvatarImage(
-                        imageUrl:
-                            "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
+                        imageUrl: "https://www.clipartmax.com/png/full/319-3191274_male-avatar-admin-profile.png",
                         radius: 25,
                         width: 40,
                         height: 40,
@@ -122,10 +123,8 @@ class MainPASPage extends ConsumerWidget {
                   ),
                   child: BottomNavigationBar(
                     type: BottomNavigationBarType.fixed,
-                    selectedLabelStyle:
-                        AppTypographies.stySelectedBottomBarItemTitle,
-                    unselectedLabelStyle:
-                        AppTypographies.styUnselectedBottomBarItemTitle,
+                    selectedLabelStyle: AppTypographies.stySelectedBottomBarItemTitle,
+                    unselectedLabelStyle: AppTypographies.styUnselectedBottomBarItemTitle,
                     selectedItemColor: AppColors.black,
                     unselectedItemColor: AppColors.black.withOpacity(0.3),
                     showUnselectedLabels: true,
@@ -149,17 +148,13 @@ class MainPASPage extends ConsumerWidget {
                       ),
                       _barItem(
                         icon: FlutterRemix.user_smile_line,
-                        label:
-                            LocalStorage.instance.getLoginData()?.user?.role ==
-                                    'admin'
-                                ? "Vận chuyển"
-                                : "Người dùng",
-                        isSelected: bottomBarState.activeIndex == 4,
+                        label: "Video",
+                        isSelected: bottomBarState.activeIndex == 3,
                       ),
                       _barItem(
                         icon: FlutterRemix.message_2_line,
                         label: "Chat",
-                        isSelected: bottomBarState.activeIndex == 3,
+                        isSelected: bottomBarState.activeIndex == 4,
                       ),
                     ],
                   ),
@@ -183,9 +178,7 @@ class MainPASPage extends ConsumerWidget {
         child: Icon(
           icon,
           size: 24.r,
-          color: isSelected
-              ? AppColors.greenMain
-              : AppColors.black.withOpacity(0.3),
+          color: isSelected ? AppColors.greenMain : AppColors.black.withOpacity(0.3),
         ),
       ),
       label: label,

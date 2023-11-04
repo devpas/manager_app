@@ -93,7 +93,7 @@ class SignInWebviewPage extends ConsumerWidget {
                         print(isConnect);
                         if (isConnect) {
                           // notifierLogin.loginAdminSilent(goToMain: () {
-                          context.pushRoute(const DashboardBaseRoute());
+                          context.pushRoute(const MainPASRoute());
                           // });
                         } else {}
                       }

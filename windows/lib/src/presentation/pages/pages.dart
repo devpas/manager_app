@@ -71,3 +71,4 @@ export '../../../modify/presentation/pages/settings/setting_manage_page.dart';
 export '../../../modify/presentation/pages/settings/printer/printer_settings.dart';
 export '../../../modify/presentation/pages/settings/printer/add/add_printer.dart';
 export '../../../modify/presentation/pages/settings/printer/update/update_printer.dart';
+export '../../../modify/presentation/pages/process/process_page.dart';
