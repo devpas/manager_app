@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/data/product_data.dart';
 import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widgets/client/client_info_modal.dart';
+import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/product_in_warehouse/widgets/select_warehouse_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/widgets/pay_info_modal_pas.dart';
 import 'package:g_manager_app/modify/presentation/pages/orders/add_modify/widgets/order_detail/tickets/list_ticket_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
@@ -29,7 +30,6 @@ class DashboardPASPage extends ConsumerStatefulWidget {
 
 class _DashboardPageState extends ConsumerState<DashboardPASPage> {
   String message = "";
-  int selectWarehouseId = 0;
   bool keyboardVisible = false;
   late FocusNode focusNode;
   bool keyboardActive = false;
@@ -86,6 +86,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
         ref.read(productsPASProvider.notifier).fetchProductsPos();
         ref.read(productsPASProvider.notifier).getListTaxes();
         ref.read(posSystemPASProvider.notifier).initListTicket();
+        ref.read(productsPASProvider.notifier).getListWarehouses();
       },
     );
   }
@@ -433,6 +434,34 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                               ),
                             ),
                           ),
+                          notifierBase.checkShareMode()
+                              ? const SizedBox()
+                              : GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      context: context,
+                                      builder: (context) => const SelectWarehouseModal(),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                    child: Container(
+                                      width: 30.r,
+                                      height: 30.r,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20.r),
+                                        color: Colors.purple.withOpacity(0.1),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        Icons.warehouse,
+                                        size: 20.r,
+                                        color: Colors.purple,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                           Text("TS: ", style: AppTypographies.styBlack11W400),
                           Expanded(
                             child: Text(notifierPos.totalMoneyCalculator(statePos.selectTicket!, true), textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
@@ -506,7 +535,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                     notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!);
                                                   },
                                                   child: ProductsProductItemPOS(
-                                                    selectWarehouseId: selectWarehouseId,
+                                                    selectWarehouseId: stateProducts.warehouseSelected["id"],
                                                     product: product,
                                                   ),
                                                 );
@@ -758,7 +787,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                       height: 550,
                                       child: PayInfoModal(
                                         totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
-                                        warehouseId: selectWarehouseId,
+                                        warehouseId: stateProducts.warehouseSelected["id"],
                                         reason: reasonSelected,
                                       ));
                                 },

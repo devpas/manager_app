@@ -28,7 +28,7 @@ class SelectWarehouseModal extends ConsumerWidget {
           children: [
             24.verticalSpace,
             Text(
-              "Chọn hình thức thanh toán",
+              "Chọn kho hàng",
               style: AppTypographies.styBlack22W500,
             ),
             24.verticalSpace,
@@ -57,8 +57,7 @@ class SelectWarehouseModal extends ConsumerWidget {
                           notifier.setWarehouseSelected(warehouse);
                           context.popRoute();
                         },
-                        isSelected:
-                            state.warehouseSelected!["id"] == warehouse["id"],
+                        isSelected: state.warehouseSelected!["id"] == warehouse["id"],
                       );
                     },
                   ),
