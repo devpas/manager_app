@@ -39,6 +39,7 @@ mixin _$BaseState {
   List<dynamic>? get printers => throw _privateConstructorUsedError;
   dynamic get printerSelected => throw _privateConstructorUsedError;
   bool? get printerLoading => throw _privateConstructorUsedError;
+  List<dynamic>? get baseEmployees => throw _privateConstructorUsedError;
   XFile? get image => throw _privateConstructorUsedError;
   XFile? get video => throw _privateConstructorUsedError;
 
@@ -76,6 +77,7 @@ abstract class $BaseStateCopyWith<$Res> {
       List<dynamic>? printers,
       dynamic printerSelected,
       bool? printerLoading,
+      List<dynamic>? baseEmployees,
       XFile? image,
       XFile? video});
 }
@@ -116,6 +118,7 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
     Object? printers = freezed,
     Object? printerSelected = freezed,
     Object? printerLoading = freezed,
+    Object? baseEmployees = freezed,
     Object? image = freezed,
     Object? video = freezed,
   }) {
@@ -212,6 +215,10 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.printerLoading
           : printerLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      baseEmployees: freezed == baseEmployees
+          ? _value.baseEmployees
+          : baseEmployees // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -255,6 +262,7 @@ abstract class _$$_BaseStateCopyWith<$Res> implements $BaseStateCopyWith<$Res> {
       List<dynamic>? printers,
       dynamic printerSelected,
       bool? printerLoading,
+      List<dynamic>? baseEmployees,
       XFile? image,
       XFile? video});
 }
@@ -293,6 +301,7 @@ class __$$_BaseStateCopyWithImpl<$Res>
     Object? printers = freezed,
     Object? printerSelected = freezed,
     Object? printerLoading = freezed,
+    Object? baseEmployees = freezed,
     Object? image = freezed,
     Object? video = freezed,
   }) {
@@ -389,6 +398,10 @@ class __$$_BaseStateCopyWithImpl<$Res>
           ? _value.printerLoading
           : printerLoading // ignore: cast_nullable_to_non_nullable
               as bool?,
+      baseEmployees: freezed == baseEmployees
+          ? _value._baseEmployees
+          : baseEmployees // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -428,11 +441,13 @@ class _$_BaseState extends _BaseState {
       final List<dynamic>? printers = const [],
       this.printerSelected = const {},
       this.printerLoading = false,
+      final List<dynamic>? baseEmployees = const [],
       this.image,
       this.video})
       : _base = base,
         _employees = employees,
         _printers = printers,
+        _baseEmployees = baseEmployees,
         super._();
 
   final List<BaseData>? _base;
@@ -528,6 +543,17 @@ class _$_BaseState extends _BaseState {
   @override
   @JsonKey()
   final bool? printerLoading;
+  final List<dynamic>? _baseEmployees;
+  @override
+  @JsonKey()
+  List<dynamic>? get baseEmployees {
+    final value = _baseEmployees;
+    if (value == null) return null;
+    if (_baseEmployees is EqualUnmodifiableListView) return _baseEmployees;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final XFile? image;
   @override
@@ -535,7 +561,7 @@ class _$_BaseState extends _BaseState {
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, image: $image, video: $video)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, baseEmployees: $baseEmployees, image: $image, video: $video)';
   }
 
   @override
@@ -587,6 +613,8 @@ class _$_BaseState extends _BaseState {
                 .equals(other.printerSelected, printerSelected) &&
             (identical(other.printerLoading, printerLoading) ||
                 other.printerLoading == printerLoading) &&
+            const DeepCollectionEquality()
+                .equals(other._baseEmployees, _baseEmployees) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.video, video) || other.video == video));
   }
@@ -617,6 +645,7 @@ class _$_BaseState extends _BaseState {
         const DeepCollectionEquality().hash(_printers),
         const DeepCollectionEquality().hash(printerSelected),
         printerLoading,
+        const DeepCollectionEquality().hash(_baseEmployees),
         image,
         video
       ]);
@@ -653,6 +682,7 @@ abstract class _BaseState extends BaseState {
       final List<dynamic>? printers,
       final dynamic printerSelected,
       final bool? printerLoading,
+      final List<dynamic>? baseEmployees,
       final XFile? image,
       final XFile? video}) = _$_BaseState;
   const _BaseState._() : super._();
@@ -703,6 +733,8 @@ abstract class _BaseState extends BaseState {
   dynamic get printerSelected;
   @override
   bool? get printerLoading;
+  @override
+  List<dynamic>? get baseEmployees;
   @override
   XFile? get image;
   @override

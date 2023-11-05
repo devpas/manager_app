@@ -30,6 +30,7 @@ class BaseState with _$BaseState {
     @Default([]) List<dynamic>? printers,
     @Default({}) dynamic printerSelected,
     @Default(false) bool? printerLoading,
+    @Default([]) List<dynamic>? baseEmployees,
     XFile? image,
     XFile? video,
   }) = _BaseState;

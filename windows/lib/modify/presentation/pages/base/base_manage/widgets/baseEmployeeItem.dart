@@ -6,15 +6,13 @@ import '../../../../../models/models.dart';
 import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
 
-class BaseItem extends StatelessWidget {
-  final BaseData base;
+class BaseEmployeeItem extends StatelessWidget {
+  final dynamic base;
   final Function() onTap;
   final Function() onEdit;
-  final Function() onSwitch;
-  final Function() onDeleteTap;
-  final bool active;
 
-  Widget upAndDown(double parameter, String title) {
+  Widget upAndDown(dynamic parameter, String title) {
+    parameter = double.parse(parameter.toString());
     if (parameter > 0) {
       return Row(
         children: [
@@ -49,7 +47,7 @@ class BaseItem extends StatelessWidget {
     }
   }
 
-  const BaseItem({Key? key, required this.base, required this.onTap, required this.onEdit, required this.onSwitch, required this.onDeleteTap, required this.active}) : super(key: key);
+  const BaseEmployeeItem({Key? key, required this.base, required this.onTap, required this.onEdit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +86,7 @@ class BaseItem extends StatelessWidget {
                                       SizedBox(
                                         width: screenWidth * 0.6,
                                         child: Text(
-                                          base.ownerName!,
+                                          base["name"],
                                           style: AppTypographies.styBlack11W400,
                                           maxLines: 2,
                                         ),
@@ -98,28 +96,10 @@ class BaseItem extends StatelessWidget {
                                           SizedBox(
                                             width: screenWidth * 0.45,
                                             child: Text(
-                                              base.email!,
+                                              base["email"],
                                               style: AppTypographies.styBlack11W400,
                                               maxLines: 2,
                                             ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                base.shareStatus!,
-                                                style: base.shareStatus! == "owner" ? AppTypographies.styGreen11W400 : AppTypographies.styOrange11W400,
-                                                maxLines: 2,
-                                              ),
-                                              Text(" - ${base.baseStatus}",
-                                                  style: TextStyle(
-                                                      color: base.baseStatus == "Ready"
-                                                          ? Colors.green
-                                                          : base.baseStatus == "Close"
-                                                              ? Colors.red
-                                                              : Colors.black,
-                                                      fontSize: 11.sp,
-                                                      fontWeight: FontWeight.w400))
-                                            ],
                                           ),
                                         ],
                                       ),
@@ -128,23 +108,6 @@ class BaseItem extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
-                          Row(
-                            children: [
-                              SmallIconButton(
-                                icon: Container(
-                                  height: 36,
-                                  width: 36,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(18),
-                                    color: AppColors.black.withOpacity(0.05),
-                                  ),
-                                  child: active ? const Icon(FlutterRemix.stop_fill) : const Icon(FlutterRemix.play_fill),
-                                ),
-                                onPressed: onSwitch,
-                              ),
-                              IconButton(onPressed: onEdit, icon: const Icon(FlutterRemix.file_2_line)),
-                            ],
                           ),
                         ],
                       ),
@@ -165,11 +128,11 @@ class BaseItem extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: screenWidth * 0.425,
-                            child: upAndDown(base.moneyWallet!, "Công nợ"),
+                            child: upAndDown(base["money"]!, "Công nợ"),
                           ),
                           SizedBox(
                             width: screenWidth * 0.425,
-                            child: Text("Số đơn hàng: ${base.ticketsNum}"),
+                            child: Text("Số đơn hàng: ${base["tickets"]}"),
                           ),
                         ],
                       ),

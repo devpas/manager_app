@@ -47,6 +47,16 @@ class BaseNotifier extends StateNotifier<BaseState> {
     );
   }
 
+  Future<void> fetchListBaseEmployee() async {
+    state = state.copyWith(baseLoading: true);
+    final response = await _baseRepository.getListBaseEmployee();
+    if (response["msg"] == "get list base employee success") {
+      state = state.copyWith(baseEmployees: response["data"]);
+    } else {
+      print(response);
+    }
+  }
+
   void updateBaseSelected(int index) {
     state = state.copyWith(baseSelected: index);
   }

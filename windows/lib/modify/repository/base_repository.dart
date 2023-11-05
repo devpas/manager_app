@@ -17,4 +17,6 @@ abstract class BaseRepository {
   Future<dynamic> addPrinter(dynamic printerData);
   Future<dynamic> updatePrinter(dynamic printerData);
   Future<dynamic> deletePrinter(int printerId);
+  Future<dynamic> getListBaseEmployee();
+  Future<dynamic> checkExpireFileLargeData();
 }
