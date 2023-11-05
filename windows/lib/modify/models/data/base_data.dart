@@ -11,6 +11,9 @@ class BaseData {
     String? address,
     String? keyAccess,
     String? shareStatus,
+    int? warehouseId,
+    double? moneyWallet,
+    int? ticketsNum,
     List<dynamic>? properties,
     List<RoleBlockData>? listRoleBlock,
     List<BaseData>? children,
@@ -24,6 +27,9 @@ class BaseData {
     _address = address;
     _keyAccess = keyAccess;
     _shareStatus = shareStatus;
+    _warehouseId = warehouseId;
+    _moneyWallet = moneyWallet;
+    _ticketsNum = ticketsNum;
     _properties = properties;
     _listRoleBlock = listRoleBlock;
     _children = children;
@@ -37,6 +43,9 @@ class BaseData {
     _baseStatus = json['base_status'];
     _baseType = json['base_type'];
     _address = json['address'];
+    _warehouseId = json['warehouse_id'];
+    _moneyWallet = double.parse(json['money_wallet'].toString());
+    _ticketsNum = json['tickets_num'];
     _keyAccess = json['key_access'];
     _shareStatus = json['share_status'];
     if (json['properties'] != null) {
@@ -70,6 +79,9 @@ class BaseData {
   String? _address;
   String? _keyAccess;
   String? _shareStatus;
+  int? _warehouseId;
+  double? _moneyWallet;
+  int? _ticketsNum;
   List<dynamic>? _properties;
   List<RoleBlockData>? _listRoleBlock;
   List<BaseData>? _children;
@@ -84,6 +96,9 @@ class BaseData {
     String? address,
     String? keyAccess,
     String? shareStatus,
+    int? warehouseId,
+    double? moneyWallet,
+    int? ticketsNum,
     List<dynamic>? properties,
     List<RoleBlockData>? listRoleBlock,
     List<BaseData>? children,
@@ -98,6 +113,9 @@ class BaseData {
         address: address ?? _address,
         keyAccess: keyAccess ?? _keyAccess,
         shareStatus: shareStatus ?? _shareStatus,
+        warehouseId: warehouseId ?? _warehouseId,
+        moneyWallet: moneyWallet ?? _moneyWallet,
+        ticketsNum: ticketsNum ?? _ticketsNum,
         properties: properties ?? _properties,
         listRoleBlock: listRoleBlock ?? _listRoleBlock,
         children: children ?? _children,
@@ -121,6 +139,12 @@ class BaseData {
 
   String? get shareStatus => _shareStatus;
 
+  int? get warehouseId => _warehouseId;
+
+  double? get moneyWallet => _moneyWallet;
+
+  int? get ticketsNum => _ticketsNum;
+
   List<dynamic>? get properties => _properties;
 
   List<RoleBlockData>? get listRoleBlock => _listRoleBlock;
@@ -138,6 +162,9 @@ class BaseData {
     map['address'] = _address;
     map['key_access'] = _keyAccess;
     map['share_status'] = _shareStatus;
+    map['warehouse_id'] = _warehouseId;
+    map['money_wallet'] = _moneyWallet;
+    map['tickets_num'] = _ticketsNum;
     map['properties'] = properties;
     map['role-block'] = _listRoleBlock;
     if (_children != null) {

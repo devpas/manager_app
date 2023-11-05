@@ -14,6 +14,41 @@ class BaseItem extends StatelessWidget {
   final Function() onDeleteTap;
   final bool active;
 
+  Widget upAndDown(double parameter, String title) {
+    if (parameter > 0) {
+      return Row(
+        children: [
+          Text(
+            "${title}: ",
+          ),
+          const Icon(
+            Icons.arrow_upward,
+            color: AppColors.greenMain,
+            size: 18,
+          ),
+          Text(
+            parameter.toString(),
+            style: const TextStyle(color: AppColors.greenMain),
+          )
+        ],
+      );
+    } else if (parameter < 0) {
+      return Row(
+        children: [
+          Text(title),
+          const Icon(
+            Icons.arrow_downward,
+            color: AppColors.red,
+            size: 18,
+          ),
+          Text(parameter.toString())
+        ],
+      );
+    } else {
+      return Text("$title: ${parameter.toString()}");
+    }
+  }
+
   const BaseItem({Key? key, required this.base, required this.onTap, required this.onEdit, required this.onSwitch, required this.onDeleteTap, required this.active}) : super(key: key);
 
   @override
@@ -130,30 +165,30 @@ class BaseItem extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: screenWidth * 0.425,
-                            child: const Text("thu vào: 66,110,100,443.4"),
+                            child: upAndDown(base.moneyWallet!, "Công nở"),
                           ),
                           SizedBox(
                             width: screenWidth * 0.425,
-                            child: const Text("xuất ra: 44,110,100,443.4"),
+                            child: Text("Số đơn hàng: ${base.ticketsNum}"),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 3),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: screenWidth * 0.425,
-                            child: const Text("Công nợ: 555,666,333.4"),
-                          ),
-                          SizedBox(
-                            width: screenWidth * 0.425,
-                            child: const Text("Số đơn hàng: 200,500"),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(bottom: 3),
+                    //   child: Row(
+                    //     children: [
+                    //       SizedBox(
+                    //         width: screenWidth * 0.425,
+                    //         child: const Text("Công nợ: 555,666,333.4"),
+                    //       ),
+                    //       SizedBox(
+                    //         width: screenWidth * 0.425,
+                    //         child: const Text("Số đơn hàng: 200,500"),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

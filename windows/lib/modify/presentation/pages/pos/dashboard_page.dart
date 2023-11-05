@@ -535,7 +535,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                     notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!);
                                                   },
                                                   child: ProductsProductItemPOS(
-                                                    selectWarehouseId: stateProducts.warehouseSelected["id"],
+                                                    selectWarehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
                                                     product: product,
                                                   ),
                                                 );
@@ -787,7 +787,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                       height: 550,
                                       child: PayInfoModal(
                                         totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
-                                        warehouseId: stateProducts.warehouseSelected["id"],
+                                        warehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
                                         reason: reasonSelected,
                                       ));
                                 },

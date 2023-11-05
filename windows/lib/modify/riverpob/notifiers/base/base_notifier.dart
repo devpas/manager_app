@@ -190,7 +190,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
     // }
     LocalStorage.instance.setShareMode(true);
     LocalStorage.instance.setKeyAccessShare(base.keyAccess!);
-    var baseInfomation = {"base_name": base.baseName, "owner_name": base.ownerName, "email": base.email, "phone": base.phone, "address": base.address, "base_type": base.baseType};
+    var baseInfomation = {"base_name": base.baseName, "owner_name": base.ownerName, "email": base.email, "phone": base.phone, "address": base.address, "base_type": base.baseType, "warehouse_id": base.warehouseId, "money_wallet": base.moneyWallet, "ticket_num": base.ticketsNum};
     LocalStorage.instance.setBaseInfomation(jsonEncode(baseInfomation));
     state = state.copyWith(baseInfomation: baseInfomation);
     setAccessRoleBlock(base.listRoleBlock!);
