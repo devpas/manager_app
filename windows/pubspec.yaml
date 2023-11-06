@@ -39,6 +39,7 @@ dependencies:
   uuid: ^3.0.6
   restart_app:
   marquee: ^2.2.3
+  widgets_to_image: ^0.0.2
   
 
 dev_dependencies:

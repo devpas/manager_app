@@ -783,13 +783,11 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                 isScrollControlled: true,
                                 context: context,
                                 builder: (context) {
-                                  return SizedBox(
-                                      height: 550,
-                                      child: PayInfoModal(
-                                        totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
-                                        warehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
-                                        reason: reasonSelected,
-                                      ));
+                                  return PayInfoModal(
+                                    totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
+                                    warehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
+                                    reason: reasonSelected,
+                                  );
                                 },
                               );
                             }
