@@ -83,6 +83,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
         }
         state = state.copyWith(baseRootInfomation: response["data"]["base_infomation"]);
         LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
+        await checkExpireFileLargeData();
         await getMoneyWallet("${state.baseRootInfomation["email"]}_${state.baseInfomation["email"]}");
       }
     } else {
@@ -96,16 +97,24 @@ class BaseNotifier extends StateNotifier<BaseState> {
     if (connected) {
       final response = await _baseRepository.createDataFolder();
       if (response["data"]["msg"] == "dữ liệu mới đã được tạo thành công" && response["data"]["key_access"] != "not found") {
-        state = state.copyWith(msgBase: "dữ liệu mới đã được tạo thành công");
-        Future.delayed(const Duration(milliseconds: 300), () {
-          state = state.copyWith(createDataRequest: false, baseInfomation: response["data"]["base_infomation"], baseRootInfomation: response["data"]["base_infomation"]);
-          LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
-        });
+        state = state.copyWith(createDataRequest: false, baseInfomation: response["data"]["base_infomation"], baseRootInfomation: response["data"]["base_infomation"]);
+        LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
+        await checkExpireFileLargeData();
       } else {
         state = state.copyWith(msgBase: "quá trình tạo dữ liệu đã xã ra lỗi");
       }
     } else {
       state = state.copyWith(msgBase: "không thể kết nối tới Server");
+    }
+  }
+
+  Future<void> checkExpireFileLargeData() async {
+    state = state.copyWith(msgBase: "Đang tạo dữ liệu các quí");
+    final response = await _baseRepository.checkExpireFileLargeData();
+    if (response["msg"] == "create file next year success") {
+      state = state.copyWith(msgBase: "tạo dữ liệu các quí thành công");
+    } else {
+      state = state.copyWith(msgBase: "không cần tạo dữ liệu thêm");
     }
   }
 

@@ -771,7 +771,7 @@ class BaseRepositoryImpl extends BaseRepository {
               return status! < 500;
             }),
       );
-      print(response2.data["data"]);
+      print(response2.data["msg"]);
       dataJson = json.decode(response2.toString());
     } else {
       dataJson = json.decode(response.toString());
