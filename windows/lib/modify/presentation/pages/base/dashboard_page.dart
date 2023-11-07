@@ -4,6 +4,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/base/base_provider.dart';
+import 'package:g_manager_app/modify/riverpob/providers/products/product_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../src/core/routes/app_router.gr.dart';
 import '../../theme/theme.dart';
@@ -27,6 +28,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
         ref.read(baseProvider.notifier).checkDataFolder();
         ref.read(baseProvider.notifier).checkAccessBlock();
         ref.read(baseProvider.notifier).loadPrinterActive();
+        ref.read(productsPASProvider.notifier).getListWarehouses();
       },
     );
   }

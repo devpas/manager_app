@@ -9,18 +9,19 @@ import '../../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../../src/core/utils/utils.dart';
 import '../../../../../../riverpob/providers/providers.dart';
 import '../../../../../components/components.dart';
+import '../../../../pos/pos_manage/products_manage/products/product_in_warehouse/widgets/select_warehouse_modal.dart';
 import 'sub_page/user_roles_modal_in_edit_user_pas.dart';
 
 class EditEmployeeDetailsBody extends ConsumerWidget {
   final EmployeeData? employee;
-  const EditEmployeeDetailsBody({Key? key, required this.employee})
-      : super(key: key);
+  const EditEmployeeDetailsBody({Key? key, required this.employee}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(baseProvider.notifier);
     final state = ref.watch(baseProvider);
-
+    final stateProduct = ref.watch(productsPASProvider);
+    final notifierProduct = ref.read(productsPASProvider.notifier);
     String name = employee!.name!;
     String email = employee!.email!;
     String phone = employee!.phone!;
@@ -63,35 +64,31 @@ class EditEmployeeDetailsBody extends ConsumerWidget {
             ),
             30.verticalSpace,
             SelectWithSearchButton(
+                label: "Kho hàng chỉ định",
+                onTap: () => showModalBottomSheet(
+                      context: context,
+                      builder: (context) => const SelectWarehouseModal(),
+                    ),
+                title: stateProduct.warehouseSelected["name"]),
+            30.verticalSpace,
+            SelectWithSearchButton(
               label: "Quyền truy cập",
               onTap: () => showModalBottomSheet(
                 context: context,
-                builder: (context) => UserRolesModalInEditUserPas(
-                    roleCode: employee!.listRoleBlock!
-                        .where(
-                            (element) => element.block == state.blockSelected)
-                        .first
-                        .code!),
+                builder: (context) => UserRolesModalInEditUserPas(roleCode: employee!.listRoleBlock!.where((element) => element.block == state.blockSelected).first.code!),
               ),
-              title: state.roleNameSelected != ""
-                  ? state.roleNameSelected!
-                  : employee!.listRoleBlock!
-                      .where((element) => element.block == state.blockSelected)
-                      .first
-                      .role!,
+              title: state.roleNameSelected != "" ? state.roleNameSelected! : employee!.listRoleBlock!.where((element) => element.block == state.blockSelected).first.role!,
             ),
-            170.verticalSpace,
+            100.verticalSpace,
             CommonAccentButton(
               title: AppHelpers.getTranslation(TrKeys.save),
               onPressed: () {
                 if (state.roleCodeSelected == "") {
-                  String roleCode = employee!.listRoleBlock!
-                      .where((element) => element.block == state.blockSelected)
-                      .first
-                      .code!;
+                  String roleCode = employee!.listRoleBlock!.where((element) => element.block == state.blockSelected).first.code!;
                   notifier.updateRoleCodeSelected(roleCode);
                 }
-                notifier.updateEmployee(name, email, phone);
+                int warehouseId = stateProduct.warehouseSelected["id"];
+                notifier.updateEmployee(name, email, phone, warehouseId);
                 context.popRoute();
               },
               isLoading: state.employeesLoading!,

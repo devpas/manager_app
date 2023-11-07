@@ -9,6 +9,7 @@ import '../../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../../src/core/utils/utils.dart';
 import '../../../../../../../../src/riverpod/providers/providers.dart';
 import '../../../../../../../src/presentation/components/components.dart';
+import '../../../../../../riverpob/providers/providers.dart';
 import 'add_employee_details_body.dart';
 
 class AddEmployeePage extends ConsumerStatefulWidget {
@@ -23,8 +24,7 @@ class AddEmployeePage extends ConsumerStatefulWidget {
   ConsumerState<AddEmployeePage> createState() => _AddEmployeeState();
 }
 
-class _AddEmployeeState extends ConsumerState<AddEmployeePage>
-    with TickerProviderStateMixin {
+class _AddEmployeeState extends ConsumerState<AddEmployeePage> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override

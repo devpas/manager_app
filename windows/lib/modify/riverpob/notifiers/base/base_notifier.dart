@@ -118,7 +118,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
     }
   }
 
-  Future<void> addEmployee(String name, String email, String phone) async {
+  Future<void> addEmployee(String name, String email, String phone, int warehouseId) async {
     print("$name , $email , $phone");
     if (name == "" || email == "" || phone == "") {
       state = state.copyWith(noteAddEmployee: "Xin nhập đầy đủ thông tin");
@@ -127,6 +127,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
         "name": name,
         "email": email,
         "phone": "'$phone",
+        "warehouse_id": warehouseId,
         "role-block": [
           {"block": state.blockSelected, "role": state.roleNameSelected, "code": state.roleCodeSelected}
         ],
@@ -149,11 +150,12 @@ class BaseNotifier extends StateNotifier<BaseState> {
     }
   }
 
-  Future<void> updateEmployee(String name, String email, String phone) async {
+  Future<void> updateEmployee(String name, String email, String phone, int warehouseId) async {
     var dataEmployee = {
       "name": name,
       "email": email,
       "phone": "'$phone",
+      "warehouse_id": warehouseId,
       "role-block": [
         {"block": state.blockSelected, "role": state.roleNameSelected, "code": state.roleCodeSelected}
       ],
@@ -546,5 +548,24 @@ class BaseNotifier extends StateNotifier<BaseState> {
       print(state.printerSelected["address"]);
       FlutterBluetoothPrinter.printBytes(address: state.printerSelected["address"], data: data, keepConnected: true);
     }
+  }
+
+  bool checkEditByRolePos(String feature) {
+    List<String> listFeature = ["maxDebt"];
+    bool edit = false;
+    if (checkShareMode()) {
+      String roleName = getRoleCode().where((e) => e.contains("pos-")).first;
+      if (roleName == "pos-admin" && listFeature.contains(feature)) {
+        edit = true;
+      } else if (roleName == "pos-manage" && listFeature.contains(feature)) {
+        edit = true;
+      } else if (roleName == "pos-seller" && listFeature.contains(feature)) {
+        edit = false;
+      } else if (roleName == "pos-delivery" && listFeature.contains(feature)) {
+        edit = false;
+      }
+    }
+
+    return edit;
   }
 }

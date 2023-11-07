@@ -36,6 +36,7 @@ class BaseData {
   }
 
   BaseData.fromJson(dynamic json) {
+    print(json);
     _baseName = json['base_name'];
     _ownerName = json['owner_name'];
     _email = json['email'];
@@ -45,7 +46,8 @@ class BaseData {
     _address = json['address'];
     _warehouseId = json['warehouse_id'];
     _moneyWallet = double.parse(json['money_wallet'].toString());
-    _ticketsNum = json['tickets_num'];
+    _ticketsNum = int.parse(json['tickets_num'].toString());
+    print(_ticketsNum);
     _keyAccess = json['key_access'];
     _shareStatus = json['share_status'];
     if (json['properties'] != null) {

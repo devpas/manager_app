@@ -259,6 +259,11 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(warehouseSelected: warehouse);
   }
 
+  void loadWarehouseSelected(int warehouseId) {
+    var warehouse = state.warehouse!.where((warehouse) => warehouse["id"] == warehouseId).first;
+    state = state.copyWith(warehouseSelected: warehouse);
+  }
+
   Future<void> updateStockLimit(dynamic stockData) async {
     state = state.copyWith(updateStockLoading: true);
     final response = await _productsPASRepository.updateStockLimit(stockData);

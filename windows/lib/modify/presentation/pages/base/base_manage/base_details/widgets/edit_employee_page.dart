@@ -10,6 +10,7 @@ import '../../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../../src/core/utils/utils.dart';
 import '../../../../../../../../src/riverpod/providers/providers.dart';
 import '../../../../../../../src/presentation/components/components.dart';
+import '../../../../../../riverpob/providers/providers.dart';
 import 'add_employee_details_body.dart';
 import 'edit_employee_details_body.dart';
 
@@ -23,8 +24,7 @@ class EditEmployeePage extends ConsumerStatefulWidget {
   ConsumerState<EditEmployeePage> createState() => _EditEmployeeState(employee);
 }
 
-class _EditEmployeeState extends ConsumerState<EditEmployeePage>
-    with TickerProviderStateMixin {
+class _EditEmployeeState extends ConsumerState<EditEmployeePage> with TickerProviderStateMixin {
   late EmployeeData? employee;
 
   late TabController _tabController;
@@ -37,7 +37,9 @@ class _EditEmployeeState extends ConsumerState<EditEmployeePage>
     _tabController = TabController(length: 4, vsync: this);
     Future.delayed(
       Duration.zero,
-      () {},
+      () {
+        ref.read(productsPASProvider.notifier).loadWarehouseSelected(employee!.warehouseId!);
+      },
     );
   }
 

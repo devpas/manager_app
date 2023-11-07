@@ -253,6 +253,8 @@ class _UpdateCustomerPasPageState extends ConsumerState<UpdateCustomerPasPage> w
   }
 
   Widget mainTab(ProductsPasState state) {
+    final stateBase = ref.watch(baseProvider);
+    final notifierBase = ref.read(baseProvider.notifier);
     final notifier = ref.read(customersProvider.notifier);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -442,18 +444,21 @@ class _UpdateCustomerPasPageState extends ConsumerState<UpdateCustomerPasPage> w
               Row(
                 children: [
                   Expanded(
-                      child: CommonInputField(
-                    initialValue: customer.maxDebt.toString(),
-                    label: "Nợ tối đa",
-                    onChanged: (v) {
-                      setState(() {
-                        if (v.isNotEmpty) {
-                          customer = customer.copyWith(maxDebt: double.parse(v));
-                        }
-                      });
-                    },
-                    inputType: TextInputType.number,
-                    inputAction: TextInputAction.next,
+                      child: AbsorbPointer(
+                    absorbing: notifierBase.checkEditByRolePos("maxDebt") ? true : false,
+                    child: CommonInputField(
+                      initialValue: customer.maxDebt.toString(),
+                      label: "Nợ tối đa",
+                      onChanged: (v) {
+                        setState(() {
+                          if (v.isNotEmpty) {
+                            customer = customer.copyWith(maxDebt: double.parse(v));
+                          }
+                        });
+                      },
+                      inputType: TextInputType.number,
+                      inputAction: TextInputAction.next,
+                    ),
                   )),
                   10.horizontalSpace,
                   Expanded(
