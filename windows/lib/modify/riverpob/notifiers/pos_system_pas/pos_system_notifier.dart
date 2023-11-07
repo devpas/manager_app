@@ -407,4 +407,12 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     bytes += ticket.cut();
     return bytes;
   }
+
+  Future<void> sendEmailReceipt(recceipt) async {
+    final response = await _ticketsRepository.sendEmailReceipt(recceipt);
+    if (response["msg"] == "send email success") {
+    } else {
+      print(response);
+    }
+  }
 }

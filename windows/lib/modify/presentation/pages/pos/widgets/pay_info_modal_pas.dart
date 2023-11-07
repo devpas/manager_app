@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
+import 'package:g_manager_app/src/core/di/dependency_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 
@@ -49,7 +51,6 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
   _PayInfoModalState(this.totalMoneyFromTicket, this.warehouseId, this.reason);
 
   WidgetsToImageController controller = WidgetsToImageController();
-  Uint8List? bytes;
 
   @override
   void initState() {
@@ -495,6 +496,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(posSystemPASProvider.notifier);
+    final notifierPos = ref.read(posSystemPASProvider.notifier);
     final notifierProducts = ref.read(productsPASProvider.notifier);
     final stateCustomer = ref.watch(customersProvider);
     final notifierCustomer = ref.read(customersProvider.notifier);
@@ -575,8 +577,8 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           height: 40,
                           width: 100,
                           onPressed: () async {
+                            Uint8List? bytes = await controller.capture();
                             String keyEmail = "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}";
-                            // Image.memory(bytes!);
                             if (tabActive == 0) {
                               context.popRoute();
                               await notifier.createOrder(totalMoney, reason, warehouseId, "cash", keyEmail);
@@ -589,6 +591,11 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                               await notifierProducts.fetchProductsPos();
                               await notifierCustomer.fetchListCustomers();
                               notifierCustomer.selectCustomer(stateCustomer.customerSelected!.id!);
+                            }
+                            if (stateCustomer.customerSelected!.email != "") {
+                              String customerEmail = stateCustomer.customerSelected!.email!;
+                              var receiptData = {"image_base64": base64Encode(bytes!).toString(), "customer_email": customerEmail};
+                              await notifierPos.sendEmailReceipt(receiptData);
                             }
                             // ignore: use_build_context_synchronously
                           })
