@@ -445,7 +445,7 @@ class _UpdateCustomerPasPageState extends ConsumerState<UpdateCustomerPasPage> w
                 children: [
                   Expanded(
                       child: AbsorbPointer(
-                    absorbing: notifierBase.checkEditByRolePos("maxDebt") ? true : false,
+                    absorbing: notifierBase.checkEditByRolePos("maxDebt") ? false : true,
                     child: CommonInputField(
                       initialValue: customer.maxDebt.toString(),
                       label: "Nợ tối đa",

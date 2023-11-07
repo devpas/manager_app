@@ -566,6 +566,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
       }
     }
 
+    print(edit);
+
     return edit;
   }
 }
