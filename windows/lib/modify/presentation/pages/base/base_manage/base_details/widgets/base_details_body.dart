@@ -16,8 +16,7 @@ class BaseDetailsBody extends ConsumerWidget {
   final OpenEditUserFrom from;
   final BaseData base;
 
-  const BaseDetailsBody({Key? key, required this.from, required this.base})
-      : super(key: key);
+  const BaseDetailsBody({Key? key, required this.from, required this.base}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -72,7 +71,7 @@ class BaseDetailsBody extends ConsumerWidget {
                     title: "Trồng trọt",
                   ),
                   170.verticalSpace,
-                  base!.shareStatus == "owner"
+                  base.shareStatus == "owner"
                       ? CommonAccentButton(
                           title: AppHelpers.getTranslation(TrKeys.save),
                           onPressed: () {},

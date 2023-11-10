@@ -339,8 +339,11 @@ class BaseRepositoryImpl extends BaseRepository {
   Future<ApiResult<EmployeeResponse>> getListEmplyees() async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     final data = {
-      "access_id": "",
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
     };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
     final client = inject<HttpServiceAppscript>().client(requireAuth: false);
     final response = await client.post(
       '?api=base/getListEmployees',

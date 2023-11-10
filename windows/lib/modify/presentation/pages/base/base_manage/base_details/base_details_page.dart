@@ -29,8 +29,7 @@ class BaseDetailsPage extends ConsumerStatefulWidget {
   ConsumerState<BaseDetailsPage> createState() => _BaseDetailsPageState(base);
 }
 
-class _BaseDetailsPageState extends ConsumerState<BaseDetailsPage>
-    with TickerProviderStateMixin {
+class _BaseDetailsPageState extends ConsumerState<BaseDetailsPage> with TickerProviderStateMixin {
   late TabController _tabController;
 
   late BaseData? base;
@@ -47,7 +46,7 @@ class _BaseDetailsPageState extends ConsumerState<BaseDetailsPage>
     if (base!.shareStatus == "owner") {
       _tabController = TabController(length: 4, vsync: this);
     } else {
-      _tabController = TabController(length: 2, vsync: this);
+      _tabController = TabController(length: 3, vsync: this);
     }
     tabBase();
     Future.delayed(
@@ -76,10 +75,12 @@ class _BaseDetailsPageState extends ConsumerState<BaseDetailsPage>
       setState(() {
         listTabName = [
           const Tab(text: "Cơ sở"),
+          const Tab(text: "Nhân sự"),
           const Tab(text: "Địa điểm"),
         ];
         listTab = [
           BaseDetailsBody(from: widget.from, base: base!),
+          const BaseListEmployee(),
           BaseAddressItem(base: base!),
         ];
       });
