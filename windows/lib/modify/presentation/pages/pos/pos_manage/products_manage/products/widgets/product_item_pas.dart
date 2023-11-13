@@ -40,51 +40,63 @@ class ProductItemPas extends StatelessWidget {
           color: AppColors.white,
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                children: [
-                  CommonImage(
-                    imageUrl: product.image,
-                    radius: 10,
-                    width: 72,
-                    height: 72,
+            child: Row(
+              children: [
+                Container(
+                  width: 4,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: product.active == 1 ? AppColors.greenMain : AppColors.totalPanelGradient1,
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
                   ),
-                  18.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${product.name}',
-                          style: AppTypographies.styBlack14W400,
-                          maxLines: 2,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              price,
-                              style: AppTypographies.styBlack16W700,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SmallIconButton(
-                                  icon: Container(
-                                    height: 36,
-                                    width: 36,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18),
-                                      color: AppColors.black.withOpacity(0.05),
-                                    ),
-                                    child: product.active == 1 ? Icon(FlutterRemix.eye_fill) : Icon(FlutterRemix.eye_close_fill),
+                ),
+                CommonImage(
+                  imageUrl: product.image,
+                  radius: 10,
+                  width: 72,
+                  height: 72,
+                ),
+                18.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${product.name}',
+                        style: AppTypographies.styBlack14W400,
+                        maxLines: 2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            price,
+                            style: AppTypographies.styBlack16W700,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SmallIconButton(
+                                icon: Container(
+                                  height: 36,
+                                  width: 36,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(18),
+                                    color: AppColors.black.withOpacity(0.05),
                                   ),
-                                  onPressed: () {},
+                                  padding: const EdgeInsets.all(8),
+                                  child: SvgPicture.asset(AppAssets.svgIcEdit),
                                 ),
-                                SmallIconButton(
+                                onPressed: onTap,
+                              ),
+                              AbsorbPointer(
+                                absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
+                                child: SmallIconButton(
                                   icon: Container(
                                     height: 36,
                                     width: 36,
@@ -93,38 +105,22 @@ class ProductItemPas extends StatelessWidget {
                                       color: AppColors.black.withOpacity(0.05),
                                     ),
                                     padding: const EdgeInsets.all(8),
-                                    child: SvgPicture.asset(AppAssets.svgIcEdit),
-                                  ),
-                                  onPressed: onTap,
-                                ),
-                                AbsorbPointer(
-                                  absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
-                                  child: SmallIconButton(
-                                    icon: Container(
-                                      height: 36,
-                                      width: 36,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(18),
-                                        color: AppColors.black.withOpacity(0.05),
-                                      ),
-                                      padding: const EdgeInsets.all(8),
-                                      child: SvgPicture.asset(
-                                        AppAssets.svgIcDelete,
-                                        color: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
-                                      ),
+                                    child: SvgPicture.asset(
+                                      AppAssets.svgIcDelete,
+                                      color: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
                                     ),
-                                    onPressed: onDeleteTap,
                                   ),
+                                  onPressed: onDeleteTap,
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ),

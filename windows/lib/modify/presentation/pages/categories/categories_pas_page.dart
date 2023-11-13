@@ -9,9 +9,9 @@ import 'package:g_manager_app/modify/riverpob/providers/categories/category_prov
 
 import '../../../../src/core/routes/app_router.gr.dart';
 import '../../../../src/core/utils/utils.dart';
-import '../../../../src/riverpod/providers/providers.dart';
 import '../../../../modify/presentation/components/components.dart';
 import '../../../../modify/presentation/theme/theme.dart';
+import '../../../riverpob/providers/providers.dart';
 import 'add/widgets/w_category_item.dart';
 import 'widgets/w_delete_category_dialog.dart';
 import 'widgets/categories_actions.dart';
@@ -55,6 +55,8 @@ class _CategoriesPasPageState extends ConsumerState<CategoriesPasPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(categoriesPASProvider);
+
+    final notifierBase = ref.read(baseProvider.notifier);
     return AbsorbPointer(
       absorbing: false,
       child: Scaffold(
@@ -100,6 +102,7 @@ class _CategoriesPasPageState extends ConsumerState<CategoriesPasPage> {
                       itemBuilder: (context, index) {
                         final category = state.categories![index];
                         return WCategoryItem(
+                          userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
                           category: category,
                           onEditTap: () async {
                             context.pushRoute(

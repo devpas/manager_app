@@ -20,8 +20,7 @@ import 'widgets/search_category_modal_in_edit_category.dart';
 class EditCategoryPasPage extends ConsumerStatefulWidget {
   final CategoryPasData category;
 
-  const EditCategoryPasPage({Key? key, required this.category})
-      : super(key: key);
+  const EditCategoryPasPage({Key? key, required this.category}) : super(key: key);
 
   @override
   ConsumerState<EditCategoryPasPage> createState() =>
@@ -50,13 +49,7 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
         if (category.parentId != -1) {
           setState(() {
             categoriesSearch = ref.watch(categoriesPASProvider).categories;
-            parentCategoryName = ref
-                .watch(categoriesPASProvider)
-                .categories!
-                .where((e) => e.id == category.parentId)
-                .toList()
-                .first
-                .name!;
+            parentCategoryName = ref.watch(categoriesPASProvider).categories!.where((e) => e.id == category.parentId).toList().first.name!;
           });
         }
       },
@@ -131,8 +124,7 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                           TextFormField(
                             textCapitalization: TextCapitalization.sentences,
                             onChanged: (e) {
-                              categoryAfterEdit =
-                                  categoryAfterEdit!.copyWith(name: e);
+                              categoryAfterEdit = categoryAfterEdit!.copyWith(name: e);
                             },
                             initialValue: categoryAfterEdit!.name,
                             style: GoogleFonts.inter(
@@ -142,8 +134,7 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                               color: AppColors.black,
                             ),
                             decoration: InputDecoration(
-                              hintText:
-                                  AppHelpers.getTranslation(TrKeys.inputName),
+                              hintText: AppHelpers.getTranslation(TrKeys.inputName),
                               hintStyle: GoogleFonts.inter(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16,
@@ -154,19 +145,14 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                           ),
                           30.verticalSpace,
                           SelectWithSearchButton(
-                            label: AppHelpers.getTranslation(
-                                TrKeys.parentCategory),
-                            title: categoryAfterEdit!.parentId == -1
-                                ? "Chọn danh mục cấp trên"
-                                : parentCategoryName,
+                            label: AppHelpers.getTranslation(TrKeys.parentCategory),
+                            title: categoryAfterEdit!.parentId == -1 ? "Chọn danh mục cấp trên" : parentCategoryName,
                             onTap: () {
                               categoriesSearch = state.categories!;
                               showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
-                                    return StatefulBuilder(builder:
-                                        (BuildContext context,
-                                            StateSetter setModelState) {
+                                    return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
                                       return Material(
                                         color: AppColors.mainBackground,
                                         child: Container(
@@ -174,9 +160,7 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                                             top: 20,
                                             left: 15,
                                             right: 15,
-                                            bottom: MediaQuery.of(context)
-                                                .viewInsets
-                                                .bottom,
+                                            bottom: MediaQuery.of(context).viewInsets.bottom,
                                           ),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
@@ -184,31 +168,18 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                                               SearchTextField(
                                                 onChanged: (v) {
                                                   setModelState(() {
-                                                    categoriesSearch = state
-                                                        .categories!
-                                                        .where((e) => e.name!
-                                                            .toLowerCase()
-                                                            .contains(v
-                                                                .toLowerCase()))
-                                                        .toList();
+                                                    categoriesSearch = state.categories!.where((e) => e.name!.toLowerCase().contains(v.toLowerCase())).toList();
                                                   });
                                                 },
-                                                hintText:
-                                                    AppHelpers.getTranslation(
-                                                        TrKeys.searchCategory),
+                                                hintText: AppHelpers.getTranslation(TrKeys.searchCategory),
                                               ),
                                               10.verticalSpace,
                                               SearchedItem(
-                                                title:
-                                                    AppHelpers.getTranslation(
-                                                        TrKeys.noCategory),
+                                                title: AppHelpers.getTranslation(TrKeys.noCategory),
                                                 isSelected: false,
                                                 onTap: () {
                                                   setState(() {
-                                                    categoryAfterEdit =
-                                                        categoryAfterEdit!
-                                                            .copyWith(
-                                                                parentId: -1);
+                                                    categoryAfterEdit = categoryAfterEdit!.copyWith(parentId: -1);
                                                   });
 
                                                   // notifier.setSelectedParentId(0);
@@ -219,38 +190,22 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                                               ),
                                               Expanded(
                                                 child: ListView.builder(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 10),
-                                                  physics:
-                                                      const CustomBouncingScrollPhysics(),
-                                                  itemCount:
-                                                      categoriesSearch!.length,
+                                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                                  physics: const CustomBouncingScrollPhysics(),
+                                                  itemCount: categoriesSearch!.length,
                                                   shrinkWrap: true,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    final parentCategory =
-                                                        categoriesSearch![
-                                                            index];
+                                                  itemBuilder: (context, index) {
+                                                    final parentCategory = categoriesSearch![index];
                                                     return SearchedItem(
-                                                      title:
-                                                          '${parentCategory.name}',
+                                                      title: '${parentCategory.name}',
                                                       isSelected: false,
                                                       onTap: () {
                                                         setState(() {
-                                                          categoryAfterEdit =
-                                                              categoryAfterEdit!
-                                                                  .copyWith(
-                                                                      parentId:
-                                                                          parentCategory
-                                                                              .id);
-                                                          parentCategoryName =
-                                                              parentCategory
-                                                                  .name!;
+                                                          categoryAfterEdit = categoryAfterEdit!.copyWith(parentId: parentCategory.id);
+                                                          parentCategoryName = parentCategory.name!;
                                                         });
-                                                        print(categoryAfterEdit!
-                                                            .parentId);
-                                                        print(
-                                                            parentCategoryName);
+                                                        print(categoryAfterEdit!.parentId);
+                                                        print(parentCategoryName);
                                                         Navigator.pop(context);
                                                       },
                                                     );
@@ -281,22 +236,18 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                               RoundedCheckBox(
                                 value: category.active == 1 ? true : false,
                                 onChanged: (value) {
-                                  category.copyWith(
-                                      active: value == true ? 1 : 0);
+                                  setState(() {
+                                    category = category.copyWith(active: value == true ? 1 : 0);
+                                  });
                                 },
                               ),
                               10.horizontalSpace,
                               Text(
-                                category.active == 1
-                                    ? AppHelpers.getTranslation(TrKeys.active)
-                                    : AppHelpers.getTranslation(
-                                        TrKeys.inactive),
+                                category.active == 1 ? AppHelpers.getTranslation(TrKeys.active) : AppHelpers.getTranslation(TrKeys.inactive),
                                 style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,
-                                  color: category.active == 1
-                                      ? AppColors.black
-                                      : AppColors.black.withOpacity(0.5),
+                                  color: category.active == 1 ? AppColors.black : AppColors.black.withOpacity(0.5),
                                 ),
                               ),
                             ],
@@ -309,17 +260,10 @@ class _EditCategoryPasPageState extends ConsumerState<EditCategoryPasPage> {
                               if (categoryAfterEdit!.name != "") {
                                 var base64 = "";
                                 if (image != null) {
-                                  final bytes =
-                                      File(image!.path).readAsBytesSync();
+                                  final bytes = File(image!.path).readAsBytesSync();
                                   base64 = base64Encode(bytes);
                                 }
-                                var dataCategory = {
-                                  "id": categoryAfterEdit!.id,
-                                  "name": categoryAfterEdit!.name,
-                                  "parent_id": categoryAfterEdit!.parentId,
-                                  "image": base64,
-                                  "active": categoryAfterEdit!.active
-                                };
+                                var dataCategory = {"id": categoryAfterEdit!.id, "name": categoryAfterEdit!.name, "parent_id": categoryAfterEdit!.parentId, "image": base64, "active": categoryAfterEdit!.active};
                                 notifier.updateCategory(dataCategory);
                                 context.popRoute();
                               }
