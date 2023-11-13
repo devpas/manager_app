@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import '../../../../../../models/data/product_data.dart';
 import '../../../../../theme/theme.dart';
 import '../../../../../components/components.dart';
-import '../../../pos_manage/products_manage/products/widgets/products_product_item_pos.dart';
+import '../products/widgets/product_item_pos.dart';
 import '../../../widgets/product_short_infomation_modal.dart';
 import '../products/widgets/products_filter_modal.dart';
 import 'stock_diary/widgets/select_with_option_mini_button.dart';
@@ -466,7 +466,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                                         notifierPos.moveProductTicketline(product, statePos.selectTicket, selectWarehouseId);
                                                       }
                                                     },
-                                                    child: ProductsProductItemPOS(
+                                                    child: ProductItemPOS(
                                                       selectWarehouseId: selectWarehouseId,
                                                       product: product,
                                                     ),

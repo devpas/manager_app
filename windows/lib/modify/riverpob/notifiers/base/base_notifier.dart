@@ -128,6 +128,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
         "email": email,
         "phone": "'$phone",
         "warehouse_id": warehouseId,
+        "email_base_owner": state.baseInfomation["email"],
         "role-block": [
           {"block": state.blockSelected, "role": state.roleNameSelected, "code": state.roleCodeSelected}
         ],
@@ -151,11 +152,13 @@ class BaseNotifier extends StateNotifier<BaseState> {
   }
 
   Future<void> updateEmployee(String name, String email, String phone, int warehouseId) async {
+    print(state.baseInfomation["email"]);
     var dataEmployee = {
       "name": name,
       "email": email,
       "phone": "'$phone",
       "warehouse_id": warehouseId,
+      "email_base_owner": state.baseInfomation["email"],
       "role-block": [
         {"block": state.blockSelected, "role": state.roleNameSelected, "code": state.roleCodeSelected}
       ],

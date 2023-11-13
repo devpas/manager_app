@@ -4,7 +4,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/data/product_data.dart';
-import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_product_item_pas.dart';
+import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/product_item_pas.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/routes/app_router.gr.dart';
@@ -51,6 +51,7 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
+    final notifierBase = ref.read(baseProvider.notifier);
     return AbsorbPointer(
       absorbing: false,
       child: Scaffold(
@@ -132,7 +133,8 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
                             } else {
                               product = state.productsAfterFilter![index];
                             }
-                            return ProductsProductItemPas(
+                            return ProductItemPas(
+                              userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
                               product: product,
                               onTap: () async {
                                 notifier.setProductSelected(product);

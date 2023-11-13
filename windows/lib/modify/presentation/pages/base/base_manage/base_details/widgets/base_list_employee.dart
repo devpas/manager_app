@@ -12,6 +12,7 @@ import '../../../../../../../src/core/utils/utils.dart';
 import '../../../../../../../src/riverpod/providers/providers.dart';
 import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
+import 'w_delete_employee_dialog.dart';
 
 class BaseListEmployee extends ConsumerStatefulWidget {
   const BaseListEmployee({Key? key}) : super(key: key);
@@ -35,8 +36,7 @@ class _BaseListEmployeeState extends ConsumerState<BaseListEmployee> {
     _scrollController = ScrollController();
     _scrollController.addListener(
       () {
-        if (_scrollController.position.maxScrollExtent ==
-            _scrollController.position.pixels) {
+        if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
           ref.read(editUserProvider.notifier).fetchUserOrders(
             checkYourNetwork: () {
               AppHelpers.showCheckFlash(
@@ -97,21 +97,28 @@ class _BaseListEmployeeState extends ConsumerState<BaseListEmployee> {
                     children: [
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
-                        padding: REdgeInsets.only(
-                            left: 15, right: 15, top: 14, bottom: 20),
+                        padding: REdgeInsets.only(left: 15, right: 15, top: 14, bottom: 20),
                         itemCount: state.employees!.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           final employees = state.employees![index];
                           return EmployeeItem(
+                            userRole: notifier.getRoleCode().where((e) => e.contains("pos-")).first,
                             background: AppColors.mainBackground,
                             employee: employees,
                             onEdit: () {
-                              context.pushRoute(
-                                  EditEmployeeRoute(employee: employees));
+                              context.pushRoute(EditEmployeeRoute(employee: employees));
                             },
                             onDelete: () {
-                              notifier.deleteEmployee(employees.email!);
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return WDeleteEmployeeDialog(
+                                    alias: employees.email!,
+                                  );
+                                },
+                              );
                             },
                           );
                         },

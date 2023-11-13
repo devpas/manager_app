@@ -17,7 +17,7 @@ import 'package:marquee/marquee.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import '../../theme/theme.dart';
 import '../../components/components.dart';
-import 'pos_manage/products_manage/products/widgets/products_product_item_pos.dart';
+import 'pos_manage/products_manage/products/widgets/product_item_pos.dart';
 import 'pos_manage/products_manage/warehouse/stock_diary/widgets/select_with_option_mini_button.dart';
 import 'widgets/product_short_infomation_modal.dart';
 
@@ -534,7 +534,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                     }
                                                     notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!);
                                                   },
-                                                  child: ProductsProductItemPOS(
+                                                  child: ProductItemPOS(
                                                     selectWarehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
                                                     product: product,
                                                   ),

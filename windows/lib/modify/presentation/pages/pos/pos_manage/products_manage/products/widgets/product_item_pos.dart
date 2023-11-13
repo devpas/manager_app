@@ -5,12 +5,12 @@ import '../../../../../../../models/models.dart';
 import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
 
-class ProductsProductItemPOS extends StatelessWidget {
+class ProductItemPOS extends StatelessWidget {
   final ProductPasData product;
 
   final int selectWarehouseId;
 
-  const ProductsProductItemPOS({
+  const ProductItemPOS({
     Key? key,
     required this.product,
     required this.selectWarehouseId,

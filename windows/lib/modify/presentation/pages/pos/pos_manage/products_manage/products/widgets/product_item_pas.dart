@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -9,16 +10,18 @@ import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
 import '../../../../../../../../src/core/constants/constants.dart';
 
-class ProductsProductItemPas extends StatelessWidget {
+class ProductItemPas extends StatelessWidget {
   final ProductPasData product;
   final Function() onTap;
   final Function() onDeleteTap;
+  final String userRole;
 
-  const ProductsProductItemPas({
+  const ProductItemPas({
     Key? key,
     required this.product,
     required this.onTap,
     required this.onDeleteTap,
+    required this.userRole,
   }) : super(key: key);
 
   @override
@@ -37,7 +40,6 @@ class ProductsProductItemPas extends StatelessWidget {
           color: AppColors.white,
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
-            onTap: onTap,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
@@ -78,10 +80,9 @@ class ProductsProductItemPas extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(18),
                                       color: AppColors.black.withOpacity(0.05),
                                     ),
-                                    padding: const EdgeInsets.all(8),
-                                    child: SvgPicture.asset(AppAssets.svgIcEdit),
+                                    child: product.active == 1 ? Icon(FlutterRemix.eye_fill) : Icon(FlutterRemix.eye_close_fill),
                                   ),
-                                  onPressed: onTap,
+                                  onPressed: () {},
                                 ),
                                 SmallIconButton(
                                   icon: Container(
@@ -92,9 +93,28 @@ class ProductsProductItemPas extends StatelessWidget {
                                       color: AppColors.black.withOpacity(0.05),
                                     ),
                                     padding: const EdgeInsets.all(8),
-                                    child: SvgPicture.asset(AppAssets.svgIcDelete),
+                                    child: SvgPicture.asset(AppAssets.svgIcEdit),
                                   ),
-                                  onPressed: onDeleteTap,
+                                  onPressed: onTap,
+                                ),
+                                AbsorbPointer(
+                                  absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
+                                  child: SmallIconButton(
+                                    icon: Container(
+                                      height: 36,
+                                      width: 36,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        color: AppColors.black.withOpacity(0.05),
+                                      ),
+                                      padding: const EdgeInsets.all(8),
+                                      child: SvgPicture.asset(
+                                        AppAssets.svgIcDelete,
+                                        color: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
+                                      ),
+                                    ),
+                                    onPressed: onDeleteTap,
+                                  ),
                                 ),
                               ],
                             ),

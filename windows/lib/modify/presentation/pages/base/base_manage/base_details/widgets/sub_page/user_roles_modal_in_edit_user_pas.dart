@@ -14,16 +14,13 @@ import '../../../../../../theme/theme.dart';
 class UserRolesModalInEditUserPas extends ConsumerStatefulWidget {
   final String roleCode;
 
-  const UserRolesModalInEditUserPas({Key? key, required this.roleCode})
-      : super(key: key);
+  const UserRolesModalInEditUserPas({Key? key, required this.roleCode}) : super(key: key);
 
   @override
-  ConsumerState<UserRolesModalInEditUserPas> createState() =>
-      _UserRolesModalInEditUserPasState(roleCode);
+  ConsumerState<UserRolesModalInEditUserPas> createState() => _UserRolesModalInEditUserPasState(roleCode);
 }
 
-class _UserRolesModalInEditUserPasState
-    extends ConsumerState<UserRolesModalInEditUserPas> {
+class _UserRolesModalInEditUserPasState extends ConsumerState<UserRolesModalInEditUserPas> {
   final String roleCode;
 
   _UserRolesModalInEditUserPasState(this.roleCode);
@@ -66,40 +63,37 @@ class _UserRolesModalInEditUserPasState
                       ),
                     ),
                     20.verticalSpace,
-                    UserRoleItemPas(
-                        roleName: "Quản trị viên",
-                        onTap: () {
-                          notifier.updateRoleCodeSelected("pos-admin");
-                        },
-                        isSelected: state.roleCodeSelected == "pos-admin"
-                            ? true
-                            : false),
-                    UserRoleItemPas(
-                      roleName: "Quản lý",
-                      onTap: () {
-                        print("adsad");
-                        notifier.updateRoleCodeSelected("pos-manager");
-                      },
-                      isSelected: state.roleCodeSelected == "pos-manager"
-                          ? true
-                          : false,
-                    ),
+                    !notifier.checkShareMode()
+                        ? UserRoleItemPas(
+                            roleName: "Quản trị viên",
+                            onTap: () {
+                              notifier.updateRoleCodeSelected("pos-admin");
+                            },
+                            isSelected: state.roleCodeSelected == "pos-admin" ? true : false)
+                        : const SizedBox(),
+                    notifier.getRoleName(notifier.getRoleCode().where((e) => e.contains("pos-")).first) == "Quản trị viên" || !notifier.checkShareMode()
+                        ? UserRoleItemPas(
+                            roleName: "Quản lý",
+                            onTap: () {
+                              print("adsad");
+                              notifier.updateRoleCodeSelected("pos-manager");
+                            },
+                            isSelected: state.roleCodeSelected == "pos-manager" ? true : false,
+                          )
+                        : const SizedBox(),
                     UserRoleItemPas(
                       roleName: "Nhân viên bán hàng",
                       onTap: () {
                         notifier.updateRoleCodeSelected("pos-seller");
                       },
-                      isSelected:
-                          state.roleCodeSelected == "pos-seller" ? true : false,
+                      isSelected: state.roleCodeSelected == "pos-seller" ? true : false,
                     ),
                     UserRoleItemPas(
                       roleName: "Nhân viên giao hàng",
                       onTap: () {
                         notifier.updateRoleCodeSelected("pos-deliveryman");
                       },
-                      isSelected: state.roleCodeSelected == "pos-deliveryman"
-                          ? true
-                          : false,
+                      isSelected: state.roleCodeSelected == "pos-deliveryman" ? true : false,
                     ),
                     30.verticalSpace,
                     ConfirmButton(

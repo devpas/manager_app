@@ -9,12 +9,14 @@ class EmployeeItem extends StatelessWidget {
   final Color? background;
   final Function() onEdit;
   final Function() onDelete;
+  final String? userRole;
 
   const EmployeeItem({
     Key? key,
     required this.employee,
     required this.onEdit,
     required this.onDelete,
+    required this.userRole,
     this.background,
   }) : super(key: key);
 
@@ -58,16 +60,42 @@ class EmployeeItem extends StatelessWidget {
                               icon: const Icon(FlutterRemix.edit_2_line),
                               onPressed: onEdit,
                             ),
-                            IconButton(
-                              icon: const Icon(FlutterRemix.delete_bin_5_line),
-                              onPressed: onDelete,
+                            AbsorbPointer(
+                              absorbing: userRole == "pos-admin" ? false : true,
+                              child: IconButton(
+                                color: userRole == "pos-admin" ? Colors.black : Colors.grey,
+                                icon: const Icon(FlutterRemix.delete_bin_5_line),
+                                onPressed: onDelete,
+                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  12.verticalSpace,
+                  Padding(
+                    padding: REdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          padding: REdgeInsets.symmetric(
+                            horizontal: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(53.r),
+                            color: AppColors.whiter,
+                          ),
+                          child: Text(
+                            '${employee.listRoleBlock![0].role}',
+                            style: AppTypographies.styBlack14W700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  5.verticalSpace,
                   Divider(thickness: 1.r, height: 1.r),
                   Padding(
                     padding: REdgeInsets.all(14.0),
