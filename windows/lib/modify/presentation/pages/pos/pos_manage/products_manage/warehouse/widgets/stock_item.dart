@@ -20,35 +20,25 @@ class StockItem extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r), color: Colors.white),
-        child: ListTile(
-          leading: GestureDetector(
-            onTap: onEditTap,
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                FlutterRemix.file_paper_2_line,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          title: Text(warehouse["name"].toString()),
-          subtitle: Text("Địa chỉ: ${warehouse["address"] ?? ""}"),
-          trailing: warehouse["id"] != 0 &&
-                  warehouse["id"] != 1 &&
-                  warehouse["id"] != 2
-              ? GestureDetector(
-                  onTap: onDeleteTap,
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(
-                      FlutterRemix.delete_bin_line,
-                      color: Colors.black,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r), color: Colors.white),
+        child: InkWell(
+          onTap: onEditTap,
+          child: ListTile(
+            title: Text(warehouse["name"].toString()),
+            subtitle: Text("Địa chỉ: ${warehouse["address"] ?? ""}"),
+            trailing: warehouse["id"] != 0 && warehouse["id"] != 1 && warehouse["id"] != 2
+                ? GestureDetector(
+                    onTap: onDeleteTap,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        FlutterRemix.delete_bin_line,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                )
-              : const SizedBox(),
+                  )
+                : const SizedBox(),
+          ),
         ),
       ),
     );

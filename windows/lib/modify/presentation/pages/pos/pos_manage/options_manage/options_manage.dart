@@ -15,8 +15,7 @@ class OptionsManagePage extends ConsumerStatefulWidget {
   ConsumerState<OptionsManagePage> createState() => _OptionsManagePageState();
 }
 
-class _OptionsManagePageState extends ConsumerState<OptionsManagePage>
-    with TickerProviderStateMixin {
+class _OptionsManagePageState extends ConsumerState<OptionsManagePage> with TickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
@@ -37,7 +36,7 @@ class _OptionsManagePageState extends ConsumerState<OptionsManagePage>
                 title: "Người dùng",
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  context.pushRoute(const ProductsPasRoute());
+                  // context.pushRoute(const ProductsPasRoute());
                 },
               ),
               DashboardItemBase(

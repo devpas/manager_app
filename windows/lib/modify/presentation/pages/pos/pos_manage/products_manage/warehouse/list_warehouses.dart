@@ -60,7 +60,7 @@ class _ListStocksPageState extends ConsumerState<ListStocksPage> {
       child: Scaffold(
         backgroundColor: AppColors.mainBackground,
         appBar: CustomAppbarPOS(
-          actions: addWarehouse(context),
+          // actions: addWarehouse(context),
           title: Text(
             "Kho bãi",
             style: AppTypographies.styBlack16W500,

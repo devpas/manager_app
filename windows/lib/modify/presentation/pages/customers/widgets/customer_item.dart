@@ -10,6 +10,7 @@ import '../../../theme/theme.dart';
 
 class CustomerItemWidget extends StatelessWidget {
   final CustomerData customer;
+  final String userRole;
   final Function() onChat;
   final Function() onEditCustomerTap;
   final Function() onEditRoleTap;
@@ -21,6 +22,7 @@ class CustomerItemWidget extends StatelessWidget {
     required this.onEditRoleTap,
     required this.onDeleteTap,
     required this.onChat,
+    required this.userRole,
   }) : super(key: key);
 
   @override
@@ -70,23 +72,12 @@ class CustomerItemWidget extends StatelessWidget {
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 280,
-                                              child: Text(
-                                                '${customer.name}',
-                                                style: AppTypographies.styBlack14W500,
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: onDeleteTap,
-                                              child: const Padding(
-                                                padding: EdgeInsets.only(bottom: 15),
-                                                child: Icon(Icons.close),
-                                              ),
-                                            )
-                                          ],
+                                        SizedBox(
+                                          width: 280,
+                                          child: Text(
+                                            '${customer.name}',
+                                            style: AppTypographies.styBlack14W500,
+                                          ),
                                         ),
                                         8.verticalSpace,
                                         Row(
@@ -157,11 +148,14 @@ class CustomerItemWidget extends StatelessWidget {
                                     onTap: onEditCustomerTap,
                                   ),
                                   4.horizontalSpace,
-                                  CircleIconButton(
-                                    backgroundColor: AppColors.black.withOpacity(0.05),
-                                    iconData: FlutterRemix.user_settings_line,
-                                    iconColor: AppColors.black,
-                                    onTap: onEditRoleTap,
+                                  AbsorbPointer(
+                                    absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
+                                    child: CircleIconButton(
+                                      backgroundColor: AppColors.black.withOpacity(0.05),
+                                      iconData: FlutterRemix.delete_bin_line,
+                                      iconColor: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
+                                      onTap: onDeleteTap,
+                                    ),
                                   ),
                                 ],
                               ),

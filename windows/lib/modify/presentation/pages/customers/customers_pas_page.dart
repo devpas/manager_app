@@ -61,6 +61,7 @@ class _CustomersPasPageState extends ConsumerState<CustomersPasPage> with Ticker
   }
 
   Widget tabCustomer(CustomersState state, CustomersNotifier notifier) {
+    final notifierBase = ref.read(baseProvider.notifier);
     return state.customerLoading!
         ? Center(
             child: CircularProgressIndicator(
@@ -165,6 +166,7 @@ class _CustomersPasPageState extends ConsumerState<CustomersPasPage> with Ticker
                   itemBuilder: (context, index) {
                     final customer = searching ? state.customersAfterFilter![index] : state.customers![index];
                     return CustomerItemWidget(
+                      userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
                       customer: customer,
                       onDeleteTap: () {
                         showDialog(

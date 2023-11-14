@@ -268,7 +268,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
           }
         }
       }
-      print(listRoleCode);
+      // print(listRoleCode);
       LocalStorage.instance.setListRoleShare(jsonEncode(dataSave));
       LocalStorage.instance.setListRoleCode(listRoleCode);
       checkAccessBlock();
@@ -284,7 +284,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
   void checkAccessBlock() {
     if (LocalStorage.instance.getShareMode()) {
       List<dynamic> listRoleBLock = jsonDecode(LocalStorage.instance.getListRoleShare());
-      print(listRoleBLock);
+      // print(listRoleBLock);
       for (int i = 0; i < listRoleBLock.length; i++) {
         List<dynamic> level1 = listRoleBLock[i]["level_1"];
         if (level1.where((e) => e == "pos-system").toList().isNotEmpty) {
@@ -406,7 +406,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
 
   List<String> getRoleCode() {
     List<String> listRoleCode = LocalStorage.instance.getListRoleCode();
-    print(listRoleCode);
+    // print(listRoleCode);
     return listRoleCode;
   }
 
