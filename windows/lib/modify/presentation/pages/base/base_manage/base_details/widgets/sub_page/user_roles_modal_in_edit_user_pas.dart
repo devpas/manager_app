@@ -89,11 +89,11 @@ class _UserRolesModalInEditUserPasState extends ConsumerState<UserRolesModalInEd
                       isSelected: state.roleCodeSelected == "pos-seller" ? true : false,
                     ),
                     UserRoleItemPas(
-                      roleName: "Nhân viên giao hàng",
+                      roleName: "Nhân viên giám sát",
                       onTap: () {
-                        notifier.updateRoleCodeSelected("pos-deliveryman");
+                        notifier.updateRoleCodeSelected("pos-viewer");
                       },
-                      isSelected: state.roleCodeSelected == "pos-deliveryman" ? true : false,
+                      isSelected: state.roleCodeSelected == "pos-viewer" ? true : false,
                     ),
                     30.verticalSpace,
                     ConfirmButton(

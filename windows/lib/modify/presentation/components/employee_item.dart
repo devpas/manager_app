@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/models.dart';
+import '../../../src/core/utils/utils.dart';
 import '../../../src/presentation/theme/theme.dart';
 
 class EmployeeItem extends StatelessWidget {
@@ -61,9 +62,9 @@ class EmployeeItem extends StatelessWidget {
                               onPressed: onEdit,
                             ),
                             AbsorbPointer(
-                              absorbing: userRole == "pos-admin" ? false : true,
+                              absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
                               child: IconButton(
-                                color: userRole == "pos-admin" ? Colors.black : Colors.grey,
+                                color: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
                                 icon: const Icon(FlutterRemix.delete_bin_5_line),
                                 onPressed: onDelete,
                               ),

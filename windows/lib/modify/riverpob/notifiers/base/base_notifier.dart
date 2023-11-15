@@ -232,8 +232,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
       roleName = "Quản lý";
     } else if (roleCode == "pos-seller") {
       roleName = "Nhân viên bán hàng";
-    } else if (roleCode == "pos-deliveryman") {
-      roleName = "Nhân viên giao hàng";
+    } else if (roleCode == "pos-viewer") {
+      roleName = "Nhân viên giám sát";
     }
     return roleName;
   }

@@ -16,13 +16,7 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
 
   String keySearch = "";
 
-  CategoryPasData noCategory = CategoryPasData(
-      index: -1,
-      id: -1,
-      name: "Chọn danh mục",
-      parentId: -1,
-      img: "",
-      active: 1);
+  CategoryPasData noCategory = CategoryPasData(index: -1, id: -1, name: "Chọn danh mục", parentId: -1, img: "", active: 1);
 
   void resetSearchKey() {
     state = state.copyWith(categoriesAfterFilter: []);
@@ -45,9 +39,7 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
   void filterCategory(String categoryName, List<CategoryPasData> data) {
     print(categoryName);
     if (categoryName.isNotEmpty) {
-      data = data
-          .where((category) => category.name!.contains(categoryName))
-          .toList();
+      data = data.where((category) => category.name!.contains(categoryName)).toList();
     }
     state = state.copyWith(categoriesAfterFilter: data);
     keySearch = categoryName;
@@ -65,8 +57,7 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
   }
 
   Future<void> updateCategory(dynamic dataCategory) async {
-    final response =
-        await _categoriesPASRepository.updateCategory(dataCategory);
+    final response = await _categoriesPASRepository.updateCategory(dataCategory);
     print(response);
     if (response["msg"] == "update category successful") {
       fetchCategoriesAppscript();

@@ -80,7 +80,7 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     if (response["msg"] == "add customer successful") {
       await fetchListCustomers();
     } else {
-      print(response);
+      state = state.copyWith(customerLoading: false);
     }
   }
 
@@ -93,7 +93,7 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     if (response["msg"] == "update customer successful") {
       await fetchListCustomers();
     } else {
-      print(response);
+      state = state.copyWith(customerLoading: false);
     }
   }
 
@@ -103,7 +103,7 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     if (response["msg"] == "delete customer successful") {
       await fetchListCustomers();
     } else {
-      print(response);
+      state = state.copyWith(customerLoading: false);
     }
   }
 
