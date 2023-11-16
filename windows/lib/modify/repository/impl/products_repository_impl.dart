@@ -131,7 +131,7 @@ class ProductsRepositoryPASImpl extends ProductsPASRepository {
   @override
   Future<ApiResult<ProductsPasResponse>> updateProduct(ProductPasData product) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
-
+    print(product.toJson());
     final data = {
       "access_id": LocalStorage.instance.getKeyAccessOwner(),
       "data": {"product_data": product.toJson()}

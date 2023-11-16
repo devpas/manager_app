@@ -51,6 +51,10 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
   bool activeCheckBox = true;
   bool activeCheckBoxAuto = false;
 
+  int taxId = 1;
+  String taxName = "";
+  List<dynamic>? taxesSearch = [];
+
   List<CategoryPasData>? categoriesSearch = [];
   int parentCategoryId = 1;
 
@@ -74,6 +78,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
           activeCheckBox = productData.active == 1 ? true : false;
           activeCheckBoxAuto = productData.isAuto == 1 ? true : false;
         });
+        ref.read(productsPASProvider.notifier).getListTaxes();
       },
     );
 
@@ -83,6 +88,8 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
   Widget mainTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
     final state = ref.watch(categoriesPASProvider);
     final notifier = ref.read(categoriesPASProvider.notifier);
+    final stateProduct = ref.watch(productsPASProvider);
+    final notifierProduct = ref.read(productsPASProvider.notifier);
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -192,7 +199,15 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                 initialValue: productData.priceSell.toString(),
                 label: "Giá bán",
                 onChanged: (v) {
-                  product = product!.copyWith(priceSell: double.parse(v));
+                  if (v.isNotEmpty) {
+                    setState(() {
+                      product = product!.copyWith(priceSell: double.parse(v));
+                    });
+                  } else {
+                    setState(() {
+                      product = product!.copyWith(priceBuy: 0.0);
+                    });
+                  }
                 },
                 inputType: TextInputType.number,
                 inputAction: TextInputAction.next,
@@ -202,42 +217,85 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             SizedBox(
               child: Row(
                 children: [
-                  Expanded(
-                    child: CommonInputField(
-                      initialValue: productData.priceSell.toString(),
-                      label: "Giá sau chiết khấu",
-                      onChanged: (v) {
-                        product = product!.copyWith(priceSell: double.parse(v));
-                      },
-                      inputAction: TextInputAction.next,
-                    ),
-                  ),
+                  Expanded(child: Text("Giá sau chiết khấu: ${product!.priceSell}")),
                   10.horizontalSpace,
-                  SizedBox(
-                    width: 100,
-                    child: CommonInputField(
-                      label: "% chiết khấu",
-                      initialValue: (((productData.priceSell! * 100) / productData.priceBuy!) - 100).toStringAsFixed(2).toString(),
-                      onChanged: (v) {
-                        product = product!.copyWith(priceSell: double.parse(v));
-                      },
-                      inputType: TextInputType.number,
-                      inputAction: TextInputAction.next,
-                    ),
-                  ),
+                  SizedBox(width: 100, child: Text((((product!.priceSell! * 100) / (product!.isAuto! == 1 ? product!.priceBuyAuto! : product!.priceBuy!)) - 100).toStringAsFixed(2).toString())),
                 ],
               ),
             ),
-            30.verticalSpace,
+            10.verticalSpace,
             SelectWithSearchButton(
-              label: "Loại chiếc khấu",
+              label: "Cấp trên",
+              title: taxId == -1 ? "" : taxName,
               onTap: () {
+                taxesSearch = stateProduct.taxes!;
                 showModalBottomSheet(
-                  context: context,
-                  builder: (context) => const SearchDiscountModalInAddProduct(),
-                );
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
+                        return Material(
+                          color: AppColors.mainBackground,
+                          child: Container(
+                            padding: EdgeInsets.only(
+                              top: 20,
+                              left: 15,
+                              right: 15,
+                              bottom: MediaQuery.of(context).viewInsets.bottom,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SearchTextField(
+                                  onChanged: (v) {
+                                    setModelState(() {
+                                      taxesSearch = stateProduct.taxes!.where((e) => e["name"].toString().toLowerCase().contains(v.toLowerCase())).toList();
+                                    });
+                                  },
+                                  hintText: AppHelpers.getTranslation(TrKeys.search),
+                                ),
+                                10.verticalSpace,
+                                SearchedItem(
+                                  title: "No tax parent",
+                                  isSelected: false,
+                                  onTap: () {
+                                    setState(() {
+                                      taxId = -1;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                Expanded(
+                                  child: ListView.builder(
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    physics: const CustomBouncingScrollPhysics(),
+                                    itemCount: taxesSearch!.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      final parent = taxesSearch![index];
+                                      return SearchedItem(
+                                        title: '${parent["name"]}',
+                                        isSelected: false,
+                                        onTap: () {
+                                          setState(() {
+                                            taxId = parent["index"];
+                                            taxName = parent["name"];
+                                          });
+                                          print(taxId);
+                                          print(taxName);
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                                30.verticalSpace,
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                    });
               },
-              title: "Chọn loại chiếc khấu",
             ),
             30.verticalSpace,
             SelectWithSearchButton(
@@ -278,7 +336,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                                       parentCategoryId = -1;
                                     });
 
-                                    // notifier.setSelectedParentId(0);
+                                    // notifier.setSelectedtaxId(0);
                                     // notifier.setParentCategoryName(
                                     //     AppHelpers.getTranslation(TrKeys.noCategory));
                                     Navigator.pop(context);

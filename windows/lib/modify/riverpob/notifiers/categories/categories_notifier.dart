@@ -58,7 +58,6 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
 
   Future<void> updateCategory(dynamic dataCategory) async {
     final response = await _categoriesPASRepository.updateCategory(dataCategory);
-    print(response);
     if (response["msg"] == "update category successful") {
       fetchCategoriesAppscript();
     }
