@@ -14,6 +14,7 @@ class BaseData {
     int? warehouseId,
     double? moneyWallet,
     int? ticketsNum,
+    dynamic moneyRecord,
     List<dynamic>? properties,
     List<RoleBlockData>? listRoleBlock,
     List<BaseData>? children,
@@ -47,6 +48,7 @@ class BaseData {
     _warehouseId = json['warehouse_id'];
     _moneyWallet = double.parse(json['money_wallet'].toString());
     _ticketsNum = int.parse(json['tickets_num'].toString());
+    _moneyRecord = json['money_record'];
     print(_ticketsNum);
     _keyAccess = json['key_access'];
     _shareStatus = json['share_status'];
@@ -82,6 +84,7 @@ class BaseData {
   String? _keyAccess;
   String? _shareStatus;
   int? _warehouseId;
+  dynamic _moneyRecord;
   double? _moneyWallet;
   int? _ticketsNum;
   List<dynamic>? _properties;
@@ -99,6 +102,7 @@ class BaseData {
     String? keyAccess,
     String? shareStatus,
     int? warehouseId,
+    dynamic moneyRecord,
     double? moneyWallet,
     int? ticketsNum,
     List<dynamic>? properties,
@@ -116,6 +120,7 @@ class BaseData {
         keyAccess: keyAccess ?? _keyAccess,
         shareStatus: shareStatus ?? _shareStatus,
         warehouseId: warehouseId ?? _warehouseId,
+        moneyRecord: moneyRecord ?? _moneyRecord,
         moneyWallet: moneyWallet ?? _moneyWallet,
         ticketsNum: ticketsNum ?? _ticketsNum,
         properties: properties ?? _properties,
@@ -143,6 +148,8 @@ class BaseData {
 
   int? get warehouseId => _warehouseId;
 
+  dynamic get moneyRecord => _moneyRecord;
+
   double? get moneyWallet => _moneyWallet;
 
   int? get ticketsNum => _ticketsNum;
@@ -165,6 +172,7 @@ class BaseData {
     map['key_access'] = _keyAccess;
     map['share_status'] = _shareStatus;
     map['warehouse_id'] = _warehouseId;
+    map['money_record'] = _moneyRecord;
     map['money_wallet'] = _moneyWallet;
     map['tickets_num'] = _ticketsNum;
     map['properties'] = properties;

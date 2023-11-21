@@ -100,6 +100,7 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> with TickerProv
                           itemCount: stateBase.base!.length,
                           itemBuilder: (context, index) {
                             final base = stateBase.base![index];
+                            print(base.moneyRecord);
                             return BaseItem(
                               active: notifierBase.checkActiveBase(base.keyAccess!),
                               base: base,

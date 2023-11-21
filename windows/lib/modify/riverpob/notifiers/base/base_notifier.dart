@@ -85,6 +85,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
         LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
         await checkExpireFileLargeData();
         await getMoneyWallet("${state.baseRootInfomation["email"]}_${state.baseInfomation["email"]}");
+        await moneyRecord();
       }
     } else {
       print("no connection");
@@ -572,5 +573,15 @@ class BaseNotifier extends StateNotifier<BaseState> {
     print(edit);
 
     return edit;
+  }
+
+  Future<void> moneyRecord() async {
+    state = state.copyWith(printerLoading: true);
+    final response = await _baseRepository.moneyRecord();
+    if (response["msg"] == "money record successful") {
+      // await getListPrinters();
+    } else {
+      print(response);
+    }
   }
 }

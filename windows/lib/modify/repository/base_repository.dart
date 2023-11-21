@@ -19,4 +19,5 @@ abstract class BaseRepository {
   Future<dynamic> deletePrinter(int printerId);
   Future<dynamic> getListBaseEmployee();
   Future<dynamic> checkExpireFileLargeData();
+  Future<dynamic> moneyRecord();
 }

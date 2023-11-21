@@ -55,145 +55,147 @@ class BaseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: AppColors.white,
-        ),
-        child: InkWell(
-          onTap: onTap,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: onTap,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: screenWidth * 0.6,
-                                        child: Text(
-                                          base.ownerName!,
-                                          style: AppTypographies.styBlack11W400,
-                                          maxLines: 2,
-                                        ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: AppColors.white,
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: onTap,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: screenWidth * 0.6,
+                                      child: Text(
+                                        base.ownerName!,
+                                        style: AppTypographies.styBlack11W400,
+                                        maxLines: 2,
                                       ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: screenWidth * 0.45,
-                                            child: Text(
-                                              base.email!,
-                                              style: AppTypographies.styBlack11W400,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: screenWidth * 0.45,
+                                          child: Text(
+                                            base.email!,
+                                            style: AppTypographies.styBlack11W400,
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              base.shareStatus!,
+                                              style: base.shareStatus! == "owner" ? AppTypographies.styGreen11W400 : AppTypographies.styOrange11W400,
                                               maxLines: 2,
                                             ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                base.shareStatus!,
-                                                style: base.shareStatus! == "owner" ? AppTypographies.styGreen11W400 : AppTypographies.styOrange11W400,
-                                                maxLines: 2,
-                                              ),
-                                              Text(" - ${base.baseStatus}",
-                                                  style: TextStyle(
-                                                      color: base.baseStatus == "Ready"
-                                                          ? Colors.green
-                                                          : base.baseStatus == "Close"
-                                                              ? Colors.red
-                                                              : Colors.black,
-                                                      fontSize: 11.sp,
-                                                      fontWeight: FontWeight.w400))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                            Text(" - ${base.baseStatus}",
+                                                style: TextStyle(
+                                                    color: base.baseStatus == "Ready"
+                                                        ? Colors.green
+                                                        : base.baseStatus == "Close"
+                                                            ? Colors.red
+                                                            : Colors.black,
+                                                    fontSize: 11.sp,
+                                                    fontWeight: FontWeight.w400))
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              SmallIconButton(
-                                icon: Container(
-                                  height: 36,
-                                  width: 36,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(18),
-                                    color: AppColors.black.withOpacity(0.05),
-                                  ),
-                                  child: active ? const Icon(FlutterRemix.stop_fill) : const Icon(FlutterRemix.play_fill),
-                                ),
-                                onPressed: onSwitch,
                               ),
-                              IconButton(onPressed: onEdit, icon: const Icon(FlutterRemix.file_2_line)),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                        Row(
+                          children: [
+                            SmallIconButton(
+                              icon: Container(
+                                height: 36,
+                                width: 36,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(18),
+                                  color: AppColors.black.withOpacity(0.05),
+                                ),
+                                child: active ? const Icon(FlutterRemix.stop_fill) : const Icon(FlutterRemix.play_fill),
+                              ),
+                              onPressed: onSwitch,
+                            ),
+                            IconButton(onPressed: onEdit, icon: const Icon(FlutterRemix.file_2_line)),
+                          ],
+                        ),
+                      ],
                     ),
+                  ),
+                )
+              ],
+            ),
+            ExpansionTile(
+              // ignore: prefer_interpolation_to_compose_strings
+              title: Row(
+                children: [
+                  Text(
+                    "Tổng tài sản: ${base.moneyRecord["total_money_day_end"]}",
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  Text(
+                    "(${base.moneyRecord["money_income_in_day"] > 0 ? '+' : '-'}${base.moneyRecord["money_income_in_day"]})",
+                    style: TextStyle(color: base.moneyRecord["money_income_in_day"] > 0 ? AppColors.greenMain : AppColors.red),
                   )
                 ],
               ),
-              const Divider(
-                thickness: 2,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 5, 3),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 3),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: screenWidth * 0.425,
-                            child: upAndDown(base.moneyWallet!, "Công nợ"),
-                          ),
-                          SizedBox(
-                            width: screenWidth * 0.425,
-                            child: Text("Số đơn hàng: ${base.ticketsNum}"),
-                          ),
-                        ],
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 5, 3),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.425,
+                        child: upAndDown(base.moneyWallet!, "Công nợ"),
                       ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(bottom: 3),
-                    //   child: Row(
-                    //     children: [
-                    //       SizedBox(
-                    //         width: screenWidth * 0.425,
-                    //         child: const Text("Công nợ: 555,666,333.4"),
-                    //       ),
-                    //       SizedBox(
-                    //         width: screenWidth * 0.425,
-                    //         child: const Text("Số đơn hàng: 200,500"),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
+                      SizedBox(
+                        width: screenWidth * 0.425,
+                        child: Text("Số đơn hàng: ${base.ticketsNum}"),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 5, 3),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.425,
+                        child: Text("Tiền hàng: ${base.moneyRecord["total_money_product"]}"),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.425,
+                        child: Text("thu nhập hôm qua: ${base.moneyRecord["money_sold"]}"),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

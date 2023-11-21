@@ -781,4 +781,48 @@ class BaseRepositoryImpl extends BaseRepository {
     }
     return dataJson;
   }
+
+  @override
+  Future<dynamic> moneyRecord() async {
+    headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+    var dataJson = {};
+    final data = {
+      "access_id": LocalStorage.instance.getKeyAccessOwner(),
+    };
+    if (LocalStorage.instance.getShareMode()) {
+      data["access_id"] = LocalStorage.instance.getKeyAccessShare();
+    }
+    final client = inject<HttpServiceAppscript>().client(requireAuth: false);
+    final response = await client.post(
+      '?api=base/updateMoneyRecord',
+      data: data,
+      options: Options(
+          headers: headers,
+          method: "POST",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    log(response.toString());
+    if (response.statusCode == 302) {
+      String location = response.headers['location'].toString();
+      String url2 = location.substring(1, location.length - 1);
+      Response response2 = await Dio().request(
+        url2,
+        options: Options(
+            headers: headers,
+            method: "GET",
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }),
+      );
+      print(response2.data["msg"]);
+      dataJson = json.decode(response2.toString());
+    } else {
+      dataJson = json.decode(response.toString());
+    }
+    return dataJson;
+  }
 }
