@@ -23,8 +23,7 @@ class UpdateWarehousePage extends ConsumerStatefulWidget {
   final dynamic warehouse;
 
   @override
-  ConsumerState<UpdateWarehousePage> createState() =>
-      _UpdateWarehousePageState(warehouse);
+  ConsumerState<UpdateWarehousePage> createState() => _UpdateWarehousePageState(warehouse);
 }
 
 class _UpdateWarehousePageState extends ConsumerState<UpdateWarehousePage> {
@@ -49,6 +48,7 @@ class _UpdateWarehousePageState extends ConsumerState<UpdateWarehousePage> {
 
   @override
   Widget build(BuildContext context) {
+    final stateBase = ref.watch(baseProvider);
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     return AbsorbPointer(
@@ -58,7 +58,7 @@ class _UpdateWarehousePageState extends ConsumerState<UpdateWarehousePage> {
           backgroundColor: AppColors.shopsPageBack,
           appBar: CustomAppbarPOS(
             title: Text(
-              "Thông tin kho chứa",
+              stateBase.translate[stateBase.languageSelected]["warehouse_infomation"],
               style: AppTypographies.styBlack16W500,
               textAlign: TextAlign.center,
             ),
@@ -84,7 +84,7 @@ class _UpdateWarehousePageState extends ConsumerState<UpdateWarehousePage> {
                   children: [
                     30.verticalSpace,
                     Text(
-                      "Tên",
+                      stateBase.translate[stateBase.languageSelected]["name"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
@@ -109,7 +109,7 @@ class _UpdateWarehousePageState extends ConsumerState<UpdateWarehousePage> {
                     ),
                     30.verticalSpace,
                     Text(
-                      "Địa chỉ",
+                      stateBase.translate[stateBase.languageSelected]["address"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,

@@ -42,6 +42,8 @@ mixin _$BaseState {
   List<dynamic>? get baseEmployees => throw _privateConstructorUsedError;
   XFile? get image => throw _privateConstructorUsedError;
   XFile? get video => throw _privateConstructorUsedError;
+  dynamic get translate => throw _privateConstructorUsedError;
+  String? get languageSelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BaseStateCopyWith<BaseState> get copyWith =>
@@ -79,7 +81,9 @@ abstract class $BaseStateCopyWith<$Res> {
       bool? printerLoading,
       List<dynamic>? baseEmployees,
       XFile? image,
-      XFile? video});
+      XFile? video,
+      dynamic translate,
+      String? languageSelected});
 }
 
 /// @nodoc
@@ -121,6 +125,8 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
     Object? baseEmployees = freezed,
     Object? image = freezed,
     Object? video = freezed,
+    Object? translate = freezed,
+    Object? languageSelected = freezed,
   }) {
     return _then(_value.copyWith(
       base: freezed == base
@@ -227,15 +233,24 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as XFile?,
+      translate: freezed == translate
+          ? _value.translate
+          : translate // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      languageSelected: freezed == languageSelected
+          ? _value.languageSelected
+          : languageSelected // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_BaseStateCopyWith<$Res> implements $BaseStateCopyWith<$Res> {
-  factory _$$_BaseStateCopyWith(
-          _$_BaseState value, $Res Function(_$_BaseState) then) =
-      __$$_BaseStateCopyWithImpl<$Res>;
+abstract class _$$BaseStateImplCopyWith<$Res>
+    implements $BaseStateCopyWith<$Res> {
+  factory _$$BaseStateImplCopyWith(
+          _$BaseStateImpl value, $Res Function(_$BaseStateImpl) then) =
+      __$$BaseStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -264,15 +279,17 @@ abstract class _$$_BaseStateCopyWith<$Res> implements $BaseStateCopyWith<$Res> {
       bool? printerLoading,
       List<dynamic>? baseEmployees,
       XFile? image,
-      XFile? video});
+      XFile? video,
+      dynamic translate,
+      String? languageSelected});
 }
 
 /// @nodoc
-class __$$_BaseStateCopyWithImpl<$Res>
-    extends _$BaseStateCopyWithImpl<$Res, _$_BaseState>
-    implements _$$_BaseStateCopyWith<$Res> {
-  __$$_BaseStateCopyWithImpl(
-      _$_BaseState _value, $Res Function(_$_BaseState) _then)
+class __$$BaseStateImplCopyWithImpl<$Res>
+    extends _$BaseStateCopyWithImpl<$Res, _$BaseStateImpl>
+    implements _$$BaseStateImplCopyWith<$Res> {
+  __$$BaseStateImplCopyWithImpl(
+      _$BaseStateImpl _value, $Res Function(_$BaseStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -304,8 +321,10 @@ class __$$_BaseStateCopyWithImpl<$Res>
     Object? baseEmployees = freezed,
     Object? image = freezed,
     Object? video = freezed,
+    Object? translate = freezed,
+    Object? languageSelected = freezed,
   }) {
-    return _then(_$_BaseState(
+    return _then(_$BaseStateImpl(
       base: freezed == base
           ? _value._base
           : base // ignore: cast_nullable_to_non_nullable
@@ -410,14 +429,22 @@ class __$$_BaseStateCopyWithImpl<$Res>
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as XFile?,
+      translate: freezed == translate
+          ? _value.translate
+          : translate // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      languageSelected: freezed == languageSelected
+          ? _value.languageSelected
+          : languageSelected // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_BaseState extends _BaseState {
-  const _$_BaseState(
+class _$BaseStateImpl extends _BaseState {
+  const _$BaseStateImpl(
       {final List<BaseData>? base = const [],
       this.baseSelected = 0,
       this.baseLoading = false,
@@ -443,7 +470,9 @@ class _$_BaseState extends _BaseState {
       this.printerLoading = false,
       final List<dynamic>? baseEmployees = const [],
       this.image,
-      this.video})
+      this.video,
+      this.translate = const {},
+      this.languageSelected = "vn"})
       : _base = base,
         _employees = employees,
         _printers = printers,
@@ -558,17 +587,23 @@ class _$_BaseState extends _BaseState {
   final XFile? image;
   @override
   final XFile? video;
+  @override
+  @JsonKey()
+  final dynamic translate;
+  @override
+  @JsonKey()
+  final String? languageSelected;
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, baseEmployees: $baseEmployees, image: $image, video: $video)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, baseEmployees: $baseEmployees, image: $image, video: $video, translate: $translate, languageSelected: $languageSelected)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BaseState &&
+            other is _$BaseStateImpl &&
             const DeepCollectionEquality().equals(other._base, _base) &&
             (identical(other.baseSelected, baseSelected) ||
                 other.baseSelected == baseSelected) &&
@@ -616,7 +651,10 @@ class _$_BaseState extends _BaseState {
             const DeepCollectionEquality()
                 .equals(other._baseEmployees, _baseEmployees) &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.video, video) || other.video == video));
+            (identical(other.video, video) || other.video == video) &&
+            const DeepCollectionEquality().equals(other.translate, translate) &&
+            (identical(other.languageSelected, languageSelected) ||
+                other.languageSelected == languageSelected));
   }
 
   @override
@@ -647,14 +685,16 @@ class _$_BaseState extends _BaseState {
         printerLoading,
         const DeepCollectionEquality().hash(_baseEmployees),
         image,
-        video
+        video,
+        const DeepCollectionEquality().hash(translate),
+        languageSelected
       ]);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BaseStateCopyWith<_$_BaseState> get copyWith =>
-      __$$_BaseStateCopyWithImpl<_$_BaseState>(this, _$identity);
+  _$$BaseStateImplCopyWith<_$BaseStateImpl> get copyWith =>
+      __$$BaseStateImplCopyWithImpl<_$BaseStateImpl>(this, _$identity);
 }
 
 abstract class _BaseState extends BaseState {
@@ -684,7 +724,9 @@ abstract class _BaseState extends BaseState {
       final bool? printerLoading,
       final List<dynamic>? baseEmployees,
       final XFile? image,
-      final XFile? video}) = _$_BaseState;
+      final XFile? video,
+      final dynamic translate,
+      final String? languageSelected}) = _$BaseStateImpl;
   const _BaseState._() : super._();
 
   @override
@@ -740,7 +782,11 @@ abstract class _BaseState extends BaseState {
   @override
   XFile? get video;
   @override
+  dynamic get translate;
+  @override
+  String? get languageSelected;
+  @override
   @JsonKey(ignore: true)
-  _$$_BaseStateCopyWith<_$_BaseState> get copyWith =>
+  _$$BaseStateImplCopyWith<_$BaseStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

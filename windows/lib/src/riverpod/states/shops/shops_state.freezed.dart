@@ -79,11 +79,11 @@ class _$ShopsStateCopyWithImpl<$Res, $Val extends ShopsState>
 }
 
 /// @nodoc
-abstract class _$$_ShopsStateCopyWith<$Res>
+abstract class _$$ShopsStateImplCopyWith<$Res>
     implements $ShopsStateCopyWith<$Res> {
-  factory _$$_ShopsStateCopyWith(
-          _$_ShopsState value, $Res Function(_$_ShopsState) then) =
-      __$$_ShopsStateCopyWithImpl<$Res>;
+  factory _$$ShopsStateImplCopyWith(
+          _$ShopsStateImpl value, $Res Function(_$ShopsStateImpl) then) =
+      __$$ShopsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_ShopsStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ShopsStateCopyWithImpl<$Res>
-    extends _$ShopsStateCopyWithImpl<$Res, _$_ShopsState>
-    implements _$$_ShopsStateCopyWith<$Res> {
-  __$$_ShopsStateCopyWithImpl(
-      _$_ShopsState _value, $Res Function(_$_ShopsState) _then)
+class __$$ShopsStateImplCopyWithImpl<$Res>
+    extends _$ShopsStateCopyWithImpl<$Res, _$ShopsStateImpl>
+    implements _$$ShopsStateImplCopyWith<$Res> {
+  __$$ShopsStateImplCopyWithImpl(
+      _$ShopsStateImpl _value, $Res Function(_$ShopsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_ShopsStateCopyWithImpl<$Res>
     Object? isSaving = null,
     Object? isMoreLoading = null,
   }) {
-    return _then(_$_ShopsState(
+    return _then(_$ShopsStateImpl(
       shops: null == shops
           ? _value._shops
           : shops // ignore: cast_nullable_to_non_nullable
@@ -132,8 +132,8 @@ class __$$_ShopsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ShopsState extends _ShopsState {
-  const _$_ShopsState(
+class _$ShopsStateImpl extends _ShopsState {
+  const _$ShopsStateImpl(
       {final List<ShopData> shops = const [],
       this.isLoading = false,
       this.isSaving = false,
@@ -169,7 +169,7 @@ class _$_ShopsState extends _ShopsState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ShopsState &&
+            other is _$ShopsStateImpl &&
             const DeepCollectionEquality().equals(other._shops, _shops) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -190,8 +190,8 @@ class _$_ShopsState extends _ShopsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ShopsStateCopyWith<_$_ShopsState> get copyWith =>
-      __$$_ShopsStateCopyWithImpl<_$_ShopsState>(this, _$identity);
+  _$$ShopsStateImplCopyWith<_$ShopsStateImpl> get copyWith =>
+      __$$ShopsStateImplCopyWithImpl<_$ShopsStateImpl>(this, _$identity);
 }
 
 abstract class _ShopsState extends ShopsState {
@@ -199,7 +199,7 @@ abstract class _ShopsState extends ShopsState {
       {final List<ShopData> shops,
       final bool isLoading,
       final bool isSaving,
-      final bool isMoreLoading}) = _$_ShopsState;
+      final bool isMoreLoading}) = _$ShopsStateImpl;
   const _ShopsState._() : super._();
 
   @override
@@ -212,6 +212,6 @@ abstract class _ShopsState extends ShopsState {
   bool get isMoreLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_ShopsStateCopyWith<_$_ShopsState> get copyWith =>
+  _$$ShopsStateImplCopyWith<_$ShopsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

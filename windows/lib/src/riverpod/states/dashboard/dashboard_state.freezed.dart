@@ -150,11 +150,11 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
 }
 
 /// @nodoc
-abstract class _$$_DashboardStateCopyWith<$Res>
+abstract class _$$DashboardStateImplCopyWith<$Res>
     implements $DashboardStateCopyWith<$Res> {
-  factory _$$_DashboardStateCopyWith(
-          _$_DashboardState value, $Res Function(_$_DashboardState) then) =
-      __$$_DashboardStateCopyWithImpl<$Res>;
+  factory _$$DashboardStateImplCopyWith(_$DashboardStateImpl value,
+          $Res Function(_$DashboardStateImpl) then) =
+      __$$DashboardStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -175,11 +175,11 @@ abstract class _$$_DashboardStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DashboardStateCopyWithImpl<$Res>
-    extends _$DashboardStateCopyWithImpl<$Res, _$_DashboardState>
-    implements _$$_DashboardStateCopyWith<$Res> {
-  __$$_DashboardStateCopyWithImpl(
-      _$_DashboardState _value, $Res Function(_$_DashboardState) _then)
+class __$$DashboardStateImplCopyWithImpl<$Res>
+    extends _$DashboardStateCopyWithImpl<$Res, _$DashboardStateImpl>
+    implements _$$DashboardStateImplCopyWith<$Res> {
+  __$$DashboardStateImplCopyWithImpl(
+      _$DashboardStateImpl _value, $Res Function(_$DashboardStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -200,7 +200,7 @@ class __$$_DashboardStateCopyWithImpl<$Res>
     Object? countData = freezed,
     Object? totalEarningResponse = freezed,
   }) {
-    return _then(_$_DashboardState(
+    return _then(_$DashboardStateImpl(
       isCountsLoading: null == isCountsLoading
           ? _value.isCountsLoading
           : isCountsLoading // ignore: cast_nullable_to_non_nullable
@@ -263,8 +263,8 @@ class __$$_DashboardStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DashboardState extends _DashboardState {
-  const _$_DashboardState(
+class _$DashboardStateImpl extends _DashboardState {
+  const _$DashboardStateImpl(
       {this.isCountsLoading = false,
       this.isTotalEarningsLoading = false,
       this.isTopCustomersLoading = false,
@@ -352,7 +352,7 @@ class _$_DashboardState extends _DashboardState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DashboardState &&
+            other is _$DashboardStateImpl &&
             (identical(other.isCountsLoading, isCountsLoading) ||
                 other.isCountsLoading == isCountsLoading) &&
             (identical(other.isTotalEarningsLoading, isTotalEarningsLoading) ||
@@ -406,8 +406,9 @@ class _$_DashboardState extends _DashboardState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DashboardStateCopyWith<_$_DashboardState> get copyWith =>
-      __$$_DashboardStateCopyWithImpl<_$_DashboardState>(this, _$identity);
+  _$$DashboardStateImplCopyWith<_$DashboardStateImpl> get copyWith =>
+      __$$DashboardStateImplCopyWithImpl<_$DashboardStateImpl>(
+          this, _$identity);
 }
 
 abstract class _DashboardState extends DashboardState {
@@ -425,7 +426,7 @@ abstract class _DashboardState extends DashboardState {
       final List<ProductData> topProducts,
       final List<OrderCountData> orderCounts,
       final DashboardCountData? countData,
-      final TotalEarningResponse? totalEarningResponse}) = _$_DashboardState;
+      final TotalEarningResponse? totalEarningResponse}) = _$DashboardStateImpl;
   const _DashboardState._() : super._();
 
   @override
@@ -458,6 +459,6 @@ abstract class _DashboardState extends DashboardState {
   TotalEarningResponse? get totalEarningResponse;
   @override
   @JsonKey(ignore: true)
-  _$$_DashboardStateCopyWith<_$_DashboardState> get copyWith =>
+  _$$DashboardStateImplCopyWith<_$DashboardStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/utils/utils.dart';
-import '../../../../../../../src/riverpod/providers/providers.dart';
+import '../../../../riverpob/providers/providers.dart';
 import '../../../components/components.dart';
 import '../../../components/list_items/selectable_currency_pos_item.dart';
 import '../../../theme/theme.dart';
@@ -19,6 +19,7 @@ class SelectCurrencyPosModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(posSystemPASProvider);
     final notifier = ref.read(posSystemPASProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
     return Material(
       color: AppColors.white,
       child: Padding(
@@ -29,7 +30,7 @@ class SelectCurrencyPosModal extends ConsumerWidget {
           children: [
             24.verticalSpace,
             Text(
-              "Chọn loại tiền tệ",
+              stateBase.translate[stateBase.languageSelected]["select_currency"],
               style: AppTypographies.styBlack22W500,
             ),
             24.verticalSpace,

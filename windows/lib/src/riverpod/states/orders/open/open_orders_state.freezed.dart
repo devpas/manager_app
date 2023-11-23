@@ -69,22 +69,22 @@ class _$OpenOrdersStateCopyWithImpl<$Res, $Val extends OpenOrdersState>
 }
 
 /// @nodoc
-abstract class _$$_OpenOrdersStateCopyWith<$Res>
+abstract class _$$OpenOrdersStateImplCopyWith<$Res>
     implements $OpenOrdersStateCopyWith<$Res> {
-  factory _$$_OpenOrdersStateCopyWith(
-          _$_OpenOrdersState value, $Res Function(_$_OpenOrdersState) then) =
-      __$$_OpenOrdersStateCopyWithImpl<$Res>;
+  factory _$$OpenOrdersStateImplCopyWith(_$OpenOrdersStateImpl value,
+          $Res Function(_$OpenOrdersStateImpl) then) =
+      __$$OpenOrdersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<OrderData> orders, bool isLoading, bool isMoreLoading});
 }
 
 /// @nodoc
-class __$$_OpenOrdersStateCopyWithImpl<$Res>
-    extends _$OpenOrdersStateCopyWithImpl<$Res, _$_OpenOrdersState>
-    implements _$$_OpenOrdersStateCopyWith<$Res> {
-  __$$_OpenOrdersStateCopyWithImpl(
-      _$_OpenOrdersState _value, $Res Function(_$_OpenOrdersState) _then)
+class __$$OpenOrdersStateImplCopyWithImpl<$Res>
+    extends _$OpenOrdersStateCopyWithImpl<$Res, _$OpenOrdersStateImpl>
+    implements _$$OpenOrdersStateImplCopyWith<$Res> {
+  __$$OpenOrdersStateImplCopyWithImpl(
+      _$OpenOrdersStateImpl _value, $Res Function(_$OpenOrdersStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +94,7 @@ class __$$_OpenOrdersStateCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isMoreLoading = null,
   }) {
-    return _then(_$_OpenOrdersState(
+    return _then(_$OpenOrdersStateImpl(
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
@@ -113,8 +113,8 @@ class __$$_OpenOrdersStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OpenOrdersState extends _OpenOrdersState {
-  const _$_OpenOrdersState(
+class _$OpenOrdersStateImpl extends _OpenOrdersState {
+  const _$OpenOrdersStateImpl(
       {final List<OrderData> orders = const [],
       this.isLoading = false,
       this.isMoreLoading = false})
@@ -146,7 +146,7 @@ class _$_OpenOrdersState extends _OpenOrdersState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OpenOrdersState &&
+            other is _$OpenOrdersStateImpl &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -161,15 +161,16 @@ class _$_OpenOrdersState extends _OpenOrdersState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OpenOrdersStateCopyWith<_$_OpenOrdersState> get copyWith =>
-      __$$_OpenOrdersStateCopyWithImpl<_$_OpenOrdersState>(this, _$identity);
+  _$$OpenOrdersStateImplCopyWith<_$OpenOrdersStateImpl> get copyWith =>
+      __$$OpenOrdersStateImplCopyWithImpl<_$OpenOrdersStateImpl>(
+          this, _$identity);
 }
 
 abstract class _OpenOrdersState extends OpenOrdersState {
   const factory _OpenOrdersState(
       {final List<OrderData> orders,
       final bool isLoading,
-      final bool isMoreLoading}) = _$_OpenOrdersState;
+      final bool isMoreLoading}) = _$OpenOrdersStateImpl;
   const _OpenOrdersState._() : super._();
 
   @override
@@ -180,6 +181,6 @@ abstract class _OpenOrdersState extends OpenOrdersState {
   bool get isMoreLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_OpenOrdersStateCopyWith<_$_OpenOrdersState> get copyWith =>
+  _$$OpenOrdersStateImplCopyWith<_$OpenOrdersStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

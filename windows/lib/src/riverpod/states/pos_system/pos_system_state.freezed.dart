@@ -177,11 +177,11 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
 }
 
 /// @nodoc
-abstract class _$$_PosSystemStateCopyWith<$Res>
+abstract class _$$PosSystemStateImplCopyWith<$Res>
     implements $PosSystemStateCopyWith<$Res> {
-  factory _$$_PosSystemStateCopyWith(
-          _$_PosSystemState value, $Res Function(_$_PosSystemState) then) =
-      __$$_PosSystemStateCopyWithImpl<$Res>;
+  factory _$$PosSystemStateImplCopyWith(_$PosSystemStateImpl value,
+          $Res Function(_$PosSystemStateImpl) then) =
+      __$$PosSystemStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -206,11 +206,11 @@ abstract class _$$_PosSystemStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PosSystemStateCopyWithImpl<$Res>
-    extends _$PosSystemStateCopyWithImpl<$Res, _$_PosSystemState>
-    implements _$$_PosSystemStateCopyWith<$Res> {
-  __$$_PosSystemStateCopyWithImpl(
-      _$_PosSystemState _value, $Res Function(_$_PosSystemState) _then)
+class __$$PosSystemStateImplCopyWithImpl<$Res>
+    extends _$PosSystemStateCopyWithImpl<$Res, _$PosSystemStateImpl>
+    implements _$$PosSystemStateImplCopyWith<$Res> {
+  __$$PosSystemStateImplCopyWithImpl(
+      _$PosSystemStateImpl _value, $Res Function(_$PosSystemStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -235,7 +235,7 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
     Object? selectedBrand = freezed,
     Object? selectedShop = freezed,
   }) {
-    return _then(_$_PosSystemState(
+    return _then(_$PosSystemStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -314,8 +314,8 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PosSystemState extends _PosSystemState {
-  const _$_PosSystemState(
+class _$PosSystemStateImpl extends _PosSystemState {
+  const _$PosSystemStateImpl(
       {this.isLoading = false,
       this.isMoreLoading = false,
       this.isCategoriesLoading = false,
@@ -432,7 +432,7 @@ class _$_PosSystemState extends _PosSystemState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PosSystemState &&
+            other is _$PosSystemStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isMoreLoading, isMoreLoading) ||
@@ -492,8 +492,9 @@ class _$_PosSystemState extends _PosSystemState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PosSystemStateCopyWith<_$_PosSystemState> get copyWith =>
-      __$$_PosSystemStateCopyWithImpl<_$_PosSystemState>(this, _$identity);
+  _$$PosSystemStateImplCopyWith<_$PosSystemStateImpl> get copyWith =>
+      __$$PosSystemStateImplCopyWithImpl<_$PosSystemStateImpl>(
+          this, _$identity);
 }
 
 abstract class _PosSystemState extends PosSystemState {
@@ -515,7 +516,7 @@ abstract class _PosSystemState extends PosSystemState {
       final int activeBagIndex,
       final CategoryData? selectedCategory,
       final BrandData? selectedBrand,
-      final ShopData? selectedShop}) = _$_PosSystemState;
+      final ShopData? selectedShop}) = _$PosSystemStateImpl;
   const _PosSystemState._() : super._();
 
   @override
@@ -556,6 +557,6 @@ abstract class _PosSystemState extends PosSystemState {
   ShopData? get selectedShop;
   @override
   @JsonKey(ignore: true)
-  _$$_PosSystemStateCopyWith<_$_PosSystemState> get copyWith =>
+  _$$PosSystemStateImplCopyWith<_$PosSystemStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

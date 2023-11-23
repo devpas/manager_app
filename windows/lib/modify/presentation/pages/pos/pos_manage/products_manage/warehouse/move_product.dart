@@ -473,8 +473,8 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                                   );
                                                 },
                                               )
-                                            : const Text(
-                                                "Không tìm thấy sản phẩm",
+                                            : Text(
+                                                stateBase.translate[stateBase.languageSelected]["product_not_found"],
                                                 textAlign: TextAlign.center,
                                               )
                                       ],

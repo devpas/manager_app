@@ -73,11 +73,11 @@ class _$CategoriesStateCopyWithImpl<$Res, $Val extends CategoriesState>
 }
 
 /// @nodoc
-abstract class _$$_CategoriesStateCopyWith<$Res>
+abstract class _$$CategoriesStateImplCopyWith<$Res>
     implements $CategoriesStateCopyWith<$Res> {
-  factory _$$_CategoriesStateCopyWith(
-          _$_CategoriesState value, $Res Function(_$_CategoriesState) then) =
-      __$$_CategoriesStateCopyWithImpl<$Res>;
+  factory _$$CategoriesStateImplCopyWith(_$CategoriesStateImpl value,
+          $Res Function(_$CategoriesStateImpl) then) =
+      __$$CategoriesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -87,11 +87,11 @@ abstract class _$$_CategoriesStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CategoriesStateCopyWithImpl<$Res>
-    extends _$CategoriesStateCopyWithImpl<$Res, _$_CategoriesState>
-    implements _$$_CategoriesStateCopyWith<$Res> {
-  __$$_CategoriesStateCopyWithImpl(
-      _$_CategoriesState _value, $Res Function(_$_CategoriesState) _then)
+class __$$CategoriesStateImplCopyWithImpl<$Res>
+    extends _$CategoriesStateCopyWithImpl<$Res, _$CategoriesStateImpl>
+    implements _$$CategoriesStateImplCopyWith<$Res> {
+  __$$CategoriesStateImplCopyWithImpl(
+      _$CategoriesStateImpl _value, $Res Function(_$CategoriesStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -101,7 +101,7 @@ class __$$_CategoriesStateCopyWithImpl<$Res>
     Object? categoriesAfterFilter = freezed,
     Object? categorySelected = freezed,
   }) {
-    return _then(_$_CategoriesState(
+    return _then(_$CategoriesStateImpl(
       categories: freezed == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -120,8 +120,8 @@ class __$$_CategoriesStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CategoriesState extends _CategoriesState {
-  const _$_CategoriesState(
+class _$CategoriesStateImpl extends _CategoriesState {
+  const _$CategoriesStateImpl(
       {final List<CategoryPasData>? categories = const [],
       final List<CategoryPasData>? categoriesAfterFilter = const [],
       this.categorySelected})
@@ -164,7 +164,7 @@ class _$_CategoriesState extends _CategoriesState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CategoriesState &&
+            other is _$CategoriesStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality()
@@ -183,15 +183,16 @@ class _$_CategoriesState extends _CategoriesState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CategoriesStateCopyWith<_$_CategoriesState> get copyWith =>
-      __$$_CategoriesStateCopyWithImpl<_$_CategoriesState>(this, _$identity);
+  _$$CategoriesStateImplCopyWith<_$CategoriesStateImpl> get copyWith =>
+      __$$CategoriesStateImplCopyWithImpl<_$CategoriesStateImpl>(
+          this, _$identity);
 }
 
 abstract class _CategoriesState extends CategoriesState {
   const factory _CategoriesState(
       {final List<CategoryPasData>? categories,
       final List<CategoryPasData>? categoriesAfterFilter,
-      final CategoryPasData? categorySelected}) = _$_CategoriesState;
+      final CategoryPasData? categorySelected}) = _$CategoriesStateImpl;
   const _CategoriesState._() : super._();
 
   @override
@@ -202,6 +203,6 @@ abstract class _CategoriesState extends CategoriesState {
   CategoryPasData? get categorySelected;
   @override
   @JsonKey(ignore: true)
-  _$$_CategoriesStateCopyWith<_$_CategoriesState> get copyWith =>
+  _$$CategoriesStateImplCopyWith<_$CategoriesStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

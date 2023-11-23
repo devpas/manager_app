@@ -15,7 +15,7 @@ import 'package:restart_app/restart_app.dart';
 
 import '../../../../modify/repository/base_repository.dart';
 import '../../../../src/core/handlers/handlers.dart';
-import '../../../../src/core/utils/app_connectivity.dart';
+import '../../../../src/core/utils/utils.dart';
 import '../../../models/models.dart';
 import '../../states/states.dart';
 
@@ -360,8 +360,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
   }
 
   List<String> listProfile() {
-    List<String> profileShareMenu = ["Thông tin cơ sở", "Trở về cơ sở chính"];
-    List<String> profileOwnerMenu = ["Thông tin cá nhân", "Đăng xuất"];
+    List<String> profileShareMenu = [state.translate[state.languageSelected]["title_base_infomation"], state.translate[state.languageSelected]["title_return_main_base"]];
+    List<String> profileOwnerMenu = [state.translate[state.languageSelected]["title_your_infomation"], state.translate[state.languageSelected]["logout"]];
     List<String> listprofileMenu = [];
     if (checkShareMode()) {
       listprofileMenu = profileShareMenu;
@@ -372,12 +372,12 @@ class BaseNotifier extends StateNotifier<BaseState> {
   }
 
   void actionProfileMenu(String title, BuildContext context) {
-    if (title == "Thông tin cá nhân") {
+    if (title == state.translate[state.languageSelected]["title_your_infomation"]) {
       context.pushRoute(const ProfileInfomationUserRoute());
-    } else if (title == "Trở về cơ sở chính") {
+    } else if (title == state.translate[state.languageSelected]["title_return_main_base"]) {
       disableShareMode();
       Restart.restartApp();
-    } else if (title == "Đăng xuất") {
+    } else if (title == state.translate[state.languageSelected]["logout"]) {
       LocalStorage.instance.logout();
       Restart.restartApp();
     }
@@ -583,5 +583,13 @@ class BaseNotifier extends StateNotifier<BaseState> {
     } else {
       print(response);
     }
+  }
+
+  void loadTranslate() {
+    state = state.copyWith(translate: Translates().translate);
+  }
+
+  void setLanguage(String lang) {
+    state = state.copyWith(languageSelected: lang);
   }
 }

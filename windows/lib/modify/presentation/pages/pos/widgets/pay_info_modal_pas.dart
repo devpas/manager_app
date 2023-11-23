@@ -12,6 +12,7 @@ import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/utils/utils.dart';
+import '../../../../riverpob/states/states.dart';
 import '../../../components/components.dart';
 import '../../../theme/theme.dart';
 
@@ -76,6 +77,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
 
   Widget receipt() {
     final statePos = ref.watch(posSystemPASProvider);
+    final stateBase = ref.watch(baseProvider);
     final notifierPos = ref.read(posSystemPASProvider.notifier);
     final notifierProducts = ref.read(productsPASProvider.notifier);
     double screenHeight = MediaQuery.of(context).size.height;
@@ -98,14 +100,14 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                 SizedBox(
                   width: screenWidth * 0.3,
                   child: Text(
-                    "Hàng",
+                    stateBase.translate[stateBase.languageSelected]["product_name"],
                     style: AppTypographies.styBlack11W400Opacity40,
                   ),
                 ),
                 SizedBox(
                   width: screenWidth * 0.1,
                   child: Text(
-                    "Giá",
+                    stateBase.translate[stateBase.languageSelected]["price"],
                     style: AppTypographies.styBlack11W400Opacity40,
                     textAlign: TextAlign.right,
                   ),
@@ -113,7 +115,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                 SizedBox(
                   width: screenWidth * 0.1,
                   child: Text(
-                    "SL",
+                    stateBase.translate[stateBase.languageSelected]["quantity"],
                     style: AppTypographies.styBlack11W400Opacity40,
                     textAlign: TextAlign.right,
                   ),
@@ -129,7 +131,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                 SizedBox(
                   width: screenWidth * 0.14,
                   child: Text(
-                    "Giá + %",
+                    "${stateBase.translate[stateBase.languageSelected]["price"]} + %",
                     style: AppTypographies.styBlack11W400Opacity40,
                     textAlign: TextAlign.right,
                   ),
@@ -137,7 +139,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                 SizedBox(
                   width: screenWidth * 0.20,
                   child: Text(
-                    "Tiền",
+                    stateBase.translate[stateBase.languageSelected]["price"],
                     style: AppTypographies.styBlack11W400Opacity40,
                     textAlign: TextAlign.right,
                   ),
@@ -230,7 +232,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Tổng tiền", textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
+              Text(stateBase.translate[stateBase.languageSelected]["total_money"], textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
               Text(notifierPos.totalMoneyCalculator(statePos.selectTicket!, true), textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
             ],
           ),
@@ -239,7 +241,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
     );
   }
 
-  Widget debt() {
+  Widget debt(BaseState stateBase) {
     final stateCustomer = ref.watch(customersProvider);
     return Material(
       color: AppColors.white,
@@ -260,7 +262,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           SizedBox(
                             width: 100,
                             child: Text(
-                              "Nợ",
+                              stateBase.translate[stateBase.languageSelected]["debt"],
                               style: AppTypographies.styBlack14W400,
                             ),
                           ),
@@ -286,7 +288,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           SizedBox(
                             width: 100,
                             child: Text(
-                              "Tên",
+                              stateBase.translate[stateBase.languageSelected]["name"],
                               style: AppTypographies.styBlack14W400,
                             ),
                           ),
@@ -299,7 +301,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           SizedBox(
                             width: 100,
                             child: Text(
-                              "Ghi chú",
+                              stateBase.translate[stateBase.languageSelected]["notes"],
                               style: AppTypographies.styBlack14W400,
                             ),
                           ),
@@ -312,7 +314,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           SizedBox(
                             width: 100,
                             child: Text(
-                              "Nợ tối đa",
+                              stateBase.translate[stateBase.languageSelected]["max_debt"],
                               style: AppTypographies.styBlack14W400,
                             ),
                           ),
@@ -331,7 +333,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           SizedBox(
                             width: 100,
                             child: Text(
-                              "Nợ hiện tại",
+                              stateBase.translate[stateBase.languageSelected]["current_debt"],
                               style: AppTypographies.styBlack14W400,
                             ),
                           ),
@@ -350,7 +352,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           SizedBox(
                             width: 100,
                             child: Text(
-                              "TT cuối",
+                              stateBase.translate[stateBase.languageSelected]["deb_expire_time"],
                               style: AppTypographies.styBlack14W400,
                             ),
                           ),
@@ -376,7 +378,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
     );
   }
 
-  Widget payment() {
+  Widget payment(BaseState stateBase) {
     double screenHeight = MediaQuery.of(context).size.height;
     final notifier = ref.read(posSystemPASProvider.notifier);
     return Column(
@@ -445,7 +447,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Đưa",
+                        stateBase.translate[stateBase.languageSelected]["give"],
                         style: AppTypographies.styBlack14W400,
                       ),
                       Text(editMoney ? notifier.convertNumberZero(depositsMoney) : notifier.convertNumberZero(totalMoney), style: AppTypographies.styBlack14W400)
@@ -456,7 +458,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Thối",
+                        stateBase.translate[stateBase.languageSelected]["back"],
                         style: AppTypographies.styBlack14W400,
                       ),
                       Text(notifier.convertNumberZero(refundsMoney), style: AppTypographies.styBlack14W400)
@@ -467,7 +469,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Tổng số",
+                        stateBase.translate[stateBase.languageSelected]["total"],
                         style: AppTypographies.styBlack14W400,
                       ),
                       Text(notifier.convertNumberZero(totalMoney), style: AppTypographies.styBlack14W400)
@@ -478,7 +480,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Tiền còn",
+                        stateBase.translate[stateBase.languageSelected]["money_left"],
                         style: AppTypographies.styBlack14W400,
                       ),
                       Text(notifier.convertNumberZero(arrearsMoney), style: AppTypographies.styBlack14W400)
@@ -509,7 +511,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
         children: [
           10.verticalSpace,
           Text(
-            AppHelpers.getTranslation("Thanh toán"),
+            stateBase.translate[stateBase.languageSelected]["payment"],
             style: AppTypographies.styBlack22W500,
           ),
           10.verticalSpace,
@@ -530,8 +532,8 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
               unselectedLabelStyle: AppTypographies.styUnselected14W500,
               labelStyle: AppTypographies.styBlack14W500,
               tabs: [
-                Tab(text: AppHelpers.getTranslation("Tiền mặt")),
-                Tab(text: AppHelpers.getTranslation("Công nợ")),
+                Tab(text: stateBase.translate[stateBase.languageSelected]["cash"]),
+                Tab(text: stateBase.translate[stateBase.languageSelected]["debt"]),
               ],
             ),
           ),
@@ -539,7 +541,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
             child: TabBarView(
               controller: _tabController,
               physics: const CustomBouncingScrollPhysics(),
-              children: [payment(), debt()],
+              children: [payment(stateBase), debt(stateBase)],
             ),
           ),
           10.verticalSpace,

@@ -143,11 +143,11 @@ class _$EditCategoryStateCopyWithImpl<$Res, $Val extends EditCategoryState>
 }
 
 /// @nodoc
-abstract class _$$_EditCategoryStateCopyWith<$Res>
+abstract class _$$EditCategoryStateImplCopyWith<$Res>
     implements $EditCategoryStateCopyWith<$Res> {
-  factory _$$_EditCategoryStateCopyWith(_$_EditCategoryState value,
-          $Res Function(_$_EditCategoryState) then) =
-      __$$_EditCategoryStateCopyWithImpl<$Res>;
+  factory _$$EditCategoryStateImplCopyWith(_$EditCategoryStateImpl value,
+          $Res Function(_$EditCategoryStateImpl) then) =
+      __$$EditCategoryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -167,11 +167,11 @@ abstract class _$$_EditCategoryStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_EditCategoryStateCopyWithImpl<$Res>
-    extends _$EditCategoryStateCopyWithImpl<$Res, _$_EditCategoryState>
-    implements _$$_EditCategoryStateCopyWith<$Res> {
-  __$$_EditCategoryStateCopyWithImpl(
-      _$_EditCategoryState _value, $Res Function(_$_EditCategoryState) _then)
+class __$$EditCategoryStateImplCopyWithImpl<$Res>
+    extends _$EditCategoryStateCopyWithImpl<$Res, _$EditCategoryStateImpl>
+    implements _$$EditCategoryStateImplCopyWith<$Res> {
+  __$$EditCategoryStateImplCopyWithImpl(_$EditCategoryStateImpl _value,
+      $Res Function(_$EditCategoryStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -191,7 +191,7 @@ class __$$_EditCategoryStateCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? image = freezed,
   }) {
-    return _then(_$_EditCategoryState(
+    return _then(_$EditCategoryStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -250,8 +250,8 @@ class __$$_EditCategoryStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_EditCategoryState extends _EditCategoryState {
-  const _$_EditCategoryState(
+class _$EditCategoryStateImpl extends _EditCategoryState {
+  const _$EditCategoryStateImpl(
       {this.isLoading = false,
       this.isSaving = false,
       this.status = false,
@@ -328,7 +328,7 @@ class _$_EditCategoryState extends _EditCategoryState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EditCategoryState &&
+            other is _$EditCategoryStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSaving, isSaving) ||
@@ -372,8 +372,8 @@ class _$_EditCategoryState extends _EditCategoryState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EditCategoryStateCopyWith<_$_EditCategoryState> get copyWith =>
-      __$$_EditCategoryStateCopyWithImpl<_$_EditCategoryState>(
+  _$$EditCategoryStateImplCopyWith<_$EditCategoryStateImpl> get copyWith =>
+      __$$EditCategoryStateImplCopyWithImpl<_$EditCategoryStateImpl>(
           this, _$identity);
 }
 
@@ -391,7 +391,7 @@ abstract class _EditCategoryState extends EditCategoryState {
       final int selectedParentId,
       final String? parentCategory,
       final String? imageUrl,
-      final XFile? image}) = _$_EditCategoryState;
+      final XFile? image}) = _$EditCategoryStateImpl;
   const _EditCategoryState._() : super._();
 
   @override
@@ -422,6 +422,6 @@ abstract class _EditCategoryState extends EditCategoryState {
   XFile? get image;
   @override
   @JsonKey(ignore: true)
-  _$$_EditCategoryStateCopyWith<_$_EditCategoryState> get copyWith =>
+  _$$EditCategoryStateImplCopyWith<_$EditCategoryStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

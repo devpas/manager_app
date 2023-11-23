@@ -18,6 +18,7 @@ class SelectPaymentPosModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(posSystemPASProvider);
+    final stateBase = ref.watch(baseProvider);
     final notifier = ref.read(posSystemPASProvider.notifier);
     return Material(
       color: AppColors.white,
@@ -29,7 +30,7 @@ class SelectPaymentPosModal extends ConsumerWidget {
           children: [
             24.verticalSpace,
             Text(
-              "Chọn hình thức thanh toán",
+              stateBase.translate[stateBase.languageSelected]["select_payment_method"],
               style: AppTypographies.styBlack22W500,
             ),
             24.verticalSpace,

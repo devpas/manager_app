@@ -69,7 +69,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                     ),
                     3.verticalSpace,
                     Text(
-                      notifier.checkShareMode() ? notifier.getRoleName(notifier.getRoleCode().where((e) => e.contains("pos-")).first) : "Chủ cơ sở",
+                      notifier.checkShareMode() ? notifier.getRoleName(notifier.getRoleCode().where((e) => e.contains("pos-")).first) : state.translate[state.languageSelected]["owner"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
@@ -172,7 +172,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-page")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.store_2_line,
-                        title: "Trang bán hàng",
+                        title: state.translate[state.languageSelected]["pso"],
                         onTap: () {
                           // context.popRoute();
                           context.pushRoute(const MainPASRoute());
@@ -182,7 +182,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-products")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.add_box_line,
-                        title: "Sản phẩm",
+                        title: state.translate[state.languageSelected]["Product"],
                         onTap: () {
                           context.popRoute();
                           context.pushRoute(const ProductsPasRoute());
@@ -192,7 +192,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-customer")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.user_3_line,
-                        title: "Khách hàng",
+                        title: state.translate[state.languageSelected]["Customer"],
                         onTap: () {
                           context.popRoute();
                           context.pushRoute(const CustomersPasRoute());
@@ -212,7 +212,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-orders")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.bill_line,
-                        title: "Đơn hàng",
+                        title: state.translate[state.languageSelected]["order"],
                         onTap: () {
                           context.popRoute();
                           // context.pushRoute(const CategoriesPasRoute());
@@ -243,7 +243,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-categories")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.settings_line,
-                        title: "Quản trị",
+                        title: state.translate[state.languageSelected]["manage"],
                         onTap: () {
                           context.popRoute();
                           // context.pushRoute(const CategoriesPasRoute());
@@ -253,7 +253,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                     : const SizedBox(),
                 DrawerItemWidget(
                   iconData: FlutterRemix.logout_circle_r_line,
-                  title: "Màn hình chính",
+                  title: state.translate[state.languageSelected]["main_screen"],
                   onTap: () {
                     context.popRoute();
                     context.pushRoute(const DashboardBaseRoute());

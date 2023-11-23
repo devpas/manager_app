@@ -70,22 +70,22 @@ class _$CancelledOrdersStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_CancelledOrdersStateCopyWith<$Res>
+abstract class _$$CancelledOrdersStateImplCopyWith<$Res>
     implements $CancelledOrdersStateCopyWith<$Res> {
-  factory _$$_CancelledOrdersStateCopyWith(_$_CancelledOrdersState value,
-          $Res Function(_$_CancelledOrdersState) then) =
-      __$$_CancelledOrdersStateCopyWithImpl<$Res>;
+  factory _$$CancelledOrdersStateImplCopyWith(_$CancelledOrdersStateImpl value,
+          $Res Function(_$CancelledOrdersStateImpl) then) =
+      __$$CancelledOrdersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<OrderData> orders, bool isLoading, bool isMoreLoading});
 }
 
 /// @nodoc
-class __$$_CancelledOrdersStateCopyWithImpl<$Res>
-    extends _$CancelledOrdersStateCopyWithImpl<$Res, _$_CancelledOrdersState>
-    implements _$$_CancelledOrdersStateCopyWith<$Res> {
-  __$$_CancelledOrdersStateCopyWithImpl(_$_CancelledOrdersState _value,
-      $Res Function(_$_CancelledOrdersState) _then)
+class __$$CancelledOrdersStateImplCopyWithImpl<$Res>
+    extends _$CancelledOrdersStateCopyWithImpl<$Res, _$CancelledOrdersStateImpl>
+    implements _$$CancelledOrdersStateImplCopyWith<$Res> {
+  __$$CancelledOrdersStateImplCopyWithImpl(_$CancelledOrdersStateImpl _value,
+      $Res Function(_$CancelledOrdersStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -95,7 +95,7 @@ class __$$_CancelledOrdersStateCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isMoreLoading = null,
   }) {
-    return _then(_$_CancelledOrdersState(
+    return _then(_$CancelledOrdersStateImpl(
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
@@ -114,8 +114,8 @@ class __$$_CancelledOrdersStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CancelledOrdersState extends _CancelledOrdersState {
-  const _$_CancelledOrdersState(
+class _$CancelledOrdersStateImpl extends _CancelledOrdersState {
+  const _$CancelledOrdersStateImpl(
       {final List<OrderData> orders = const [],
       this.isLoading = false,
       this.isMoreLoading = false})
@@ -147,7 +147,7 @@ class _$_CancelledOrdersState extends _CancelledOrdersState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CancelledOrdersState &&
+            other is _$CancelledOrdersStateImpl &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -162,16 +162,17 @@ class _$_CancelledOrdersState extends _CancelledOrdersState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CancelledOrdersStateCopyWith<_$_CancelledOrdersState> get copyWith =>
-      __$$_CancelledOrdersStateCopyWithImpl<_$_CancelledOrdersState>(
-          this, _$identity);
+  _$$CancelledOrdersStateImplCopyWith<_$CancelledOrdersStateImpl>
+      get copyWith =>
+          __$$CancelledOrdersStateImplCopyWithImpl<_$CancelledOrdersStateImpl>(
+              this, _$identity);
 }
 
 abstract class _CancelledOrdersState extends CancelledOrdersState {
   const factory _CancelledOrdersState(
       {final List<OrderData> orders,
       final bool isLoading,
-      final bool isMoreLoading}) = _$_CancelledOrdersState;
+      final bool isMoreLoading}) = _$CancelledOrdersStateImpl;
   const _CancelledOrdersState._() : super._();
 
   @override
@@ -182,6 +183,6 @@ abstract class _CancelledOrdersState extends CancelledOrdersState {
   bool get isMoreLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_CancelledOrdersStateCopyWith<_$_CancelledOrdersState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CancelledOrdersStateImplCopyWith<_$CancelledOrdersStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

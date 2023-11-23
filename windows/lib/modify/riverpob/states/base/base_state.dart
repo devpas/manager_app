@@ -33,6 +33,8 @@ class BaseState with _$BaseState {
     @Default([]) List<dynamic>? baseEmployees,
     XFile? image,
     XFile? video,
+    @Default({}) dynamic translate,
+    @Default("vn") String? languageSelected,
   }) = _BaseState;
 
   const BaseState._();

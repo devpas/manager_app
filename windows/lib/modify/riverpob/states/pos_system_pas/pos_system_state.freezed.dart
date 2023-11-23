@@ -156,11 +156,11 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
 }
 
 /// @nodoc
-abstract class _$$_PosSystemStateCopyWith<$Res>
+abstract class _$$PosSystemStateImplCopyWith<$Res>
     implements $PosSystemStateCopyWith<$Res> {
-  factory _$$_PosSystemStateCopyWith(
-          _$_PosSystemState value, $Res Function(_$_PosSystemState) then) =
-      __$$_PosSystemStateCopyWithImpl<$Res>;
+  factory _$$PosSystemStateImplCopyWith(_$PosSystemStateImpl value,
+          $Res Function(_$PosSystemStateImpl) then) =
+      __$$PosSystemStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -182,11 +182,11 @@ abstract class _$$_PosSystemStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PosSystemStateCopyWithImpl<$Res>
-    extends _$PosSystemStateCopyWithImpl<$Res, _$_PosSystemState>
-    implements _$$_PosSystemStateCopyWith<$Res> {
-  __$$_PosSystemStateCopyWithImpl(
-      _$_PosSystemState _value, $Res Function(_$_PosSystemState) _then)
+class __$$PosSystemStateImplCopyWithImpl<$Res>
+    extends _$PosSystemStateCopyWithImpl<$Res, _$PosSystemStateImpl>
+    implements _$$PosSystemStateImplCopyWith<$Res> {
+  __$$PosSystemStateImplCopyWithImpl(
+      _$PosSystemStateImpl _value, $Res Function(_$PosSystemStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -208,7 +208,7 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
     Object? createTicketLoading = freezed,
     Object? isPaymentLoading = freezed,
   }) {
-    return _then(_$_PosSystemState(
+    return _then(_$PosSystemStateImpl(
       listTicket: freezed == listTicket
           ? _value._listTicket
           : listTicket // ignore: cast_nullable_to_non_nullable
@@ -275,8 +275,8 @@ class __$$_PosSystemStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PosSystemState extends _PosSystemState {
-  const _$_PosSystemState(
+class _$PosSystemStateImpl extends _PosSystemState {
+  const _$PosSystemStateImpl(
       {final List<TicketData>? listTicket = const [],
       final List<List<dynamic>>? customerPos,
       final List<List<dynamic>>? unitPos,
@@ -400,7 +400,7 @@ class _$_PosSystemState extends _PosSystemState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PosSystemState &&
+            other is _$PosSystemStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._listTicket, _listTicket) &&
             const DeepCollectionEquality()
@@ -454,8 +454,9 @@ class _$_PosSystemState extends _PosSystemState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PosSystemStateCopyWith<_$_PosSystemState> get copyWith =>
-      __$$_PosSystemStateCopyWithImpl<_$_PosSystemState>(this, _$identity);
+  _$$PosSystemStateImplCopyWith<_$PosSystemStateImpl> get copyWith =>
+      __$$PosSystemStateImplCopyWithImpl<_$PosSystemStateImpl>(
+          this, _$identity);
 }
 
 abstract class _PosSystemState extends PosSystemState {
@@ -474,7 +475,7 @@ abstract class _PosSystemState extends PosSystemState {
       final bool categoriesLoading,
       final bool productsLoading,
       final bool? createTicketLoading,
-      final bool? isPaymentLoading}) = _$_PosSystemState;
+      final bool? isPaymentLoading}) = _$PosSystemStateImpl;
   const _PosSystemState._() : super._();
 
   @override
@@ -509,6 +510,6 @@ abstract class _PosSystemState extends PosSystemState {
   bool? get isPaymentLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_PosSystemStateCopyWith<_$_PosSystemState> get copyWith =>
+  _$$PosSystemStateImplCopyWith<_$PosSystemStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -38,15 +38,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
 
   DateTime dateDiary = DateTime.now();
 
-  List<String> reason = [
-    "(Nhập)mua vào",
-    "(Nhập)trả hàng",
-    "(Nhập)chuyển kho",
-    "(Xuất)bán hàng",
-    "(Xuất)trả hàng",
-    "(Xuất)hong vo",
-    "(Xuất)chuyển kho"
-  ];
+  List<String> reason = ["(Nhập)mua vào", "(Nhập)trả hàng", "(Nhập)chuyển kho", "(Xuất)bán hàng", "(Xuất)trả hàng", "(Xuất)hong vo", "(Xuất)chuyển kho"];
 
   int reasonSelected = 0;
 
@@ -59,11 +51,9 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
       Duration.zero,
       () {
         ref.read(productsPASProvider.notifier).resetSearch();
-        ref.read(productsPASProvider.notifier).fetchProductsByCategory(
-            ref.read(productsPASProvider.notifier).minCategoryId);
+        ref.read(productsPASProvider.notifier).fetchProductsByCategory(ref.read(productsPASProvider.notifier).minCategoryId);
         if (ref.watch(categoriesPASProvider).categorySelected == null) {
-          ref.read(categoriesPASProvider.notifier).setCategorySelected(
-              ref.watch(categoriesPASProvider).categories![0]);
+          ref.read(categoriesPASProvider.notifier).setCategorySelected(ref.watch(categoriesPASProvider).categories![0]);
         }
         ref.read(productsPASProvider.notifier).getListWarehouses();
         qualityController.text = "0";
@@ -82,18 +72,13 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
     _scrollController.dispose();
   }
 
-  void getStock(ProductsPasNotifier notifier, ProductsPasState state,
-      ProductPasData product) {
+  void getStock(ProductsPasNotifier notifier, ProductsPasState state, ProductPasData product) {
     List<StockData> productInWarehouse = [];
     print(product.stocks![0].id);
     if (state.warehouseSelected != null) {
-      productInWarehouse = product.stocks!
-          .where((warehouse) => warehouse.id == state.warehouseSelected["id"])
-          .toList();
+      productInWarehouse = product.stocks!.where((warehouse) => warehouse.id == state.warehouseSelected["id"]).toList();
     } else {
-      productInWarehouse = state.products![0].stocks!
-          .where((warehouse) => warehouse.id == 0)
-          .toList();
+      productInWarehouse = state.products![0].stocks!.where((warehouse) => warehouse.id == 0).toList();
     }
     setState(() {
       print(productInWarehouse);
@@ -112,6 +97,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    final stateBase = ref.watch(baseProvider);
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     return Scaffold(
@@ -121,7 +107,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
         child: CustomAppbarPOS(
             center: false,
             title: Text(
-              "Nhật ký kho",
+              stateBase.translate[stateBase.languageSelected]["stock_diary"],
               style: AppTypographies.styBlack12W400,
             ),
             leading: Builder(
@@ -187,7 +173,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
                 }
               }
             },
-            hintText: "Tên sản phẩm",
+            hintText: stateBase.translate[stateBase.languageSelected]["titel_product_name"],
             suffixIcon: SmallIconButton(
               onPressed: () {
                 notifier.productName = "";
@@ -215,7 +201,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
                 : state.products!.isEmpty
                     ? Center(
                         child: Text(
-                          "Không tìm thấy sản phẩm",
+                          stateBase.translate[stateBase.languageSelected]["product_not_found"],
                           style: GoogleFonts.inter(
                             fontSize: 18.sp,
                             color: AppColors.black,
@@ -231,9 +217,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
                             physics: const NeverScrollableScrollPhysics(),
                             padding: REdgeInsets.all(8),
                             shrinkWrap: true,
-                            itemCount: state.productsAfterFilter!.isEmpty
-                                ? state.products!.length
-                                : state.productsAfterFilter!.length,
+                            itemCount: state.productsAfterFilter!.isEmpty ? state.products!.length : state.productsAfterFilter!.length,
                             itemBuilder: (context, index) {
                               ProductPasData product;
                               if (state.productsAfterFilter!.isEmpty) {
@@ -245,10 +229,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
                                 padding: const EdgeInsets.all(2.0),
                                 child: ProductByWarehouse(
                                   product: product,
-                                  selected: productSelected != null &&
-                                          product.id == productSelected!.id
-                                      ? true
-                                      : false,
+                                  selected: productSelected != null && product.id == productSelected!.id ? true : false,
                                   onTap: () async {
                                     setState(() {
                                       productSelected = product;
@@ -270,297 +251,222 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
             child: state.products!.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 5, 5),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      10.verticalSpace,
+                      Row(
                         children: [
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.3,
-                                  child: const Text("Số lượng hiện có")),
-                              SizedBox(
-                                  width: screenWidth * 0.50,
-                                  child: Text(stockCurrent)),
-                              SizedBox(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print("new line");
-                                  },
-                                  child: const Icon(Icons.new_label_outlined),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              !state.updateStockLoading!
-                                  ? SizedBox(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (productSelected != null) {
-                                            var diaryData = {
-                                              "index": productSelected!.index,
-                                              "reason": reasonSelected + 1,
-                                              "product_id": productSelected!.id,
-                                              "warehouse_id":
-                                                  state.warehouseSelected["id"],
-                                              "price": double.parse(
-                                                  priceController.text),
-                                              "quantity": int.parse(
-                                                  qualityController.text)
-                                            };
-                                            notifier.addStockDiary(diaryData);
-                                          }
-                                        },
-                                        child: const Icon(
-                                          Icons.save,
-                                        ),
-                                      ),
-                                    )
-                                  : const SizedBox(
-                                      width: 25,
-                                      height: 25,
-                                      child: Center(
-                                          child: CircularProgressIndicator(
-                                        color: AppColors.greenMain,
-                                      )),
-                                    )
-                            ],
+                          SizedBox(width: screenWidth * 0.3, child: Text(stateBase.translate[stateBase.languageSelected]["stock_current"])),
+                          SizedBox(width: screenWidth * 0.50, child: Text(stockCurrent)),
+                          SizedBox(
+                            child: GestureDetector(
+                              onTap: () {
+                                print("new line");
+                              },
+                              child: const Icon(Icons.new_label_outlined),
+                            ),
                           ),
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.15,
-                                  child: const Text("SL")),
-                              SizedBox(
-                                  height: 30,
-                                  width: screenWidth * 0.25,
-                                  child: TextFormField(
-                                    controller: qualityController,
-                                    cursorWidth: 1.r,
-                                    cursorColor: AppColors.black,
-                                    decoration: InputDecoration(
-                                      hintStyle: AppTypographies
-                                          .styBlack14W400Opacity30,
-                                      hintText: "",
-                                      contentPadding:
-                                          EdgeInsetsDirectional.only(
-                                              start: 5.r),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: AppColors.greenMain),
-                                      ),
-                                      border: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: AppColors.white),
-                                      ),
-                                    ),
-                                  )),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: SizedBox(
-                                  width: screenWidth * 0.2,
-                                  child: const Text("Giá"),
-                                ),
-                              ),
-                              SizedBox(
-                                  height: 30,
-                                  width: screenWidth * 0.25,
-                                  child: TextFormField(
-                                    controller: priceController,
-                                    cursorWidth: 1.r,
-                                    cursorColor: AppColors.black,
-                                    decoration: InputDecoration(
-                                      hintStyle: AppTypographies
-                                          .styBlack14W400Opacity30,
-                                      hintText: "",
-                                      contentPadding:
-                                          EdgeInsetsDirectional.only(
-                                              start: 5.r),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: AppColors.greenMain),
-                                      ),
-                                      border: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: AppColors.white),
-                                      ),
-                                    ),
-                                  )),
-                            ],
+                          const SizedBox(
+                            width: 10,
                           ),
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.15,
-                                  child: const Text("Mã vạch")),
-                              SizedBox(
-                                  width: screenWidth * 0.25,
-                                  child: Text(productSelected != null
-                                      ? productSelected!.reference.toString()
-                                      : "")),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: SizedBox(
-                                  width: screenWidth * 0.2,
-                                  child: const Text("Mã kho"),
-                                ),
-                              ),
-                              SizedBox(
-                                  width: screenWidth * 0.25,
-                                  child: Text(productSelected != null
-                                      ? productSelected!.code.toString()
-                                      : "")),
-                            ],
-                          ),
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.10,
-                                  child: const Text("Ngày")),
-                              SizedBox(
-                                  width: screenWidth * 0.70,
-                                  child: Text(DateFormat("yyyy-MM-dd HH:mm:ss")
-                                      .format(dateDiary))),
-                              SizedBox(
-                                  width: 25,
-                                  height: 25,
+                          !state.updateStockLoading!
+                              ? SizedBox(
                                   child: GestureDetector(
                                     onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return Dialog(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.r),
-                                            ),
-                                            child: Container(
-                                              constraints: BoxConstraints(
-                                                maxWidth: 450.r,
-                                              ),
-                                              child: CustomDatePickerModal(
-                                                  onDateSaved:
-                                                      (DateTime? date) {
-                                                setState(() {
-                                                  dateDiary = date!;
-                                                });
-                                              }),
-                                            ),
-                                          );
-                                        },
+                                      if (productSelected != null) {
+                                        var diaryData = {"index": productSelected!.index, "reason": reasonSelected + 1, "product_id": productSelected!.id, "warehouse_id": state.warehouseSelected["id"], "price": double.parse(priceController.text), "quantity": int.parse(qualityController.text)};
+                                        notifier.addStockDiary(diaryData);
+                                      }
+                                    },
+                                    child: const Icon(
+                                      Icons.save,
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                    color: AppColors.greenMain,
+                                  )),
+                                )
+                        ],
+                      ),
+                      10.verticalSpace,
+                      Row(
+                        children: [
+                          SizedBox(width: screenWidth * 0.15, child: Text(stateBase.translate[stateBase.languageSelected]["quantity"])),
+                          SizedBox(
+                              height: 30,
+                              width: screenWidth * 0.25,
+                              child: TextFormField(
+                                controller: qualityController,
+                                cursorWidth: 1.r,
+                                cursorColor: AppColors.black,
+                                decoration: InputDecoration(
+                                  hintStyle: AppTypographies.styBlack14W400Opacity30,
+                                  hintText: "",
+                                  contentPadding: EdgeInsetsDirectional.only(start: 5.r),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.greenMain),
+                                  ),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.white),
+                                  ),
+                                ),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                            child: SizedBox(
+                              width: screenWidth * 0.2,
+                              child: Text(stateBase.translate[stateBase.languageSelected]["price"]),
+                            ),
+                          ),
+                          SizedBox(
+                              height: 30,
+                              width: screenWidth * 0.25,
+                              child: TextFormField(
+                                controller: priceController,
+                                cursorWidth: 1.r,
+                                cursorColor: AppColors.black,
+                                decoration: InputDecoration(
+                                  hintStyle: AppTypographies.styBlack14W400Opacity30,
+                                  hintText: "",
+                                  contentPadding: EdgeInsetsDirectional.only(start: 5.r),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.greenMain),
+                                  ),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.white),
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+                      10.verticalSpace,
+                      Row(
+                        children: [
+                          SizedBox(width: screenWidth * 0.15, child: Text(stateBase.translate[stateBase.languageSelected]["barcode"])),
+                          SizedBox(width: screenWidth * 0.25, child: Text(productSelected != null ? productSelected!.reference.toString() : "")),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                            child: SizedBox(
+                              width: screenWidth * 0.2,
+                              child: Text(stateBase.translate[stateBase.languageSelected]["warehouse_code"]),
+                            ),
+                          ),
+                          SizedBox(width: screenWidth * 0.25, child: Text(productSelected != null ? productSelected!.code.toString() : "")),
+                        ],
+                      ),
+                      10.verticalSpace,
+                      Row(
+                        children: [
+                          SizedBox(width: screenWidth * 0.10, child: Text(stateBase.translate[stateBase.languageSelected]["day"])),
+                          SizedBox(width: screenWidth * 0.70, child: Text(DateFormat("yyyy-MM-dd HH:mm:ss").format(dateDiary))),
+                          SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.r),
+                                        ),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                            maxWidth: 450.r,
+                                          ),
+                                          child: CustomDatePickerModal(onDateSaved: (DateTime? date) {
+                                            setState(() {
+                                              dateDiary = date!;
+                                            });
+                                          }),
+                                        ),
                                       );
                                     },
-                                    child:
-                                        const Icon(Icons.date_range_outlined),
-                                  ))
-                            ],
-                          ),
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.10,
-                                  child: const Text("Lý do")),
-                              SizedBox(
-                                width: screenWidth * 0.4,
-                                child: SelectWithOptionMiniButton(
-                                  iconData: FlutterRemix.arrow_down_s_line,
-                                  label: 'Danh mục',
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) => Material(
-                                        color: AppColors.white,
-                                        child: Padding(
-                                          padding: REdgeInsets.symmetric(
-                                              horizontal: 15.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              24.verticalSpace,
-                                              Text(
-                                                "Chọn lý do",
-                                                style: AppTypographies
-                                                    .styBlack22W500,
-                                              ),
-                                              24.verticalSpace,
-                                              ListView.builder(
-                                                shrinkWrap: true,
-                                                physics:
-                                                    const CustomBouncingScrollPhysics(),
-                                                itemCount: reason.length,
-                                                itemBuilder: (context, index) {
-                                                  return ListTile(
-                                                    leading: Container(
-                                                      height: 20.r,
-                                                      width: 20.r,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.r),
-                                                        color: reasonSelected ==
-                                                                index
-                                                            ? AppColors.white
-                                                            : AppColors
-                                                                .transparent,
-                                                        border: Border.all(
-                                                          color: reasonSelected ==
-                                                                  index
-                                                              ? AppColors
-                                                                  .greenMain
-                                                              : AppColors
-                                                                  .productBorder,
-                                                          width:
-                                                              reasonSelected ==
-                                                                      index
-                                                                  ? 6.r
-                                                                  : 2.r,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    onTap: () {
-                                                      setState(() {
-                                                        reasonSelected = index;
-                                                      });
-                                                      context.popRoute();
-                                                    },
-                                                    title: Text(reason[index]
-                                                        .toString()),
-                                                  );
-                                                },
-                                              ),
-                                              50.verticalSpace,
-                                            ],
+                                  );
+                                },
+                                child: const Icon(Icons.date_range_outlined),
+                              ))
+                        ],
+                      ),
+                      10.verticalSpace,
+                      Row(
+                        children: [
+                          SizedBox(width: screenWidth * 0.10, child: Text(stateBase.translate[stateBase.languageSelected]["reason"])),
+                          SizedBox(
+                            width: screenWidth * 0.4,
+                            child: SelectWithOptionMiniButton(
+                              iconData: FlutterRemix.arrow_down_s_line,
+                              label: stateBase.translate[stateBase.languageSelected]["category"],
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => Material(
+                                    color: AppColors.white,
+                                    child: Padding(
+                                      padding: REdgeInsets.symmetric(horizontal: 15.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          24.verticalSpace,
+                                          Text(
+                                            "Chọn lý do",
+                                            style: AppTypographies.styBlack22W500,
                                           ),
-                                        ),
+                                          24.verticalSpace,
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: const CustomBouncingScrollPhysics(),
+                                            itemCount: reason.length,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                leading: Container(
+                                                  height: 20.r,
+                                                  width: 20.r,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10.r),
+                                                    color: reasonSelected == index ? AppColors.white : AppColors.transparent,
+                                                    border: Border.all(
+                                                      color: reasonSelected == index ? AppColors.greenMain : AppColors.productBorder,
+                                                      width: reasonSelected == index ? 6.r : 2.r,
+                                                    ),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  setState(() {
+                                                    reasonSelected = index;
+                                                  });
+                                                  context.popRoute();
+                                                },
+                                                title: Text(reason[index].toString()),
+                                              );
+                                            },
+                                          ),
+                                          50.verticalSpace,
+                                        ],
                                       ),
-                                    );
-                                  },
-                                  title: reason[reasonSelected],
-                                ),
-                              ),
-                            ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              title: reason[reasonSelected],
+                            ),
                           ),
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.10,
-                                  child: const Text("Tên")),
-                              SizedBox(
-                                  width: screenWidth * 0.70,
-                                  child: Text(productSelected != null
-                                      ? productSelected!.name.toString()
-                                      : "")),
-                            ],
-                          ),
-                        ]),
+                        ],
+                      ),
+                      10.verticalSpace,
+                      Row(
+                        children: [
+                          SizedBox(width: screenWidth * 0.10, child: Text(stateBase.translate[stateBase.languageSelected]["name"])),
+                          SizedBox(width: screenWidth * 0.70, child: Text(productSelected != null ? productSelected!.name.toString() : "")),
+                        ],
+                      ),
+                    ]),
                   )
                 : const SizedBox(),
           )

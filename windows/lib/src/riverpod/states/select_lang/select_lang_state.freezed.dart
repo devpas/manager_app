@@ -93,11 +93,11 @@ class _$SelectLangStateCopyWithImpl<$Res, $Val extends SelectLangState>
 }
 
 /// @nodoc
-abstract class _$$_SelectLangStateCopyWith<$Res>
+abstract class _$$SelectLangStateImplCopyWith<$Res>
     implements $SelectLangStateCopyWith<$Res> {
-  factory _$$_SelectLangStateCopyWith(
-          _$_SelectLangState value, $Res Function(_$_SelectLangState) then) =
-      __$$_SelectLangStateCopyWithImpl<$Res>;
+  factory _$$SelectLangStateImplCopyWith(_$SelectLangStateImpl value,
+          $Res Function(_$SelectLangStateImpl) then) =
+      __$$SelectLangStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_SelectLangStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SelectLangStateCopyWithImpl<$Res>
-    extends _$SelectLangStateCopyWithImpl<$Res, _$_SelectLangState>
-    implements _$$_SelectLangStateCopyWith<$Res> {
-  __$$_SelectLangStateCopyWithImpl(
-      _$_SelectLangState _value, $Res Function(_$_SelectLangState) _then)
+class __$$SelectLangStateImplCopyWithImpl<$Res>
+    extends _$SelectLangStateCopyWithImpl<$Res, _$SelectLangStateImpl>
+    implements _$$SelectLangStateImplCopyWith<$Res> {
+  __$$SelectLangStateImplCopyWithImpl(
+      _$SelectLangStateImpl _value, $Res Function(_$SelectLangStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_SelectLangStateCopyWithImpl<$Res>
     Object? isSaving = null,
     Object? selectedIndex = null,
   }) {
-    return _then(_$_SelectLangState(
+    return _then(_$SelectLangStateImpl(
       searchOnStoppedTyping: freezed == searchOnStoppedTyping
           ? _value.searchOnStoppedTyping
           : searchOnStoppedTyping // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_SelectLangStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SelectLangState extends _SelectLangState {
-  const _$_SelectLangState(
+class _$SelectLangStateImpl extends _SelectLangState {
+  const _$SelectLangStateImpl(
       {this.searchOnStoppedTyping,
       final List<LanguageData> languages = const [],
       final List<LanguageData> languagesStore = const [],
@@ -209,7 +209,7 @@ class _$_SelectLangState extends _SelectLangState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SelectLangState &&
+            other is _$SelectLangStateImpl &&
             (identical(other.searchOnStoppedTyping, searchOnStoppedTyping) ||
                 other.searchOnStoppedTyping == searchOnStoppedTyping) &&
             const DeepCollectionEquality()
@@ -237,8 +237,9 @@ class _$_SelectLangState extends _SelectLangState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SelectLangStateCopyWith<_$_SelectLangState> get copyWith =>
-      __$$_SelectLangStateCopyWithImpl<_$_SelectLangState>(this, _$identity);
+  _$$SelectLangStateImplCopyWith<_$SelectLangStateImpl> get copyWith =>
+      __$$SelectLangStateImplCopyWithImpl<_$SelectLangStateImpl>(
+          this, _$identity);
 }
 
 abstract class _SelectLangState extends SelectLangState {
@@ -248,7 +249,7 @@ abstract class _SelectLangState extends SelectLangState {
       final List<LanguageData> languagesStore,
       final bool isLoading,
       final bool isSaving,
-      final int selectedIndex}) = _$_SelectLangState;
+      final int selectedIndex}) = _$SelectLangStateImpl;
   const _SelectLangState._() : super._();
 
   @override
@@ -265,6 +266,6 @@ abstract class _SelectLangState extends SelectLangState {
   int get selectedIndex;
   @override
   @JsonKey(ignore: true)
-  _$$_SelectLangStateCopyWith<_$_SelectLangState> get copyWith =>
+  _$$SelectLangStateImplCopyWith<_$SelectLangStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

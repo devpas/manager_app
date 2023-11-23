@@ -73,11 +73,11 @@ class _$OrdersPasStateCopyWithImpl<$Res, $Val extends OrdersPasState>
 }
 
 /// @nodoc
-abstract class _$$_OrdersPasStateCopyWith<$Res>
+abstract class _$$OrdersPasStateImplCopyWith<$Res>
     implements $OrdersPasStateCopyWith<$Res> {
-  factory _$$_OrdersPasStateCopyWith(
-          _$_OrdersPasState value, $Res Function(_$_OrdersPasState) then) =
-      __$$_OrdersPasStateCopyWithImpl<$Res>;
+  factory _$$OrdersPasStateImplCopyWith(_$OrdersPasStateImpl value,
+          $Res Function(_$OrdersPasStateImpl) then) =
+      __$$OrdersPasStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -87,11 +87,11 @@ abstract class _$$_OrdersPasStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_OrdersPasStateCopyWithImpl<$Res>
-    extends _$OrdersPasStateCopyWithImpl<$Res, _$_OrdersPasState>
-    implements _$$_OrdersPasStateCopyWith<$Res> {
-  __$$_OrdersPasStateCopyWithImpl(
-      _$_OrdersPasState _value, $Res Function(_$_OrdersPasState) _then)
+class __$$OrdersPasStateImplCopyWithImpl<$Res>
+    extends _$OrdersPasStateCopyWithImpl<$Res, _$OrdersPasStateImpl>
+    implements _$$OrdersPasStateImplCopyWith<$Res> {
+  __$$OrdersPasStateImplCopyWithImpl(
+      _$OrdersPasStateImpl _value, $Res Function(_$OrdersPasStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -101,7 +101,7 @@ class __$$_OrdersPasStateCopyWithImpl<$Res>
     Object? ticketsAfterFilter = freezed,
     Object? isTicketsLoading = null,
   }) {
-    return _then(_$_OrdersPasState(
+    return _then(_$OrdersPasStateImpl(
       tickets: freezed == tickets
           ? _value._tickets
           : tickets // ignore: cast_nullable_to_non_nullable
@@ -120,8 +120,8 @@ class __$$_OrdersPasStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OrdersPasState extends _OrdersPasState {
-  const _$_OrdersPasState(
+class _$OrdersPasStateImpl extends _OrdersPasState {
+  const _$OrdersPasStateImpl(
       {final List<TicketData>? tickets = const [],
       final List<TicketData>? ticketsAfterFilter = const [],
       this.isTicketsLoading = false})
@@ -165,7 +165,7 @@ class _$_OrdersPasState extends _OrdersPasState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OrdersPasState &&
+            other is _$OrdersPasStateImpl &&
             const DeepCollectionEquality().equals(other._tickets, _tickets) &&
             const DeepCollectionEquality()
                 .equals(other._ticketsAfterFilter, _ticketsAfterFilter) &&
@@ -183,15 +183,16 @@ class _$_OrdersPasState extends _OrdersPasState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OrdersPasStateCopyWith<_$_OrdersPasState> get copyWith =>
-      __$$_OrdersPasStateCopyWithImpl<_$_OrdersPasState>(this, _$identity);
+  _$$OrdersPasStateImplCopyWith<_$OrdersPasStateImpl> get copyWith =>
+      __$$OrdersPasStateImplCopyWithImpl<_$OrdersPasStateImpl>(
+          this, _$identity);
 }
 
 abstract class _OrdersPasState extends OrdersPasState {
   const factory _OrdersPasState(
       {final List<TicketData>? tickets,
       final List<TicketData>? ticketsAfterFilter,
-      final bool isTicketsLoading}) = _$_OrdersPasState;
+      final bool isTicketsLoading}) = _$OrdersPasStateImpl;
   const _OrdersPasState._() : super._();
 
   @override
@@ -202,6 +203,6 @@ abstract class _OrdersPasState extends OrdersPasState {
   bool get isTicketsLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_OrdersPasStateCopyWith<_$_OrdersPasState> get copyWith =>
+  _$$OrdersPasStateImplCopyWith<_$OrdersPasStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

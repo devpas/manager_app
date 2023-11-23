@@ -206,11 +206,11 @@ class _$EditProductStateCopyWithImpl<$Res, $Val extends EditProductState>
 }
 
 /// @nodoc
-abstract class _$$_EditProductStateCopyWith<$Res>
+abstract class _$$EditProductStateImplCopyWith<$Res>
     implements $EditProductStateCopyWith<$Res> {
-  factory _$$_EditProductStateCopyWith(
-          _$_EditProductState value, $Res Function(_$_EditProductState) then) =
-      __$$_EditProductStateCopyWithImpl<$Res>;
+  factory _$$EditProductStateImplCopyWith(_$EditProductStateImpl value,
+          $Res Function(_$EditProductStateImpl) then) =
+      __$$EditProductStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -239,11 +239,11 @@ abstract class _$$_EditProductStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_EditProductStateCopyWithImpl<$Res>
-    extends _$EditProductStateCopyWithImpl<$Res, _$_EditProductState>
-    implements _$$_EditProductStateCopyWith<$Res> {
-  __$$_EditProductStateCopyWithImpl(
-      _$_EditProductState _value, $Res Function(_$_EditProductState) _then)
+class __$$EditProductStateImplCopyWithImpl<$Res>
+    extends _$EditProductStateCopyWithImpl<$Res, _$EditProductStateImpl>
+    implements _$$EditProductStateImplCopyWith<$Res> {
+  __$$EditProductStateImplCopyWithImpl(_$EditProductStateImpl _value,
+      $Res Function(_$EditProductStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -272,7 +272,7 @@ class __$$_EditProductStateCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? image = freezed,
   }) {
-    return _then(_$_EditProductState(
+    return _then(_$EditProductStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -367,8 +367,8 @@ class __$$_EditProductStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_EditProductState extends _EditProductState {
-  const _$_EditProductState(
+class _$EditProductStateImpl extends _EditProductState {
+  const _$EditProductStateImpl(
       {this.isLoading = false,
       this.isSaving = false,
       this.active = false,
@@ -486,7 +486,7 @@ class _$_EditProductState extends _EditProductState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EditProductState &&
+            other is _$EditProductStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSaving, isSaving) ||
@@ -559,8 +559,9 @@ class _$_EditProductState extends _EditProductState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EditProductStateCopyWith<_$_EditProductState> get copyWith =>
-      __$$_EditProductStateCopyWithImpl<_$_EditProductState>(this, _$identity);
+  _$$EditProductStateImplCopyWith<_$EditProductStateImpl> get copyWith =>
+      __$$EditProductStateImplCopyWithImpl<_$EditProductStateImpl>(
+          this, _$identity);
 }
 
 abstract class _EditProductState extends EditProductState {
@@ -586,7 +587,7 @@ abstract class _EditProductState extends EditProductState {
       final BrandData? productBrand,
       final CategoryData? productCategory,
       final String? imageUrl,
-      final XFile? image}) = _$_EditProductState;
+      final XFile? image}) = _$EditProductStateImpl;
   const _EditProductState._() : super._();
 
   @override
@@ -635,6 +636,6 @@ abstract class _EditProductState extends EditProductState {
   XFile? get image;
   @override
   @JsonKey(ignore: true)
-  _$$_EditProductStateCopyWith<_$_EditProductState> get copyWith =>
+  _$$EditProductStateImplCopyWith<_$EditProductStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

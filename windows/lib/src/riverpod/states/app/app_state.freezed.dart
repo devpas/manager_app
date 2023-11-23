@@ -68,21 +68,22 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
 }
 
 /// @nodoc
-abstract class _$$_AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
-  factory _$$_AppStateCopyWith(
-          _$_AppState value, $Res Function(_$_AppState) then) =
-      __$$_AppStateCopyWithImpl<$Res>;
+abstract class _$$AppStateImplCopyWith<$Res>
+    implements $AppStateCopyWith<$Res> {
+  factory _$$AppStateImplCopyWith(
+          _$AppStateImpl value, $Res Function(_$AppStateImpl) then) =
+      __$$AppStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isDarkMode, bool isLtr, LanguageData? activeLanguage});
 }
 
 /// @nodoc
-class __$$_AppStateCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res, _$_AppState>
-    implements _$$_AppStateCopyWith<$Res> {
-  __$$_AppStateCopyWithImpl(
-      _$_AppState _value, $Res Function(_$_AppState) _then)
+class __$$AppStateImplCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$AppStateImpl>
+    implements _$$AppStateImplCopyWith<$Res> {
+  __$$AppStateImplCopyWithImpl(
+      _$AppStateImpl _value, $Res Function(_$AppStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +93,7 @@ class __$$_AppStateCopyWithImpl<$Res>
     Object? isLtr = null,
     Object? activeLanguage = freezed,
   }) {
-    return _then(_$_AppState(
+    return _then(_$AppStateImpl(
       isDarkMode: null == isDarkMode
           ? _value.isDarkMode
           : isDarkMode // ignore: cast_nullable_to_non_nullable
@@ -111,8 +112,8 @@ class __$$_AppStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AppState extends _AppState {
-  const _$_AppState(
+class _$AppStateImpl extends _AppState {
+  const _$AppStateImpl(
       {this.isDarkMode = false, this.isLtr = true, this.activeLanguage})
       : super._();
 
@@ -134,7 +135,7 @@ class _$_AppState extends _AppState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AppState &&
+            other is _$AppStateImpl &&
             (identical(other.isDarkMode, isDarkMode) ||
                 other.isDarkMode == isDarkMode) &&
             (identical(other.isLtr, isLtr) || other.isLtr == isLtr) &&
@@ -149,15 +150,15 @@ class _$_AppState extends _AppState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppStateCopyWith<_$_AppState> get copyWith =>
-      __$$_AppStateCopyWithImpl<_$_AppState>(this, _$identity);
+  _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>
+      __$$AppStateImplCopyWithImpl<_$AppStateImpl>(this, _$identity);
 }
 
 abstract class _AppState extends AppState {
   const factory _AppState(
       {final bool isDarkMode,
       final bool isLtr,
-      final LanguageData? activeLanguage}) = _$_AppState;
+      final LanguageData? activeLanguage}) = _$AppStateImpl;
   const _AppState._() : super._();
 
   @override
@@ -168,6 +169,6 @@ abstract class _AppState extends AppState {
   LanguageData? get activeLanguage;
   @override
   @JsonKey(ignore: true)
-  _$$_AppStateCopyWith<_$_AppState> get copyWith =>
+  _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

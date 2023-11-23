@@ -50,6 +50,7 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(productsPASProvider);
+    final stateBase = ref.watch(baseProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     final notifierBase = ref.read(baseProvider.notifier);
     return AbsorbPointer(
@@ -59,7 +60,7 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
         appBar: CustomAppbarPOS(
           actions: getProductsActions(context),
           title: Text(
-            "Sản phẩm",
+            stateBase.translate[stateBase.languageSelected]["product"],
             style: AppTypographies.styBlack16W500,
             textAlign: TextAlign.center,
           ),

@@ -193,11 +193,11 @@ class _$ProductsStateCopyWithImpl<$Res, $Val extends ProductsState>
 }
 
 /// @nodoc
-abstract class _$$_ProductsStateCopyWith<$Res>
+abstract class _$$ProductsStateImplCopyWith<$Res>
     implements $ProductsStateCopyWith<$Res> {
-  factory _$$_ProductsStateCopyWith(
-          _$_ProductsState value, $Res Function(_$_ProductsState) then) =
-      __$$_ProductsStateCopyWithImpl<$Res>;
+  factory _$$ProductsStateImplCopyWith(
+          _$ProductsStateImpl value, $Res Function(_$ProductsStateImpl) then) =
+      __$$ProductsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -224,11 +224,11 @@ abstract class _$$_ProductsStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ProductsStateCopyWithImpl<$Res>
-    extends _$ProductsStateCopyWithImpl<$Res, _$_ProductsState>
-    implements _$$_ProductsStateCopyWith<$Res> {
-  __$$_ProductsStateCopyWithImpl(
-      _$_ProductsState _value, $Res Function(_$_ProductsState) _then)
+class __$$ProductsStateImplCopyWithImpl<$Res>
+    extends _$ProductsStateCopyWithImpl<$Res, _$ProductsStateImpl>
+    implements _$$ProductsStateImplCopyWith<$Res> {
+  __$$ProductsStateImplCopyWithImpl(
+      _$ProductsStateImpl _value, $Res Function(_$ProductsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -255,7 +255,7 @@ class __$$_ProductsStateCopyWithImpl<$Res>
     Object? categoryName = freezed,
     Object? searchController = freezed,
   }) {
-    return _then(_$_ProductsState(
+    return _then(_$ProductsStateImpl(
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -342,8 +342,8 @@ class __$$_ProductsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ProductsState extends _ProductsState {
-  const _$_ProductsState(
+class _$ProductsStateImpl extends _ProductsState {
+  const _$ProductsStateImpl(
       {final List<ProductData> products = const [],
       this.isLoading = false,
       this.isSaving = false,
@@ -458,7 +458,7 @@ class _$_ProductsState extends _ProductsState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProductsState &&
+            other is _$ProductsStateImpl &&
             const DeepCollectionEquality().equals(other._products, _products) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -526,8 +526,8 @@ class _$_ProductsState extends _ProductsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProductsStateCopyWith<_$_ProductsState> get copyWith =>
-      __$$_ProductsStateCopyWithImpl<_$_ProductsState>(this, _$identity);
+  _$$ProductsStateImplCopyWith<_$ProductsStateImpl> get copyWith =>
+      __$$ProductsStateImplCopyWithImpl<_$ProductsStateImpl>(this, _$identity);
 }
 
 abstract class _ProductsState extends ProductsState {
@@ -551,7 +551,7 @@ abstract class _ProductsState extends ProductsState {
       final String? shopName,
       final String? brandName,
       final String? categoryName,
-      final TextEditingController? searchController}) = _$_ProductsState;
+      final TextEditingController? searchController}) = _$ProductsStateImpl;
   const _ProductsState._() : super._();
 
   @override
@@ -596,6 +596,6 @@ abstract class _ProductsState extends ProductsState {
   TextEditingController? get searchController;
   @override
   @JsonKey(ignore: true)
-  _$$_ProductsStateCopyWith<_$_ProductsState> get copyWith =>
+  _$$ProductsStateImplCopyWith<_$ProductsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

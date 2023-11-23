@@ -123,11 +123,11 @@ class _$OrderDetailInfoStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_OrderDetailInfoStateCopyWith<$Res>
+abstract class _$$OrderDetailInfoStateImplCopyWith<$Res>
     implements $OrderDetailInfoStateCopyWith<$Res> {
-  factory _$$_OrderDetailInfoStateCopyWith(_$_OrderDetailInfoState value,
-          $Res Function(_$_OrderDetailInfoState) then) =
-      __$$_OrderDetailInfoStateCopyWithImpl<$Res>;
+  factory _$$OrderDetailInfoStateImplCopyWith(_$OrderDetailInfoStateImpl value,
+          $Res Function(_$OrderDetailInfoStateImpl) then) =
+      __$$OrderDetailInfoStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -144,11 +144,11 @@ abstract class _$$_OrderDetailInfoStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_OrderDetailInfoStateCopyWithImpl<$Res>
-    extends _$OrderDetailInfoStateCopyWithImpl<$Res, _$_OrderDetailInfoState>
-    implements _$$_OrderDetailInfoStateCopyWith<$Res> {
-  __$$_OrderDetailInfoStateCopyWithImpl(_$_OrderDetailInfoState _value,
-      $Res Function(_$_OrderDetailInfoState) _then)
+class __$$OrderDetailInfoStateImplCopyWithImpl<$Res>
+    extends _$OrderDetailInfoStateCopyWithImpl<$Res, _$OrderDetailInfoStateImpl>
+    implements _$$OrderDetailInfoStateImplCopyWith<$Res> {
+  __$$OrderDetailInfoStateImplCopyWithImpl(_$OrderDetailInfoStateImpl _value,
+      $Res Function(_$OrderDetailInfoStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -165,7 +165,7 @@ class __$$_OrderDetailInfoStateCopyWithImpl<$Res>
     Object? shopTotals = null,
     Object? calculateResponse = freezed,
   }) {
-    return _then(_$_OrderDetailInfoState(
+    return _then(_$OrderDetailInfoStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -212,8 +212,8 @@ class __$$_OrderDetailInfoStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OrderDetailInfoState extends _OrderDetailInfoState {
-  const _$_OrderDetailInfoState(
+class _$OrderDetailInfoStateImpl extends _OrderDetailInfoState {
+  const _$OrderDetailInfoStateImpl(
       {this.isLoading = false,
       this.isSearching = false,
       this.isAdding = false,
@@ -301,7 +301,7 @@ class _$_OrderDetailInfoState extends _OrderDetailInfoState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OrderDetailInfoState &&
+            other is _$OrderDetailInfoStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSearching, isSearching) ||
@@ -338,9 +338,10 @@ class _$_OrderDetailInfoState extends _OrderDetailInfoState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OrderDetailInfoStateCopyWith<_$_OrderDetailInfoState> get copyWith =>
-      __$$_OrderDetailInfoStateCopyWithImpl<_$_OrderDetailInfoState>(
-          this, _$identity);
+  _$$OrderDetailInfoStateImplCopyWith<_$OrderDetailInfoStateImpl>
+      get copyWith =>
+          __$$OrderDetailInfoStateImplCopyWithImpl<_$OrderDetailInfoStateImpl>(
+              this, _$identity);
 }
 
 abstract class _OrderDetailInfoState extends OrderDetailInfoState {
@@ -355,7 +356,7 @@ abstract class _OrderDetailInfoState extends OrderDetailInfoState {
           final List<ProductData> products,
           final List<ShopTotalData> shopTotals,
           final ProductCalculateResponse? calculateResponse}) =
-      _$_OrderDetailInfoState;
+      _$OrderDetailInfoStateImpl;
   const _OrderDetailInfoState._() : super._();
 
   @override
@@ -380,6 +381,6 @@ abstract class _OrderDetailInfoState extends OrderDetailInfoState {
   ProductCalculateResponse? get calculateResponse;
   @override
   @JsonKey(ignore: true)
-  _$$_OrderDetailInfoStateCopyWith<_$_OrderDetailInfoState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$OrderDetailInfoStateImplCopyWith<_$OrderDetailInfoStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

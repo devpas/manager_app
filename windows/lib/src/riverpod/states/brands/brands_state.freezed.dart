@@ -79,11 +79,11 @@ class _$BrandsStateCopyWithImpl<$Res, $Val extends BrandsState>
 }
 
 /// @nodoc
-abstract class _$$_BrandsStateCopyWith<$Res>
+abstract class _$$BrandsStateImplCopyWith<$Res>
     implements $BrandsStateCopyWith<$Res> {
-  factory _$$_BrandsStateCopyWith(
-          _$_BrandsState value, $Res Function(_$_BrandsState) then) =
-      __$$_BrandsStateCopyWithImpl<$Res>;
+  factory _$$BrandsStateImplCopyWith(
+          _$BrandsStateImpl value, $Res Function(_$BrandsStateImpl) then) =
+      __$$BrandsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_BrandsStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BrandsStateCopyWithImpl<$Res>
-    extends _$BrandsStateCopyWithImpl<$Res, _$_BrandsState>
-    implements _$$_BrandsStateCopyWith<$Res> {
-  __$$_BrandsStateCopyWithImpl(
-      _$_BrandsState _value, $Res Function(_$_BrandsState) _then)
+class __$$BrandsStateImplCopyWithImpl<$Res>
+    extends _$BrandsStateCopyWithImpl<$Res, _$BrandsStateImpl>
+    implements _$$BrandsStateImplCopyWith<$Res> {
+  __$$BrandsStateImplCopyWithImpl(
+      _$BrandsStateImpl _value, $Res Function(_$BrandsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_BrandsStateCopyWithImpl<$Res>
     Object? isSaving = null,
     Object? isMoreLoading = null,
   }) {
-    return _then(_$_BrandsState(
+    return _then(_$BrandsStateImpl(
       brands: null == brands
           ? _value._brands
           : brands // ignore: cast_nullable_to_non_nullable
@@ -132,8 +132,8 @@ class __$$_BrandsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BrandsState extends _BrandsState {
-  const _$_BrandsState(
+class _$BrandsStateImpl extends _BrandsState {
+  const _$BrandsStateImpl(
       {final List<BrandData> brands = const [],
       this.isLoading = false,
       this.isSaving = false,
@@ -169,7 +169,7 @@ class _$_BrandsState extends _BrandsState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BrandsState &&
+            other is _$BrandsStateImpl &&
             const DeepCollectionEquality().equals(other._brands, _brands) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -190,8 +190,8 @@ class _$_BrandsState extends _BrandsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BrandsStateCopyWith<_$_BrandsState> get copyWith =>
-      __$$_BrandsStateCopyWithImpl<_$_BrandsState>(this, _$identity);
+  _$$BrandsStateImplCopyWith<_$BrandsStateImpl> get copyWith =>
+      __$$BrandsStateImplCopyWithImpl<_$BrandsStateImpl>(this, _$identity);
 }
 
 abstract class _BrandsState extends BrandsState {
@@ -199,7 +199,7 @@ abstract class _BrandsState extends BrandsState {
       {final List<BrandData> brands,
       final bool isLoading,
       final bool isSaving,
-      final bool isMoreLoading}) = _$_BrandsState;
+      final bool isMoreLoading}) = _$BrandsStateImpl;
   const _BrandsState._() : super._();
 
   @override
@@ -212,6 +212,6 @@ abstract class _BrandsState extends BrandsState {
   bool get isMoreLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_BrandsStateCopyWith<_$_BrandsState> get copyWith =>
+  _$$BrandsStateImplCopyWith<_$BrandsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

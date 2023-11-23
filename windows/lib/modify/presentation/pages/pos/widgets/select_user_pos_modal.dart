@@ -35,6 +35,7 @@ class _SearchUserModalInClientInfoState extends ConsumerState<SelectUserPosModal
     final notifierPos = ref.read(posSystemPASProvider.notifier);
     final state = ref.watch(customersProvider);
     final notifier = ref.read(customersProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
     return Material(
       color: AppColors.mainBackground,
       child: Container(
@@ -47,10 +48,10 @@ class _SearchUserModalInClientInfoState extends ConsumerState<SelectUserPosModal
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SearchTextField(
+            SearchTextField(
               // onChanged: (value) =>
               //     notifier.setUserQuery(context, value.trim()),
-              hintText: "Tìm khách hàng",
+              hintText: stateBase.translate[stateBase.languageSelected]["find_customer"],
             ),
             10.verticalSpace,
             state.customers!.isEmpty

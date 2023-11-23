@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/base/base_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../src/core/routes/app_router.gr.dart';
+import '../../../../../riverpob/states/states.dart';
 import '../../../../theme/theme.dart';
 import '../../../../components/components.dart';
 import '../../widgets/w_main_drawer_pos.dart';
@@ -25,7 +26,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  Widget storageManage() {
+  Widget storageManage(BaseState state) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +36,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             children: [
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Sản phẩm",
+                title: state.translate[state.languageSelected]["product"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const ProductsPasRoute());
@@ -43,7 +44,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
               ),
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Sản phẩm phụ thuộc",
+                title: state.translate[state.languageSelected]["title_product_dependent"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   // ref
@@ -63,7 +64,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             children: [
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Sản phẩm theo kho",
+                title: state.translate[state.languageSelected]["title_product_from_warehouse"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const ProductsInWarehouseRoute());
@@ -71,7 +72,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
               ),
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Các danh mục",
+                title: state.translate[state.languageSelected]["title_categories"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const CategoriesPasRoute());
@@ -85,7 +86,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             children: [
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Giá trị thuộc tính",
+                title: state.translate[state.languageSelected]["title_value_properties"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   // context.pushRoute(const ProductsManageRoute());
@@ -93,7 +94,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
               ),
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Bộ thuộc tính",
+                title: state.translate[state.languageSelected]["title_attributeset"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   // ref
@@ -113,7 +114,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             children: [
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Bộ thuộc tính sử dụng",
+                title: state.translate[state.languageSelected]["title_attributeset_use"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   // context.pushRoute(const ProductsManageRoute());
@@ -121,7 +122,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
               ),
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Chiếc khấu",
+                title: state.translate[state.languageSelected]["discount"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const ListTaxesRoute());
@@ -135,7 +136,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             children: [
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Khách hàng",
+                title: state.translate[state.languageSelected]["customer"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const ListCustomerTypeRoute());
@@ -143,7 +144,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
               ),
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Mục chiếc khấu",
+                title: state.translate[state.languageSelected]["discount_category"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const ListTaxCategoriesRoute());
@@ -157,7 +158,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             children: [
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Chuyển hàng nội bộ",
+                title: state.translate[state.languageSelected]["move_product_in_local"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const MoveProductRoute());
@@ -165,7 +166,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
               ),
               DashboardItemBase(
                 iconData: FlutterRemix.star_line,
-                title: "Nhật ký kho",
+                title: state.translate[state.languageSelected]["stock_diary"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
                   context.pushRoute(const StockDiaryRoute());
@@ -179,7 +180,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
     );
   }
 
-  Widget reports() {
+  Widget reports(BaseState state) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -188,7 +189,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
           children: [
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Sản phẩm",
+              title: state.translate[state.languageSelected]["product"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // context.pushRoute(const ProductsManageRoute());
@@ -196,7 +197,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             ),
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Nhãn sản phẩm",
+              title: state.translate[state.languageSelected]["label_product"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // ref
@@ -216,7 +217,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
           children: [
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Danh mục",
+              title: state.translate[state.languageSelected]["category"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // context.pushRoute(const ProductsManageRoute());
@@ -224,7 +225,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             ),
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Kho bãi",
+              title: state.translate[state.languageSelected]["warehouse"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // ref
@@ -244,7 +245,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
           children: [
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Báo cáo kiểm kê",
+              title: state.translate[state.languageSelected]["inventory_report"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // context.pushRoute(const ProductsManageRoute());
@@ -252,7 +253,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             ),
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Hàng sắp hết",
+              title: state.translate[state.languageSelected]["stock_is_running_out"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // ref
@@ -272,7 +273,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
           children: [
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Hiện kiểm kê chi tiết",
+              title: state.translate[state.languageSelected]["show_detailed_inventory"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // context.pushRoute(const ProductsManageRoute());
@@ -280,7 +281,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
             ),
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Kê nhật ký",
+              title: state.translate[state.languageSelected]["check_diary"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // ref
@@ -300,7 +301,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
           children: [
             DashboardItemBase(
               iconData: FlutterRemix.file_paper_2_line,
-              title: "Báo cáo thuế",
+              title: state.translate[state.languageSelected]["tax_report"],
               iconColor: AppColors.canceledOrders,
               onTap: () {
                 // context.pushRoute(const ProductsManageRoute());
@@ -325,7 +326,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
         preferredSize: const Size.fromHeight(60.0),
         child: CustomAppbarPOS(
           title: Text(
-            "Sản phẩm",
+            state.translate[state.languageSelected]["product"],
             style: AppTypographies.styBlack16W400,
           ),
           leading: Builder(
@@ -356,9 +357,9 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
                 unselectedLabelColor: AppColors.unselectedTabBar,
                 unselectedLabelStyle: AppTypographies.styUnselected14W500,
                 labelStyle: AppTypographies.styBlack14W500,
-                tabs: const [
-                  Tab(text: "Quản lý kho"),
-                  Tab(text: "Báo cáo"),
+                tabs: [
+                  Tab(text: state.translate[state.languageSelected]["warehouse_manage"]),
+                  Tab(text: state.translate[state.languageSelected]["report"]),
                 ],
               ),
             ),
@@ -367,7 +368,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
               child: TabBarView(
                 controller: _tabController,
                 physics: const CustomBouncingScrollPhysics(),
-                children: [storageManage(), reports()],
+                children: [storageManage(state), reports(state)],
               ),
             ),
           ],

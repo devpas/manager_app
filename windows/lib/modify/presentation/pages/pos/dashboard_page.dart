@@ -34,10 +34,6 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
   late FocusNode focusNode;
   bool keyboardActive = false;
   double heightContainerProduct = 40;
-  List<List> reason = [
-    ["Xuất", -1],
-    ["Nhập", 2],
-  ];
 
   int reasonSelected = -1;
 
@@ -104,6 +100,10 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     final stateCustomer = ref.watch(customersProvider);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    List<List> reason = [
+      [stateBase.translate[stateBase.languageSelected]["in"], -1],
+      [stateBase.translate[stateBase.languageSelected]["out"], 2],
+    ];
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -121,14 +121,14 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           SizedBox(
                             width: screenWidth * 0.1,
                             child: Text(
-                              "Hàng",
+                              stateBase.translate[stateBase.languageSelected]["product_name"],
                               style: AppTypographies.styBlack11W400Opacity40,
                             ),
                           ),
                           Flexible(
                             child: SelectWithOptionMiniButton(
                               iconData: FlutterRemix.arrow_down_s_line,
-                              label: 'Danh mục',
+                              label: stateBase.translate[stateBase.languageSelected]["category"],
                               onTap: () {
                                 showModalBottomSheet(
                                   context: context,
@@ -142,7 +142,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                         children: [
                                           24.verticalSpace,
                                           Text(
-                                            "Chọn lý do",
+                                            stateBase.translate[stateBase.languageSelected]["select_reason"],
                                             style: AppTypographies.styBlack22W500,
                                           ),
                                           24.verticalSpace,
@@ -187,7 +187,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           SizedBox(
                             width: screenWidth * 0.1,
                             child: Text(
-                              "Giá",
+                              stateBase.translate[stateBase.languageSelected]["price"],
                               style: AppTypographies.styBlack11W400Opacity40,
                               textAlign: TextAlign.right,
                             ),
@@ -195,7 +195,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           SizedBox(
                             width: screenWidth * 0.1,
                             child: Text(
-                              "SL",
+                              stateBase.translate[stateBase.languageSelected]["quantity"],
                               style: AppTypographies.styBlack11W400Opacity40,
                               textAlign: TextAlign.right,
                             ),
@@ -211,7 +211,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           SizedBox(
                             width: screenWidth * 0.14,
                             child: Text(
-                              "Giá + %",
+                              "${stateBase.translate[stateBase.languageSelected]["price"]} %",
                               style: AppTypographies.styBlack11W400Opacity40,
                               textAlign: TextAlign.right,
                             ),
@@ -219,7 +219,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           SizedBox(
                             width: screenWidth * 0.20,
                             child: Text(
-                              "Tiền",
+                              stateBase.translate[stateBase.languageSelected]["money"],
                               style: AppTypographies.styBlack11W400Opacity40,
                               textAlign: TextAlign.right,
                             ),
@@ -342,7 +342,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                     child: Row(
                                       children: [
                                         statePos.infoSelected!.isNotEmpty
-                                            ? statePos.infoSelected![0][1] != "Khách lẻ"
+                                            ? statePos.infoSelected![0][1] != stateBase.translate[stateBase.languageSelected]["guest"]
                                                 ? Expanded(
                                                     child: statePos.infoSelected![0][1].toString().length < 30
                                                         ? Text(statePos.infoSelected![0][1].toString())
@@ -354,8 +354,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                             decelerationCurve: Curves.easeOut,
                                                           ),
                                                   )
-                                                : const Text("khách lẻ")
-                                            : const Text("Khách lẻ"),
+                                                : Text(stateBase.translate[stateBase.languageSelected]["guest"])
+                                            : Text(stateBase.translate[stateBase.languageSelected]["guest"]),
                                       ],
                                     ),
                                   )),
@@ -414,6 +414,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              notifierBase.loadTranslate();
                               print("Mở ngăn kéo");
                             },
                             child: Padding(
@@ -462,7 +463,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                     ),
                                   ),
                                 ),
-                          Text("TS: ", style: AppTypographies.styBlack11W400),
+                          Text("${stateBase.translate[stateBase.languageSelected]["total_money_short"]}: ", style: AppTypographies.styBlack11W400),
                           Expanded(
                             child: Text(notifierPos.totalMoneyCalculator(statePos.selectTicket!, true), textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
                           )
@@ -541,8 +542,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                 );
                                               },
                                             )
-                                          : const Text(
-                                              "Không tìm thấy sản phẩm",
+                                          : Text(
+                                              stateBase.translate[stateBase.languageSelected]["product_not_found"],
                                               textAlign: TextAlign.center,
                                             )
                                     ],

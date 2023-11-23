@@ -35,6 +35,7 @@ class _AddWarehousePageState extends ConsumerState<AddWarehousePage> {
 
   @override
   Widget build(BuildContext context) {
+    final stateBase = ref.watch(baseProvider);
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     return AbsorbPointer(
@@ -44,7 +45,7 @@ class _AddWarehousePageState extends ConsumerState<AddWarehousePage> {
           backgroundColor: AppColors.shopsPageBack,
           appBar: CustomAppbarPOS(
             title: Text(
-              "Thêm kho chứa",
+              stateBase.translate[stateBase.languageSelected]["add_warehouse"],
               style: AppTypographies.styBlack16W500,
               textAlign: TextAlign.center,
             ),
@@ -70,7 +71,7 @@ class _AddWarehousePageState extends ConsumerState<AddWarehousePage> {
                   children: [
                     30.verticalSpace,
                     Text(
-                      "Tên",
+                      stateBase.translate[stateBase.languageSelected]["name"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
@@ -94,7 +95,7 @@ class _AddWarehousePageState extends ConsumerState<AddWarehousePage> {
                     ),
                     30.verticalSpace,
                     Text(
-                      "Địa chỉ",
+                      stateBase.translate[stateBase.languageSelected]["address"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,

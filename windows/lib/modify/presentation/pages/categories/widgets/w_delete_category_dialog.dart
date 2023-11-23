@@ -12,8 +12,7 @@ import '../../../theme/theme.dart';
 class WDeleteCategoryDialog extends ConsumerWidget {
   final int alias;
 
-  const WDeleteCategoryDialog({Key? key, required this.alias})
-      : super(key: key);
+  const WDeleteCategoryDialog({Key? key, required this.alias}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

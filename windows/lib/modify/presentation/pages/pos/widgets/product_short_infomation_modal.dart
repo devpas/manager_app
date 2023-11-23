@@ -12,8 +12,7 @@ class ProductShortInfoModal extends ConsumerStatefulWidget {
   ProductShortInfoModal({Key? key, this.product}) : super(key: key);
 
   @override
-  ConsumerState<ProductShortInfoModal> createState() =>
-      _ProductShortInfoModalState(product);
+  ConsumerState<ProductShortInfoModal> createState() => _ProductShortInfoModalState(product);
 }
 
 class _ProductShortInfoModalState extends ConsumerState<ProductShortInfoModal> {
@@ -34,6 +33,7 @@ class _ProductShortInfoModalState extends ConsumerState<ProductShortInfoModal> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final state = ref.watch(categoriesPASProvider);
+    final stateBase = ref.watch(baseProvider);
     return Material(
       color: AppColors.white,
       child: Stack(
@@ -77,45 +77,37 @@ class _ProductShortInfoModalState extends ConsumerState<ProductShortInfoModal> {
                             width: screenWidth * 0.5,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text("Giá mua: ${product!.priceBuy}",
-                                  style: AppTypographies.styBlack12W400),
+                              child: Text("Giá mua: ${product!.priceBuy}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
                             width: screenWidth * 0.5,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text("Giá bán: ${product!.priceSell}",
-                                  style: AppTypographies.styBlack12W400),
+                              child: Text("Giá bán: ${product!.priceSell}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
                             width: screenWidth * 0.5,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text("Mã vạch: ${product!.reference}",
-                                  style: AppTypographies.styBlack12W400),
+                              child: Text("Mã vạch: ${product!.reference}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
                             width: screenWidth * 0.5,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text("Code: ${product!.code}",
-                                  style: AppTypographies.styBlack12W400),
+                              child: Text("Code: ${product!.code}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
                             width: screenWidth * 0.5,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                  "Danh mục: ${state.categories!.where((category) => category.id == product!.categoryId).first.name}",
-                                  style: AppTypographies.styBlack12W400),
+                              child: Text("Danh mục: ${state.categories!.where((category) => category.id == product!.categoryId).first.name}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
                             width: screenWidth * 0.5,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                  "Trạng thái: ${product!.active == 1 ? "Hoạt động" : "Không hoạt động"}",
-                                  style: AppTypographies.styBlack12W400),
+                              child: Text("${stateBase.translate[stateBase.languageSelected]["status"]}: ${product!.active == 1 ? stateBase.translate[stateBase.languageSelected]["active"] : stateBase.translate[stateBase.languageSelected]["inactive"]}", style: AppTypographies.styBlack12W400),
                             )),
                       ],
                     )

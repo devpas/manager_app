@@ -222,11 +222,11 @@ class _$ShopEditStateCopyWithImpl<$Res, $Val extends ShopEditState>
 }
 
 /// @nodoc
-abstract class _$$_ShopEditStateCopyWith<$Res>
+abstract class _$$ShopEditStateImplCopyWith<$Res>
     implements $ShopEditStateCopyWith<$Res> {
-  factory _$$_ShopEditStateCopyWith(
-          _$_ShopEditState value, $Res Function(_$_ShopEditState) then) =
-      __$$_ShopEditStateCopyWithImpl<$Res>;
+  factory _$$ShopEditStateImplCopyWith(
+          _$ShopEditStateImpl value, $Res Function(_$ShopEditStateImpl) then) =
+      __$$ShopEditStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -257,11 +257,11 @@ abstract class _$$_ShopEditStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ShopEditStateCopyWithImpl<$Res>
-    extends _$ShopEditStateCopyWithImpl<$Res, _$_ShopEditState>
-    implements _$$_ShopEditStateCopyWith<$Res> {
-  __$$_ShopEditStateCopyWithImpl(
-      _$_ShopEditState _value, $Res Function(_$_ShopEditState) _then)
+class __$$ShopEditStateImplCopyWithImpl<$Res>
+    extends _$ShopEditStateCopyWithImpl<$Res, _$ShopEditStateImpl>
+    implements _$$ShopEditStateImplCopyWith<$Res> {
+  __$$ShopEditStateImplCopyWithImpl(
+      _$ShopEditStateImpl _value, $Res Function(_$ShopEditStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -292,7 +292,7 @@ class __$$_ShopEditStateCopyWithImpl<$Res>
     Object? openController = freezed,
     Object? closeController = freezed,
   }) {
-    return _then(_$_ShopEditState(
+    return _then(_$ShopEditStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -395,8 +395,8 @@ class __$$_ShopEditStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ShopEditState extends _ShopEditState {
-  const _$_ShopEditState(
+class _$ShopEditStateImpl extends _ShopEditState {
+  const _$ShopEditStateImpl(
       {this.isLoading = false,
       this.isSaving = false,
       this.visibility = false,
@@ -498,7 +498,7 @@ class _$_ShopEditState extends _ShopEditState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ShopEditState &&
+            other is _$ShopEditStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSaving, isSaving) ||
@@ -575,8 +575,8 @@ class _$_ShopEditState extends _ShopEditState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ShopEditStateCopyWith<_$_ShopEditState> get copyWith =>
-      __$$_ShopEditStateCopyWithImpl<_$_ShopEditState>(this, _$identity);
+  _$$ShopEditStateImplCopyWith<_$ShopEditStateImpl> get copyWith =>
+      __$$ShopEditStateImplCopyWithImpl<_$ShopEditStateImpl>(this, _$identity);
 }
 
 abstract class _ShopEditState extends ShopEditState {
@@ -604,7 +604,7 @@ abstract class _ShopEditState extends ShopEditState {
       final String? logoUrl,
       final String? backUrl,
       final TextEditingController? openController,
-      final TextEditingController? closeController}) = _$_ShopEditState;
+      final TextEditingController? closeController}) = _$ShopEditStateImpl;
   const _ShopEditState._() : super._();
 
   @override
@@ -657,6 +657,6 @@ abstract class _ShopEditState extends ShopEditState {
   TextEditingController? get closeController;
   @override
   @JsonKey(ignore: true)
-  _$$_ShopEditStateCopyWith<_$_ShopEditState> get copyWith =>
+  _$$ShopEditStateImplCopyWith<_$ShopEditStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/riverpob/providers/base/base_provider.dart';
-import 'package:g_manager_app/modify/riverpob/providers/products/product_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../src/core/routes/app_router.gr.dart';
+import '../../../../src/core/utils/utils.dart';
+import '../../../riverpob/providers/providers.dart';
 import '../../theme/theme.dart';
 import '../../components/components.dart';
 import 'widgets/w_main_drawer base.dart';
@@ -25,6 +25,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
     Future.delayed(
       Duration.zero,
       () {
+        ref.read(baseProvider.notifier).loadTranslate();
         ref.read(baseProvider.notifier).checkDataFolder();
         ref.read(baseProvider.notifier).checkAccessBlock();
         ref.read(baseProvider.notifier).loadPrinterActive();
@@ -47,12 +48,12 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
             children: [
               Center(child: Text(state.msgBase!)),
               5.verticalSpace,
-              state.msgBase == "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không"
+              state.msgBase == state.translate[state.languageSelected]["want_install_folder"]
                   ? AccentAddButton(
                       onPressed: () {
                         notifier.createDataFolder();
                       },
-                      title: 'Tạo thư mục dữ liệu',
+                      title: state.translate[state.languageSelected]["create_folder_data"],
                     )
                   : const CircularProgressIndicator(
                       strokeWidth: 2,
@@ -72,7 +73,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
               state.baseInfomation["base_name"] ?? "",
               style: AppTypographies.styBlack12W400,
             ),
-            subtitle: notifier.checkShareMode() ? "Trạng thái: chia sẽ bởi ${state.baseInfomation["owner_name"]}" : "Trạng thái: Chủ sở hữu ",
+            subtitle: notifier.checkShareMode() ? state.translate[state.languageSelected]["status_base_shared"] + state.baseInfomation["owner_name"] : state.translate[state.languageSelected]["status_base_owner"],
             center: true,
             leading: Builder(
               builder: (context) => SmallIconButton(
@@ -140,7 +141,33 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                     state.accessPosSystemBlock!
                         ? DashboardItemBase(
                             iconData: FlutterRemix.store_2_line,
-                            title: "Hệ thống bán hàng",
+                            title: "vietnamese",
+                            iconColor: AppColors.inProgressOrders,
+                            onTap: () {
+                              notifier.setLanguage("vn");
+                            },
+                          )
+                        : const SizedBox(),
+                    state.accessBaseManagerBlock!
+                        ? DashboardItemBase(
+                            iconData: FlutterRemix.base_station_fill,
+                            title: "english",
+                            iconColor: AppColors.canceledOrders,
+                            onTap: () {
+                              notifier.setLanguage("en");
+                            },
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
+                9.verticalSpace,
+                Row(
+                  mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+                  children: [
+                    state.accessPosSystemBlock!
+                        ? DashboardItemBase(
+                            iconData: FlutterRemix.store_2_line,
+                            title: state.translate[state.languageSelected]["system_pos"],
                             iconColor: AppColors.inProgressOrders,
                             onTap: () {
                               context.pushRoute(const MainPASRoute());
@@ -150,7 +177,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                     state.accessBaseManagerBlock!
                         ? DashboardItemBase(
                             iconData: FlutterRemix.base_station_fill,
-                            title: "Quản lý cơ sở",
+                            title: state.translate[state.languageSelected]["manage_base"],
                             iconColor: AppColors.canceledOrders,
                             onTap: () {
                               context.pushRoute(const BaseManageRoute());
@@ -166,7 +193,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                     state.accessUserSettingBlock!
                         ? DashboardItemBase(
                             iconData: FlutterRemix.user_6_fill,
-                            title: "Tài khoản",
+                            title: state.translate[state.languageSelected]["account"],
                             iconColor: AppColors.deliveredOrders,
                             onTap: () {
                               context.pushRoute(const AccountPosRoute());
@@ -176,7 +203,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                     state.accessGlobalSettingBlock!
                         ? DashboardItemBase(
                             iconData: FlutterRemix.settings_2_fill,
-                            title: "Cấu hình chung",
+                            title: state.translate[state.languageSelected]["global_setting"],
                             iconColor: AppColors.greenMain,
                             onTap: () {
                               context.pushRoute(const SettingManageRoute());

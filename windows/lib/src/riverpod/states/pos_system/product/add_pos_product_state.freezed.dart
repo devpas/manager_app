@@ -100,11 +100,11 @@ class _$AddPosProductStateCopyWithImpl<$Res, $Val extends AddPosProductState>
 }
 
 /// @nodoc
-abstract class _$$_AddPosProductStateCopyWith<$Res>
+abstract class _$$AddPosProductStateImplCopyWith<$Res>
     implements $AddPosProductStateCopyWith<$Res> {
-  factory _$$_AddPosProductStateCopyWith(_$_AddPosProductState value,
-          $Res Function(_$_AddPosProductState) then) =
-      __$$_AddPosProductStateCopyWithImpl<$Res>;
+  factory _$$AddPosProductStateImplCopyWith(_$AddPosProductStateImpl value,
+          $Res Function(_$AddPosProductStateImpl) then) =
+      __$$AddPosProductStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -118,11 +118,11 @@ abstract class _$$_AddPosProductStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AddPosProductStateCopyWithImpl<$Res>
-    extends _$AddPosProductStateCopyWithImpl<$Res, _$_AddPosProductState>
-    implements _$$_AddPosProductStateCopyWith<$Res> {
-  __$$_AddPosProductStateCopyWithImpl(
-      _$_AddPosProductState _value, $Res Function(_$_AddPosProductState) _then)
+class __$$AddPosProductStateImplCopyWithImpl<$Res>
+    extends _$AddPosProductStateCopyWithImpl<$Res, _$AddPosProductStateImpl>
+    implements _$$AddPosProductStateImplCopyWith<$Res> {
+  __$$AddPosProductStateImplCopyWithImpl(_$AddPosProductStateImpl _value,
+      $Res Function(_$AddPosProductStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -136,7 +136,7 @@ class __$$_AddPosProductStateCopyWithImpl<$Res>
     Object? product = freezed,
     Object? selectedStock = freezed,
   }) {
-    return _then(_$_AddPosProductState(
+    return _then(_$AddPosProductStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -171,8 +171,8 @@ class __$$_AddPosProductStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddPosProductState extends _AddPosProductState {
-  const _$_AddPosProductState(
+class _$AddPosProductStateImpl extends _AddPosProductState {
+  const _$AddPosProductStateImpl(
       {this.isLoading = false,
       final List<TypedExtra> typedExtras = const [],
       final List<Stocks> initialStocks = const [],
@@ -232,7 +232,7 @@ class _$_AddPosProductState extends _AddPosProductState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddPosProductState &&
+            other is _$AddPosProductStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality()
@@ -262,8 +262,8 @@ class _$_AddPosProductState extends _AddPosProductState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddPosProductStateCopyWith<_$_AddPosProductState> get copyWith =>
-      __$$_AddPosProductStateCopyWithImpl<_$_AddPosProductState>(
+  _$$AddPosProductStateImplCopyWith<_$AddPosProductStateImpl> get copyWith =>
+      __$$AddPosProductStateImplCopyWithImpl<_$AddPosProductStateImpl>(
           this, _$identity);
 }
 
@@ -275,7 +275,7 @@ abstract class _AddPosProductState extends AddPosProductState {
       final List<int> selectedIndexes,
       final int stockCount,
       final ProductData? product,
-      final Stocks? selectedStock}) = _$_AddPosProductState;
+      final Stocks? selectedStock}) = _$AddPosProductStateImpl;
   const _AddPosProductState._() : super._();
 
   @override
@@ -294,6 +294,6 @@ abstract class _AddPosProductState extends AddPosProductState {
   Stocks? get selectedStock;
   @override
   @JsonKey(ignore: true)
-  _$$_AddPosProductStateCopyWith<_$_AddPosProductState> get copyWith =>
+  _$$AddPosProductStateImplCopyWith<_$AddPosProductStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

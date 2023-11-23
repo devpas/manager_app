@@ -271,10 +271,19 @@ class LocalStorage {
 
   bool getShareMode() => _preferences?.getBool("share_mode") ?? false;
 
+  Future<void> setlanguageSelected(String lang) async {
+    if (_preferences != null) {
+      _preferences!.setString("language_selected", lang);
+    }
+  }
+
+  String getlanguageSelected() => _preferences?.getString("language_selected") ?? 'vn';
+
   void deleteKeyAccessOwner() => _preferences?.remove("owner_access_id");
   void deleteKeyAccessShare() => _preferences?.remove("share_access_id");
   void deleteCookieAccess() => _preferences?.remove("google_cookie_access");
   void deleteListRole() => _preferences?.remove("list_role_share");
   void deleteBaseInformation() => _preferences?.remove("base_infomation");
   void deleteUserInformation() => _preferences?.remove("user_infomation");
+  void deleteLanguageSelected() => _preferences?.remove("language_selected");
 }

@@ -101,11 +101,11 @@ class _$AddOrderProductStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_AddOrderProductStateCopyWith<$Res>
+abstract class _$$AddOrderProductStateImplCopyWith<$Res>
     implements $AddOrderProductStateCopyWith<$Res> {
-  factory _$$_AddOrderProductStateCopyWith(_$_AddOrderProductState value,
-          $Res Function(_$_AddOrderProductState) then) =
-      __$$_AddOrderProductStateCopyWithImpl<$Res>;
+  factory _$$AddOrderProductStateImplCopyWith(_$AddOrderProductStateImpl value,
+          $Res Function(_$AddOrderProductStateImpl) then) =
+      __$$AddOrderProductStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -119,11 +119,11 @@ abstract class _$$_AddOrderProductStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AddOrderProductStateCopyWithImpl<$Res>
-    extends _$AddOrderProductStateCopyWithImpl<$Res, _$_AddOrderProductState>
-    implements _$$_AddOrderProductStateCopyWith<$Res> {
-  __$$_AddOrderProductStateCopyWithImpl(_$_AddOrderProductState _value,
-      $Res Function(_$_AddOrderProductState) _then)
+class __$$AddOrderProductStateImplCopyWithImpl<$Res>
+    extends _$AddOrderProductStateCopyWithImpl<$Res, _$AddOrderProductStateImpl>
+    implements _$$AddOrderProductStateImplCopyWith<$Res> {
+  __$$AddOrderProductStateImplCopyWithImpl(_$AddOrderProductStateImpl _value,
+      $Res Function(_$AddOrderProductStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,7 +137,7 @@ class __$$_AddOrderProductStateCopyWithImpl<$Res>
     Object? product = freezed,
     Object? selectedStock = freezed,
   }) {
-    return _then(_$_AddOrderProductState(
+    return _then(_$AddOrderProductStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -172,8 +172,8 @@ class __$$_AddOrderProductStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddOrderProductState extends _AddOrderProductState {
-  const _$_AddOrderProductState(
+class _$AddOrderProductStateImpl extends _AddOrderProductState {
+  const _$AddOrderProductStateImpl(
       {this.isLoading = false,
       final List<TypedExtra> typedExtras = const [],
       final List<Stocks> initialStocks = const [],
@@ -233,7 +233,7 @@ class _$_AddOrderProductState extends _AddOrderProductState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddOrderProductState &&
+            other is _$AddOrderProductStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality()
@@ -263,9 +263,10 @@ class _$_AddOrderProductState extends _AddOrderProductState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddOrderProductStateCopyWith<_$_AddOrderProductState> get copyWith =>
-      __$$_AddOrderProductStateCopyWithImpl<_$_AddOrderProductState>(
-          this, _$identity);
+  _$$AddOrderProductStateImplCopyWith<_$AddOrderProductStateImpl>
+      get copyWith =>
+          __$$AddOrderProductStateImplCopyWithImpl<_$AddOrderProductStateImpl>(
+              this, _$identity);
 }
 
 abstract class _AddOrderProductState extends AddOrderProductState {
@@ -276,7 +277,7 @@ abstract class _AddOrderProductState extends AddOrderProductState {
       final List<int> selectedIndexes,
       final int stockCount,
       final ProductData? product,
-      final Stocks? selectedStock}) = _$_AddOrderProductState;
+      final Stocks? selectedStock}) = _$AddOrderProductStateImpl;
   const _AddOrderProductState._() : super._();
 
   @override
@@ -295,6 +296,6 @@ abstract class _AddOrderProductState extends AddOrderProductState {
   Stocks? get selectedStock;
   @override
   @JsonKey(ignore: true)
-  _$$_AddOrderProductStateCopyWith<_$_AddOrderProductState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AddOrderProductStateImplCopyWith<_$AddOrderProductStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

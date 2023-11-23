@@ -198,11 +198,11 @@ class _$EditUserStateCopyWithImpl<$Res, $Val extends EditUserState>
 }
 
 /// @nodoc
-abstract class _$$_EditUserStateCopyWith<$Res>
+abstract class _$$EditUserStateImplCopyWith<$Res>
     implements $EditUserStateCopyWith<$Res> {
-  factory _$$_EditUserStateCopyWith(
-          _$_EditUserState value, $Res Function(_$_EditUserState) then) =
-      __$$_EditUserStateCopyWithImpl<$Res>;
+  factory _$$EditUserStateImplCopyWith(
+          _$EditUserStateImpl value, $Res Function(_$EditUserStateImpl) then) =
+      __$$EditUserStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -230,11 +230,11 @@ abstract class _$$_EditUserStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_EditUserStateCopyWithImpl<$Res>
-    extends _$EditUserStateCopyWithImpl<$Res, _$_EditUserState>
-    implements _$$_EditUserStateCopyWith<$Res> {
-  __$$_EditUserStateCopyWithImpl(
-      _$_EditUserState _value, $Res Function(_$_EditUserState) _then)
+class __$$EditUserStateImplCopyWithImpl<$Res>
+    extends _$EditUserStateCopyWithImpl<$Res, _$EditUserStateImpl>
+    implements _$$EditUserStateImplCopyWith<$Res> {
+  __$$EditUserStateImplCopyWithImpl(
+      _$EditUserStateImpl _value, $Res Function(_$EditUserStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -262,7 +262,7 @@ class __$$_EditUserStateCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? image = freezed,
   }) {
-    return _then(_$_EditUserState(
+    return _then(_$EditUserStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -353,8 +353,8 @@ class __$$_EditUserStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_EditUserState extends _EditUserState {
-  const _$_EditUserState(
+class _$EditUserStateImpl extends _EditUserState {
+  const _$EditUserStateImpl(
       {this.isLoading = false,
       this.isSaving = false,
       this.isUpdatingRole = false,
@@ -462,7 +462,7 @@ class _$_EditUserState extends _EditUserState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EditUserState &&
+            other is _$EditUserStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSaving, isSaving) ||
@@ -530,8 +530,8 @@ class _$_EditUserState extends _EditUserState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EditUserStateCopyWith<_$_EditUserState> get copyWith =>
-      __$$_EditUserStateCopyWithImpl<_$_EditUserState>(this, _$identity);
+  _$$EditUserStateImplCopyWith<_$EditUserStateImpl> get copyWith =>
+      __$$EditUserStateImplCopyWithImpl<_$EditUserStateImpl>(this, _$identity);
 }
 
 abstract class _EditUserState extends EditUserState {
@@ -556,7 +556,7 @@ abstract class _EditUserState extends EditUserState {
       final List<OrderData> orders,
       final UserData? userData,
       final String? imageUrl,
-      final XFile? image}) = _$_EditUserState;
+      final XFile? image}) = _$EditUserStateImpl;
   const _EditUserState._() : super._();
 
   @override
@@ -603,6 +603,6 @@ abstract class _EditUserState extends EditUserState {
   XFile? get image;
   @override
   @JsonKey(ignore: true)
-  _$$_EditUserStateCopyWith<_$_EditUserState> get copyWith =>
+  _$$EditUserStateImplCopyWith<_$EditUserStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -86,11 +86,11 @@ class _$OrdersStateCopyWithImpl<$Res, $Val extends OrdersState>
 }
 
 /// @nodoc
-abstract class _$$_OrdersStateCopyWith<$Res>
+abstract class _$$OrdersStateImplCopyWith<$Res>
     implements $OrdersStateCopyWith<$Res> {
-  factory _$$_OrdersStateCopyWith(
-          _$_OrdersState value, $Res Function(_$_OrdersState) then) =
-      __$$_OrdersStateCopyWithImpl<$Res>;
+  factory _$$OrdersStateImplCopyWith(
+          _$OrdersStateImpl value, $Res Function(_$OrdersStateImpl) then) =
+      __$$OrdersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -102,11 +102,11 @@ abstract class _$$_OrdersStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_OrdersStateCopyWithImpl<$Res>
-    extends _$OrdersStateCopyWithImpl<$Res, _$_OrdersState>
-    implements _$$_OrdersStateCopyWith<$Res> {
-  __$$_OrdersStateCopyWithImpl(
-      _$_OrdersState _value, $Res Function(_$_OrdersState) _then)
+class __$$OrdersStateImplCopyWithImpl<$Res>
+    extends _$OrdersStateCopyWithImpl<$Res, _$OrdersStateImpl>
+    implements _$$OrdersStateImplCopyWith<$Res> {
+  __$$OrdersStateImplCopyWithImpl(
+      _$OrdersStateImpl _value, $Res Function(_$OrdersStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,7 +118,7 @@ class __$$_OrdersStateCopyWithImpl<$Res>
     Object? selectedUser = freezed,
     Object? tabController = freezed,
   }) {
-    return _then(_$_OrdersState(
+    return _then(_$OrdersStateImpl(
       users: null == users
           ? _value._users
           : users // ignore: cast_nullable_to_non_nullable
@@ -145,8 +145,8 @@ class __$$_OrdersStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OrdersState extends _OrdersState {
-  const _$_OrdersState(
+class _$OrdersStateImpl extends _OrdersState {
+  const _$OrdersStateImpl(
       {final List<UserData> users = const [],
       this.isUsersLoading = false,
       this.query = '',
@@ -184,7 +184,7 @@ class _$_OrdersState extends _OrdersState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OrdersState &&
+            other is _$OrdersStateImpl &&
             const DeepCollectionEquality().equals(other._users, _users) &&
             (identical(other.isUsersLoading, isUsersLoading) ||
                 other.isUsersLoading == isUsersLoading) &&
@@ -207,8 +207,8 @@ class _$_OrdersState extends _OrdersState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OrdersStateCopyWith<_$_OrdersState> get copyWith =>
-      __$$_OrdersStateCopyWithImpl<_$_OrdersState>(this, _$identity);
+  _$$OrdersStateImplCopyWith<_$OrdersStateImpl> get copyWith =>
+      __$$OrdersStateImplCopyWithImpl<_$OrdersStateImpl>(this, _$identity);
 }
 
 abstract class _OrdersState extends OrdersState {
@@ -217,7 +217,7 @@ abstract class _OrdersState extends OrdersState {
       final bool isUsersLoading,
       final String query,
       final UserData? selectedUser,
-      final TabController? tabController}) = _$_OrdersState;
+      final TabController? tabController}) = _$OrdersStateImpl;
   const _OrdersState._() : super._();
 
   @override
@@ -232,6 +232,6 @@ abstract class _OrdersState extends OrdersState {
   TabController? get tabController;
   @override
   @JsonKey(ignore: true)
-  _$$_OrdersStateCopyWith<_$_OrdersState> get copyWith =>
+  _$$OrdersStateImplCopyWith<_$OrdersStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

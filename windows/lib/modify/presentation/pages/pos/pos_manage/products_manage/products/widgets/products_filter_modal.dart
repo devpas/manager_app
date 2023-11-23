@@ -26,6 +26,7 @@ class ProductsFilterModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final stateBase = ref.watch(baseProvider);
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     final stateCategory = ref.watch(categoriesPASProvider);
@@ -44,12 +45,12 @@ class ProductsFilterModal extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Lọc sản phẩm',
+              stateBase.translate[stateBase.languageSelected]["filter_product"],
               style: AppTypographies.styBlack22W500,
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Mã vạch"),
+              stateBase.translate[stateBase.languageSelected]["barcode"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -80,7 +81,7 @@ class ProductsFilterModal extends ConsumerWidget {
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Tên sản phẩm"),
+              stateBase.translate[stateBase.languageSelected]["title_product_name"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -110,7 +111,7 @@ class ProductsFilterModal extends ConsumerWidget {
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Giá mua"),
+              stateBase.translate[stateBase.languageSelected]["price_buy"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -140,7 +141,7 @@ class ProductsFilterModal extends ConsumerWidget {
               ),
             ),
             Text(
-              AppHelpers.getTranslation("Giá bán"),
+              stateBase.translate[stateBase.languageSelected]["price_sell"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -183,13 +184,12 @@ class ProductsFilterModal extends ConsumerWidget {
                   },
                 );
               },
-              title:
-                  "${stateCategory.categorySelected != null ? stateCategory.categorySelected!.name : 'Chọn danh mục'}",
+              title: "${stateCategory.categorySelected != null ? stateCategory.categorySelected!.name : stateBase.translate[stateBase.languageSelected]["select_category"]}",
             ),
             20.verticalSpace,
             SelectWithSearchPosButton(
               iconData: FlutterRemix.search_line,
-              label: 'Sản phẩm',
+              label: stateBase.translate[stateBase.languageSelected]["product"],
               onTap: () {
                 notifier.keySearch = "";
                 // notifier.filterProduct(
@@ -211,10 +211,8 @@ class ProductsFilterModal extends ConsumerWidget {
             CommonAccentButton(
               title: 'Show result',
               onPressed: () {
-                if (ProductNameSelected(state.productSelected!) !=
-                    "Tìm sản phẩm") {
-                  notifierPos.addTicketline(
-                      state.productSelected!, statePos.selectTicket);
+                if (ProductNameSelected(state.productSelected!) != "Tìm sản phẩm") {
+                  notifierPos.addTicketline(state.productSelected!, statePos.selectTicket);
                 }
                 context.popRoute();
               },

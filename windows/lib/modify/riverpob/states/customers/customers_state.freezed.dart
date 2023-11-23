@@ -87,11 +87,11 @@ class _$CustomersStateCopyWithImpl<$Res, $Val extends CustomersState>
 }
 
 /// @nodoc
-abstract class _$$_CustomersStateCopyWith<$Res>
+abstract class _$$CustomersStateImplCopyWith<$Res>
     implements $CustomersStateCopyWith<$Res> {
-  factory _$$_CustomersStateCopyWith(
-          _$_CustomersState value, $Res Function(_$_CustomersState) then) =
-      __$$_CustomersStateCopyWithImpl<$Res>;
+  factory _$$CustomersStateImplCopyWith(_$CustomersStateImpl value,
+          $Res Function(_$CustomersStateImpl) then) =
+      __$$CustomersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -103,11 +103,11 @@ abstract class _$$_CustomersStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CustomersStateCopyWithImpl<$Res>
-    extends _$CustomersStateCopyWithImpl<$Res, _$_CustomersState>
-    implements _$$_CustomersStateCopyWith<$Res> {
-  __$$_CustomersStateCopyWithImpl(
-      _$_CustomersState _value, $Res Function(_$_CustomersState) _then)
+class __$$CustomersStateImplCopyWithImpl<$Res>
+    extends _$CustomersStateCopyWithImpl<$Res, _$CustomersStateImpl>
+    implements _$$CustomersStateImplCopyWith<$Res> {
+  __$$CustomersStateImplCopyWithImpl(
+      _$CustomersStateImpl _value, $Res Function(_$CustomersStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -119,7 +119,7 @@ class __$$_CustomersStateCopyWithImpl<$Res>
     Object? customerSelected = freezed,
     Object? customerLoading = freezed,
   }) {
-    return _then(_$_CustomersState(
+    return _then(_$CustomersStateImpl(
       customers: freezed == customers
           ? _value._customers
           : customers // ignore: cast_nullable_to_non_nullable
@@ -146,8 +146,8 @@ class __$$_CustomersStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CustomersState extends _CustomersState {
-  const _$_CustomersState(
+class _$CustomersStateImpl extends _CustomersState {
+  const _$CustomersStateImpl(
       {final List<CustomerData>? customers = const [],
       final List<ShopData>? shops = const [],
       final List<CustomerData>? customersAfterFilter = const [],
@@ -207,7 +207,7 @@ class _$_CustomersState extends _CustomersState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CustomersState &&
+            other is _$CustomersStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._customers, _customers) &&
             const DeepCollectionEquality().equals(other._shops, _shops) &&
@@ -231,8 +231,9 @@ class _$_CustomersState extends _CustomersState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CustomersStateCopyWith<_$_CustomersState> get copyWith =>
-      __$$_CustomersStateCopyWithImpl<_$_CustomersState>(this, _$identity);
+  _$$CustomersStateImplCopyWith<_$CustomersStateImpl> get copyWith =>
+      __$$CustomersStateImplCopyWithImpl<_$CustomersStateImpl>(
+          this, _$identity);
 }
 
 abstract class _CustomersState extends CustomersState {
@@ -241,7 +242,7 @@ abstract class _CustomersState extends CustomersState {
       final List<ShopData>? shops,
       final List<CustomerData>? customersAfterFilter,
       final CustomerData? customerSelected,
-      final bool? customerLoading}) = _$_CustomersState;
+      final bool? customerLoading}) = _$CustomersStateImpl;
   const _CustomersState._() : super._();
 
   @override
@@ -256,6 +257,6 @@ abstract class _CustomersState extends CustomersState {
   bool? get customerLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_CustomersStateCopyWith<_$_CustomersState> get copyWith =>
+  _$$CustomersStateImplCopyWith<_$CustomersStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

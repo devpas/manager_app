@@ -100,11 +100,11 @@ class _$DeliveryBoysStateCopyWithImpl<$Res, $Val extends DeliveryBoysState>
 }
 
 /// @nodoc
-abstract class _$$_DeliveryBoysStateCopyWith<$Res>
+abstract class _$$DeliveryBoysStateImplCopyWith<$Res>
     implements $DeliveryBoysStateCopyWith<$Res> {
-  factory _$$_DeliveryBoysStateCopyWith(_$_DeliveryBoysState value,
-          $Res Function(_$_DeliveryBoysState) then) =
-      __$$_DeliveryBoysStateCopyWithImpl<$Res>;
+  factory _$$DeliveryBoysStateImplCopyWith(_$DeliveryBoysStateImpl value,
+          $Res Function(_$DeliveryBoysStateImpl) then) =
+      __$$DeliveryBoysStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -118,11 +118,11 @@ abstract class _$$_DeliveryBoysStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DeliveryBoysStateCopyWithImpl<$Res>
-    extends _$DeliveryBoysStateCopyWithImpl<$Res, _$_DeliveryBoysState>
-    implements _$$_DeliveryBoysStateCopyWith<$Res> {
-  __$$_DeliveryBoysStateCopyWithImpl(
-      _$_DeliveryBoysState _value, $Res Function(_$_DeliveryBoysState) _then)
+class __$$DeliveryBoysStateImplCopyWithImpl<$Res>
+    extends _$DeliveryBoysStateCopyWithImpl<$Res, _$DeliveryBoysStateImpl>
+    implements _$$DeliveryBoysStateImplCopyWith<$Res> {
+  __$$DeliveryBoysStateImplCopyWithImpl(_$DeliveryBoysStateImpl _value,
+      $Res Function(_$DeliveryBoysStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -136,7 +136,7 @@ class __$$_DeliveryBoysStateCopyWithImpl<$Res>
     Object? activeRole = null,
     Object? updatingUser = freezed,
   }) {
-    return _then(_$_DeliveryBoysState(
+    return _then(_$DeliveryBoysStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -171,8 +171,8 @@ class __$$_DeliveryBoysStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DeliveryBoysState extends _DeliveryBoysState {
-  const _$_DeliveryBoysState(
+class _$DeliveryBoysStateImpl extends _DeliveryBoysState {
+  const _$DeliveryBoysStateImpl(
       {this.isLoading = false,
       this.isMoreLoading = false,
       this.isUpdatingRole = false,
@@ -219,7 +219,7 @@ class _$_DeliveryBoysState extends _DeliveryBoysState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeliveryBoysState &&
+            other is _$DeliveryBoysStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isMoreLoading, isMoreLoading) ||
@@ -250,8 +250,8 @@ class _$_DeliveryBoysState extends _DeliveryBoysState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeliveryBoysStateCopyWith<_$_DeliveryBoysState> get copyWith =>
-      __$$_DeliveryBoysStateCopyWithImpl<_$_DeliveryBoysState>(
+  _$$DeliveryBoysStateImplCopyWith<_$DeliveryBoysStateImpl> get copyWith =>
+      __$$DeliveryBoysStateImplCopyWithImpl<_$DeliveryBoysStateImpl>(
           this, _$identity);
 }
 
@@ -263,7 +263,7 @@ abstract class _DeliveryBoysState extends DeliveryBoysState {
       final List<UserData> deliverymen,
       final UserRole initialRole,
       final UserRole activeRole,
-      final UserData? updatingUser}) = _$_DeliveryBoysState;
+      final UserData? updatingUser}) = _$DeliveryBoysStateImpl;
   const _DeliveryBoysState._() : super._();
 
   @override
@@ -282,6 +282,6 @@ abstract class _DeliveryBoysState extends DeliveryBoysState {
   UserData? get updatingUser;
   @override
   @JsonKey(ignore: true)
-  _$$_DeliveryBoysStateCopyWith<_$_DeliveryBoysState> get copyWith =>
+  _$$DeliveryBoysStateImplCopyWith<_$DeliveryBoysStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

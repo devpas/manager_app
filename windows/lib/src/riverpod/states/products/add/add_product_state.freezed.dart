@@ -192,11 +192,11 @@ class _$AddProductStateCopyWithImpl<$Res, $Val extends AddProductState>
 }
 
 /// @nodoc
-abstract class _$$_AddProductStateCopyWith<$Res>
+abstract class _$$AddProductStateImplCopyWith<$Res>
     implements $AddProductStateCopyWith<$Res> {
-  factory _$$_AddProductStateCopyWith(
-          _$_AddProductState value, $Res Function(_$_AddProductState) then) =
-      __$$_AddProductStateCopyWithImpl<$Res>;
+  factory _$$AddProductStateImplCopyWith(_$AddProductStateImpl value,
+          $Res Function(_$AddProductStateImpl) then) =
+      __$$AddProductStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -223,11 +223,11 @@ abstract class _$$_AddProductStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AddProductStateCopyWithImpl<$Res>
-    extends _$AddProductStateCopyWithImpl<$Res, _$_AddProductState>
-    implements _$$_AddProductStateCopyWith<$Res> {
-  __$$_AddProductStateCopyWithImpl(
-      _$_AddProductState _value, $Res Function(_$_AddProductState) _then)
+class __$$AddProductStateImplCopyWithImpl<$Res>
+    extends _$AddProductStateCopyWithImpl<$Res, _$AddProductStateImpl>
+    implements _$$AddProductStateImplCopyWith<$Res> {
+  __$$AddProductStateImplCopyWithImpl(
+      _$AddProductStateImpl _value, $Res Function(_$AddProductStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -254,7 +254,7 @@ class __$$_AddProductStateCopyWithImpl<$Res>
     Object? selectedCategory = freezed,
     Object? image = freezed,
   }) {
-    return _then(_$_AddProductState(
+    return _then(_$AddProductStateImpl(
       isSaving: null == isSaving
           ? _value.isSaving
           : isSaving // ignore: cast_nullable_to_non_nullable
@@ -341,8 +341,8 @@ class __$$_AddProductStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddProductState extends _AddProductState {
-  const _$_AddProductState(
+class _$AddProductStateImpl extends _AddProductState {
+  const _$AddProductStateImpl(
       {this.isSaving = false,
       this.active = true,
       this.isShopSearching = false,
@@ -453,7 +453,7 @@ class _$_AddProductState extends _AddProductState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddProductState &&
+            other is _$AddProductStateImpl &&
             (identical(other.isSaving, isSaving) ||
                 other.isSaving == isSaving) &&
             (identical(other.active, active) || other.active == active) &&
@@ -520,8 +520,9 @@ class _$_AddProductState extends _AddProductState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddProductStateCopyWith<_$_AddProductState> get copyWith =>
-      __$$_AddProductStateCopyWithImpl<_$_AddProductState>(this, _$identity);
+  _$$AddProductStateImplCopyWith<_$AddProductStateImpl> get copyWith =>
+      __$$AddProductStateImplCopyWithImpl<_$AddProductStateImpl>(
+          this, _$identity);
 }
 
 abstract class _AddProductState extends AddProductState {
@@ -545,7 +546,7 @@ abstract class _AddProductState extends AddProductState {
       final ShopData? selectedShop,
       final BrandData? selectedBrand,
       final CategoryData? selectedCategory,
-      final XFile? image}) = _$_AddProductState;
+      final XFile? image}) = _$AddProductStateImpl;
   const _AddProductState._() : super._();
 
   @override
@@ -590,6 +591,6 @@ abstract class _AddProductState extends AddProductState {
   XFile? get image;
   @override
   @JsonKey(ignore: true)
-  _$$_AddProductStateCopyWith<_$_AddProductState> get copyWith =>
+  _$$AddProductStateImplCopyWith<_$AddProductStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

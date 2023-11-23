@@ -93,11 +93,11 @@ class _$EditBrandStateCopyWithImpl<$Res, $Val extends EditBrandState>
 }
 
 /// @nodoc
-abstract class _$$_EditBrandStateCopyWith<$Res>
+abstract class _$$EditBrandStateImplCopyWith<$Res>
     implements $EditBrandStateCopyWith<$Res> {
-  factory _$$_EditBrandStateCopyWith(
-          _$_EditBrandState value, $Res Function(_$_EditBrandState) then) =
-      __$$_EditBrandStateCopyWithImpl<$Res>;
+  factory _$$EditBrandStateImplCopyWith(_$EditBrandStateImpl value,
+          $Res Function(_$EditBrandStateImpl) then) =
+      __$$EditBrandStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_EditBrandStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_EditBrandStateCopyWithImpl<$Res>
-    extends _$EditBrandStateCopyWithImpl<$Res, _$_EditBrandState>
-    implements _$$_EditBrandStateCopyWith<$Res> {
-  __$$_EditBrandStateCopyWithImpl(
-      _$_EditBrandState _value, $Res Function(_$_EditBrandState) _then)
+class __$$EditBrandStateImplCopyWithImpl<$Res>
+    extends _$EditBrandStateCopyWithImpl<$Res, _$EditBrandStateImpl>
+    implements _$$EditBrandStateImplCopyWith<$Res> {
+  __$$EditBrandStateImplCopyWithImpl(
+      _$EditBrandStateImpl _value, $Res Function(_$EditBrandStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_EditBrandStateCopyWithImpl<$Res>
     Object? brandFile = freezed,
     Object? imageUrl = freezed,
   }) {
-    return _then(_$_EditBrandState(
+    return _then(_$EditBrandStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_EditBrandStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_EditBrandState extends _EditBrandState {
-  const _$_EditBrandState(
+class _$EditBrandStateImpl extends _EditBrandState {
+  const _$EditBrandStateImpl(
       {this.isLoading = false,
       this.isSaving = false,
       this.brandStatus = false,
@@ -194,7 +194,7 @@ class _$_EditBrandState extends _EditBrandState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EditBrandState &&
+            other is _$EditBrandStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSaving, isSaving) ||
@@ -216,8 +216,9 @@ class _$_EditBrandState extends _EditBrandState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EditBrandStateCopyWith<_$_EditBrandState> get copyWith =>
-      __$$_EditBrandStateCopyWithImpl<_$_EditBrandState>(this, _$identity);
+  _$$EditBrandStateImplCopyWith<_$EditBrandStateImpl> get copyWith =>
+      __$$EditBrandStateImplCopyWithImpl<_$EditBrandStateImpl>(
+          this, _$identity);
 }
 
 abstract class _EditBrandState extends EditBrandState {
@@ -227,7 +228,7 @@ abstract class _EditBrandState extends EditBrandState {
       final bool brandStatus,
       final String brandName,
       final XFile? brandFile,
-      final String? imageUrl}) = _$_EditBrandState;
+      final String? imageUrl}) = _$EditBrandStateImpl;
   const _EditBrandState._() : super._();
 
   @override
@@ -244,6 +245,6 @@ abstract class _EditBrandState extends EditBrandState {
   String? get imageUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_EditBrandStateCopyWith<_$_EditBrandState> get copyWith =>
+  _$$EditBrandStateImplCopyWith<_$EditBrandStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

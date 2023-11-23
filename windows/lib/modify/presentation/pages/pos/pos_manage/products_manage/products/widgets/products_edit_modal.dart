@@ -51,7 +51,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
   @override
   Widget build(BuildContext context) {
     final statePos = ref.watch(posSystemPASProvider);
-    final stateProduct = ref.watch(productsPASProvider);
+    final stateBase = ref.watch(baseProvider);
     final notifierPos = ref.read(posSystemPASProvider.notifier);
     final notifierProduct = ref.read(productsPASProvider.notifier);
     return Material(
@@ -72,7 +72,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
             ),
             40.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Số lượng"),
+              stateBase.translate[stateBase.languageSelected]["quantity_full"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -103,7 +103,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Giá"),
+              stateBase.translate[stateBase.languageSelected]["price"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -140,7 +140,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Giá + thuế"),
+              stateBase.translate[stateBase.languageSelected]["price_and_tax"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -180,7 +180,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
             Row(
               children: [
                 Text(
-                  AppHelpers.getTranslation("Chiếc khấu"),
+                  stateBase.translate[stateBase.languageSelected]["discount"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
@@ -261,14 +261,14 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ConfirmButton(
-                    title: 'Đồng ý',
+                    title: stateBase.translate[stateBase.languageSelected]["ok"],
                     onTap: () {
                       notifierPos.editUnitProduct(unitController.text, priceController.text, ticketline!.id, ticketIndex, ticketLineIndex);
                       Navigator.pop(context);
                     },
                   ),
                   ConfirmButton(
-                    title: 'Hủy bỏ',
+                    title: stateBase.translate[stateBase.languageSelected]["cancel"],
                     onTap: () {
                       Navigator.pop(context);
                     },

@@ -136,11 +136,11 @@ class _$AddCategoryStateCopyWithImpl<$Res, $Val extends AddCategoryState>
 }
 
 /// @nodoc
-abstract class _$$_AddCategoryStateCopyWith<$Res>
+abstract class _$$AddCategoryStateImplCopyWith<$Res>
     implements $AddCategoryStateCopyWith<$Res> {
-  factory _$$_AddCategoryStateCopyWith(
-          _$_AddCategoryState value, $Res Function(_$_AddCategoryState) then) =
-      __$$_AddCategoryStateCopyWithImpl<$Res>;
+  factory _$$AddCategoryStateImplCopyWith(_$AddCategoryStateImpl value,
+          $Res Function(_$AddCategoryStateImpl) then) =
+      __$$AddCategoryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -159,11 +159,11 @@ abstract class _$$_AddCategoryStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AddCategoryStateCopyWithImpl<$Res>
-    extends _$AddCategoryStateCopyWithImpl<$Res, _$_AddCategoryState>
-    implements _$$_AddCategoryStateCopyWith<$Res> {
-  __$$_AddCategoryStateCopyWithImpl(
-      _$_AddCategoryState _value, $Res Function(_$_AddCategoryState) _then)
+class __$$AddCategoryStateImplCopyWithImpl<$Res>
+    extends _$AddCategoryStateCopyWithImpl<$Res, _$AddCategoryStateImpl>
+    implements _$$AddCategoryStateImplCopyWith<$Res> {
+  __$$AddCategoryStateImplCopyWithImpl(_$AddCategoryStateImpl _value,
+      $Res Function(_$AddCategoryStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -182,7 +182,7 @@ class __$$_AddCategoryStateCopyWithImpl<$Res>
     Object? parentCategory = freezed,
     Object? image = freezed,
   }) {
-    return _then(_$_AddCategoryState(
+    return _then(_$AddCategoryStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -237,8 +237,8 @@ class __$$_AddCategoryStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddCategoryState extends _AddCategoryState {
-  const _$_AddCategoryState(
+class _$AddCategoryStateImpl extends _AddCategoryState {
+  const _$AddCategoryStateImpl(
       {this.isLoading = false,
       this.isSaving = false,
       this.status = false,
@@ -312,7 +312,7 @@ class _$_AddCategoryState extends _AddCategoryState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddCategoryState &&
+            other is _$AddCategoryStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSaving, isSaving) ||
@@ -353,8 +353,9 @@ class _$_AddCategoryState extends _AddCategoryState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddCategoryStateCopyWith<_$_AddCategoryState> get copyWith =>
-      __$$_AddCategoryStateCopyWithImpl<_$_AddCategoryState>(this, _$identity);
+  _$$AddCategoryStateImplCopyWith<_$AddCategoryStateImpl> get copyWith =>
+      __$$AddCategoryStateImplCopyWithImpl<_$AddCategoryStateImpl>(
+          this, _$identity);
 }
 
 abstract class _AddCategoryState extends AddCategoryState {
@@ -370,7 +371,7 @@ abstract class _AddCategoryState extends AddCategoryState {
       final List<CategoryData> searchedCategories,
       final int selectedParentId,
       final String? parentCategory,
-      final XFile? image}) = _$_AddCategoryState;
+      final XFile? image}) = _$AddCategoryStateImpl;
   const _AddCategoryState._() : super._();
 
   @override
@@ -399,6 +400,6 @@ abstract class _AddCategoryState extends AddCategoryState {
   XFile? get image;
   @override
   @JsonKey(ignore: true)
-  _$$_AddCategoryStateCopyWith<_$_AddCategoryState> get copyWith =>
+  _$$AddCategoryStateImplCopyWith<_$AddCategoryStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

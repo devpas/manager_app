@@ -207,11 +207,11 @@ class _$PosBagStateCopyWithImpl<$Res, $Val extends PosBagState>
 }
 
 /// @nodoc
-abstract class _$$_PosBagStateCopyWith<$Res>
+abstract class _$$PosBagStateImplCopyWith<$Res>
     implements $PosBagStateCopyWith<$Res> {
-  factory _$$_PosBagStateCopyWith(
-          _$_PosBagState value, $Res Function(_$_PosBagState) then) =
-      __$$_PosBagStateCopyWithImpl<$Res>;
+  factory _$$PosBagStateImplCopyWith(
+          _$PosBagStateImpl value, $Res Function(_$PosBagStateImpl) then) =
+      __$$PosBagStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -240,11 +240,11 @@ abstract class _$$_PosBagStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PosBagStateCopyWithImpl<$Res>
-    extends _$PosBagStateCopyWithImpl<$Res, _$_PosBagState>
-    implements _$$_PosBagStateCopyWith<$Res> {
-  __$$_PosBagStateCopyWithImpl(
-      _$_PosBagState _value, $Res Function(_$_PosBagState) _then)
+class __$$PosBagStateImplCopyWithImpl<$Res>
+    extends _$PosBagStateCopyWithImpl<$Res, _$PosBagStateImpl>
+    implements _$$PosBagStateImplCopyWith<$Res> {
+  __$$PosBagStateImplCopyWithImpl(
+      _$PosBagStateImpl _value, $Res Function(_$PosBagStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -273,7 +273,7 @@ class __$$_PosBagStateCopyWithImpl<$Res>
     Object? calculateResponse = freezed,
     Object? posBagData = freezed,
   }) {
-    return _then(_$_PosBagState(
+    return _then(_$PosBagStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -368,8 +368,8 @@ class __$$_PosBagStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PosBagState extends _PosBagState {
-  const _$_PosBagState(
+class _$PosBagStateImpl extends _PosBagState {
+  const _$PosBagStateImpl(
       {this.isLoading = false,
       this.isUsersLoading = false,
       this.isUserDetailsLoading = false,
@@ -504,7 +504,7 @@ class _$_PosBagState extends _PosBagState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PosBagState &&
+            other is _$PosBagStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isUsersLoading, isUsersLoading) ||
@@ -578,8 +578,8 @@ class _$_PosBagState extends _PosBagState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PosBagStateCopyWith<_$_PosBagState> get copyWith =>
-      __$$_PosBagStateCopyWithImpl<_$_PosBagState>(this, _$identity);
+  _$$PosBagStateImplCopyWith<_$PosBagStateImpl> get copyWith =>
+      __$$PosBagStateImplCopyWithImpl<_$PosBagStateImpl>(this, _$identity);
 }
 
 abstract class _PosBagState extends PosBagState {
@@ -605,7 +605,7 @@ abstract class _PosBagState extends PosBagState {
       final double productTax,
       final double shopTax,
       final ProductCalculateResponse? calculateResponse,
-      final PosSystemBagData? posBagData}) = _$_PosBagState;
+      final PosSystemBagData? posBagData}) = _$PosBagStateImpl;
   const _PosBagState._() : super._();
 
   @override
@@ -654,6 +654,6 @@ abstract class _PosBagState extends PosBagState {
   PosSystemBagData? get posBagData;
   @override
   @JsonKey(ignore: true)
-  _$$_PosBagStateCopyWith<_$_PosBagState> get copyWith =>
+  _$$PosBagStateImplCopyWith<_$PosBagStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

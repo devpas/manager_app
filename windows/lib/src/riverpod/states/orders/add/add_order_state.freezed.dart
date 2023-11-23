@@ -348,11 +348,11 @@ class _$AddOrderStateCopyWithImpl<$Res, $Val extends AddOrderState>
 }
 
 /// @nodoc
-abstract class _$$_AddOrderStateCopyWith<$Res>
+abstract class _$$AddOrderStateImplCopyWith<$Res>
     implements $AddOrderStateCopyWith<$Res> {
-  factory _$$_AddOrderStateCopyWith(
-          _$_AddOrderState value, $Res Function(_$_AddOrderState) then) =
-      __$$_AddOrderStateCopyWithImpl<$Res>;
+  factory _$$AddOrderStateImplCopyWith(
+          _$AddOrderStateImpl value, $Res Function(_$AddOrderStateImpl) then) =
+      __$$AddOrderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -401,11 +401,11 @@ abstract class _$$_AddOrderStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AddOrderStateCopyWithImpl<$Res>
-    extends _$AddOrderStateCopyWithImpl<$Res, _$_AddOrderState>
-    implements _$$_AddOrderStateCopyWith<$Res> {
-  __$$_AddOrderStateCopyWithImpl(
-      _$_AddOrderState _value, $Res Function(_$_AddOrderState) _then)
+class __$$AddOrderStateImplCopyWithImpl<$Res>
+    extends _$AddOrderStateCopyWithImpl<$Res, _$AddOrderStateImpl>
+    implements _$$AddOrderStateImplCopyWith<$Res> {
+  __$$AddOrderStateImplCopyWithImpl(
+      _$AddOrderStateImpl _value, $Res Function(_$AddOrderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -454,7 +454,7 @@ class __$$_AddOrderStateCopyWithImpl<$Res>
     Object? selectedBrand = freezed,
     Object? calculateResponse = freezed,
   }) {
-    return _then(_$_AddOrderState(
+    return _then(_$AddOrderStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -629,8 +629,8 @@ class __$$_AddOrderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddOrderState extends _AddOrderState {
-  const _$_AddOrderState(
+class _$AddOrderStateImpl extends _AddOrderState {
+  const _$AddOrderStateImpl(
       {this.isLoading = false,
       this.isUsersLoading = false,
       this.isUserDetailsLoading = false,
@@ -882,7 +882,7 @@ class _$_AddOrderState extends _AddOrderState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddOrderState &&
+            other is _$AddOrderStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isUsersLoading, isUsersLoading) ||
@@ -1014,8 +1014,8 @@ class _$_AddOrderState extends _AddOrderState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddOrderStateCopyWith<_$_AddOrderState> get copyWith =>
-      __$$_AddOrderStateCopyWithImpl<_$_AddOrderState>(this, _$identity);
+  _$$AddOrderStateImplCopyWith<_$AddOrderStateImpl> get copyWith =>
+      __$$AddOrderStateImplCopyWithImpl<_$AddOrderStateImpl>(this, _$identity);
 }
 
 abstract class _AddOrderState extends AddOrderState {
@@ -1061,7 +1061,7 @@ abstract class _AddOrderState extends AddOrderState {
       final ShopData? selectedShop,
       final CategoryData? selectedCategory,
       final BrandData? selectedBrand,
-      final ProductCalculateResponse? calculateResponse}) = _$_AddOrderState;
+      final ProductCalculateResponse? calculateResponse}) = _$AddOrderStateImpl;
   const _AddOrderState._() : super._();
 
   @override
@@ -1150,6 +1150,6 @@ abstract class _AddOrderState extends AddOrderState {
   ProductCalculateResponse? get calculateResponse;
   @override
   @JsonKey(ignore: true)
-  _$$_AddOrderStateCopyWith<_$_AddOrderState> get copyWith =>
+  _$$AddOrderStateImplCopyWith<_$AddOrderStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

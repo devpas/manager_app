@@ -171,11 +171,11 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
 }
 
 /// @nodoc
-abstract class _$$_ProductsPasStateCopyWith<$Res>
+abstract class _$$ProductsPasStateImplCopyWith<$Res>
     implements $ProductsPasStateCopyWith<$Res> {
-  factory _$$_ProductsPasStateCopyWith(
-          _$_ProductsPasState value, $Res Function(_$_ProductsPasState) then) =
-      __$$_ProductsPasStateCopyWithImpl<$Res>;
+  factory _$$ProductsPasStateImplCopyWith(_$ProductsPasStateImpl value,
+          $Res Function(_$ProductsPasStateImpl) then) =
+      __$$ProductsPasStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -199,11 +199,11 @@ abstract class _$$_ProductsPasStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ProductsPasStateCopyWithImpl<$Res>
-    extends _$ProductsPasStateCopyWithImpl<$Res, _$_ProductsPasState>
-    implements _$$_ProductsPasStateCopyWith<$Res> {
-  __$$_ProductsPasStateCopyWithImpl(
-      _$_ProductsPasState _value, $Res Function(_$_ProductsPasState) _then)
+class __$$ProductsPasStateImplCopyWithImpl<$Res>
+    extends _$ProductsPasStateCopyWithImpl<$Res, _$ProductsPasStateImpl>
+    implements _$$ProductsPasStateImplCopyWith<$Res> {
+  __$$ProductsPasStateImplCopyWithImpl(_$ProductsPasStateImpl _value,
+      $Res Function(_$ProductsPasStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -227,7 +227,7 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
     Object? taxLoading = freezed,
     Object? productSelected = freezed,
   }) {
-    return _then(_$_ProductsPasState(
+    return _then(_$ProductsPasStateImpl(
       products: freezed == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -302,8 +302,8 @@ class __$$_ProductsPasStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ProductsPasState extends _ProductsPasState {
-  const _$_ProductsPasState(
+class _$ProductsPasStateImpl extends _ProductsPasState {
+  const _$ProductsPasStateImpl(
       {final List<ProductPasData>? products = const [],
       final List<ProductPasData>? productsAfterFilter = const [],
       this.productsLoading = false,
@@ -439,7 +439,7 @@ class _$_ProductsPasState extends _ProductsPasState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProductsPasState &&
+            other is _$ProductsPasStateImpl &&
             const DeepCollectionEquality().equals(other._products, _products) &&
             const DeepCollectionEquality()
                 .equals(other._productsAfterFilter, _productsAfterFilter) &&
@@ -498,8 +498,9 @@ class _$_ProductsPasState extends _ProductsPasState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProductsPasStateCopyWith<_$_ProductsPasState> get copyWith =>
-      __$$_ProductsPasStateCopyWithImpl<_$_ProductsPasState>(this, _$identity);
+  _$$ProductsPasStateImplCopyWith<_$ProductsPasStateImpl> get copyWith =>
+      __$$ProductsPasStateImplCopyWithImpl<_$ProductsPasStateImpl>(
+          this, _$identity);
 }
 
 abstract class _ProductsPasState extends ProductsPasState {
@@ -520,7 +521,7 @@ abstract class _ProductsPasState extends ProductsPasState {
       final List<dynamic>? taxes,
       final dynamic taxSelected,
       final bool? taxLoading,
-      final ProductPasData? productSelected}) = _$_ProductsPasState;
+      final ProductPasData? productSelected}) = _$ProductsPasStateImpl;
   const _ProductsPasState._() : super._();
 
   @override
@@ -559,6 +560,6 @@ abstract class _ProductsPasState extends ProductsPasState {
   ProductPasData? get productSelected;
   @override
   @JsonKey(ignore: true)
-  _$$_ProductsPasStateCopyWith<_$_ProductsPasState> get copyWith =>
+  _$$ProductsPasStateImplCopyWith<_$ProductsPasStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

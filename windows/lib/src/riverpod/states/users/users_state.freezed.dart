@@ -100,11 +100,11 @@ class _$UsersStateCopyWithImpl<$Res, $Val extends UsersState>
 }
 
 /// @nodoc
-abstract class _$$_UsersStateCopyWith<$Res>
+abstract class _$$UsersStateImplCopyWith<$Res>
     implements $UsersStateCopyWith<$Res> {
-  factory _$$_UsersStateCopyWith(
-          _$_UsersState value, $Res Function(_$_UsersState) then) =
-      __$$_UsersStateCopyWithImpl<$Res>;
+  factory _$$UsersStateImplCopyWith(
+          _$UsersStateImpl value, $Res Function(_$UsersStateImpl) then) =
+      __$$UsersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -118,11 +118,11 @@ abstract class _$$_UsersStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_UsersStateCopyWithImpl<$Res>
-    extends _$UsersStateCopyWithImpl<$Res, _$_UsersState>
-    implements _$$_UsersStateCopyWith<$Res> {
-  __$$_UsersStateCopyWithImpl(
-      _$_UsersState _value, $Res Function(_$_UsersState) _then)
+class __$$UsersStateImplCopyWithImpl<$Res>
+    extends _$UsersStateCopyWithImpl<$Res, _$UsersStateImpl>
+    implements _$$UsersStateImplCopyWith<$Res> {
+  __$$UsersStateImplCopyWithImpl(
+      _$UsersStateImpl _value, $Res Function(_$UsersStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -136,7 +136,7 @@ class __$$_UsersStateCopyWithImpl<$Res>
     Object? activeRole = null,
     Object? updatingUser = freezed,
   }) {
-    return _then(_$_UsersState(
+    return _then(_$UsersStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -171,8 +171,8 @@ class __$$_UsersStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UsersState extends _UsersState {
-  const _$_UsersState(
+class _$UsersStateImpl extends _UsersState {
+  const _$UsersStateImpl(
       {this.isLoading = false,
       this.isMoreLoading = false,
       this.isUpdatingRole = false,
@@ -219,7 +219,7 @@ class _$_UsersState extends _UsersState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UsersState &&
+            other is _$UsersStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isMoreLoading, isMoreLoading) ||
@@ -249,8 +249,8 @@ class _$_UsersState extends _UsersState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UsersStateCopyWith<_$_UsersState> get copyWith =>
-      __$$_UsersStateCopyWithImpl<_$_UsersState>(this, _$identity);
+  _$$UsersStateImplCopyWith<_$UsersStateImpl> get copyWith =>
+      __$$UsersStateImplCopyWithImpl<_$UsersStateImpl>(this, _$identity);
 }
 
 abstract class _UsersState extends UsersState {
@@ -261,7 +261,7 @@ abstract class _UsersState extends UsersState {
       final List<UserData> users,
       final UserRole initialRole,
       final UserRole activeRole,
-      final UserData? updatingUser}) = _$_UsersState;
+      final UserData? updatingUser}) = _$UsersStateImpl;
   const _UsersState._() : super._();
 
   @override
@@ -280,6 +280,6 @@ abstract class _UsersState extends UsersState {
   UserData? get updatingUser;
   @override
   @JsonKey(ignore: true)
-  _$$_UsersStateCopyWith<_$_UsersState> get copyWith =>
+  _$$UsersStateImplCopyWith<_$UsersStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

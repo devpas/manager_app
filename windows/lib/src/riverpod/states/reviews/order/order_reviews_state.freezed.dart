@@ -79,11 +79,11 @@ class _$OrderReviewsStateCopyWithImpl<$Res, $Val extends OrderReviewsState>
 }
 
 /// @nodoc
-abstract class _$$_OrderReviewsStateCopyWith<$Res>
+abstract class _$$OrderReviewsStateImplCopyWith<$Res>
     implements $OrderReviewsStateCopyWith<$Res> {
-  factory _$$_OrderReviewsStateCopyWith(_$_OrderReviewsState value,
-          $Res Function(_$_OrderReviewsState) then) =
-      __$$_OrderReviewsStateCopyWithImpl<$Res>;
+  factory _$$OrderReviewsStateImplCopyWith(_$OrderReviewsStateImpl value,
+          $Res Function(_$OrderReviewsStateImpl) then) =
+      __$$OrderReviewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_OrderReviewsStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_OrderReviewsStateCopyWithImpl<$Res>
-    extends _$OrderReviewsStateCopyWithImpl<$Res, _$_OrderReviewsState>
-    implements _$$_OrderReviewsStateCopyWith<$Res> {
-  __$$_OrderReviewsStateCopyWithImpl(
-      _$_OrderReviewsState _value, $Res Function(_$_OrderReviewsState) _then)
+class __$$OrderReviewsStateImplCopyWithImpl<$Res>
+    extends _$OrderReviewsStateCopyWithImpl<$Res, _$OrderReviewsStateImpl>
+    implements _$$OrderReviewsStateImplCopyWith<$Res> {
+  __$$OrderReviewsStateImplCopyWithImpl(_$OrderReviewsStateImpl _value,
+      $Res Function(_$OrderReviewsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_OrderReviewsStateCopyWithImpl<$Res>
     Object? isDeleting = null,
     Object? reviews = null,
   }) {
-    return _then(_$_OrderReviewsState(
+    return _then(_$OrderReviewsStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -132,8 +132,8 @@ class __$$_OrderReviewsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_OrderReviewsState extends _OrderReviewsState {
-  const _$_OrderReviewsState(
+class _$OrderReviewsStateImpl extends _OrderReviewsState {
+  const _$OrderReviewsStateImpl(
       {this.isLoading = false,
       this.isMoreLoading = false,
       this.isDeleting = false,
@@ -168,7 +168,7 @@ class _$_OrderReviewsState extends _OrderReviewsState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OrderReviewsState &&
+            other is _$OrderReviewsStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isMoreLoading, isMoreLoading) ||
@@ -185,8 +185,8 @@ class _$_OrderReviewsState extends _OrderReviewsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OrderReviewsStateCopyWith<_$_OrderReviewsState> get copyWith =>
-      __$$_OrderReviewsStateCopyWithImpl<_$_OrderReviewsState>(
+  _$$OrderReviewsStateImplCopyWith<_$OrderReviewsStateImpl> get copyWith =>
+      __$$OrderReviewsStateImplCopyWithImpl<_$OrderReviewsStateImpl>(
           this, _$identity);
 }
 
@@ -195,7 +195,7 @@ abstract class _OrderReviewsState extends OrderReviewsState {
       {final bool isLoading,
       final bool isMoreLoading,
       final bool isDeleting,
-      final List<OrderReviewData> reviews}) = _$_OrderReviewsState;
+      final List<OrderReviewData> reviews}) = _$OrderReviewsStateImpl;
   const _OrderReviewsState._() : super._();
 
   @override
@@ -208,6 +208,6 @@ abstract class _OrderReviewsState extends OrderReviewsState {
   List<OrderReviewData> get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$_OrderReviewsStateCopyWith<_$_OrderReviewsState> get copyWith =>
+  _$$OrderReviewsStateImplCopyWith<_$OrderReviewsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -70,22 +70,22 @@ class _$CompletedOrdersStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_CompletedOrdersStateCopyWith<$Res>
+abstract class _$$CompletedOrdersStateImplCopyWith<$Res>
     implements $CompletedOrdersStateCopyWith<$Res> {
-  factory _$$_CompletedOrdersStateCopyWith(_$_CompletedOrdersState value,
-          $Res Function(_$_CompletedOrdersState) then) =
-      __$$_CompletedOrdersStateCopyWithImpl<$Res>;
+  factory _$$CompletedOrdersStateImplCopyWith(_$CompletedOrdersStateImpl value,
+          $Res Function(_$CompletedOrdersStateImpl) then) =
+      __$$CompletedOrdersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<OrderData> orders, bool isLoading, bool isMoreLoading});
 }
 
 /// @nodoc
-class __$$_CompletedOrdersStateCopyWithImpl<$Res>
-    extends _$CompletedOrdersStateCopyWithImpl<$Res, _$_CompletedOrdersState>
-    implements _$$_CompletedOrdersStateCopyWith<$Res> {
-  __$$_CompletedOrdersStateCopyWithImpl(_$_CompletedOrdersState _value,
-      $Res Function(_$_CompletedOrdersState) _then)
+class __$$CompletedOrdersStateImplCopyWithImpl<$Res>
+    extends _$CompletedOrdersStateCopyWithImpl<$Res, _$CompletedOrdersStateImpl>
+    implements _$$CompletedOrdersStateImplCopyWith<$Res> {
+  __$$CompletedOrdersStateImplCopyWithImpl(_$CompletedOrdersStateImpl _value,
+      $Res Function(_$CompletedOrdersStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -95,7 +95,7 @@ class __$$_CompletedOrdersStateCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isMoreLoading = null,
   }) {
-    return _then(_$_CompletedOrdersState(
+    return _then(_$CompletedOrdersStateImpl(
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
@@ -114,8 +114,8 @@ class __$$_CompletedOrdersStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CompletedOrdersState extends _CompletedOrdersState {
-  const _$_CompletedOrdersState(
+class _$CompletedOrdersStateImpl extends _CompletedOrdersState {
+  const _$CompletedOrdersStateImpl(
       {final List<OrderData> orders = const [],
       this.isLoading = false,
       this.isMoreLoading = false})
@@ -147,7 +147,7 @@ class _$_CompletedOrdersState extends _CompletedOrdersState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CompletedOrdersState &&
+            other is _$CompletedOrdersStateImpl &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -162,16 +162,17 @@ class _$_CompletedOrdersState extends _CompletedOrdersState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CompletedOrdersStateCopyWith<_$_CompletedOrdersState> get copyWith =>
-      __$$_CompletedOrdersStateCopyWithImpl<_$_CompletedOrdersState>(
-          this, _$identity);
+  _$$CompletedOrdersStateImplCopyWith<_$CompletedOrdersStateImpl>
+      get copyWith =>
+          __$$CompletedOrdersStateImplCopyWithImpl<_$CompletedOrdersStateImpl>(
+              this, _$identity);
 }
 
 abstract class _CompletedOrdersState extends CompletedOrdersState {
   const factory _CompletedOrdersState(
       {final List<OrderData> orders,
       final bool isLoading,
-      final bool isMoreLoading}) = _$_CompletedOrdersState;
+      final bool isMoreLoading}) = _$CompletedOrdersStateImpl;
   const _CompletedOrdersState._() : super._();
 
   @override
@@ -182,6 +183,6 @@ abstract class _CompletedOrdersState extends CompletedOrdersState {
   bool get isMoreLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_CompletedOrdersStateCopyWith<_$_CompletedOrdersState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CompletedOrdersStateImplCopyWith<_$CompletedOrdersStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

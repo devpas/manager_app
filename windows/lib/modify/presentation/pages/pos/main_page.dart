@@ -4,11 +4,9 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
-import 'package:g_manager_app/src/presentation/pages/pages.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../src/core/routes/app_router.gr.dart';
-import '../../../../src/core/utils/utils.dart';
 import '../../../../src/riverpod/providers/providers.dart';
 import '../../theme/theme.dart';
 import '../../components/components.dart';
@@ -133,27 +131,27 @@ class MainPASPage extends ConsumerWidget {
                     items: [
                       _barItem(
                         icon: FlutterRemix.file_list_line,
-                        label: "Đơn hàng",
+                        label: stateBase.translate[stateBase.languageSelected]["order"],
                         isSelected: bottomBarState.activeIndex == 0,
                       ),
                       _barItem(
                         icon: FlutterRemix.user_2_fill,
-                        label: "Khách hàng",
+                        label: stateBase.translate[stateBase.languageSelected]["customer"],
                         isSelected: bottomBarState.activeIndex == 1,
                       ),
                       _barItem(
                         icon: FlutterRemix.money_dollar_box_fill,
-                        label: "Bán hàng",
+                        label: stateBase.translate[stateBase.languageSelected]["pos"],
                         isSelected: bottomBarState.activeIndex == 2,
                       ),
                       _barItem(
                         icon: FlutterRemix.user_smile_line,
-                        label: "Video",
+                        label: stateBase.translate[stateBase.languageSelected]["video"],
                         isSelected: bottomBarState.activeIndex == 3,
                       ),
                       _barItem(
                         icon: FlutterRemix.message_2_line,
-                        label: "Chat",
+                        label: stateBase.translate[stateBase.languageSelected]["chat"],
                         isSelected: bottomBarState.activeIndex == 4,
                       ),
                     ],

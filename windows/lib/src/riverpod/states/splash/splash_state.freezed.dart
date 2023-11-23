@@ -57,22 +57,22 @@ class _$SplashStateCopyWithImpl<$Res, $Val extends SplashState>
 }
 
 /// @nodoc
-abstract class _$$_SplashStateCopyWith<$Res>
+abstract class _$$SplashStateImplCopyWith<$Res>
     implements $SplashStateCopyWith<$Res> {
-  factory _$$_SplashStateCopyWith(
-          _$_SplashState value, $Res Function(_$_SplashState) then) =
-      __$$_SplashStateCopyWithImpl<$Res>;
+  factory _$$SplashStateImplCopyWith(
+          _$SplashStateImpl value, $Res Function(_$SplashStateImpl) then) =
+      __$$SplashStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isLoading});
 }
 
 /// @nodoc
-class __$$_SplashStateCopyWithImpl<$Res>
-    extends _$SplashStateCopyWithImpl<$Res, _$_SplashState>
-    implements _$$_SplashStateCopyWith<$Res> {
-  __$$_SplashStateCopyWithImpl(
-      _$_SplashState _value, $Res Function(_$_SplashState) _then)
+class __$$SplashStateImplCopyWithImpl<$Res>
+    extends _$SplashStateCopyWithImpl<$Res, _$SplashStateImpl>
+    implements _$$SplashStateImplCopyWith<$Res> {
+  __$$SplashStateImplCopyWithImpl(
+      _$SplashStateImpl _value, $Res Function(_$SplashStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -80,7 +80,7 @@ class __$$_SplashStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
   }) {
-    return _then(_$_SplashState(
+    return _then(_$SplashStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -91,8 +91,8 @@ class __$$_SplashStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SplashState extends _SplashState {
-  const _$_SplashState({this.isLoading = false}) : super._();
+class _$SplashStateImpl extends _SplashState {
+  const _$SplashStateImpl({this.isLoading = false}) : super._();
 
   @override
   @JsonKey()
@@ -107,7 +107,7 @@ class _$_SplashState extends _SplashState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SplashState &&
+            other is _$SplashStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
@@ -118,18 +118,18 @@ class _$_SplashState extends _SplashState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SplashStateCopyWith<_$_SplashState> get copyWith =>
-      __$$_SplashStateCopyWithImpl<_$_SplashState>(this, _$identity);
+  _$$SplashStateImplCopyWith<_$SplashStateImpl> get copyWith =>
+      __$$SplashStateImplCopyWithImpl<_$SplashStateImpl>(this, _$identity);
 }
 
 abstract class _SplashState extends SplashState {
-  const factory _SplashState({final bool isLoading}) = _$_SplashState;
+  const factory _SplashState({final bool isLoading}) = _$SplashStateImpl;
   const _SplashState._() : super._();
 
   @override
   bool get isLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_SplashStateCopyWith<_$_SplashState> get copyWith =>
+  _$$SplashStateImplCopyWith<_$SplashStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

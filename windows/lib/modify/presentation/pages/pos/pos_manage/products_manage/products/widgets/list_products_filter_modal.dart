@@ -16,6 +16,7 @@ class ListProductsFilterModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final stateBase = ref.watch(baseProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     final stateCategory = ref.watch(categoriesPASProvider);
     return Material(
@@ -30,12 +31,12 @@ class ListProductsFilterModal extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Lọc sản phẩm',
+              stateBase.translate[stateBase.languageSelected]["filter_product"],
               style: AppTypographies.styBlack22W500,
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Mã vạch"),
+              stateBase.translate[stateBase.languageSelected]["barcode"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -66,7 +67,7 @@ class ListProductsFilterModal extends ConsumerWidget {
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Tên sản phẩm"),
+              AppHelpers.getTranslation(stateBase.translate[stateBase.languageSelected]["title_product_name"]),
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -96,7 +97,7 @@ class ListProductsFilterModal extends ConsumerWidget {
             ),
             20.verticalSpace,
             Text(
-              AppHelpers.getTranslation("Giá mua"),
+              AppHelpers.getTranslation(stateBase.translate[stateBase.languageSelected]["price_buy"]),
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -126,7 +127,7 @@ class ListProductsFilterModal extends ConsumerWidget {
               ),
             ),
             Text(
-              AppHelpers.getTranslation("Giá bán"),
+              AppHelpers.getTranslation(stateBase.translate[stateBase.languageSelected]["price_sell"]),
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -158,7 +159,7 @@ class ListProductsFilterModal extends ConsumerWidget {
             20.verticalSpace,
             SelectWithSearchPosButton(
               iconData: FlutterRemix.arrow_down_s_line,
-              label: 'Danh mục',
+              label: stateBase.translate[stateBase.languageSelected]["category"],
               onTap: () {
                 notifier.keySearch = "";
                 showModalBottomSheet(
@@ -173,7 +174,7 @@ class ListProductsFilterModal extends ConsumerWidget {
             ),
             40.verticalSpace,
             CommonAccentButton(
-              title: 'Show result',
+              title: stateBase.translate[stateBase.languageSelected]["show_result"],
               onPressed: () {
                 notifier.searchProducts(stateCategory.categorySelected!.id!);
                 context.popRoute();

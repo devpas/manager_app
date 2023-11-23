@@ -86,11 +86,11 @@ class _$AddBrandStateCopyWithImpl<$Res, $Val extends AddBrandState>
 }
 
 /// @nodoc
-abstract class _$$_AddBrandStateCopyWith<$Res>
+abstract class _$$AddBrandStateImplCopyWith<$Res>
     implements $AddBrandStateCopyWith<$Res> {
-  factory _$$_AddBrandStateCopyWith(
-          _$_AddBrandState value, $Res Function(_$_AddBrandState) then) =
-      __$$_AddBrandStateCopyWithImpl<$Res>;
+  factory _$$AddBrandStateImplCopyWith(
+          _$AddBrandStateImpl value, $Res Function(_$AddBrandStateImpl) then) =
+      __$$AddBrandStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -102,11 +102,11 @@ abstract class _$$_AddBrandStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AddBrandStateCopyWithImpl<$Res>
-    extends _$AddBrandStateCopyWithImpl<$Res, _$_AddBrandState>
-    implements _$$_AddBrandStateCopyWith<$Res> {
-  __$$_AddBrandStateCopyWithImpl(
-      _$_AddBrandState _value, $Res Function(_$_AddBrandState) _then)
+class __$$AddBrandStateImplCopyWithImpl<$Res>
+    extends _$AddBrandStateCopyWithImpl<$Res, _$AddBrandStateImpl>
+    implements _$$AddBrandStateImplCopyWith<$Res> {
+  __$$AddBrandStateImplCopyWithImpl(
+      _$AddBrandStateImpl _value, $Res Function(_$AddBrandStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,7 +118,7 @@ class __$$_AddBrandStateCopyWithImpl<$Res>
     Object? brandName = null,
     Object? brandFile = freezed,
   }) {
-    return _then(_$_AddBrandState(
+    return _then(_$AddBrandStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -145,8 +145,8 @@ class __$$_AddBrandStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddBrandState extends _AddBrandState {
-  const _$_AddBrandState(
+class _$AddBrandStateImpl extends _AddBrandState {
+  const _$AddBrandStateImpl(
       {this.isLoading = false,
       this.isSaving = false,
       this.brandStatus = false,
@@ -178,7 +178,7 @@ class _$_AddBrandState extends _AddBrandState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddBrandState &&
+            other is _$AddBrandStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSaving, isSaving) ||
@@ -198,8 +198,8 @@ class _$_AddBrandState extends _AddBrandState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddBrandStateCopyWith<_$_AddBrandState> get copyWith =>
-      __$$_AddBrandStateCopyWithImpl<_$_AddBrandState>(this, _$identity);
+  _$$AddBrandStateImplCopyWith<_$AddBrandStateImpl> get copyWith =>
+      __$$AddBrandStateImplCopyWithImpl<_$AddBrandStateImpl>(this, _$identity);
 }
 
 abstract class _AddBrandState extends AddBrandState {
@@ -208,7 +208,7 @@ abstract class _AddBrandState extends AddBrandState {
       final bool isSaving,
       final bool brandStatus,
       final String brandName,
-      final XFile? brandFile}) = _$_AddBrandState;
+      final XFile? brandFile}) = _$AddBrandStateImpl;
   const _AddBrandState._() : super._();
 
   @override
@@ -223,6 +223,6 @@ abstract class _AddBrandState extends AddBrandState {
   XFile? get brandFile;
   @override
   @JsonKey(ignore: true)
-  _$$_AddBrandStateCopyWith<_$_AddBrandState> get copyWith =>
+  _$$AddBrandStateImplCopyWith<_$AddBrandStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

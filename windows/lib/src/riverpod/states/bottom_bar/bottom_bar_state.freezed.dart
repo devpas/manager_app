@@ -69,22 +69,22 @@ class _$BottomBarStateCopyWithImpl<$Res, $Val extends BottomBarState>
 }
 
 /// @nodoc
-abstract class _$$_BottomBarStateCopyWith<$Res>
+abstract class _$$BottomBarStateImplCopyWith<$Res>
     implements $BottomBarStateCopyWith<$Res> {
-  factory _$$_BottomBarStateCopyWith(
-          _$_BottomBarState value, $Res Function(_$_BottomBarState) then) =
-      __$$_BottomBarStateCopyWithImpl<$Res>;
+  factory _$$BottomBarStateImplCopyWith(_$BottomBarStateImpl value,
+          $Res Function(_$BottomBarStateImpl) then) =
+      __$$BottomBarStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int activeIndex, String appbarTitle, TabsRouter? tabsRouter});
 }
 
 /// @nodoc
-class __$$_BottomBarStateCopyWithImpl<$Res>
-    extends _$BottomBarStateCopyWithImpl<$Res, _$_BottomBarState>
-    implements _$$_BottomBarStateCopyWith<$Res> {
-  __$$_BottomBarStateCopyWithImpl(
-      _$_BottomBarState _value, $Res Function(_$_BottomBarState) _then)
+class __$$BottomBarStateImplCopyWithImpl<$Res>
+    extends _$BottomBarStateCopyWithImpl<$Res, _$BottomBarStateImpl>
+    implements _$$BottomBarStateImplCopyWith<$Res> {
+  __$$BottomBarStateImplCopyWithImpl(
+      _$BottomBarStateImpl _value, $Res Function(_$BottomBarStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +94,7 @@ class __$$_BottomBarStateCopyWithImpl<$Res>
     Object? appbarTitle = null,
     Object? tabsRouter = freezed,
   }) {
-    return _then(_$_BottomBarState(
+    return _then(_$BottomBarStateImpl(
       activeIndex: null == activeIndex
           ? _value.activeIndex
           : activeIndex // ignore: cast_nullable_to_non_nullable
@@ -113,8 +113,8 @@ class __$$_BottomBarStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BottomBarState extends _BottomBarState {
-  const _$_BottomBarState(
+class _$BottomBarStateImpl extends _BottomBarState {
+  const _$BottomBarStateImpl(
       {this.activeIndex = 2, this.appbarTitle = '', this.tabsRouter})
       : super._();
 
@@ -136,7 +136,7 @@ class _$_BottomBarState extends _BottomBarState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BottomBarState &&
+            other is _$BottomBarStateImpl &&
             (identical(other.activeIndex, activeIndex) ||
                 other.activeIndex == activeIndex) &&
             (identical(other.appbarTitle, appbarTitle) ||
@@ -152,15 +152,16 @@ class _$_BottomBarState extends _BottomBarState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BottomBarStateCopyWith<_$_BottomBarState> get copyWith =>
-      __$$_BottomBarStateCopyWithImpl<_$_BottomBarState>(this, _$identity);
+  _$$BottomBarStateImplCopyWith<_$BottomBarStateImpl> get copyWith =>
+      __$$BottomBarStateImplCopyWithImpl<_$BottomBarStateImpl>(
+          this, _$identity);
 }
 
 abstract class _BottomBarState extends BottomBarState {
   const factory _BottomBarState(
       {final int activeIndex,
       final String appbarTitle,
-      final TabsRouter? tabsRouter}) = _$_BottomBarState;
+      final TabsRouter? tabsRouter}) = _$BottomBarStateImpl;
   const _BottomBarState._() : super._();
 
   @override
@@ -171,6 +172,6 @@ abstract class _BottomBarState extends BottomBarState {
   TabsRouter? get tabsRouter;
   @override
   @JsonKey(ignore: true)
-  _$$_BottomBarStateCopyWith<_$_BottomBarState> get copyWith =>
+  _$$BottomBarStateImplCopyWith<_$BottomBarStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

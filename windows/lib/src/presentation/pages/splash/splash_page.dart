@@ -45,8 +45,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   Widget build(BuildContext context) {
     final bool isDarkMode = LocalStorage.instance.getAppThemeMode();
     return Scaffold(
-      backgroundColor:
-          isDarkMode ? AppColors.mainBackground : AppColors.mainBackground,
+      backgroundColor: isDarkMode ? AppColors.mainBackground : AppColors.mainBackground,
       body: Center(
         child: CircularProgressIndicator(
           color: AppColors.greenMain,
