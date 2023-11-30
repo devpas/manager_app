@@ -90,6 +90,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
     final notifier = ref.read(categoriesPASProvider.notifier);
     final stateProduct = ref.watch(productsPASProvider);
     final notifierProduct = ref.read(productsPASProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -112,7 +113,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             ),
             CommonInputField(
               initialValue: productData.reference,
-              label: "Mã kho",
+              label: stateBase.translate[stateBase.languageSelected]["warehouse_code"],
               onChanged: (v) {
                 product = product!.copyWith(reference: v);
               },
@@ -121,7 +122,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             30.verticalSpace,
             CommonInputField(
               initialValue: productData.name,
-              label: "Tên",
+              label: stateBase.translate[stateBase.languageSelected]["name"],
               onChanged: (v) {
                 product = product!.copyWith(name: v);
               },
@@ -130,7 +131,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             38.verticalSpace,
             CommonInputField(
               initialValue: productData.code,
-              label: "Mã vạch",
+              label: stateBase.translate[stateBase.languageSelected]["barcode"],
               onChanged: (v) {
                 product = product!.copyWith(code: v);
               },
@@ -143,7 +144,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                   child: !activeCheckBoxAuto
                       ? CommonInputField(
                           initialValue: productData.priceBuy.toString(),
-                          label: "Giá mua",
+                          label: stateBase.translate[stateBase.languageSelected]["price_buy"],
                           onChanged: (v) {
                             product = product!.copyWith(priceBuy: double.parse(v));
                           },
@@ -154,7 +155,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                           absorbing: true,
                           child: CommonInputField(
                             initialValue: productData.priceBuyAuto.toString(),
-                            label: "Giá mua",
+                            label: stateBase.translate[stateBase.languageSelected]["price_buy"],
                             onChanged: (v) {
                               // product = product!.copyWith(priceBuy: double.parse(v));
                             },
@@ -181,7 +182,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                           ),
                           10.horizontalSpace,
                           Text(
-                            'tính giá tự động',
+                            stateBase.translate[stateBase.languageSelected]["auto_calculate"],
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
                               fontSize: 14.sp,
@@ -197,7 +198,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             SizedBox(
               child: CommonInputField(
                 initialValue: productData.priceSell.toString(),
-                label: "Giá bán",
+                label: stateBase.translate[stateBase.languageSelected]["price_sell"],
                 onChanged: (v) {
                   if (v.isNotEmpty) {
                     setState(() {
@@ -217,7 +218,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             SizedBox(
               child: Row(
                 children: [
-                  Expanded(child: Text("Giá sau chiết khấu: ${product!.priceSell}")),
+                  Expanded(child: Text("${stateBase.translate[stateBase.languageSelected]["price_after_discount"]}: ${product!.priceSell}")),
                   10.horizontalSpace,
                   SizedBox(width: 100, child: Text((((product!.priceSell! * 100) / (product!.isAuto! == 1 ? product!.priceBuyAuto! : product!.priceBuy!)) - 100).toStringAsFixed(2).toString())),
                 ],
@@ -225,7 +226,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             ),
             10.verticalSpace,
             SelectWithSearchButton(
-              label: "Cấp trên",
+              label: stateBase.translate[stateBase.languageSelected]["parent_tax"],
               title: taxId == -1 ? "" : taxName,
               onTap: () {
                 taxesSearch = stateProduct.taxes!;
@@ -300,7 +301,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             30.verticalSpace,
             SelectWithSearchButton(
               label: AppHelpers.getTranslation(TrKeys.parentCategory),
-              title: parentCategoryId == -1 ? "Chọn danh mục cấp trên" : state.categories!.where((c) => c.id == parentCategoryId).first.name!,
+              title: parentCategoryId == -1 ? stateBase.translate[stateBase.languageSelected]["select_parent_category"] : state.categories!.where((c) => c.id == parentCategoryId).first.name!,
               onTap: () {
                 categoriesSearch = state.categories!;
                 showModalBottomSheet(
@@ -375,14 +376,14 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             ),
             30.verticalSpace,
             SelectWithSearchButton(
-              label: "Thuộc tính",
+              label: stateBase.translate[stateBase.languageSelected]["attribute"],
               onTap: () {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) => const SearchPropertyModalInAddProduct(),
                 );
               },
-              title: "chọn thuộc tính",
+              title: stateBase.translate[stateBase.languageSelected]["select_parent_category"],
             ),
             30.verticalSpace,
             Text(
@@ -440,6 +441,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
   }
 
   Widget stockTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+    final stateBase = ref.watch(baseProvider);
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -450,21 +452,21 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             10.verticalSpace,
             CommonInputField(
               initialValue: product!.stockCost.toString(),
-              label: "Phí lưu kho",
+              label: stateBase.translate[stateBase.languageSelected]["storage_charges"],
               onChanged: (e) {},
               inputAction: TextInputAction.next,
             ),
             30.verticalSpace,
             CommonInputField(
               initialValue: product!.stockVolume.toString(),
-              label: "Thể tích trong kho",
+              label: stateBase.translate[stateBase.languageSelected]["volume_in_warehouse"],
               onChanged: (e) {},
               inputAction: TextInputAction.next,
             ),
             38.verticalSpace,
             CommonInputField(
               initialValue: product!.isScale.toString(),
-              label: "Thứ tự sản phẩm",
+              label: stateBase.translate[stateBase.languageSelected]["product_queue"],
               onChanged: (e) {},
               inputAction: TextInputAction.next,
             ),
@@ -481,7 +483,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                 ),
                 10.horizontalSpace,
                 Text(
-                  "Hiển thị trong danh mục",
+                  stateBase.translate[stateBase.languageSelected]["show_in_the_list"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
@@ -503,7 +505,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                 ),
                 10.horizontalSpace,
                 Text(
-                  "Phụ thuộc",
+                  stateBase.translate[stateBase.languageSelected]["dependent"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
@@ -525,7 +527,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                 ),
                 10.horizontalSpace,
                 Text(
-                  "Phải cân đo",
+                  stateBase.translate[stateBase.languageSelected]["need_to_weigh"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
@@ -541,6 +543,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
   }
 
   Widget propertiesTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+    final stateBase = ref.watch(baseProvider);
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -551,7 +554,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             10.verticalSpace,
             CommonInputField(
               initialValue: keyProperties,
-              label: "Tên thuộc tính",
+              label: stateBase.translate[stateBase.languageSelected]["attribute_name"],
               onChanged: (input) {
                 setState(() {
                   keyProperties = input;
@@ -562,7 +565,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             30.verticalSpace,
             CommonInputField(
               initialValue: valueProperties,
-              label: "Giá trị thuộc tính",
+              label: stateBase.translate[stateBase.languageSelected]["attribute_value"],
               onChanged: (input) {
                 setState(() {
                   valueProperties = input;
@@ -572,7 +575,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
             ),
             10.verticalSpace,
             Text(
-              "Kiểu dữ liệu",
+              stateBase.translate[stateBase.languageSelected]["type_data"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w600,
                 fontSize: 16.sp,
@@ -593,7 +596,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                     ),
                     10.horizontalSpace,
                     Text(
-                      "Chữ",
+                      stateBase.translate[stateBase.languageSelected]["string"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
@@ -615,7 +618,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
                     ),
                     10.horizontalSpace,
                     Text(
-                      "Số",
+                      stateBase.translate[stateBase.languageSelected]["number"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
@@ -630,7 +633,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 AccentAddButton(
-                    title: "thêm",
+                    title: stateBase.translate[stateBase.languageSelected]["add"],
                     onPressed: () {
                       if (keyProperties != "" && valueProperties != "" && listProperties.where((element) => element["key"] == keyProperties).toList().isEmpty) {
                         setState(() {
@@ -681,6 +684,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
 
   @override
   Widget build(BuildContext context) {
+    final stateBase = ref.watch(baseProvider);
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     return AbsorbPointer(
@@ -689,7 +693,7 @@ class _EditProductPasPage extends ConsumerState<EditProductPasPage> with TickerP
         child: Scaffold(
           appBar: CustomAppbarPOS(
             title: Text(
-              "Cập nhật sản phẩm",
+              stateBase.translate[stateBase.languageSelected]["update_product"],
               style: AppTypographies.styBlack16W500,
               textAlign: TextAlign.center,
             ),

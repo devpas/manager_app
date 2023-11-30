@@ -9,6 +9,7 @@ abstract class AppState with _$AppState {
   const factory AppState({
     @Default(false) bool isDarkMode,
     @Default(true) bool isLtr,
+    @Default(0) int mode,
     LanguageData? activeLanguage,
   }) = _AppState;
 

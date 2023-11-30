@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/src/riverpod/notifiers/notifiers.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 import '../../../core/routes/app_router.gr.dart';
@@ -24,10 +25,11 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     Future.delayed(
       Duration.zero,
       () {
+        String screenMode = LocalStorage.instance.getScreenMode();
         ref.read(splashProvider.notifier).fetchSettings(
           context,
           goMain: () {
-            context.replaceRoute(const DashboardBaseRoute());
+            screenMode == "desktop" ? context.replaceRoute(const MainRouteDeskTop()) : context.replaceRoute(const DashboardBaseRoute());
           },
           goLogin: () {
             context.replaceRoute(SignInWebviewRoute());

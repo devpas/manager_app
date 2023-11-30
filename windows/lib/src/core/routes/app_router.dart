@@ -358,6 +358,38 @@ import 'modals_route.dart';
       page: UpdatePrinterPage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/main-desktop',
+      page: MainPageDeskTop,
+      customRouteBuilder: modalsPageRoute,
+      children: [
+        // AutoRoute(
+        //   path: 'dashboard',
+        //   page: DashboardPage,
+        // ),
+        // AutoRoute(
+        //   path: 'orders',
+        //   page: OrdersPage,
+        // ),
+        // AutoRoute(
+        //   path: 'pos-system',
+        //   page: PosSystemPage,
+        // ),
+        // AutoRoute(
+        //   path: 'products',
+        //   page: ProductsPage,
+        // ),
+        // AutoRoute(
+        //   path: 'delivery-boy',
+        //   page: DeliveryBoyPage,
+        // ),
+      ],
+    ),
+    CustomRoute(
+      path: '/dashboard-base-desktop',
+      page: DashboardBaseDeskTopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
   ],
 )
 class $AppRouter {}

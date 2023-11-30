@@ -84,10 +84,10 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
     double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        const Center(
+        Center(
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("Hóa đơn"),
+            child: Text(stateBase.translate[stateBase.languageSelected]["receipt"]),
           ),
         ),
         Container(
@@ -352,7 +352,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           SizedBox(
                             width: 100,
                             child: Text(
-                              stateBase.translate[stateBase.languageSelected]["deb_expire_time"],
+                              stateBase.translate[stateBase.languageSelected]["debt_expire_time"],
                               style: AppTypographies.styBlack14W400,
                             ),
                           ),

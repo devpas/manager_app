@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_printer/flutter_bluetooth_printer.dart';
@@ -14,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../../src/core/utils/utils.dart';
+import '../../../../../riverpob/states/states.dart';
 import '../../../../components/components.dart';
 import '../../../../theme/theme.dart';
 
@@ -49,12 +46,12 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
     super.initState();
   }
 
-  String getNameTypePrinter() {
+  String getNameTypePrinter(BaseState state) {
     String nameTypePrinter = "";
     if (typePrinter == 1) {
-      nameTypePrinter = "Máy in wifi";
+      nameTypePrinter = state.translate[state.languageSelected]["wifi_printer"];
     } else if (typePrinter == 2) {
-      nameTypePrinter = "Máy in bluetooth";
+      nameTypePrinter = state.translate[state.languageSelected]["bluetooth_printer"];
     }
     return nameTypePrinter;
   }
@@ -70,7 +67,7 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
           backgroundColor: AppColors.shopsPageBack,
           appBar: CustomAppbarPOS(
             title: Text(
-              "Thông tin máy in",
+              state.translate[state.languageSelected]["printer_infomation"],
               style: AppTypographies.styBlack16W500,
               textAlign: TextAlign.center,
             ),
@@ -121,8 +118,8 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
                     ),
                     30.verticalSpace,
                     SelectWithAddButton(
-                      label: AppHelpers.getTranslation("Loại máy in"),
-                      title: getNameTypePrinter(),
+                      label: state.translate[state.languageSelected]["type_printer"],
+                      title: getNameTypePrinter(state),
                       onSelectTap: () {
                         showModalBottomSheet(
                           context: context,
@@ -134,7 +131,7 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
                               children: [
                                 24.verticalSpace,
                                 Text(
-                                  "Chọn loại máy in",
+                                  state.translate[state.languageSelected]["select_type_printer"],
                                   style: AppTypographies.styBlack22W500,
                                 ),
                                 24.verticalSpace,
@@ -150,7 +147,7 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
                                         });
                                         context.popRoute();
                                       },
-                                      title: const Text("Máy in wifi"),
+                                      title: Text(state.translate[state.languageSelected]["wifi_printer"]),
                                     ),
                                     ListTile(
                                         selected: typePrinter == 2 ? true : false,
@@ -161,7 +158,7 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
                                           });
                                           context.popRoute();
                                         },
-                                        title: const Text(" Máy in bluetooth"))
+                                        title: Text(state.translate[state.languageSelected]["bluetooth_printer"]))
                                   ],
                                 ),
                                 50.verticalSpace,
@@ -173,7 +170,7 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
                     ),
                     30.verticalSpace,
                     Text(
-                      typePrinter == 1 ? "Địa chỉ IP" : "Tên thiết bị: $nameDevice",
+                      typePrinter == 1 ? state.translate[state.languageSelected]["ip_address"] : "${state.translate[state.languageSelected]["device_name"]}: $nameDevice",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
@@ -210,7 +207,7 @@ class _UpdatePrinterPageState extends ConsumerState<UpdatePrinterPage> {
                               }
                             },
                             title: Text(
-                              address == "" ? "Chọn thiết bị bluetooth" : address,
+                              address == "" ? state.translate[state.languageSelected]["bluetooth_select"] : address,
                               style: GoogleFonts.inter(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16,

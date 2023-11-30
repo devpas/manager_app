@@ -172,7 +172,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-page")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.store_2_line,
-                        title: state.translate[state.languageSelected]["pso"],
+                        title: state.translate[state.languageSelected]["pos"],
                         onTap: () {
                           // context.popRoute();
                           context.pushRoute(const MainPASRoute());
@@ -182,7 +182,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-products")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.add_box_line,
-                        title: state.translate[state.languageSelected]["Product"],
+                        title: state.translate[state.languageSelected]["product"],
                         onTap: () {
                           context.popRoute();
                           context.pushRoute(const ProductsPasRoute());
@@ -192,7 +192,7 @@ class _WMainDrawerPosState extends ConsumerState<WMainDrawerPos> {
                 notifier.checkAccessPage("pos-system", "pos-customer")
                     ? DrawerItemWidget(
                         iconData: FlutterRemix.user_3_line,
-                        title: state.translate[state.languageSelected]["Customer"],
+                        title: state.translate[state.languageSelected]["customer"],
                         onTap: () {
                           context.popRoute();
                           context.pushRoute(const CustomersPasRoute());

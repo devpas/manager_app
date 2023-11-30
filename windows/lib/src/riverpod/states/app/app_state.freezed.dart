@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppState {
   bool get isDarkMode => throw _privateConstructorUsedError;
   bool get isLtr => throw _privateConstructorUsedError;
+  int get mode => throw _privateConstructorUsedError;
   LanguageData? get activeLanguage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,8 @@ abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res, AppState>;
   @useResult
-  $Res call({bool isDarkMode, bool isLtr, LanguageData? activeLanguage});
+  $Res call(
+      {bool isDarkMode, bool isLtr, int mode, LanguageData? activeLanguage});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   $Res call({
     Object? isDarkMode = null,
     Object? isLtr = null,
+    Object? mode = null,
     Object? activeLanguage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +62,10 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.isLtr
           : isLtr // ignore: cast_nullable_to_non_nullable
               as bool,
+      mode: null == mode
+          ? _value.mode
+          : mode // ignore: cast_nullable_to_non_nullable
+              as int,
       activeLanguage: freezed == activeLanguage
           ? _value.activeLanguage
           : activeLanguage // ignore: cast_nullable_to_non_nullable
@@ -75,7 +82,8 @@ abstract class _$$AppStateImplCopyWith<$Res>
       __$$AppStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isDarkMode, bool isLtr, LanguageData? activeLanguage});
+  $Res call(
+      {bool isDarkMode, bool isLtr, int mode, LanguageData? activeLanguage});
 }
 
 /// @nodoc
@@ -91,6 +99,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isDarkMode = null,
     Object? isLtr = null,
+    Object? mode = null,
     Object? activeLanguage = freezed,
   }) {
     return _then(_$AppStateImpl(
@@ -102,6 +111,10 @@ class __$$AppStateImplCopyWithImpl<$Res>
           ? _value.isLtr
           : isLtr // ignore: cast_nullable_to_non_nullable
               as bool,
+      mode: null == mode
+          ? _value.mode
+          : mode // ignore: cast_nullable_to_non_nullable
+              as int,
       activeLanguage: freezed == activeLanguage
           ? _value.activeLanguage
           : activeLanguage // ignore: cast_nullable_to_non_nullable
@@ -114,7 +127,10 @@ class __$$AppStateImplCopyWithImpl<$Res>
 
 class _$AppStateImpl extends _AppState {
   const _$AppStateImpl(
-      {this.isDarkMode = false, this.isLtr = true, this.activeLanguage})
+      {this.isDarkMode = false,
+      this.isLtr = true,
+      this.mode = 0,
+      this.activeLanguage})
       : super._();
 
   @override
@@ -124,11 +140,14 @@ class _$AppStateImpl extends _AppState {
   @JsonKey()
   final bool isLtr;
   @override
+  @JsonKey()
+  final int mode;
+  @override
   final LanguageData? activeLanguage;
 
   @override
   String toString() {
-    return 'AppState(isDarkMode: $isDarkMode, isLtr: $isLtr, activeLanguage: $activeLanguage)';
+    return 'AppState(isDarkMode: $isDarkMode, isLtr: $isLtr, mode: $mode, activeLanguage: $activeLanguage)';
   }
 
   @override
@@ -139,13 +158,14 @@ class _$AppStateImpl extends _AppState {
             (identical(other.isDarkMode, isDarkMode) ||
                 other.isDarkMode == isDarkMode) &&
             (identical(other.isLtr, isLtr) || other.isLtr == isLtr) &&
+            (identical(other.mode, mode) || other.mode == mode) &&
             (identical(other.activeLanguage, activeLanguage) ||
                 other.activeLanguage == activeLanguage));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isDarkMode, isLtr, activeLanguage);
+      Object.hash(runtimeType, isDarkMode, isLtr, mode, activeLanguage);
 
   @JsonKey(ignore: true)
   @override
@@ -158,6 +178,7 @@ abstract class _AppState extends AppState {
   const factory _AppState(
       {final bool isDarkMode,
       final bool isLtr,
+      final int mode,
       final LanguageData? activeLanguage}) = _$AppStateImpl;
   const _AppState._() : super._();
 
@@ -165,6 +186,8 @@ abstract class _AppState extends AppState {
   bool get isDarkMode;
   @override
   bool get isLtr;
+  @override
+  int get mode;
   @override
   LanguageData? get activeLanguage;
   @override

@@ -277,6 +277,20 @@ class LocalStorage {
     }
   }
 
+  Future<void> setScreenMode(double width, double height) async {
+    String mode = "mobile";
+    if (_preferences != null) {
+      if (width >= height) {
+        mode = "desktop";
+      } else {
+        mode = "mobile";
+      }
+      _preferences!.setString("screen_mode", mode);
+    }
+  }
+
+  String getScreenMode() => _preferences?.getString("screen_mode") ?? "mobile";
+
   String getlanguageSelected() => _preferences?.getString("language_selected") ?? 'vn';
 
   void deleteKeyAccessOwner() => _preferences?.remove("owner_access_id");

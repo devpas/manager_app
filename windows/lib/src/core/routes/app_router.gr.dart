@@ -667,6 +667,24 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    MainRouteDeskTop.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.MainPageDeskTop(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    DashboardBaseDeskTopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.DashboardBaseDeskTopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -1015,6 +1033,14 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           UpdatePrinterRoute.name,
           path: '/update-printers',
+        ),
+        _i2.RouteConfig(
+          MainRouteDeskTop.name,
+          path: '/main-desktop',
+        ),
+        _i2.RouteConfig(
+          DashboardBaseDeskTopRoute.name,
+          path: '/dashboard-base-desktop',
         ),
       ];
 }
@@ -2286,6 +2312,30 @@ class UpdatePrinterRouteArgs {
   String toString() {
     return 'UpdatePrinterRouteArgs{printer: $printer, key: $key}';
   }
+}
+
+/// generated route for
+/// [_i1.MainPageDeskTop]
+class MainRouteDeskTop extends _i2.PageRouteInfo<void> {
+  const MainRouteDeskTop()
+      : super(
+          MainRouteDeskTop.name,
+          path: '/main-desktop',
+        );
+
+  static const String name = 'MainRouteDeskTop';
+}
+
+/// generated route for
+/// [_i1.DashboardBaseDeskTopPage]
+class DashboardBaseDeskTopRoute extends _i2.PageRouteInfo<void> {
+  const DashboardBaseDeskTopRoute()
+      : super(
+          DashboardBaseDeskTopRoute.name,
+          path: '/dashboard-base-desktop',
+        );
+
+  static const String name = 'DashboardBaseDeskTopRoute';
 }
 
 /// generated route for

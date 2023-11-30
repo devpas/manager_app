@@ -28,6 +28,8 @@ export 'main/reviews/reviews_page.dart';
 export 'main/reviews/order/order_reviews_page.dart';
 export 'main/reviews/product/product_reviews_page.dart';
 //modify
+
+//mobile
 export '../../../modify/presentation/pages/pos/dashboard_page.dart';
 export '../../../modify/presentation/pages/pos/main_page.dart';
 export '../../../modify/presentation/pages/base/dashboard_page.dart';
@@ -72,3 +74,7 @@ export '../../../modify/presentation/pages/settings/printer/printer_settings.dar
 export '../../../modify/presentation/pages/settings/printer/add/add_printer.dart';
 export '../../../modify/presentation/pages/settings/printer/update/update_printer.dart';
 export '../../../modify/presentation/pages/process/process_page.dart';
+
+//desktop
+export '../../../modify/presentation/pages_dekstop/pos/main_page.dart';
+export '../../../modify/presentation/pages_dekstop/base/dashboard_page.dart';

@@ -4,7 +4,6 @@ import 'dart:typed_data';
 
 import 'package:flutter_bluetooth_printer/flutter_bluetooth_printer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:g_manager_app/src/repository/repository.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../modify/models/models.dart';

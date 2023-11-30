@@ -30,8 +30,7 @@ class AddProductPasPage extends ConsumerStatefulWidget {
   ConsumerState<AddProductPasPage> createState() => _AddProductPasPage();
 }
 
-class _AddProductPasPage extends ConsumerState<AddProductPasPage>
-    with TickerProviderStateMixin {
+class _AddProductPasPage extends ConsumerState<AddProductPasPage> with TickerProviderStateMixin {
   late TabController _tabController;
 
   List<dynamic> listProperties = [];
@@ -61,10 +60,10 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
     _tabController = TabController(length: 3, vsync: this);
   }
 
-  Widget mainTab(
-      ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+  Widget mainTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
     final state = ref.watch(categoriesPASProvider);
-    final notifier = ref.read(categoriesPASProvider.notifier);
+    // final notifier = ref.read(categoriesPASProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -86,7 +85,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             ),
             CommonInputField(
               initialValue: product!.reference,
-              label: "Mã kho",
+              label: stateBase.translate[stateBase.languageSelected]["warehouse_code"],
               onChanged: (v) {
                 product = product!.copyWith(reference: v);
               },
@@ -95,7 +94,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             30.verticalSpace,
             CommonInputField(
               initialValue: product!.name,
-              label: "Tên",
+              label: stateBase.translate[stateBase.languageSelected]["name"],
               onChanged: (v) {
                 product = product!.copyWith(name: v);
               },
@@ -104,7 +103,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             38.verticalSpace,
             CommonInputField(
               initialValue: product!.code,
-              label: "Mã vạch",
+              label: stateBase.translate[stateBase.languageSelected]["barcode"],
               onChanged: (v) {
                 product = product!.copyWith(code: v);
               },
@@ -113,7 +112,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             30.verticalSpace,
             CommonInputField(
               initialValue: product!.priceBuy.toString(),
-              label: "Giá mua",
+              label: stateBase.translate[stateBase.languageSelected]["price_buy"],
               onChanged: (v) {
                 if (v != "") {
                   product = product!.copyWith(priceBuy: double.parse(v));
@@ -125,7 +124,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             30.verticalSpace,
             CommonInputField(
               initialValue: product!.priceSell.toString(),
-              label: "Giá bán",
+              label: stateBase.translate[stateBase.languageSelected]["price_sell"],
               onChanged: (v) {
                 if (v != "") {
                   product = product!.copyWith(priceSell: double.parse(v));
@@ -141,11 +140,10 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                   Expanded(
                     child: CommonInputField(
                       initialValue: product!.priceBuy.toString(),
-                      label: "Giá sau chiết khấu",
+                      label: stateBase.translate[stateBase.languageSelected]["price_after_discount"],
                       onChanged: (v) {
                         if (v != "") {
-                          product =
-                              product!.copyWith(priceSell: double.parse(v));
+                          product = product!.copyWith(priceSell: double.parse(v));
                         }
                       },
                       inputAction: TextInputAction.next,
@@ -155,7 +153,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                   SizedBox(
                     width: 100,
                     child: CommonInputField(
-                      label: "% chiết khấu",
+                      label: "% ${stateBase.translate[stateBase.languageSelected]["discount"]}",
                       initialValue: "0",
                       onChanged: (v) {
                         product = product!.copyWith(priceSell: double.parse(v));
@@ -169,28 +167,25 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             ),
             30.verticalSpace,
             SelectWithSearchButton(
-              label: "Loại chiếc khấu",
+              label: stateBase.translate[stateBase.languageSelected]["type_discount"],
               onTap: () {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) => const SearchDiscountModalInAddProduct(),
                 );
               },
-              title: "Chọn loại chiếc khấu",
+              title: stateBase.translate[stateBase.languageSelected]["select_type_discount"],
             ),
             30.verticalSpace,
             SelectWithSearchButton(
-              label: AppHelpers.getTranslation(TrKeys.parentCategory),
-              title: parentCategoryId == -1
-                  ? "Chọn danh mục cấp trên"
-                  : parentCategoryName,
+              label: stateBase.translate[stateBase.languageSelected]["parent_category"],
+              title: parentCategoryId == -1 ? stateBase.translate[stateBase.languageSelected]["select_parent_category"] : parentCategoryName,
               onTap: () {
                 categoriesSearch = state.categories!;
                 showModalBottomSheet(
                     context: context,
                     builder: (context) {
-                      return StatefulBuilder(builder:
-                          (BuildContext context, StateSetter setModelState) {
+                      return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
                         return Material(
                           color: AppColors.mainBackground,
                           child: Container(
@@ -206,20 +201,14 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                                 SearchTextField(
                                   onChanged: (v) {
                                     setModelState(() {
-                                      categoriesSearch = state.categories!
-                                          .where((e) => e.name!
-                                              .toLowerCase()
-                                              .contains(v.toLowerCase()))
-                                          .toList();
+                                      categoriesSearch = state.categories!.where((e) => e.name!.toLowerCase().contains(v.toLowerCase())).toList();
                                     });
                                   },
-                                  hintText: AppHelpers.getTranslation(
-                                      TrKeys.searchCategory),
+                                  hintText: AppHelpers.getTranslation(TrKeys.searchCategory),
                                 ),
                                 10.verticalSpace,
                                 SearchedItem(
-                                  title: AppHelpers.getTranslation(
-                                      TrKeys.noCategory),
+                                  title: AppHelpers.getTranslation(TrKeys.noCategory),
                                   isSelected: false,
                                   onTap: () {
                                     setState(() {
@@ -234,24 +223,19 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                                 ),
                                 Expanded(
                                   child: ListView.builder(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    physics:
-                                        const CustomBouncingScrollPhysics(),
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    physics: const CustomBouncingScrollPhysics(),
                                     itemCount: categoriesSearch!.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      final parentCategory =
-                                          categoriesSearch![index];
+                                      final parentCategory = categoriesSearch![index];
                                       return SearchedItem(
                                         title: '${parentCategory.name}',
                                         isSelected: false,
                                         onTap: () {
                                           setState(() {
-                                            parentCategoryId =
-                                                parentCategory.id!;
-                                            parentCategoryName =
-                                                parentCategory.name!;
+                                            parentCategoryId = parentCategory.id!;
+                                            parentCategoryName = parentCategory.name!;
                                           });
                                           print(parentCategoryId);
                                           print(parentCategoryName);
@@ -272,14 +256,14 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             ),
             30.verticalSpace,
             SelectWithSearchButton(
-              label: "Thuộc tính",
+              label: stateBase.translate[stateBase.languageSelected]["attribute"],
               onTap: () {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) => const SearchPropertyModalInAddProduct(),
                 );
               },
-              title: "chọn thuộc tính",
+              title: stateBase.translate[stateBase.languageSelected]["select_attribute"],
             ),
             30.verticalSpace,
             Text(
@@ -306,9 +290,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: activeCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: activeCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -323,11 +305,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                   base64 = base64Encode(bytes);
                 }
                 setState(() {
-                  product = product!.copyWith(
-                      active: activeCheckBox ? 1 : 0,
-                      attributes: listProperties.toString(),
-                      image: base64,
-                      categoryId: parentCategoryId);
+                  product = product!.copyWith(active: activeCheckBox ? 1 : 0, attributes: listProperties.toString(), image: base64, categoryId: parentCategoryId);
                   productsNotifier.addProduct(product!);
                 });
               },
@@ -340,8 +318,8 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
     );
   }
 
-  Widget stockTab(
-      ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+  Widget stockTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+    final stateBase = ref.watch(baseProvider);
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -352,21 +330,21 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             10.verticalSpace,
             CommonInputField(
               initialValue: product!.stockCost.toString(),
-              label: "Phí lưu kho",
+              label: stateBase.translate[stateBase.languageSelected]["storage_charges"],
               onChanged: (e) {},
               inputAction: TextInputAction.next,
             ),
             30.verticalSpace,
             CommonInputField(
               initialValue: product!.stockVolume.toString(),
-              label: "Thể tích trong kho",
+              label: stateBase.translate[stateBase.languageSelected]["volume_in_warehouse"],
               onChanged: (e) {},
               inputAction: TextInputAction.next,
             ),
             38.verticalSpace,
             CommonInputField(
               initialValue: product!.isScale.toString(),
-              label: "Thứ tự sản phẩm",
+              label: stateBase.translate[stateBase.languageSelected]["product_queue"],
               onChanged: (e) {},
               inputAction: TextInputAction.next,
             ),
@@ -383,13 +361,11 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                 ),
                 10.horizontalSpace,
                 Text(
-                  "Hiển thị trong danh mục",
+                  stateBase.translate[stateBase.languageSelected]["show_in_the_list"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: showCategoryCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: showCategoryCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -407,13 +383,11 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                 ),
                 10.horizontalSpace,
                 Text(
-                  "Phụ thuộc",
+                  stateBase.translate[stateBase.languageSelected]["dependent"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: subsidiaryCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: subsidiaryCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -431,13 +405,11 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                 ),
                 10.horizontalSpace,
                 Text(
-                  "Phải cân đo",
+                  stateBase.translate[stateBase.languageSelected]["need_to_weigh"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
-                    color: measuresCheckBox
-                        ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                    color: measuresCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -448,8 +420,8 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
     );
   }
 
-  Widget propertiesTab(
-      ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+  Widget propertiesTab(ProductsPasState productsState, ProductsPasNotifier productsNotifier) {
+    final stateBase = ref.watch(baseProvider);
     return SingleChildScrollView(
       physics: const CustomBouncingScrollPhysics(),
       child: Padding(
@@ -460,7 +432,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             10.verticalSpace,
             CommonInputField(
               initialValue: keyProperties,
-              label: "Tên thuộc tính",
+              label: stateBase.translate[stateBase.languageSelected]["attribute_name"],
               onChanged: (input) {
                 setState(() {
                   keyProperties = input;
@@ -471,7 +443,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             30.verticalSpace,
             CommonInputField(
               initialValue: valueProperties,
-              label: "Giá trị thuộc tính",
+              label: stateBase.translate[stateBase.languageSelected]["attribute_value"],
               onChanged: (input) {
                 setState(() {
                   valueProperties = input;
@@ -481,7 +453,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
             ),
             10.verticalSpace,
             Text(
-              "Kiểu dữ liệu",
+              stateBase.translate[stateBase.languageSelected]["type_data"],
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w600,
                 fontSize: 16.sp,
@@ -502,13 +474,11 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                     ),
                     10.horizontalSpace,
                     Text(
-                      "Chữ",
+                      stateBase.translate[stateBase.languageSelected]["string"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
-                        color: typeDataCheckBox
-                            ? AppColors.black
-                            : AppColors.black.withOpacity(0.5),
+                        color: typeDataCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                       ),
                     ),
                   ],
@@ -526,13 +496,11 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                     ),
                     10.horizontalSpace,
                     Text(
-                      "Số",
+                      stateBase.translate[stateBase.languageSelected]["number"],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.sp,
-                        color: !typeDataCheckBox
-                            ? AppColors.black
-                            : AppColors.black.withOpacity(0.5),
+                        color: !typeDataCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
                       ),
                     ),
                   ],
@@ -543,21 +511,11 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 AccentAddButton(
-                    title: "thêm",
+                    title: stateBase.translate[stateBase.languageSelected]["add"],
                     onPressed: () {
-                      if (keyProperties != "" &&
-                          valueProperties != "" &&
-                          listProperties
-                              .where(
-                                  (element) => element["key"] == keyProperties)
-                              .toList()
-                              .isEmpty) {
+                      if (keyProperties != "" && valueProperties != "" && listProperties.where((element) => element["key"] == keyProperties).toList().isEmpty) {
                         setState(() {
-                          var property = {
-                            "key": keyProperties,
-                            "value": valueProperties,
-                            "type": typeDataCheckBox ? "String" : "number"
-                          };
+                          var property = {"key": keyProperties, "value": valueProperties, "type": typeDataCheckBox ? "String" : "number"};
                           listProperties.add(property);
                           keyProperties = "";
                           valueProperties = "";
@@ -606,13 +564,14 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
   Widget build(BuildContext context) {
     final state = ref.watch(productsPASProvider);
     final notifier = ref.read(productsPASProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
     return AbsorbPointer(
       absorbing: false,
       child: KeyboardDismisser(
         child: Scaffold(
           appBar: CustomAppbarPOS(
             title: Text(
-              "Thêm sản phẩm",
+              stateBase.translate[stateBase.languageSelected]["add_product"],
               style: AppTypographies.styBlack16W500,
               textAlign: TextAlign.center,
             ),
@@ -654,11 +613,7 @@ class _AddProductPasPage extends ConsumerState<AddProductPasPage>
                   child: TabBarView(
                     controller: _tabController,
                     physics: const CustomBouncingScrollPhysics(),
-                    children: [
-                      mainTab(state, notifier),
-                      stockTab(state, notifier),
-                      propertiesTab(state, notifier)
-                    ],
+                    children: [mainTab(state, notifier), stockTab(state, notifier), propertiesTab(state, notifier)],
                   ),
                 ),
               ],

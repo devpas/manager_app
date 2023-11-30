@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/utils/utils.dart';
@@ -32,5 +33,17 @@ class AppNotifier extends StateNotifier<AppState> {
       activeLanguage: language,
       isLtr: language?.backward == 0,
     );
+  }
+
+  bool setScreenMode(double width, double height) {
+    bool isMobile = false;
+    if (width >= height) {
+      state = state.copyWith(mode: 1);
+      isMobile = false;
+    } else {
+      state = state.copyWith(mode: 0);
+      isMobile = true;
+    }
+    return isMobile;
   }
 }

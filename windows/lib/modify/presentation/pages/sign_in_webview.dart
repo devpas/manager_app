@@ -93,7 +93,8 @@ class SignInWebviewPage extends ConsumerWidget {
                         print(isConnect);
                         if (isConnect) {
                           // notifierLogin.loginAdminSilent(goToMain: () {
-                          context.pushRoute(const DashboardBaseRoute());
+                          String screenMode = LocalStorage.instance.getScreenMode();
+                          screenMode == "desktop" ? context.pushRoute(const DashboardBaseDeskTopRoute()) : context.pushRoute(const DashboardBaseRoute());
                           // });
                         } else {}
                       }

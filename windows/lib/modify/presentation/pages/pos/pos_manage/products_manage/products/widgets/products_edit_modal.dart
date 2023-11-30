@@ -206,7 +206,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
             Row(
               children: [
                 Text(
-                  AppHelpers.getTranslation("Tổng tiền phát sinh"),
+                  stateBase.translate[stateBase.languageSelected]["total_amount_incurred"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
@@ -232,7 +232,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
             Row(
               children: [
                 Text(
-                  AppHelpers.getTranslation("Tổng tiền"),
+                  stateBase.translate[stateBase.languageSelected]["total_money"],
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
