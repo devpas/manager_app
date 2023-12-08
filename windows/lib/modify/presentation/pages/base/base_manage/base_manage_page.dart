@@ -249,7 +249,7 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> with TickerProv
                             return BaseEmployeeItem(
                               base: base,
                               onTap: () async {
-                                notifierBase.updateBaseSelected(index);
+                                // notifierBase.updateBaseSelected(index);
                               },
                               onEdit: () {
                                 context.pushRoute(
@@ -266,58 +266,58 @@ class _BaseManagePageState extends ConsumerState<BaseManagePage> with TickerProv
                     ),
         ),
         10.verticalSpace,
-        Container(
-          color: Colors.white,
-          width: MediaQuery.of(context).size.width,
-          child: stateBase.base!.isNotEmpty
-              ? Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 5, 5),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    ExpansionTile(title: const Text("Danh sách quyền truy cập"), textColor: AppColors.greenMain, initiallyExpanded: true, children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: stateBase.base![stateBase.baseSelected!].listRoleBlock!.length,
-                        itemBuilder: (context, index) {
-                          var role = stateBase.base![stateBase.baseSelected!].listRoleBlock![index];
-                          return Text(
-                            "${role.block}: ${role.role}",
-                            style: AppTypographies.styBlack13W500,
-                          );
-                        },
-                      ),
-                      10.verticalSpace,
-                    ]),
-                    5.verticalSpace,
-                    Row(
-                      children: [
-                        const SizedBox(width: 70, child: Text("Email")),
-                        SizedBox(
-                          child: Text("${stateBase.base![stateBase.baseSelected!].email}"),
-                        ),
-                      ],
-                    ),
-                    5.verticalSpace,
-                    Row(
-                      children: [
-                        const SizedBox(width: 70, child: Text("Địa chỉ")),
-                        Expanded(
-                          child: Text("${stateBase.base![stateBase.baseSelected!].address}"),
-                        ),
-                      ],
-                    ),
-                    5.verticalSpace,
-                    Row(
-                      children: [
-                        const SizedBox(width: 70, child: Text("Loại cs")),
-                        SizedBox(width: 150, child: Text("${stateBase.base![stateBase.baseSelected!].baseType}")),
-                        const SizedBox(width: 70, child: Text("SĐT")),
-                        SizedBox(width: 100, child: Text("${stateBase.base![stateBase.baseSelected!].phone}")),
-                      ],
-                    ),
-                  ]),
-                )
-              : const SizedBox(),
-        )
+        // Container(
+        //   color: Colors.white,
+        //   width: MediaQuery.of(context).size.width,
+        //   child: stateBase.base!.isNotEmpty
+        //       ? Padding(
+        //           padding: const EdgeInsets.fromLTRB(10, 0, 5, 5),
+        //           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        //             ExpansionTile(title: const Text("Danh sách quyền truy cập"), textColor: AppColors.greenMain, initiallyExpanded: true, children: [
+        //               ListView.builder(
+        //                 shrinkWrap: true,
+        //                 itemCount: stateBase.base![stateBase.baseSelected!].listRoleBlock!.length,
+        //                 itemBuilder: (context, index) {
+        //                   var role = stateBase.base![stateBase.baseSelected!].listRoleBlock![index];
+        //                   return Text(
+        //                     "${role.block}: ${role.role}",
+        //                     style: AppTypographies.styBlack13W500,
+        //                   );
+        //                 },
+        //               ),
+        //               10.verticalSpace,
+        //             ]),
+        //             5.verticalSpace,
+        //             Row(
+        //               children: [
+        //                 const SizedBox(width: 70, child: Text("Email")),
+        //                 SizedBox(
+        //                   child: Text("${stateBase.base![stateBase.baseSelected!].email}"),
+        //                 ),
+        //               ],
+        //             ),
+        //             5.verticalSpace,
+        //             Row(
+        //               children: [
+        //                 const SizedBox(width: 70, child: Text("Địa chỉ")),
+        //                 Expanded(
+        //                   child: Text("${stateBase.base![stateBase.baseSelected!].address}"),
+        //                 ),
+        //               ],
+        //             ),
+        //             5.verticalSpace,
+        //             Row(
+        //               children: [
+        //                 const SizedBox(width: 70, child: Text("Loại cs")),
+        //                 SizedBox(width: 150, child: Text("${stateBase.base![stateBase.baseSelected!].baseType}")),
+        //                 const SizedBox(width: 70, child: Text("SĐT")),
+        //                 SizedBox(width: 100, child: Text("${stateBase.base![stateBase.baseSelected!].phone}")),
+        //               ],
+        //             ),
+        //           ]),
+        //         )
+        //       : const SizedBox(),
+        // )
       ],
     );
   }

@@ -116,7 +116,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         payments: [PaymentData(id: 0, receiptId: 0, payment: "", total: 0, transId: "", returnMSG: "", notes: "")]);
   }
 
-  void addTicketline(ProductPasData product, int? index) {
+  void addTicketline(ProductPasData product, int index) {
     TicketLineData ticketline = TicketLineData(
         id: listTicket[state.selectTicket!].ticketlines!.isNotEmpty ? listTicket[state.selectTicket!].ticketlines!.length + 1 : 1,
         ticketId: listTicket[state.selectTicket!].ticketId,
@@ -127,7 +127,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         price: double.parse("${product.priceSell}"),
         taxId: product.taxCat,
         attributes: "");
-    if (listTicket[index!].ticketlines!.where((element) => element.productId == ticketline.productId).isEmpty) {
+    if (listTicket[index].ticketlines!.where((element) => element.productId == ticketline.productId).isEmpty) {
       if (ticketline.unit! > 0) {
         listTicket[index].ticketlines?.add(ticketline);
         state = state.copyWith(listTicket: listTicket);
@@ -137,6 +137,20 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
       listTicket[index].ticketlines![indexTicketline] = listTicket[index].ticketlines![indexTicketline].copyWith(unit: listTicket[index].ticketlines![indexTicketline].unit! + 1);
       state = state.copyWith(listTicket: listTicket);
     }
+  }
+
+  void addTicketlineMoney(double money, double unit, String mode) {
+    if (mode == "add") {
+      TicketLineData ticketline = TicketLineData(
+          id: listTicket[state.selectTicket!].ticketlines!.isNotEmpty ? listTicket[state.selectTicket!].ticketlines!.length + 1 : 1, ticketId: listTicket[state.selectTicket!].ticketId, line: 1, productId: -1, attributesetInstanceId: "", unit: unit, price: money, taxId: "", attributes: "");
+      listTicket[state.selectTicket!].ticketlines?.add(ticketline);
+    } else {
+      TicketLineData ticketline = TicketLineData(
+          id: listTicket[state.selectTicket!].ticketlines!.isNotEmpty ? listTicket[state.selectTicket!].ticketlines!.length + 1 : 1, ticketId: listTicket[state.selectTicket!].ticketId, line: 1, productId: -2, attributesetInstanceId: "", unit: unit, price: money, taxId: "", attributes: "");
+      listTicket[state.selectTicket!].ticketlines?.add(ticketline);
+    }
+
+    state = state.copyWith(listTicket: listTicket);
   }
 
   void moveProductTicketline(ProductPasData product, int? index, int warehouseId) {

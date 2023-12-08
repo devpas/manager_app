@@ -530,7 +530,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                   },
                                                   onTap: () {
                                                     if ((reasonSelected == 2) || (reasonSelected == -1)) {
-                                                      notifierPos.addTicketline(product, statePos.selectTicket);
+                                                      notifierPos.addTicketline(product, statePos.selectTicket!);
                                                       notifierPos.updateIndex("ticketLine", statePos.listTicket![statePos.selectTicket!].ticketlines!.length - 1);
                                                     }
                                                     notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!);

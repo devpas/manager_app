@@ -40,7 +40,7 @@ class SelectWithOptionMiniButton extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w400,
-                    fontSize: 14,
+                    fontSize: 10,
                     color: AppColors.black,
                   ),
                 ),

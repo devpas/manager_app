@@ -8,20 +8,20 @@ import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/calculat
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marquee/marquee.dart';
 
-import '../../../../src/core/utils/utils.dart';
-import '../../../models/data/product_data.dart';
-import '../../../riverpob/providers/providers.dart';
-import '../../components/components.dart';
-import '../../pages/orders/add_modify/widgets/client/client_info_modal.dart';
-import '../../pages/orders/add_modify/widgets/order_detail/tickets/list_ticket_modal.dart';
-import '../../pages/pos/pos_manage/products_manage/products/widgets/product_item_pos.dart';
-import '../../pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
-import '../../pages/pos/pos_manage/products_manage/products/widgets/products_filter_modal.dart';
-import '../../pages/pos/pos_manage/products_manage/warehouse/stock_diary/widgets/select_with_option_mini_button.dart';
-import '../../pages/pos/widgets/pay_info_modal_pas.dart';
-import '../../pages/pos/widgets/product_short_infomation_modal.dart';
-import '../../pages/pos/widgets/w_main_drawer_pos.dart';
-import '../../theme/theme.dart';
+import '../../../../../src/core/utils/utils.dart';
+import '../../../../models/data/product_data.dart';
+import '../../../../riverpob/providers/providers.dart';
+import '../../../components/components.dart';
+import '../../../pages/orders/add_modify/widgets/client/client_info_modal.dart';
+import '../../../pages/orders/add_modify/widgets/order_detail/tickets/list_ticket_modal.dart';
+import '../../../pages/pos/pos_manage/products_manage/products/widgets/product_item_pos.dart';
+import '../../../pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
+import '../../../pages/pos/pos_manage/products_manage/products/widgets/products_filter_modal.dart';
+import '../../../pages/pos/pos_manage/products_manage/warehouse/stock_diary/widgets/select_with_option_mini_button.dart';
+import '../../../pages/pos/widgets/pay_info_modal_pas.dart';
+import '../../../pages/pos/widgets/product_short_infomation_modal.dart';
+import '../../../pages/pos/widgets/w_main_drawer_pos.dart';
+import '../../../theme/theme.dart';
 
 class MainPageDeskTop extends ConsumerStatefulWidget {
   const MainPageDeskTop({Key? key}) : super(key: key);

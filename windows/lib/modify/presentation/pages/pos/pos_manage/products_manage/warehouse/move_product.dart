@@ -653,7 +653,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                 List<ProductPasData> result = notifierProducts.searchAndAddProductInTicketByRefCode(barCodeController.text);
                                 print(result.length);
                                 if (result.isNotEmpty) {
-                                  notifierPos.addTicketline(result[0], statePos.selectTicket);
+                                  notifierPos.addTicketline(result[0], statePos.selectTicket!);
                                 }
                               }
                             },
