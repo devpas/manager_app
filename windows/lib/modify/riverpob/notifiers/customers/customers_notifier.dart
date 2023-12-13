@@ -22,7 +22,7 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     final response = await _customersRepository.getListCustomers("");
     response.when(
       success: (data) async {
-        state = state.copyWith(customers: data.customers, customerLoading: false);
+        state = state.copyWith(customers: data.customers, customerLoading: false, customerSelected: data.customers![0]);
         listCustomers = data.customers!;
       },
       failure: (failure) {

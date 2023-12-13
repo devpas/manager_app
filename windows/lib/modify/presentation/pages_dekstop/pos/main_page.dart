@@ -5,7 +5,6 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/calculator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:marquee/marquee.dart';
 
 import '../../../../src/core/utils/utils.dart';
@@ -20,8 +19,8 @@ import '../../pages/pos/pos_manage/products_manage/products/widgets/products_fil
 import '../../pages/pos/pos_manage/products_manage/warehouse/stock_diary/widgets/select_with_option_mini_button.dart';
 import '../../pages/pos/widgets/pay_info_modal_pas.dart';
 import '../../pages/pos/widgets/product_short_infomation_modal.dart';
-import '../../pages/pos/widgets/w_main_drawer_pos.dart';
 import '../../theme/theme.dart';
+import '../widgets/drawer_tablet.dart';
 
 class MainPageDeskTop extends ConsumerStatefulWidget {
   const MainPageDeskTop({Key? key}) : super(key: key);
@@ -723,7 +722,7 @@ class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.mainBack,
-      drawer: const WMainDrawerPos(),
+      drawer: const WMainDrawerPosDesktop(),
       //  Drawer(
       //   child: Padding(
       //     padding: REdgeInsets.symmetric(horizontal: 15, vertical: 50),

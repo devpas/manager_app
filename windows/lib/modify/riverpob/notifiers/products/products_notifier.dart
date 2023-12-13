@@ -49,10 +49,11 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
   }
 
   Future<void> fetchProducts() async {
+    state = state.copyWith(productsLoading: true);
     final response = await _productsPASRepository.getProduct("");
     response.when(
       success: (data) async {
-        state = state.copyWith(products: data.products);
+        state = state.copyWith(products: data.products, productSelected: data.products![0]);
         listProductCache = state.products!;
       },
       failure: (failure) {
@@ -61,6 +62,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
         }
       },
     );
+    state = state.copyWith(productsLoading: false);
   }
 
   Future<void> fetchProductsByCategory(int? categoryId) async {
@@ -69,7 +71,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     final response = await _productsPASRepository.getProduct(alias);
     response.when(
       success: (data) async {
-        state = state.copyWith(products: data.products);
+        state = state.copyWith(products: data.products, productSelected: data.products![0]);
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {

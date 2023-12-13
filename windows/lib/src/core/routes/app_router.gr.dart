@@ -685,6 +685,33 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    ProductsManageDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ProductsManageDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ProductsDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.ProductsDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    CustomersDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.CustomersDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -1041,6 +1068,18 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           DashboardBaseDeskTopRoute.name,
           path: '/dashboard-base-desktop',
+        ),
+        _i2.RouteConfig(
+          ProductsManageDesktopRoute.name,
+          path: '/product-manage-desktop',
+        ),
+        _i2.RouteConfig(
+          ProductsDesktopRoute.name,
+          path: '/products-desktop',
+        ),
+        _i2.RouteConfig(
+          CustomersDesktopRoute.name,
+          path: '/customers-desktop',
         ),
       ];
 }
@@ -2336,6 +2375,42 @@ class DashboardBaseDeskTopRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'DashboardBaseDeskTopRoute';
+}
+
+/// generated route for
+/// [_i1.ProductsManageDesktopPage]
+class ProductsManageDesktopRoute extends _i2.PageRouteInfo<void> {
+  const ProductsManageDesktopRoute()
+      : super(
+          ProductsManageDesktopRoute.name,
+          path: '/product-manage-desktop',
+        );
+
+  static const String name = 'ProductsManageDesktopRoute';
+}
+
+/// generated route for
+/// [_i1.ProductsDesktopPage]
+class ProductsDesktopRoute extends _i2.PageRouteInfo<void> {
+  const ProductsDesktopRoute()
+      : super(
+          ProductsDesktopRoute.name,
+          path: '/products-desktop',
+        );
+
+  static const String name = 'ProductsDesktopRoute';
+}
+
+/// generated route for
+/// [_i1.CustomersDesktopPage]
+class CustomersDesktopRoute extends _i2.PageRouteInfo<void> {
+  const CustomersDesktopRoute()
+      : super(
+          CustomersDesktopRoute.name,
+          path: '/customers-desktop',
+        );
+
+  static const String name = 'CustomersDesktopRoute';
 }
 
 /// generated route for

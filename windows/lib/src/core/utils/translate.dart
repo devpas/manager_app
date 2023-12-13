@@ -126,7 +126,9 @@ class Translates {
       "add_product": "Thêm sản phẩm",
       "auto_calculate": "Tính giá tự động",
       "parent_tax": "Chiếc khấu cấp trên",
-      "update_product": "Cập nhật sản phẩm"
+      "update_product": "Cập nhật sản phẩm",
+      "transaction": "Giao dịch",
+      "contact": "Liên hệ"
     },
     "en": {
       "base": "Base",
@@ -253,7 +255,9 @@ class Translates {
       "add": "Add",
       "add_product": "Add product",
       "auto_calculate": "Auto calculate",
-      "update_product": "Update product"
+      "update_product": "Update product",
+      "transaction": "Transaction",
+      "contact": "Contact"
     }
   };
 

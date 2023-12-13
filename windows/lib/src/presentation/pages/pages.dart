@@ -78,3 +78,6 @@ export '../../../modify/presentation/pages/process/process_page.dart';
 //desktop
 export '../../../modify/presentation/pages_dekstop/pos/main_page.dart';
 export '../../../modify/presentation/pages_dekstop/base/dashboard_page.dart';
+export '../../../modify/presentation/pages_dekstop/pos/pos_manage/product_manage/product_manage.dart';
+export '../../../modify/presentation/pages_dekstop/pos/pos_manage/product_manage/products/products_page.dart';
+export '../../../modify/presentation/pages_dekstop/customers/customers_page.dart';

@@ -390,6 +390,21 @@ import 'modals_route.dart';
       page: DashboardBaseDeskTopPage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/product-manage-desktop',
+      page: ProductsManageDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/products-desktop',
+      page: ProductsDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/customers-desktop',
+      page: CustomersDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
   ],
 )
 class $AppRouter {}
