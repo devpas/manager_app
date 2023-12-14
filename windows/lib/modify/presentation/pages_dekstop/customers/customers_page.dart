@@ -398,7 +398,9 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                           backgroundColor: AppColors.canceledOrders.withOpacity(0.07),
                           iconData: FlutterRemix.refresh_line,
                           iconColor: AppColors.canceledOrders,
-                          onTap: () {},
+                          onTap: () {
+                            print("asd");
+                          },
                         ),
                         25.horizontalSpace,
                         CircleIconButton(
