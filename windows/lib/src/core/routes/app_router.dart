@@ -360,7 +360,7 @@ import 'modals_route.dart';
     ),
     CustomRoute(
       path: '/main-desktop',
-      page: MainPageDeskTop,
+      page: MainDeskTopPage,
       customRouteBuilder: modalsPageRoute,
       children: [
         // AutoRoute(
@@ -403,6 +403,26 @@ import 'modals_route.dart';
     CustomRoute(
       path: '/customers-desktop',
       page: CustomersDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/orders-desktop',
+      page: OrdersDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/categories-desktop',
+      page: CategoriesDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/taxes-desktop',
+      page: TaxesDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/tax-categories-desktop',
+      page: TaxCategoriesDesktopPage,
       customRouteBuilder: modalsPageRoute,
     ),
   ],

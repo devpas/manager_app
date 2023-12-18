@@ -24,9 +24,10 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
 
   Future<void> fetchCategoriesAppscript() async {
     final response = await _categoriesPASRepository.getCategory("");
+    state = state.copyWith(categoryLoading: true);
     response.when(
       success: (data) async {
-        state = state.copyWith(categories: data.categories);
+        state = state.copyWith(categories: data.categories, categoryLoading: false, categorySelected: data.categories![0]);
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {

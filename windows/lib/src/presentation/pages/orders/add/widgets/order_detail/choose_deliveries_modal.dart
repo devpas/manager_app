@@ -15,8 +15,7 @@ class ChooseDeliveriesModal extends ConsumerStatefulWidget {
   const ChooseDeliveriesModal({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ChooseDeliveriesModal> createState() =>
-      _ChooseDeliveriesModalState();
+  ConsumerState<ChooseDeliveriesModal> createState() => _ChooseDeliveriesModalState();
 }
 
 class _ChooseDeliveriesModalState extends ConsumerState<ChooseDeliveriesModal> {
@@ -53,9 +52,7 @@ class _ChooseDeliveriesModalState extends ConsumerState<ChooseDeliveriesModal> {
     return Material(
       color: AppColors.mainBackground,
       child: AbsorbPointer(
-        absorbing: state.isCreatingOrder ||
-            state.isCalculationsLoading ||
-            state.isDeliveriesLoading,
+        absorbing: state.isCreatingOrder || state.isCalculationsLoading || state.isDeliveriesLoading,
         child: state.isDeliveriesLoading || state.isCalculationsLoading
             ? Center(
                 child: CircularProgressIndicator(
@@ -115,20 +112,17 @@ class _ChooseDeliveriesModalState extends ConsumerState<ChooseDeliveriesModal> {
                                   12.verticalSpace,
                                   PopupMenuButton<int>(
                                     itemBuilder: (context) {
-                                      final shopDeliveries =
-                                          deliveryInfo.shopDeliveries ?? [];
+                                      final shopDeliveries = deliveryInfo.shopDeliveries ?? [];
                                       return shopDeliveries
                                           .map(
                                             (delivery) => PopupMenuItem<int>(
                                               value: delivery.id,
-                                              child: Text(
-                                                  '${delivery.translation?.title}'),
+                                              child: Text('${delivery.translation?.title}'),
                                             ),
                                           )
                                           .toList();
                                     },
-                                    onSelected: (int? id) => notifier
-                                        .setDeliveryType(id, deliveryInfo),
+                                    onSelected: (int? id) => notifier.setDeliveryType(id, deliveryInfo),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.r),
                                     ),
@@ -136,31 +130,25 @@ class _ChooseDeliveriesModalState extends ConsumerState<ChooseDeliveriesModal> {
                                     elevation: 10,
                                     child: SelectFromButton(
                                       iconData: FlutterRemix.navigation_fill,
-                                      title: deliveryInfo.selectedShopDelivery
-                                              ?.translation?.title ??
-                                          AppHelpers.getTranslation(
-                                              TrKeys.selectDeliveryType),
+                                      title: deliveryInfo.selectedShopDelivery?.translation?.title ?? AppHelpers.getTranslation(TrKeys.selectDeliveryType),
                                     ),
                                   ),
                                   12.verticalSpace,
-                                  GestureDetector(
+                                  InkWell(
                                     onTap: () {
                                       showDialog(
                                         context: context,
                                         builder: (context) {
                                           return Dialog(
                                             shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.r),
+                                              borderRadius: BorderRadius.circular(10.r),
                                             ),
                                             child: Container(
                                               constraints: BoxConstraints(
                                                 maxWidth: 450.r,
                                               ),
                                               child: CustomDatePickerModal(
-                                                onDateSaved: (DateTime? date) =>
-                                                    notifier.setDeliveryDate(
-                                                        date, deliveryInfo),
+                                                onDateSaved: (DateTime? date) => notifier.setDeliveryDate(date, deliveryInfo),
                                               ),
                                             ),
                                           );
@@ -169,34 +157,27 @@ class _ChooseDeliveriesModalState extends ConsumerState<ChooseDeliveriesModal> {
                                     },
                                     child: SelectFromButton(
                                       iconData: FlutterRemix.calendar_fill,
-                                      title: deliveryInfo.deliveryDate ??
-                                          AppHelpers.getTranslation(
-                                              TrKeys.selectDeliveryDate),
+                                      title: deliveryInfo.deliveryDate ?? AppHelpers.getTranslation(TrKeys.selectDeliveryDate),
                                     ),
                                   ),
                                   12.verticalSpace,
-                                  GestureDetector(
+                                  InkWell(
                                     onTap: () {
                                       showDialog(
                                         context: context,
                                         builder: (context) {
                                           return Dialog(
                                             shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.r),
+                                              borderRadius: BorderRadius.circular(10.r),
                                             ),
                                             child: Container(
                                               constraints: BoxConstraints(
                                                 maxWidth: 450.r,
                                               ),
                                               child: TimePickerModal(
-                                                openTime:
-                                                    deliveryInfo.shop?.openTime,
-                                                closeTime: deliveryInfo
-                                                    .shop?.closeTime,
-                                                onSaved: (DateTime? date) =>
-                                                    notifier.setDeliveryTime(
-                                                        date, deliveryInfo),
+                                                openTime: deliveryInfo.shop?.openTime,
+                                                closeTime: deliveryInfo.shop?.closeTime,
+                                                onSaved: (DateTime? date) => notifier.setDeliveryTime(date, deliveryInfo),
                                               ),
                                             ),
                                           );
@@ -205,9 +186,7 @@ class _ChooseDeliveriesModalState extends ConsumerState<ChooseDeliveriesModal> {
                                     },
                                     child: SelectFromButton(
                                       iconData: FlutterRemix.time_fill,
-                                      title: deliveryInfo.deliveryTime ??
-                                          AppHelpers.getTranslation(
-                                              TrKeys.selectDeliveryTime),
+                                      title: deliveryInfo.deliveryTime ?? AppHelpers.getTranslation(TrKeys.selectDeliveryTime),
                                     ),
                                   ),
                                 ],

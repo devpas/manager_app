@@ -22,14 +22,14 @@ import '../../pages/pos/widgets/product_short_infomation_modal.dart';
 import '../../theme/theme.dart';
 import '../widgets/drawer_tablet.dart';
 
-class MainPageDeskTop extends ConsumerStatefulWidget {
-  const MainPageDeskTop({Key? key}) : super(key: key);
+class MainDeskTopPage extends ConsumerStatefulWidget {
+  const MainDeskTopPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<MainPageDeskTop> createState() => _MainPageDeskTopState();
+  ConsumerState<MainDeskTopPage> createState() => _MainDeskTopPageState();
 }
 
-class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerProviderStateMixin {
+class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerProviderStateMixin {
   late TabController _tabController;
   String message = "";
   bool keyboardVisible = false;
@@ -147,7 +147,7 @@ class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerPr
                     children: [
                       Row(
                         children: [
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               showModalBottomSheet(
                                 isScrollControlled: true,
@@ -420,7 +420,7 @@ class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerPr
                                         itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
-                                          return GestureDetector(
+                                          return InkWell(
                                             onTap: () {
                                               notifierPos.updateIndex("ticketLine", index);
                                             },
@@ -677,7 +677,7 @@ class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerPr
                                 ),
                                 itemBuilder: (context, index) {
                                   final product = stateProducts.products![index];
-                                  return GestureDetector(
+                                  return InkWell(
                                     onLongPress: () {
                                       showModalBottomSheet(
                                         isScrollControlled: true,

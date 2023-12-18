@@ -57,13 +57,12 @@ class SearchedItem extends StatelessWidget {
                           size: 24.r,
                         )
                       : imageUrl != null
-                          ? GestureDetector(
+                          ? InkWell(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        HeroPhotoViewRouteWrapper(
+                                    builder: (context) => HeroPhotoViewRouteWrapper(
                                       imageProvider: NetworkImage(imageUrl!),
                                     ),
                                   ),

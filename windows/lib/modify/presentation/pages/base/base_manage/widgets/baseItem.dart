@@ -67,7 +67,7 @@ class BaseItem extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: onTap,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

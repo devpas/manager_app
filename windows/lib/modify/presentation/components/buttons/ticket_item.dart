@@ -50,7 +50,7 @@ class TicketItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
                       // notifierPos.deleteTicket(selectTicket);
                       // selectTicket = statePos.listTicket!.length - 1;
@@ -65,7 +65,7 @@ class TicketItem extends StatelessWidget {
                           color: Colors.blue.withOpacity(0.1),
                         ),
                         alignment: Alignment.center,
-                        child: GestureDetector(
+                        child: InkWell(
                           onTap: onDelete,
                           child: Icon(
                             Icons.delete,

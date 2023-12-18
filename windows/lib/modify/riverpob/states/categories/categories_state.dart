@@ -5,10 +5,7 @@ part 'categories_state.freezed.dart';
 
 @freezed
 class CategoriesState with _$CategoriesState {
-  const factory CategoriesState(
-      {@Default([]) List<CategoryPasData>? categories,
-      @Default([]) List<CategoryPasData>? categoriesAfterFilter,
-      CategoryPasData? categorySelected}) = _CategoriesState;
+  const factory CategoriesState({@Default([]) List<CategoryPasData>? categories, @Default([]) List<CategoryPasData>? categoriesAfterFilter, @Default(false) bool? categoryLoading, CategoryPasData? categorySelected}) = _CategoriesState;
 
   const CategoriesState._();
 }

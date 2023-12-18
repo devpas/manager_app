@@ -47,7 +47,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     setState(() {
                       inputText = "";
@@ -72,7 +72,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         )),
                   ),
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     setState(() {
                       if (multiMode == false) {
@@ -98,7 +98,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                         )),
                   ),
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     double money = double.parse(inputText);
                     double unit = double.parse(inputTextMod.replaceAll("X", ""));
@@ -132,7 +132,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -159,7 +159,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -186,7 +186,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -218,7 +218,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -245,7 +245,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -272,7 +272,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -303,7 +303,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ],
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     print("add money");
                     double money = double.parse(inputText);
@@ -337,7 +337,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -364,7 +364,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -391,7 +391,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -423,7 +423,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             setState(() {
                               if (multiMode) {
@@ -450,7 +450,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                                 )),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             if (multiMode) {
                               inputTextMod += ".";
@@ -479,7 +479,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ],
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) ? onPayment : () {},
                   child: Padding(
                     padding: const EdgeInsets.all(3),
@@ -511,7 +511,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
+                InkWell(
                   onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(3),
@@ -534,7 +534,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ),
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(3),
@@ -556,7 +556,7 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ),
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(3),

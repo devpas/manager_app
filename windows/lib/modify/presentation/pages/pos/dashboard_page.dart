@@ -238,7 +238,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                         itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
+                          return InkWell(
                             onTap: () {
                               notifierPos.updateIndex("ticketLine", index);
                             },
@@ -317,7 +317,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                       child: Row(
                         children: [
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               showModalBottomSheet(
                                 isScrollControlled: true,
@@ -361,7 +361,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                   )),
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               notifierCategories.setCategorySelected(notifierCategories.noCategory);
                               Future.delayed(const Duration(milliseconds: 30), () {
@@ -390,7 +390,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                   )),
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               notifierBase.printEscpos(notifierPos.receipt(statePos.listTicket![statePos.selectTicket!], stateProducts.products!, stateBase.baseInfomation["base_name"]));
                             },
@@ -412,7 +412,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                               ),
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               notifierBase.loadTranslate();
                               print("Mở ngăn kéo");
@@ -437,7 +437,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           ),
                           notifierBase.checkShareMode()
                               ? const SizedBox()
-                              : GestureDetector(
+                              : InkWell(
                                   onTap: () {
                                     showModalBottomSheet(
                                       isScrollControlled: true,
@@ -518,7 +518,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                               ),
                                               itemBuilder: (context, index) {
                                                 final product = stateProducts.products![index];
-                                                return GestureDetector(
+                                                return InkWell(
                                                   onLongPress: () {
                                                     showModalBottomSheet(
                                                       isScrollControlled: true,
@@ -563,7 +563,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                       height: screenHeight * 0.045,
                       color: Colors.white,
                       child: Row(children: [
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             showModalBottomSheet(
                               context: context,
@@ -591,7 +591,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           ),
                         ),
                         keyboardVisible
-                            ? GestureDetector(
+                            ? InkWell(
                                 onTap: () {
                                   dismissKeyboard();
                                 },
@@ -613,7 +613,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                   ),
                                 ),
                               )
-                            : GestureDetector(
+                            : InkWell(
                                 onTap: () {
                                   showKeyboard();
                                 },
@@ -635,7 +635,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                   ),
                                 ),
                               ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             if (!statePos.createTicketLoading!) {
                               notifierPos.deleteTicketline(statePos.selectTicket, statePos.selectTicketLine);
@@ -665,7 +665,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
                               print(statePos.listTicket![statePos.selectTicket!].ticketlines!.length);
@@ -696,7 +696,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             if (!statePos.createTicketLoading!) {
                               notifierPos.addTicket();
@@ -720,7 +720,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             if (!statePos.createTicketLoading!) {
                               notifierPos.deleteTicket(statePos.selectTicket);
@@ -777,7 +777,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                             ),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
                               showModalBottomSheet(

@@ -148,7 +148,7 @@ class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerPr
                     children: [
                       Row(
                         children: [
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               showModalBottomSheet(
                                 isScrollControlled: true,
@@ -421,7 +421,7 @@ class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerPr
                                         itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
-                                          return GestureDetector(
+                                          return InkWell(
                                             onTap: () {
                                               notifierPos.updateIndex("ticketLine", index);
                                             },
@@ -678,7 +678,7 @@ class _MainPageDeskTopState extends ConsumerState<MainPageDeskTop> with TickerPr
                                 ),
                                 itemBuilder: (context, index) {
                                   final product = stateProducts.products![index];
-                                  return GestureDetector(
+                                  return InkWell(
                                     onLongPress: () {
                                       showModalBottomSheet(
                                         isScrollControlled: true,

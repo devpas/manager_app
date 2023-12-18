@@ -685,7 +685,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                 } else {
                                   product = state.productsAfterFilter![index];
                                 }
-                                return GestureDetector(
+                                return InkWell(
                                   onTap: () {
                                     notifier.setProductSelected(product);
                                   },

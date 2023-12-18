@@ -22,7 +22,7 @@ class TaxCustomerCategoryItem extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r), color: Colors.white),
         child: ListTile(
-            leading: GestureDetector(
+            leading: InkWell(
               onTap: onEditTap,
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -33,7 +33,7 @@ class TaxCustomerCategoryItem extends ConsumerWidget {
               ),
             ),
             title: Text(taxCusCategory["name"].toString()),
-            trailing: GestureDetector(
+            trailing: InkWell(
               onTap: onDeleteTap,
               child: const Padding(
                 padding: EdgeInsets.all(8.0),

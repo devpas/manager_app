@@ -36,7 +36,7 @@ class ProductByWarehouse extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: onTap,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,17 +47,14 @@ class ProductByWarehouse extends StatelessWidget {
                             children: [
                               SizedBox(
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
                                       width: screenWidth * 0.6,
                                       child: Text(
                                         product.name!,
-                                        style: selected
-                                            ? AppTypographies.styGreen11W400
-                                            : AppTypographies.styBlack11W400,
+                                        style: selected ? AppTypographies.styGreen11W400 : AppTypographies.styBlack11W400,
                                         maxLines: 2,
                                       ),
                                     ),
@@ -67,8 +64,7 @@ class ProductByWarehouse extends StatelessWidget {
                                           width: screenWidth * 0.45,
                                           child: Text(
                                             product.priceBuy.toString(),
-                                            style:
-                                                AppTypographies.styBlack11W400,
+                                            style: AppTypographies.styBlack11W400,
                                             maxLines: 2,
                                           ),
                                         ),

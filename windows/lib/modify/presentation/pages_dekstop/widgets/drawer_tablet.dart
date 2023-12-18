@@ -172,7 +172,7 @@ class _WMainDrawerPosDesktopState extends ConsumerState<WMainDrawerPosDesktop> {
                         title: state.translate[state.languageSelected]["pos"],
                         onTap: () {
                           // context.popRoute();
-                          context.pushRoute(const MainPASRoute());
+                          context.pushRoute(const MainDeskTopRoute());
                         },
                       )
                     : const SizedBox(),
@@ -213,7 +213,7 @@ class _WMainDrawerPosDesktopState extends ConsumerState<WMainDrawerPosDesktop> {
                         onTap: () {
                           context.popRoute();
                           // context.pushRoute(const CategoriesPasRoute());
-                          context.pushRoute(const OrdersPasRoute());
+                          context.pushRoute(const OrdersDesktopRoute());
                         },
                       )
                     : const SizedBox(),

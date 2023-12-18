@@ -170,7 +170,7 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
                             title: state.translate[state.languageSelected]["system_pos"],
                             iconColor: AppColors.inProgressOrders,
                             onTap: () {
-                              context.pushRoute(const MainRouteDeskTop());
+                              context.pushRoute(const MainDeskTopRoute());
                             },
                           )
                         : const SizedBox(),

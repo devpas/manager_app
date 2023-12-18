@@ -29,7 +29,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         ref.read(splashProvider.notifier).fetchSettings(
           context,
           goMain: () {
-            screenMode == "desktop" ? context.replaceRoute(const MainRouteDeskTop()) : context.replaceRoute(const DashboardBaseRoute());
+            screenMode == "desktop" ? context.replaceRoute(const MainDeskTopRoute()) : context.replaceRoute(const DashboardBaseRoute());
           },
           goLogin: () {
             context.replaceRoute(SignInWebviewRoute());

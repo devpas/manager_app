@@ -38,9 +38,6 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
       Duration.zero,
       () {
         ref.read(customersProvider.notifier).fetchListCustomers();
-        if (ref.watch(categoriesPASProvider).categorySelected == null) {
-          ref.read(categoriesPASProvider.notifier).setCategorySelected(ref.watch(categoriesPASProvider).categories![0]);
-        }
       },
     );
   }
@@ -76,7 +73,8 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                     decoration: const InputDecoration.collapsed(hintText: ''),
                   ),
                 ),
-              )
+              ),
+              //create Text content "AAAA"
             ],
           ),
         ),
@@ -476,7 +474,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                 } else {
                                   customer = state.customersAfterFilter![index];
                                 }
-                                return GestureDetector(
+                                return InkWell(
                                   onTap: () {
                                     notifier.selectCustomer(customer.id!);
                                   },

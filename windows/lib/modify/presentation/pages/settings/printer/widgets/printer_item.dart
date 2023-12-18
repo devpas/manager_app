@@ -22,7 +22,7 @@ class PrinterItem extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r), color: Colors.white),
         child: ListTile(
-          leading: GestureDetector(
+          leading: InkWell(
             onTap: onEditTap,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -43,7 +43,7 @@ class PrinterItem extends ConsumerWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              GestureDetector(
+              InkWell(
                 onTap: onActive,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -53,7 +53,7 @@ class PrinterItem extends ConsumerWidget {
                   ),
                 ),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: onEditTap,
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -63,7 +63,7 @@ class PrinterItem extends ConsumerWidget {
                   ),
                 ),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: onDeleteTap,
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),

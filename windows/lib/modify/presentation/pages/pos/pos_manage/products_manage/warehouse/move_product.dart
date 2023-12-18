@@ -176,7 +176,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                           itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return GestureDetector(
+                            return InkWell(
                               onTap: () {
                                 notifierPos.updateIndex("ticketLine", index);
                               },
@@ -231,7 +231,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                             ? const Center(child: Text("Loading..."))
                             : Row(
                                 children: [
-                                  GestureDetector(
+                                  InkWell(
                                     onTap: () {
                                       showModalBottomSheet(
                                         isScrollControlled: true,
@@ -451,7 +451,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                                 ),
                                                 itemBuilder: (context, index) {
                                                   final product = stateProducts.products![index];
-                                                  return GestureDetector(
+                                                  return InkWell(
                                                     onLongPress: () {
                                                       showModalBottomSheet(
                                                         isScrollControlled: true,
@@ -495,7 +495,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                         color: Colors.white,
                         child: Row(children: [
                           keyboardVisible
-                              ? GestureDetector(
+                              ? InkWell(
                                   onTap: () {
                                     dismissKeyboard();
                                   },
@@ -517,7 +517,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                     ),
                                   ),
                                 )
-                              : GestureDetector(
+                              : InkWell(
                                   onTap: () {
                                     showKeyboard();
                                   },
@@ -539,7 +539,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                     ),
                                   ),
                                 ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               if (!statePos.createTicketLoading!) {
                                 notifierPos.deleteTicketline(statePos.selectTicket, statePos.selectTicketLine);
@@ -569,7 +569,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                               ),
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
                                 showModalBottomSheet(
@@ -597,7 +597,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                               ),
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               notifierCategories.setCategorySelected(notifierCategories.noCategory);
                               Future.delayed(const Duration(milliseconds: 30), () {
@@ -647,7 +647,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                               ),
                             ),
                           )),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               if (barCodeController.text != "") {
                                 List<ProductPasData> result = notifierProducts.searchAndAddProductInTicketByRefCode(barCodeController.text);
@@ -673,7 +673,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                   )),
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               if (warehouse1Index != warehouse2Index) {
                                 notifierPos.moveProduct(warehouse1Index, warehouse2Index, "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}");

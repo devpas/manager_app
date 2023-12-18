@@ -19,6 +19,7 @@ mixin _$CategoriesState {
   List<CategoryPasData>? get categories => throw _privateConstructorUsedError;
   List<CategoryPasData>? get categoriesAfterFilter =>
       throw _privateConstructorUsedError;
+  bool? get categoryLoading => throw _privateConstructorUsedError;
   CategoryPasData? get categorySelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,6 +36,7 @@ abstract class $CategoriesStateCopyWith<$Res> {
   $Res call(
       {List<CategoryPasData>? categories,
       List<CategoryPasData>? categoriesAfterFilter,
+      bool? categoryLoading,
       CategoryPasData? categorySelected});
 }
 
@@ -53,6 +55,7 @@ class _$CategoriesStateCopyWithImpl<$Res, $Val extends CategoriesState>
   $Res call({
     Object? categories = freezed,
     Object? categoriesAfterFilter = freezed,
+    Object? categoryLoading = freezed,
     Object? categorySelected = freezed,
   }) {
     return _then(_value.copyWith(
@@ -64,6 +67,10 @@ class _$CategoriesStateCopyWithImpl<$Res, $Val extends CategoriesState>
           ? _value.categoriesAfterFilter
           : categoriesAfterFilter // ignore: cast_nullable_to_non_nullable
               as List<CategoryPasData>?,
+      categoryLoading: freezed == categoryLoading
+          ? _value.categoryLoading
+          : categoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       categorySelected: freezed == categorySelected
           ? _value.categorySelected
           : categorySelected // ignore: cast_nullable_to_non_nullable
@@ -83,6 +90,7 @@ abstract class _$$CategoriesStateImplCopyWith<$Res>
   $Res call(
       {List<CategoryPasData>? categories,
       List<CategoryPasData>? categoriesAfterFilter,
+      bool? categoryLoading,
       CategoryPasData? categorySelected});
 }
 
@@ -99,6 +107,7 @@ class __$$CategoriesStateImplCopyWithImpl<$Res>
   $Res call({
     Object? categories = freezed,
     Object? categoriesAfterFilter = freezed,
+    Object? categoryLoading = freezed,
     Object? categorySelected = freezed,
   }) {
     return _then(_$CategoriesStateImpl(
@@ -110,6 +119,10 @@ class __$$CategoriesStateImplCopyWithImpl<$Res>
           ? _value._categoriesAfterFilter
           : categoriesAfterFilter // ignore: cast_nullable_to_non_nullable
               as List<CategoryPasData>?,
+      categoryLoading: freezed == categoryLoading
+          ? _value.categoryLoading
+          : categoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       categorySelected: freezed == categorySelected
           ? _value.categorySelected
           : categorySelected // ignore: cast_nullable_to_non_nullable
@@ -124,6 +137,7 @@ class _$CategoriesStateImpl extends _CategoriesState {
   const _$CategoriesStateImpl(
       {final List<CategoryPasData>? categories = const [],
       final List<CategoryPasData>? categoriesAfterFilter = const [],
+      this.categoryLoading = false,
       this.categorySelected})
       : _categories = categories,
         _categoriesAfterFilter = categoriesAfterFilter,
@@ -153,11 +167,14 @@ class _$CategoriesStateImpl extends _CategoriesState {
   }
 
   @override
+  @JsonKey()
+  final bool? categoryLoading;
+  @override
   final CategoryPasData? categorySelected;
 
   @override
   String toString() {
-    return 'CategoriesState(categories: $categories, categoriesAfterFilter: $categoriesAfterFilter, categorySelected: $categorySelected)';
+    return 'CategoriesState(categories: $categories, categoriesAfterFilter: $categoriesAfterFilter, categoryLoading: $categoryLoading, categorySelected: $categorySelected)';
   }
 
   @override
@@ -169,6 +186,8 @@ class _$CategoriesStateImpl extends _CategoriesState {
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality()
                 .equals(other._categoriesAfterFilter, _categoriesAfterFilter) &&
+            (identical(other.categoryLoading, categoryLoading) ||
+                other.categoryLoading == categoryLoading) &&
             (identical(other.categorySelected, categorySelected) ||
                 other.categorySelected == categorySelected));
   }
@@ -178,6 +197,7 @@ class _$CategoriesStateImpl extends _CategoriesState {
       runtimeType,
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_categoriesAfterFilter),
+      categoryLoading,
       categorySelected);
 
   @JsonKey(ignore: true)
@@ -192,6 +212,7 @@ abstract class _CategoriesState extends CategoriesState {
   const factory _CategoriesState(
       {final List<CategoryPasData>? categories,
       final List<CategoryPasData>? categoriesAfterFilter,
+      final bool? categoryLoading,
       final CategoryPasData? categorySelected}) = _$CategoriesStateImpl;
   const _CategoriesState._() : super._();
 
@@ -199,6 +220,8 @@ abstract class _CategoriesState extends CategoriesState {
   List<CategoryPasData>? get categories;
   @override
   List<CategoryPasData>? get categoriesAfterFilter;
+  @override
+  bool? get categoryLoading;
   @override
   CategoryPasData? get categorySelected;
   @override

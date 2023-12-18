@@ -75,7 +75,7 @@ class _ProductsManageDesktopPageState extends ConsumerState<ProductsManageDeskto
                 title: state.translate[state.languageSelected]["title_categories"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  context.pushRoute(const CategoriesPasRoute());
+                  context.pushRoute(const CategoriesDesktopRoute());
                 },
               ),
               DashboardItemBaseDesktop(
@@ -115,7 +115,7 @@ class _ProductsManageDesktopPageState extends ConsumerState<ProductsManageDeskto
                 title: state.translate[state.languageSelected]["discount"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  context.pushRoute(const ListTaxesRoute());
+                  context.pushRoute(const TaxesDesktopRoute());
                 },
               ),
               DashboardItemBaseDesktop(
@@ -137,7 +137,7 @@ class _ProductsManageDesktopPageState extends ConsumerState<ProductsManageDeskto
                 title: state.translate[state.languageSelected]["discount_category"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  context.pushRoute(const ListTaxCategoriesRoute());
+                  context.pushRoute(const TaxCategoriesDesktopRoute());
                 },
               ),
               DashboardItemBaseDesktop(

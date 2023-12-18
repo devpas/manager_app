@@ -156,7 +156,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
             itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return GestureDetector(
+              return InkWell(
                 onTap: () {
                   notifierPos.updateIndex("ticketLine", index);
                 },

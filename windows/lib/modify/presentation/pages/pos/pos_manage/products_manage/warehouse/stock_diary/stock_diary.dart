@@ -258,7 +258,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
                           SizedBox(width: screenWidth * 0.3, child: Text(stateBase.translate[stateBase.languageSelected]["stock_current"])),
                           SizedBox(width: screenWidth * 0.50, child: Text(stockCurrent)),
                           SizedBox(
-                            child: GestureDetector(
+                            child: InkWell(
                               onTap: () {
                                 print("new line");
                               },
@@ -270,7 +270,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
                           ),
                           !state.updateStockLoading!
                               ? SizedBox(
-                                  child: GestureDetector(
+                                  child: InkWell(
                                     onTap: () {
                                       if (productSelected != null) {
                                         var diaryData = {"index": productSelected!.index, "reason": reasonSelected + 1, "product_id": productSelected!.id, "warehouse_id": state.warehouseSelected["id"], "price": double.parse(priceController.text), "quantity": int.parse(qualityController.text)};
@@ -366,7 +366,7 @@ class _StockDiaryPageState extends ConsumerState<StockDiaryPage> {
                           SizedBox(
                               width: 25,
                               height: 25,
-                              child: GestureDetector(
+                              child: InkWell(
                                 onTap: () {
                                   showDialog(
                                     context: context,

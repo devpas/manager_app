@@ -667,10 +667,10 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    MainRouteDeskTop.name: (routeData) {
+    MainDeskTopRoute.name: (routeData) {
       return _i2.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i1.MainPageDeskTop(),
+        child: const _i1.MainDeskTopPage(),
         customRouteBuilder: _i4.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
@@ -707,6 +707,42 @@ class AppRouter extends _i2.RootStackRouter {
       return _i2.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.CustomersDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    OrdersDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.OrdersDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    CategoriesDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.CategoriesDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    TaxesDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.TaxesDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    TaxCategoriesDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.TaxCategoriesDesktopPage(),
         customRouteBuilder: _i4.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
@@ -1062,7 +1098,7 @@ class AppRouter extends _i2.RootStackRouter {
           path: '/update-printers',
         ),
         _i2.RouteConfig(
-          MainRouteDeskTop.name,
+          MainDeskTopRoute.name,
           path: '/main-desktop',
         ),
         _i2.RouteConfig(
@@ -1080,6 +1116,22 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           CustomersDesktopRoute.name,
           path: '/customers-desktop',
+        ),
+        _i2.RouteConfig(
+          OrdersDesktopRoute.name,
+          path: '/orders-desktop',
+        ),
+        _i2.RouteConfig(
+          CategoriesDesktopRoute.name,
+          path: '/categories-desktop',
+        ),
+        _i2.RouteConfig(
+          TaxesDesktopRoute.name,
+          path: '/taxes-desktop',
+        ),
+        _i2.RouteConfig(
+          TaxCategoriesDesktopRoute.name,
+          path: '/tax-categories-desktop',
         ),
       ];
 }
@@ -2354,15 +2406,15 @@ class UpdatePrinterRouteArgs {
 }
 
 /// generated route for
-/// [_i1.MainPageDeskTop]
-class MainRouteDeskTop extends _i2.PageRouteInfo<void> {
-  const MainRouteDeskTop()
+/// [_i1.MainDeskTopPage]
+class MainDeskTopRoute extends _i2.PageRouteInfo<void> {
+  const MainDeskTopRoute()
       : super(
-          MainRouteDeskTop.name,
+          MainDeskTopRoute.name,
           path: '/main-desktop',
         );
 
-  static const String name = 'MainRouteDeskTop';
+  static const String name = 'MainDeskTopRoute';
 }
 
 /// generated route for
@@ -2411,6 +2463,54 @@ class CustomersDesktopRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'CustomersDesktopRoute';
+}
+
+/// generated route for
+/// [_i1.OrdersDesktopPage]
+class OrdersDesktopRoute extends _i2.PageRouteInfo<void> {
+  const OrdersDesktopRoute()
+      : super(
+          OrdersDesktopRoute.name,
+          path: '/orders-desktop',
+        );
+
+  static const String name = 'OrdersDesktopRoute';
+}
+
+/// generated route for
+/// [_i1.CategoriesDesktopPage]
+class CategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
+  const CategoriesDesktopRoute()
+      : super(
+          CategoriesDesktopRoute.name,
+          path: '/categories-desktop',
+        );
+
+  static const String name = 'CategoriesDesktopRoute';
+}
+
+/// generated route for
+/// [_i1.TaxesDesktopPage]
+class TaxesDesktopRoute extends _i2.PageRouteInfo<void> {
+  const TaxesDesktopRoute()
+      : super(
+          TaxesDesktopRoute.name,
+          path: '/taxes-desktop',
+        );
+
+  static const String name = 'TaxesDesktopRoute';
+}
+
+/// generated route for
+/// [_i1.TaxCategoriesDesktopPage]
+class TaxCategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
+  const TaxCategoriesDesktopRoute()
+      : super(
+          TaxCategoriesDesktopRoute.name,
+          path: '/tax-categories-desktop',
+        );
+
+  static const String name = 'TaxCategoriesDesktopRoute';
 }
 
 /// generated route for

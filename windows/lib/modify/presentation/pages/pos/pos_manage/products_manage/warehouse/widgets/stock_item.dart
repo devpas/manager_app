@@ -27,7 +27,7 @@ class StockItem extends ConsumerWidget {
             title: Text(warehouse["name"].toString()),
             subtitle: Text("Địa chỉ: ${warehouse["address"] ?? ""}"),
             trailing: warehouse["id"] != 0 && warehouse["id"] != 1 && warehouse["id"] != 2
-                ? GestureDetector(
+                ? InkWell(
                     onTap: onDeleteTap,
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),

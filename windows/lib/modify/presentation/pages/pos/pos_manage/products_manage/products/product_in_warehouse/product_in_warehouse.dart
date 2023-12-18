@@ -20,12 +20,10 @@ import 'widgets/select_warehouse_modal.dart';
 class ProductsInWarehousePage extends ConsumerStatefulWidget {
   const ProductsInWarehousePage({Key? key}) : super(key: key);
   @override
-  ConsumerState<ProductsInWarehousePage> createState() =>
-      _ProductsInWarehousePageState();
+  ConsumerState<ProductsInWarehousePage> createState() => _ProductsInWarehousePageState();
 }
 
-class _ProductsInWarehousePageState
-    extends ConsumerState<ProductsInWarehousePage> {
+class _ProductsInWarehousePageState extends ConsumerState<ProductsInWarehousePage> {
   late ScrollController _scrollController;
 
   TextEditingController stockMinController = TextEditingController();
@@ -60,18 +58,13 @@ class _ProductsInWarehousePageState
     _scrollController.dispose();
   }
 
-  void getStock(ProductsPasNotifier notifier, ProductsPasState state,
-      ProductPasData product) {
+  void getStock(ProductsPasNotifier notifier, ProductsPasState state, ProductPasData product) {
     List<StockData> productInWarehouse = [];
     print(product.stocks![0].id);
     if (state.warehouseSelected != null) {
-      productInWarehouse = product.stocks!
-          .where((warehouse) => warehouse.id == state.warehouseSelected["id"])
-          .toList();
+      productInWarehouse = product.stocks!.where((warehouse) => warehouse.id == state.warehouseSelected["id"]).toList();
     } else {
-      productInWarehouse = state.products![0].stocks!
-          .where((warehouse) => warehouse.id == 0)
-          .toList();
+      productInWarehouse = state.products![0].stocks!.where((warehouse) => warehouse.id == 0).toList();
     }
     setState(() {
       print(productInWarehouse);
@@ -205,10 +198,7 @@ class _ProductsInWarehousePageState
                                 padding: const EdgeInsets.all(2.0),
                                 child: ProductByWarehouse(
                                   product: product,
-                                  selected: productSelected != null &&
-                                          product.id == productSelected!.id
-                                      ? true
-                                      : false,
+                                  selected: productSelected != null && product.id == productSelected!.id ? true : false,
                                   onTap: () async {
                                     setState(() {
                                       productSelected = product;
@@ -230,128 +220,101 @@ class _ProductsInWarehousePageState
             child: state.products!.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 5, 5),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      10.verticalSpace,
+                      Row(
                         children: [
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.3,
-                                  child: const Text("Số lượng hiện có")),
-                              SizedBox(
-                                  width: screenWidth * 0.58,
-                                  child: Text(stockCurrent)),
-                              !state.updateStockLoading!
-                                  ? SizedBox(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          var stockData = {
-                                            "product_id": productSelected!.id,
-                                            "warehouse_id":
-                                                state.warehouseSelected["id"],
-                                            "stock_min": int.parse(
-                                                stockMinController.text),
-                                            "stock_max": int.parse(
-                                                stockMaxController.text),
-                                            "stock_current": 0
-                                          };
-                                          notifier.updateStockLimit(stockData);
-                                        },
-                                        child: const Icon(
-                                          Icons.save,
-                                        ),
-                                      ),
-                                    )
-                                  : const SizedBox(
-                                      width: 25,
-                                      height: 25,
-                                      child: Center(
-                                          child: CircularProgressIndicator(
-                                        color: AppColors.greenMain,
-                                      )),
-                                    )
-                            ],
-                          ),
-                          10.verticalSpace,
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: screenWidth * 0.15,
-                                  child: const Text("SL tối đa")),
-                              SizedBox(
-                                  height: 30,
-                                  width: screenWidth * 0.25,
-                                  child: TextFormField(
-                                    controller: stockMaxController,
-                                    cursorWidth: 1.r,
-                                    cursorColor: AppColors.black,
-                                    decoration: InputDecoration(
-                                      hintStyle: AppTypographies
-                                          .styBlack14W400Opacity30,
-                                      hintText: "",
-                                      contentPadding:
-                                          EdgeInsetsDirectional.only(
-                                              start: 5.r),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: AppColors.greenMain),
-                                      ),
-                                      border: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: AppColors.white),
-                                      ),
+                          SizedBox(width: screenWidth * 0.3, child: const Text("Số lượng hiện có")),
+                          SizedBox(width: screenWidth * 0.58, child: Text(stockCurrent)),
+                          !state.updateStockLoading!
+                              ? SizedBox(
+                                  child: InkWell(
+                                    onTap: () {
+                                      var stockData = {"product_id": productSelected!.id, "warehouse_id": state.warehouseSelected["id"], "stock_min": int.parse(stockMinController.text), "stock_max": int.parse(stockMaxController.text), "stock_current": 0};
+                                      notifier.updateStockLimit(stockData);
+                                    },
+                                    child: const Icon(
+                                      Icons.save,
                                     ),
+                                  ),
+                                )
+                              : const SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                    color: AppColors.greenMain,
                                   )),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: SizedBox(
-                                  width: screenWidth * 0.2,
-                                  child: const Text("SL tối thiểu"),
+                                )
+                        ],
+                      ),
+                      10.verticalSpace,
+                      Row(
+                        children: [
+                          SizedBox(width: screenWidth * 0.15, child: const Text("SL tối đa")),
+                          SizedBox(
+                              height: 30,
+                              width: screenWidth * 0.25,
+                              child: TextFormField(
+                                controller: stockMaxController,
+                                cursorWidth: 1.r,
+                                cursorColor: AppColors.black,
+                                decoration: InputDecoration(
+                                  hintStyle: AppTypographies.styBlack14W400Opacity30,
+                                  hintText: "",
+                                  contentPadding: EdgeInsetsDirectional.only(start: 5.r),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.greenMain),
+                                  ),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.white),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                  height: 30,
-                                  width: screenWidth * 0.25,
-                                  child: TextFormField(
-                                    controller: stockMinController,
-                                    cursorWidth: 1.r,
-                                    cursorColor: AppColors.black,
-                                    decoration: InputDecoration(
-                                      hintStyle: AppTypographies
-                                          .styBlack14W400Opacity30,
-                                      hintText: "",
-                                      contentPadding:
-                                          EdgeInsetsDirectional.only(
-                                              start: 5.r),
-                                      focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: AppColors.greenMain),
-                                      ),
-                                      border: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: AppColors.white),
-                                      ),
-                                    ),
-                                  )),
-                            ],
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                            child: SizedBox(
+                              width: screenWidth * 0.2,
+                              child: const Text("SL tối thiểu"),
+                            ),
                           ),
-                          // 5.verticalSpace,
-                          // Row(
-                          //   children: [
-                          //     const SizedBox(width: 70, child: Text("Loại cs")),
-                          //     SizedBox(
-                          //         width: 150,
-                          //         child: Text(
-                          //             "${state.base![state.baseSelected!].baseType}")),
-                          //     const SizedBox(width: 70, child: Text("SĐT")),
-                          //     SizedBox(
-                          //         width: 100,
-                          //         child: Text(
-                          //             "${state.base![state.baseSelected!].phone}")),
-                          //   ],
-                          // ),
-                        ]),
+                          SizedBox(
+                              height: 30,
+                              width: screenWidth * 0.25,
+                              child: TextFormField(
+                                controller: stockMinController,
+                                cursorWidth: 1.r,
+                                cursorColor: AppColors.black,
+                                decoration: InputDecoration(
+                                  hintStyle: AppTypographies.styBlack14W400Opacity30,
+                                  hintText: "",
+                                  contentPadding: EdgeInsetsDirectional.only(start: 5.r),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.greenMain),
+                                  ),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: AppColors.white),
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+                      // 5.verticalSpace,
+                      // Row(
+                      //   children: [
+                      //     const SizedBox(width: 70, child: Text("Loại cs")),
+                      //     SizedBox(
+                      //         width: 150,
+                      //         child: Text(
+                      //             "${state.base![state.baseSelected!].baseType}")),
+                      //     const SizedBox(width: 70, child: Text("SĐT")),
+                      //     SizedBox(
+                      //         width: 100,
+                      //         child: Text(
+                      //             "${state.base![state.baseSelected!].phone}")),
+                      //   ],
+                      // ),
+                    ]),
                   )
                 : const SizedBox(),
           )

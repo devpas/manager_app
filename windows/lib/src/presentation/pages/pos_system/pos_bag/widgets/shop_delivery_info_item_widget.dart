@@ -80,12 +80,11 @@ class ShopDeliveryInfoItemWidget extends StatelessWidget {
             elevation: 10,
             child: SelectFromButton(
               iconData: FlutterRemix.navigation_fill,
-              title: deliveryInfo.selectedShopDelivery?.translation?.title ??
-                  AppHelpers.getTranslation(TrKeys.selectDeliveryType),
+              title: deliveryInfo.selectedShopDelivery?.translation?.title ?? AppHelpers.getTranslation(TrKeys.selectDeliveryType),
             ),
           ),
           12.verticalSpace,
-          GestureDetector(
+          InkWell(
             onTap: () {
               showDialog(
                 context: context,
@@ -108,12 +107,11 @@ class ShopDeliveryInfoItemWidget extends StatelessWidget {
             },
             child: SelectFromButton(
               iconData: FlutterRemix.calendar_fill,
-              title: deliveryInfo.deliveryDate ??
-                  AppHelpers.getTranslation(TrKeys.selectDeliveryDate),
+              title: deliveryInfo.deliveryDate ?? AppHelpers.getTranslation(TrKeys.selectDeliveryDate),
             ),
           ),
           12.verticalSpace,
-          GestureDetector(
+          InkWell(
             onTap: () {
               showDialog(
                 context: context,
@@ -138,8 +136,7 @@ class ShopDeliveryInfoItemWidget extends StatelessWidget {
             },
             child: SelectFromButton(
               iconData: FlutterRemix.time_fill,
-              title: deliveryInfo.deliveryTime ??
-                  AppHelpers.getTranslation(TrKeys.selectDeliveryTime),
+              title: deliveryInfo.deliveryTime ?? AppHelpers.getTranslation(TrKeys.selectDeliveryTime),
             ),
           ),
         ],
