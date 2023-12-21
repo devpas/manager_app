@@ -123,7 +123,7 @@ class _ProductsManageDesktopPageState extends ConsumerState<ProductsManageDeskto
                 title: state.translate[state.languageSelected]["customer"],
                 iconColor: AppColors.canceledOrders,
                 onTap: () {
-                  context.pushRoute(const ListCustomerTypeRoute());
+                  context.pushRoute(const TaxCusCategoriesDesktopRoute());
                 },
               ),
             ],

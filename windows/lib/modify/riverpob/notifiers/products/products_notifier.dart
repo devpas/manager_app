@@ -387,6 +387,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(taxCategorySelected: taxCategory);
   }
 
+  void setTaxCusCategorySelected(var taxCusCategory) {
+    state = state.copyWith(taxCusCategorySelected: taxCusCategory);
+  }
+
   Future<void> addTax(dynamic data) async {
     state = state.copyWith(taxLoading: true);
     final response = await _productsPASRepository.addTax(data);
