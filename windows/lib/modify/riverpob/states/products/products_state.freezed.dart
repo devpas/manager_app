@@ -19,6 +19,7 @@ mixin _$ProductsPasState {
   List<ProductPasData>? get products => throw _privateConstructorUsedError;
   List<ProductPasData>? get productsAfterFilter =>
       throw _privateConstructorUsedError;
+  int? get sortProductsId => throw _privateConstructorUsedError;
   bool? get productsLoading => throw _privateConstructorUsedError;
   bool? get updateStockLoading => throw _privateConstructorUsedError;
   bool? get taxCusCategoryLoading => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $ProductsPasStateCopyWith<$Res> {
   $Res call(
       {List<ProductPasData>? products,
       List<ProductPasData>? productsAfterFilter,
+      int? sortProductsId,
       bool? productsLoading,
       bool? updateStockLoading,
       bool? taxCusCategoryLoading,
@@ -81,6 +83,7 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
   $Res call({
     Object? products = freezed,
     Object? productsAfterFilter = freezed,
+    Object? sortProductsId = freezed,
     Object? productsLoading = freezed,
     Object? updateStockLoading = freezed,
     Object? taxCusCategoryLoading = freezed,
@@ -106,6 +109,10 @@ class _$ProductsPasStateCopyWithImpl<$Res, $Val extends ProductsPasState>
           ? _value.productsAfterFilter
           : productsAfterFilter // ignore: cast_nullable_to_non_nullable
               as List<ProductPasData>?,
+      sortProductsId: freezed == sortProductsId
+          ? _value.sortProductsId
+          : sortProductsId // ignore: cast_nullable_to_non_nullable
+              as int?,
       productsLoading: freezed == productsLoading
           ? _value.productsLoading
           : productsLoading // ignore: cast_nullable_to_non_nullable
@@ -181,6 +188,7 @@ abstract class _$$ProductsPasStateImplCopyWith<$Res>
   $Res call(
       {List<ProductPasData>? products,
       List<ProductPasData>? productsAfterFilter,
+      int? sortProductsId,
       bool? productsLoading,
       bool? updateStockLoading,
       bool? taxCusCategoryLoading,
@@ -211,6 +219,7 @@ class __$$ProductsPasStateImplCopyWithImpl<$Res>
   $Res call({
     Object? products = freezed,
     Object? productsAfterFilter = freezed,
+    Object? sortProductsId = freezed,
     Object? productsLoading = freezed,
     Object? updateStockLoading = freezed,
     Object? taxCusCategoryLoading = freezed,
@@ -236,6 +245,10 @@ class __$$ProductsPasStateImplCopyWithImpl<$Res>
           ? _value._productsAfterFilter
           : productsAfterFilter // ignore: cast_nullable_to_non_nullable
               as List<ProductPasData>?,
+      sortProductsId: freezed == sortProductsId
+          ? _value.sortProductsId
+          : sortProductsId // ignore: cast_nullable_to_non_nullable
+              as int?,
       productsLoading: freezed == productsLoading
           ? _value.productsLoading
           : productsLoading // ignore: cast_nullable_to_non_nullable
@@ -306,6 +319,7 @@ class _$ProductsPasStateImpl extends _ProductsPasState {
   const _$ProductsPasStateImpl(
       {final List<ProductPasData>? products = const [],
       final List<ProductPasData>? productsAfterFilter = const [],
+      this.sortProductsId = 0,
       this.productsLoading = false,
       this.updateStockLoading = false,
       this.taxCusCategoryLoading = false,
@@ -352,6 +366,9 @@ class _$ProductsPasStateImpl extends _ProductsPasState {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  @JsonKey()
+  final int? sortProductsId;
   @override
   @JsonKey()
   final bool? productsLoading;
@@ -432,7 +449,7 @@ class _$ProductsPasStateImpl extends _ProductsPasState {
 
   @override
   String toString() {
-    return 'ProductsPasState(products: $products, productsAfterFilter: $productsAfterFilter, productsLoading: $productsLoading, updateStockLoading: $updateStockLoading, taxCusCategoryLoading: $taxCusCategoryLoading, warehouse: $warehouse, warehouseSelected: $warehouseSelected, warehouseLoading: $warehouseLoading, taxCusCategories: $taxCusCategories, taxCusCategorySelected: $taxCusCategorySelected, taxCategories: $taxCategories, taxCategorySelected: $taxCategorySelected, taxCategoryLoading: $taxCategoryLoading, taxes: $taxes, taxSelected: $taxSelected, taxLoading: $taxLoading, productSelected: $productSelected)';
+    return 'ProductsPasState(products: $products, productsAfterFilter: $productsAfterFilter, sortProductsId: $sortProductsId, productsLoading: $productsLoading, updateStockLoading: $updateStockLoading, taxCusCategoryLoading: $taxCusCategoryLoading, warehouse: $warehouse, warehouseSelected: $warehouseSelected, warehouseLoading: $warehouseLoading, taxCusCategories: $taxCusCategories, taxCusCategorySelected: $taxCusCategorySelected, taxCategories: $taxCategories, taxCategorySelected: $taxCategorySelected, taxCategoryLoading: $taxCategoryLoading, taxes: $taxes, taxSelected: $taxSelected, taxLoading: $taxLoading, productSelected: $productSelected)';
   }
 
   @override
@@ -443,6 +460,8 @@ class _$ProductsPasStateImpl extends _ProductsPasState {
             const DeepCollectionEquality().equals(other._products, _products) &&
             const DeepCollectionEquality()
                 .equals(other._productsAfterFilter, _productsAfterFilter) &&
+            (identical(other.sortProductsId, sortProductsId) ||
+                other.sortProductsId == sortProductsId) &&
             (identical(other.productsLoading, productsLoading) ||
                 other.productsLoading == productsLoading) &&
             (identical(other.updateStockLoading, updateStockLoading) ||
@@ -479,6 +498,7 @@ class _$ProductsPasStateImpl extends _ProductsPasState {
       runtimeType,
       const DeepCollectionEquality().hash(_products),
       const DeepCollectionEquality().hash(_productsAfterFilter),
+      sortProductsId,
       productsLoading,
       updateStockLoading,
       taxCusCategoryLoading,
@@ -507,6 +527,7 @@ abstract class _ProductsPasState extends ProductsPasState {
   const factory _ProductsPasState(
       {final List<ProductPasData>? products,
       final List<ProductPasData>? productsAfterFilter,
+      final int? sortProductsId,
       final bool? productsLoading,
       final bool? updateStockLoading,
       final bool? taxCusCategoryLoading,
@@ -528,6 +549,8 @@ abstract class _ProductsPasState extends ProductsPasState {
   List<ProductPasData>? get products;
   @override
   List<ProductPasData>? get productsAfterFilter;
+  @override
+  int? get sortProductsId;
   @override
   bool? get productsLoading;
   @override

@@ -253,7 +253,7 @@ class _WMainDrawerPosDesktopState extends ConsumerState<WMainDrawerPosDesktop> {
                   title: state.translate[state.languageSelected]["main_screen"],
                   onTap: () {
                     context.popRoute();
-                    context.pushRoute(const DashboardBaseRoute());
+                    context.pushRoute(const DashboardBaseDeskTopRoute());
                   },
                 ),
               ],

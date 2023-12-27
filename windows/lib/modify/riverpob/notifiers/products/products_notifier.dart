@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/modify/models/data/stocks.dart';
 
 import '../../../../modify/repository/products_repository.dart';
 import '../../../../src/core/handlers/handlers.dart';
@@ -104,8 +107,39 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     });
   }
 
-  void searchProducts(int categoryId) {
+  void sortProducts() {
+    List<ProductPasData> productsBeforeSort = [];
+    List<ProductPasData> productsAfterSort = [];
+    if (state.productsAfterFilter!.isNotEmpty) {
+      productsBeforeSort = state.productsAfterFilter!;
+    } else {
+      productsBeforeSort = state.products!;
+    }
+
+    List<dynamic> productsJson = [];
+
+    for (int i = 0; i < productsBeforeSort.length; i++) {
+      var productCell = productsBeforeSort[i].toJson();
+      productCell["stocks"] = jsonEncode(productCell["stocks"]);
+      productCell["list_import"] = jsonEncode(productCell["list_import"]);
+      productsJson.add(productCell);
+    }
+
+    if (state.sortProductsId == 2) {
+      productsJson.sort((a, b) => a["name"].toString().toLowerCase().compareTo(b["name"].toString().toLowerCase()));
+    }
+
+    listProductAfterSearch = List<ProductPasData>.from(productsJson.map((x) => ProductPasData.fromJson(x)));
+    if (state.productsAfterFilter!.isNotEmpty) {
+      state = state.copyWith(productsAfterFilter: listProductAfterSearch);
+    } else {
+      state = state.copyWith(products: listProductAfterSearch);
+    }
+  }
+
+  Future<bool> searchProducts(int categoryId) async {
     listProductAfterSearch = [];
+    bool result = false;
     print("$categoryId,$codeRef,$productName,$priceBuy,$priceSell");
 
     List<List> searchParam = [];
@@ -148,6 +182,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
       }
     }
     state = state.copyWith(productsAfterFilter: listProductAfterSearch);
+    if (listProductAfterSearch.isNotEmpty) {
+      result = true;
+    }
+    return result;
   }
 
   List<ProductPasData> searchAndAddProductInTicketByRefCode(String refCode) {
@@ -167,6 +205,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
 
   void setProductSelected(ProductPasData product) {
     state = state.copyWith(productSelected: product);
+  }
+
+  void setSortProductsSelected(int sortId) {
+    state = state.copyWith(sortProductsId: sortId);
   }
 
   Future<void> addProduct(ProductPasData product) async {
@@ -223,7 +265,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["data"] != null) {
       state = state.copyWith(warehouse: response["data"], warehouseLoading: false, warehouseSelected: response["data"][0]);
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -233,7 +275,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "add warehouse successful") {
       await getListWarehouses();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -243,7 +285,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "update warehouse successful") {
       await getListWarehouses();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -253,7 +295,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "delete warehouse successful") {
       await getListWarehouses();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -273,7 +315,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
       await fetchProducts();
       state = state.copyWith(updateStockLoading: false);
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -285,7 +327,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
       await fetchProducts();
       state = state.copyWith(updateStockLoading: false);
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -295,7 +337,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["data"] != null) {
       state = state.copyWith(taxCusCategories: response["data"], taxCusCategoryLoading: false, taxCusCategorySelected: response["data"][0]);
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -305,7 +347,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "add tax customer category successful") {
       await getListCustomerType();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -315,7 +357,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "update tax customer category successful") {
       await getListCustomerType();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -325,7 +367,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "delete tax customer category successful") {
       await getListCustomerType();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -335,7 +377,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["data"] != null) {
       state = state.copyWith(taxCategories: response["data"], taxCategoryLoading: false, taxCategorySelected: response["data"][0]);
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -345,7 +387,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "add tax category successful") {
       await getListTaxCategories();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -355,7 +397,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "update tax category successful") {
       await getListTaxCategories();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -365,7 +407,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "delete tax category successful") {
       await getListTaxCategories();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -375,7 +417,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["data"] != null) {
       state = state.copyWith(taxes: response["data"], taxLoading: false, taxSelected: response["data"][0]);
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -397,7 +439,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "add tax successful") {
       await getListTaxes();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -407,7 +449,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "update tax successful") {
       await getListTaxes();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -417,7 +459,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "delete tax successful") {
       await getListTaxes();
     } else {
-      print(response);
+      // print(response);
     }
   }
 
@@ -429,7 +471,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
         tax = double.parse(taxes[i]["rate"].toString());
       }
     }
-    print(tax);
+    // print(tax);
     return tax;
   }
 }

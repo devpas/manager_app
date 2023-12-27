@@ -196,7 +196,7 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
                             title: state.translate[state.languageSelected]["account"],
                             iconColor: AppColors.deliveredOrders,
                             onTap: () {
-                              context.pushRoute(const AccountPosRoute());
+                              context.pushRoute(const AccountPosDesktopRoute());
                             },
                           )
                         : const SizedBox(),

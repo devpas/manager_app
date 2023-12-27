@@ -12,9 +12,9 @@ import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/utils/utils.dart';
-import '../../../../riverpob/states/states.dart';
-import '../../../components/components.dart';
-import '../../../theme/theme.dart';
+import '../../../riverpob/states/base/base_state.dart';
+import '../../components/components.dart';
+import '../../theme/theme.dart';
 
 class PayInfoModal extends ConsumerStatefulWidget {
   final double totalMoneyFromTicket;
@@ -77,131 +77,130 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
 
   Widget debt(BaseState stateBase) {
     final stateCustomer = ref.watch(customersProvider);
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Material(
       color: AppColors.white,
       child: Stack(
         alignment: Alignment.center,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 15, 5, 5),
-                child: SizedBox(
-                  height: 350,
-                  width: 400,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              stateBase.translate[stateBase.languageSelected]["debt"],
-                              style: AppTypographies.styBlack14W400,
-                            ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["debt"],
+                            style: AppTypographies.styBlack14W400,
                           ),
-                          SizedBox(
-                              width: 300,
-                              child: TextFormField(
-                                initialValue: totalMoney.toString(),
-                                onChanged: (e) {
-                                  setState(() {
-                                    if (e.isNotEmpty) {
-                                      totalMoney = double.parse(e);
-                                    }
-                                  });
-                                },
-                                style: AppTypographies.styBlack14W400,
-                                textAlign: TextAlign.end,
-                              ))
-                        ],
-                      ),
-                      30.verticalSpace,
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              stateBase.translate[stateBase.languageSelected]["name"],
-                              style: AppTypographies.styBlack14W400,
-                            ),
-                          ),
-                          SizedBox(width: 300, child: Text(stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.name! : "", style: AppTypographies.styBlack14W400))
-                        ],
-                      ),
-                      30.verticalSpace,
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              stateBase.translate[stateBase.languageSelected]["notes"],
-                              style: AppTypographies.styBlack14W400,
-                            ),
-                          ),
-                          SizedBox(width: 300, child: Text(stateCustomer.customerSelected != null ? "${stateCustomer.customerSelected!.note}" : "", style: AppTypographies.styBlack14W400))
-                        ],
-                      ),
-                      30.verticalSpace,
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              stateBase.translate[stateBase.languageSelected]["max_debt"],
-                              style: AppTypographies.styBlack14W400,
-                            ),
-                          ),
-                          SizedBox(
-                              width: 300,
-                              child: Text(
-                                "${stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.maxDebt : 0}",
-                                style: AppTypographies.styBlack14W400,
-                                textAlign: TextAlign.end,
-                              ))
-                        ],
-                      ),
-                      30.verticalSpace,
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              stateBase.translate[stateBase.languageSelected]["current_debt"],
-                              style: AppTypographies.styBlack14W400,
-                            ),
-                          ),
-                          SizedBox(
-                              width: 300,
-                              child: Text(
-                                "${stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.curDebt!.toStringAsFixed(2) : 0}",
-                                style: AppTypographies.styBlack14W400,
-                                textAlign: TextAlign.end,
-                              ))
-                        ],
-                      ),
-                      30.verticalSpace,
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              stateBase.translate[stateBase.languageSelected]["debt_expire_time"],
-                              style: AppTypographies.styBlack14W400,
-                            ),
-                          ),
-                          SizedBox(
+                        ),
+                        SizedBox(
                             width: 300,
-                            child: Text(
-                              stateCustomer.customerSelected != null ? DateFormat.yMd().add_Hms().format(stateCustomer.customerSelected!.curdate!) : "",
+                            child: TextFormField(
+                              initialValue: totalMoney.toString(),
+                              onChanged: (e) {
+                                setState(() {
+                                  if (e.isNotEmpty) {
+                                    totalMoney = double.parse(e);
+                                  }
+                                });
+                              },
                               style: AppTypographies.styBlack14W400,
                               textAlign: TextAlign.end,
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                            ))
+                      ],
+                    ),
+                    30.verticalSpace,
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["name"],
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                        ),
+                        SizedBox(width: 300, child: Text(stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.name! : "", style: AppTypographies.styBlack14W400))
+                      ],
+                    ),
+                    30.verticalSpace,
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["notes"],
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                        ),
+                        SizedBox(width: 300, child: Text(stateCustomer.customerSelected != null ? "${stateCustomer.customerSelected!.note}" : "", style: AppTypographies.styBlack14W400))
+                      ],
+                    ),
+                    30.verticalSpace,
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["max_debt"],
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                        ),
+                        SizedBox(
+                            width: 300,
+                            child: Text(
+                              "${stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.maxDebt : 0}",
+                              style: AppTypographies.styBlack14W400,
+                              textAlign: TextAlign.end,
+                            ))
+                      ],
+                    ),
+                    30.verticalSpace,
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["current_debt"],
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                        ),
+                        SizedBox(
+                            width: 300,
+                            child: Text(
+                              "${stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.curDebt!.toStringAsFixed(2) : 0}",
+                              style: AppTypographies.styBlack14W400,
+                              textAlign: TextAlign.end,
+                            ))
+                      ],
+                    ),
+                    30.verticalSpace,
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["debt_expire_time"],
+                            style: AppTypographies.styBlack14W400,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 300,
+                          child: Text(
+                            stateCustomer.customerSelected != null ? DateFormat.yMd().add_Hms().format(stateCustomer.customerSelected!.curdate!) : "",
+                            style: AppTypographies.styBlack14W400,
+                            textAlign: TextAlign.end,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -240,14 +239,14 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                   child: Row(
                     children: [
                       SizedBox(
-                        width: screenWidth * 0.3,
+                        width: screenWidth * 0.15,
                         child: Text(
                           stateBase.translate[stateBase.languageSelected]["product_name"],
                           style: AppTypographies.styBlack11W400Opacity40,
                         ),
                       ),
                       SizedBox(
-                        width: screenWidth * 0.1,
+                        width: screenWidth * 0.05,
                         child: Text(
                           stateBase.translate[stateBase.languageSelected]["price"],
                           style: AppTypographies.styBlack11W400Opacity40,
@@ -255,7 +254,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                         ),
                       ),
                       SizedBox(
-                        width: screenWidth * 0.1,
+                        width: screenWidth * 0.05,
                         child: Text(
                           stateBase.translate[stateBase.languageSelected]["quantity"],
                           style: AppTypographies.styBlack11W400Opacity40,
@@ -271,7 +270,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                         ),
                       ),
                       SizedBox(
-                        width: screenWidth * 0.14,
+                        width: screenWidth * 0.07,
                         child: Text(
                           "${stateBase.translate[stateBase.languageSelected]["price"]} + %",
                           style: AppTypographies.styBlack11W400Opacity40,
@@ -279,7 +278,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                         ),
                       ),
                       SizedBox(
-                        width: screenWidth * 0.20,
+                        width: screenWidth * 0.1,
                         child: Text(
                           stateBase.translate[stateBase.languageSelected]["price"],
                           style: AppTypographies.styBlack11W400Opacity40,
@@ -312,14 +311,14 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                             child: Row(
                               children: [
                                 SizedBox(
-                                  width: screenWidth * 0.3,
+                                  width: screenWidth * 0.15,
                                   child: Text(
                                     "${notifierProducts.listProductCache.where((product) => product.id == statePos.listTicket![statePos.selectTicket!].ticketlines![index].productId).toList().first.name}",
                                     style: AppTypographies.styBlack11W400,
                                   ),
                                 ),
                                 SizedBox(
-                                  width: screenWidth * 0.1,
+                                  width: screenWidth * 0.05,
                                   child: Text(
                                     notifierPos.convertNumberZero(double.parse("${statePos.listTicket![statePos.selectTicket!].ticketlines![index].price}")),
                                     style: AppTypographies.styBlack11W400,
@@ -327,7 +326,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                                   ),
                                 ),
                                 SizedBox(
-                                  width: screenWidth * 0.1,
+                                  width: screenWidth * 0.05,
                                   child: Text(
                                     notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit!),
                                     style: AppTypographies.styBlack11W400,
@@ -335,7 +334,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 40,
+                                  width: screenWidth * 0.1,
                                   child: Text(
                                     (notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) * 100).toStringAsFixed(2),
                                     style: AppTypographies.styBlack11W400,
@@ -343,7 +342,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                                   ),
                                 ),
                                 SizedBox(
-                                  width: screenWidth * 0.14,
+                                  width: screenWidth * 0.07,
                                   child: Text(
                                     notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].price! * (1 + notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) / 100)),
                                     style: AppTypographies.styBlack11W400,
@@ -351,7 +350,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                                   ),
                                 ),
                                 SizedBox(
-                                  width: screenWidth * 0.2,
+                                  width: screenWidth * 0.1,
                                   child: Text(
                                     notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].price! *
                                         (1 + notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) / 100) *
@@ -385,13 +384,9 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
         Row(
           children: [
             SizedBox(
-              height: screenHeight * 0.43,
-              width: screenWidth * 0.6,
-              child:
-                  // Container(
-                  //   color: Colors.red,
-                  // )
-                  ListView(
+              height: screenHeight * 0.4,
+              width: screenWidth * 0.35,
+              child: ListView(
                 physics: const CustomBouncingScrollPhysics(),
                 children: [
                   GridView.builder(
@@ -400,7 +395,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                     itemCount: notifier.money.length,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisSpacing: 2,
-                      crossAxisCount: 3,
+                      crossAxisCount: 4,
                     ),
                     itemBuilder: (context, index) {
                       return Column(children: [
@@ -438,8 +433,8 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
               ),
             ),
             SizedBox(
-              height: screenHeight * 0.43,
-              width: screenWidth * 0.4,
+              height: screenHeight * 0.4,
+              width: screenWidth * 0.2,
               child: Padding(
                 padding: const EdgeInsets.only(right: 5),
                 child: Column(

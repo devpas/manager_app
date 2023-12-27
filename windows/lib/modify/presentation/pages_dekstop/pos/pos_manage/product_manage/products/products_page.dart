@@ -1,19 +1,26 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flash/flash.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/modify/models/data/category_data.dart';
 import 'package:g_manager_app/modify/models/data/product_data.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/product_item_pas.dart';
 import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/drawer_tablet.dart';
+import 'package:g_manager_app/modify/riverpob/notifiers/notifiers.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
+import 'package:g_manager_app/modify/riverpob/states/products/products_state.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../../../src/core/utils/utils.dart';
 import '../../../../../components/components.dart';
 import '../../../../../theme/theme.dart';
 import 'widgets/list_products_filter_modal.dart';
+import 'widgets/list_products_sort_modal.dart';
 import 'widgets/w_delete_product_dialog.dart';
 
 class ProductsDesktopPage extends ConsumerStatefulWidget {
@@ -28,6 +35,34 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
 
   TextEditingController searchController = TextEditingController();
   late TabController _tabController;
+
+  int indexItemSelected = 0;
+
+  final ItemScrollController _scrollControllerItem = ItemScrollController();
+
+  // search text
+
+  TextEditingController barcodeSearchController = TextEditingController();
+  TextEditingController nameSearchController = TextEditingController();
+  TextEditingController categoryIdSearchController = TextEditingController();
+  TextEditingController priceBuySearchController = TextEditingController();
+  TextEditingController priceSellSearchController = TextEditingController();
+  List<String> conditionCompare = ["None", "Equals", "Wildcards", "Distinct", "Greater", "Greate or equal", "Less or equals"];
+
+  // infomation text
+
+  TextEditingController refcodeController = TextEditingController();
+  TextEditingController barcodeController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController priceBuyController = TextEditingController();
+  TextEditingController priceSellController = TextEditingController();
+  TextEditingController priceSellPercentController = TextEditingController();
+  TextEditingController pricesellAfterDiscountController = TextEditingController();
+  TextEditingController taxController = TextEditingController();
+  String categoryName = "";
+  TextEditingController attributeController = TextEditingController();
+
+  bool findStatus = true;
 
   @override
   void initState() {
@@ -45,7 +80,29 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
     );
   }
 
-  TextEditingController codeController = TextEditingController();
+  void filterList(dynamic filterValue, ProductsPasState stateProduct, ProductsPasNotifier notifierProduct) async {
+    notifierProduct.codeRef = filterValue["code_ref"];
+    notifierProduct.productName = filterValue["name"];
+
+    if (filterValue["price_buy"] != "") {
+      notifierProduct.priceBuy = double.parse(filterValue["price_buy"]);
+    } else {
+      notifierProduct.priceBuy = -1;
+    }
+
+    if (filterValue["price_sell"] != "") {
+      notifierProduct.priceSell = double.parse(filterValue["price_sell"]);
+    } else {
+      notifierProduct.priceSell = -1;
+    }
+    bool result = await notifierProduct.searchProducts(filterValue["category_id"]);
+    if (result == false) {
+      setState(() {
+        findStatus = false;
+      });
+    }
+    print(findStatus);
+  }
 
   XFile? image;
 
@@ -54,6 +111,8 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
     final stateBase = ref.watch(baseProvider);
     final notifier = ref.read(productsPASProvider.notifier);
     final notifierBase = ref.read(baseProvider.notifier);
+    final stateCategory = ref.watch(categoriesPASProvider);
+    final notifierCategory = ref.read(categoriesPASProvider.notifier);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Row(
@@ -68,14 +127,14 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: Text("Mã kho:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: Text("Mã vạch:")),
                   ),
                   Expanded(
                       child: Column(
                     children: [
                       SizedBox(
                         child: TextFormField(
-                          controller: codeController,
+                          controller: barcodeController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -98,7 +157,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: priceBuyController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -121,7 +180,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: priceSellController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -136,7 +195,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: priceSellPercentController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -159,7 +218,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: pricesellAfterDiscountController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -179,10 +238,10 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         DropdownButton(
-                            items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
+                            items: state.taxes!.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                              return DropdownMenuItem<dynamic>(
                                 value: value,
-                                child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
                               );
                             }).toList(),
                             onChanged: (e) {}),
@@ -200,10 +259,10 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         DropdownButton(
-                            items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
+                            items: stateCategory.categories!.map<DropdownMenuItem<CategoryPasData>>((CategoryPasData value) {
+                              return DropdownMenuItem<CategoryPasData>(
                                 value: value,
-                                child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                child: SizedBox(width: screenWidth * 0.160, child: Text(value.name!)),
                               );
                             }).toList(),
                             onChanged: (e) {}),
@@ -213,27 +272,27 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                   5.verticalSpace,
                 ],
               ),
-              Row(
-                children: [
-                  SizedBox(width: screenWidth * 0.1, child: const Text("Thuộc tính:")),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        DropdownButton(
-                            items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
-                              );
-                            }).toList(),
-                            onChanged: (e) {}),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     SizedBox(width: screenWidth * 0.1, child: const Text("Thuộc tính:")),
+              //     SizedBox(
+              //       width: screenWidth * 0.185,
+              //       child: Column(
+              //         children: [
+              //           DropdownButton(
+              //               items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
+              //                 return DropdownMenuItem<String>(
+              //                   value: value,
+              //                   child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+              //                 );
+              //               }).toList(),
+              //               onChanged: (e) {}),
+              //         ],
+              //       ),
+              //     ),
+              //     5.verticalSpace,
+              //   ],
+              // ),
             ],
           ),
         ),
@@ -314,8 +373,10 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(productsPASProvider);
+    final stateCategory = ref.watch(categoriesPASProvider);
     final stateBase = ref.watch(baseProvider);
     final notifier = ref.read(productsPASProvider.notifier);
+    final notifierCategory = ref.read(categoriesPASProvider.notifier);
     final notifierBase = ref.read(baseProvider.notifier);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -381,7 +442,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: codeController,
+                                          controller: barcodeSearchController,
                                           decoration: const InputDecoration.collapsed(
                                             hintText: '',
                                           ),
@@ -423,7 +484,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                   child: Column(
                                     children: [
                                       DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
+                                          items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
@@ -441,10 +502,15 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: codeController,
+                                          controller: nameSearchController,
                                           decoration: const InputDecoration.collapsed(
                                             hintText: '',
                                           ),
+                                          onChanged: (e) {
+                                            setState(() {
+                                              nameSearchController.text = e.toString();
+                                            });
+                                          },
                                         ),
                                         const Divider(),
                                       ],
@@ -458,13 +524,16 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                   child: Column(
                                     children: [
                                       DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                          value: stateCategory.categorySelected,
+                                          items: stateCategory.categories!.map<DropdownMenuItem<CategoryPasData>>((CategoryPasData category) {
+                                            return DropdownMenuItem<CategoryPasData>(
+                                              value: category,
+                                              child: SizedBox(width: screenWidth * 0.160, child: Text(category.name!)),
                                             );
                                           }).toList(),
-                                          onChanged: (e) {}),
+                                          onChanged: (e) {
+                                            notifierCategory.setCategorySelected(e!);
+                                          }),
                                     ],
                                   ),
                                 ),
@@ -481,7 +550,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                   child: Column(
                                     children: [
                                       DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
+                                          items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
@@ -499,7 +568,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: codeController,
+                                          controller: priceBuySearchController,
                                           decoration: const InputDecoration.collapsed(
                                             hintText: '',
                                           ),
@@ -516,7 +585,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                   child: Column(
                                     children: [
                                       DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
+                                          items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
@@ -534,7 +603,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: codeController,
+                                          controller: priceSellSearchController,
                                           decoration: const InputDecoration.collapsed(
                                             hintText: '',
                                           ),
@@ -574,14 +643,25 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                           backgroundColor: AppColors.orderReviews.withOpacity(0.07),
                           iconData: FlutterRemix.skip_back_line,
                           iconColor: AppColors.orderReviews,
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              indexItemSelected = 0;
+                              _scrollControllerItem.scrollTo(index: 0, duration: const Duration(milliseconds: 200));
+                            });
+                          },
                         ),
                         20.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.orderReviews.withOpacity(0.07),
                           iconData: FlutterRemix.arrow_left_line,
                           iconColor: AppColors.orderReviews,
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              if (indexItemSelected > 0) {
+                                indexItemSelected = indexItemSelected - 1;
+                              }
+                            });
+                          },
                         ),
                         20.horizontalSpace,
                         CircleIconButton(
@@ -595,35 +675,61 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                           backgroundColor: AppColors.orderReviews.withOpacity(0.07),
                           iconData: FlutterRemix.arrow_right_line,
                           iconColor: AppColors.orderReviews,
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              indexItemSelected = indexItemSelected + 1;
+                            });
+                          },
                         ),
                         20.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.orderReviews.withOpacity(0.07),
                           iconData: FlutterRemix.skip_forward_line,
                           iconColor: AppColors.orderReviews,
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              indexItemSelected = state.products!.length - 1;
+                              _scrollControllerItem.scrollTo(index: state.products!.length - 1, duration: const Duration(milliseconds: 200));
+                            });
+                          },
                         ),
                         25.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.canceledOrders.withOpacity(0.07),
                           iconData: FlutterRemix.refresh_line,
                           iconColor: AppColors.canceledOrders,
-                          onTap: () {},
+                          onTap: () {
+                            var filterValue = {"code_ref": barcodeSearchController.text, "name": nameSearchController.text, "price_buy": priceBuySearchController.text, "price_sell": priceSellSearchController.text, "category_id": stateCategory.categorySelected!.id};
+                            filterList(filterValue, state, notifier);
+                          },
                         ),
                         25.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.blue.withOpacity(0.07),
                           iconData: FlutterRemix.search_2_line,
                           iconColor: AppColors.blue,
-                          onTap: () {},
+                          onTap: () {
+                            notifier.productName = "";
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) => ListProductsFilterModal(),
+                            );
+                          },
                         ),
                         20.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.greenMain.withOpacity(0.07),
                           iconData: FlutterRemix.sort_desc,
                           iconColor: AppColors.greenMain,
-                          onTap: () {},
+                          onTap: () {
+                            notifier.productName = "";
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) => ListProductsSortModal(),
+                            );
+                          },
                         ),
                         20.horizontalSpace,
                         CircleIconButton(
@@ -673,11 +779,9 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                           )
                         : Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: ListView.builder(
-                              physics: const CustomBouncingScrollPhysics(),
-                              controller: _scrollController,
-                              shrinkWrap: true,
-                              itemCount: state.productsAfterFilter!.isEmpty ? state.products!.length : state.productsAfterFilter!.length,
+                            child: ScrollablePositionedList.builder(
+                              itemScrollController: _scrollControllerItem,
+                              itemCount: state.productsAfterFilter!.isEmpty && findStatus == true ? state.products!.length : state.productsAfterFilter!.length,
                               itemBuilder: (context, index) {
                                 ProductPasData product;
                                 if (state.productsAfterFilter!.isEmpty) {
@@ -687,11 +791,13 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                 }
                                 return InkWell(
                                   onTap: () {
-                                    notifier.setProductSelected(product);
+                                    setState(() {
+                                      indexItemSelected = index;
+                                    });
                                   },
                                   child: Container(
                                     width: 500,
-                                    color: product.id == state.productSelected!.id ? Colors.blue : Colors.white,
+                                    color: index == indexItemSelected ? Colors.blue : Colors.white,
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Column(
@@ -700,7 +806,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                         children: [
                                           Text(
                                             product.name!,
-                                            style: TextStyle(color: product.id == state.productSelected!.id ? Colors.white : Colors.black),
+                                            style: TextStyle(color: index == indexItemSelected ? Colors.white : Colors.black),
                                           ),
                                         ],
                                       ),
@@ -742,7 +848,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                     Expanded(
                                         child: SizedBox(
                                       child: TextFormField(
-                                        controller: codeController,
+                                        controller: refcodeController,
                                         decoration: const InputDecoration.collapsed(hintText: ''),
                                       ),
                                     )),
@@ -753,7 +859,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                     Expanded(
                                         child: SizedBox(
                                       child: TextFormField(
-                                        controller: codeController,
+                                        controller: nameController,
                                         decoration: const InputDecoration.collapsed(hintText: ''),
                                       ),
                                     ))

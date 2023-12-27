@@ -27,6 +27,8 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
     state = state.copyWith(categoryLoading: true);
     response.when(
       success: (data) async {
+        CategoryPasData allCategories = CategoryPasData().copyWith(index: -1, id: -1, name: "All", parentId: 0, img: "", active: 1);
+        data.categories!.insert(0, allCategories);
         state = state.copyWith(categories: data.categories, categoryLoading: false, categorySelected: data.categories![0]);
       },
       failure: (failure) {

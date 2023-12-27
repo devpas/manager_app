@@ -8,6 +8,7 @@ class ProductsPasState with _$ProductsPasState {
   const factory ProductsPasState(
       {@Default([]) List<ProductPasData>? products,
       @Default([]) List<ProductPasData>? productsAfterFilter,
+      @Default(0) int? sortProductsId,
       @Default(false) bool? productsLoading,
       @Default(false) bool? updateStockLoading,
       @Default(false) bool? taxCusCategoryLoading,

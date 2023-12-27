@@ -86,3 +86,4 @@ export '../../../modify/presentation/pages_dekstop/categories/categories_page.da
 export '../../../modify/presentation/pages_dekstop/pos/pos_manage/product_manage/discount/tax/taxes_page.dart';
 export '../../../modify/presentation/pages_dekstop/pos/pos_manage/product_manage/discount/tax_categories/tax_categories_page.dart';
 export '../../../modify/presentation/pages_dekstop/pos/pos_manage/product_manage/discount/tax_cus_categories/tax_cus_categories_page.dart';
+export '../../../modify/presentation/pages_dekstop/pos/account/account_pos_page.dart';

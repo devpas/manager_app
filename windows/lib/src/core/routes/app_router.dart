@@ -430,6 +430,11 @@ import 'modals_route.dart';
       page: TaxCusCategoriesDesktopPage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/account-pos-desktop',
+      page: AccountPosDesktopPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
   ],
 )
 class $AppRouter {}

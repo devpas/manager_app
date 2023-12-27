@@ -17,10 +17,10 @@ import '../../pages/pos/pos_manage/products_manage/products/widgets/product_item
 import '../../pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
 import '../../pages/pos/pos_manage/products_manage/products/widgets/products_filter_modal.dart';
 import '../../pages/pos/pos_manage/products_manage/warehouse/stock_diary/widgets/select_with_option_mini_button.dart';
-import '../../pages/pos/widgets/pay_info_modal_pas.dart';
 import '../../pages/pos/widgets/product_short_infomation_modal.dart';
 import '../../theme/theme.dart';
 import '../widgets/drawer_tablet.dart';
+import '../widgets/pay_info_modal_pas.dart';
 
 class MainDeskTopPage extends ConsumerStatefulWidget {
   const MainDeskTopPage({Key? key}) : super(key: key);
@@ -103,8 +103,8 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     List<List> reason = [
-      [stateBase.translate[stateBase.languageSelected]["in"], -1],
-      [stateBase.translate[stateBase.languageSelected]["out"], 2],
+      [stateBase.translate[stateBase.languageSelected]["out"], -1],
+      [stateBase.translate[stateBase.languageSelected]["in"], 2],
     ];
     return Padding(
       padding: REdgeInsets.symmetric(horizontal: 15),

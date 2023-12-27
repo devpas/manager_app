@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +21,10 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
 
   List<CustomerData> customersAfterFilter = [];
 
+  Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
+
   Future<void> fetchListCustomers() async {
+    state = state.copyWith(customerLoading: true);
     final response = await _customersRepository.getListCustomers("");
     response.when(
       success: (data) async {
@@ -78,10 +84,15 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     state = state.copyWith(customerLoading: true);
     final response = await _customersRepository.addCustomer(data);
     if (response["msg"] == "add customer successful") {
-      await fetchListCustomers();
+      List<CustomerData> listCustomers = [];
+      response["data"].forEach((v) {
+        listCustomers.add(CustomerData.fromJson(v));
+      });
+      state = state.copyWith(customersAfterFilter: listCustomers);
     } else {
-      state = state.copyWith(customerLoading: false);
+      print("error");
     }
+    state = state.copyWith(customerLoading: false);
   }
 
   Future<void> updateCustomer(dynamic data) async {
@@ -91,20 +102,30 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     data["create_date"] = data["create_date"].toString();
     final response = await _customersRepository.updateCustomer(data);
     if (response["msg"] == "update customer successful") {
-      await fetchListCustomers();
+      List<CustomerData> listCustomers = [];
+      response["data"].forEach((v) {
+        listCustomers.add(CustomerData.fromJson(v));
+      });
+      state = state.copyWith(customersAfterFilter: listCustomers);
     } else {
-      state = state.copyWith(customerLoading: false);
+      print("error");
     }
+    state = state.copyWith(customerLoading: false);
   }
 
   Future<void> deleteCustomer(dynamic data) async {
     state = state.copyWith(customerLoading: true);
     final response = await _customersRepository.deleteCustomer(data);
     if (response["msg"] == "delete customer successful") {
-      await fetchListCustomers();
+      List<CustomerData> listCustomers = [];
+      response["data"].forEach((v) {
+        listCustomers.add(CustomerData.fromJson(v));
+      });
+      state = state.copyWith(customersAfterFilter: listCustomers);
     } else {
-      state = state.copyWith(customerLoading: false);
+      print("error");
     }
+    state = state.copyWith(customerLoading: false);
   }
 
   void searchCustomer(String searchKey, int typeSearch) {
@@ -125,6 +146,48 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     print(customersAfterFilter.length);
 
     state = state.copyWith(customersAfterFilter: customersAfterFilter);
+  }
+
+  Future<bool> searchCustomersMultiConditions(List searchParam) async {
+    List<CustomerData> listCustomersBeforeSearch = state.customers!;
+    List<CustomerData> listCustomersAfterSearch = [];
+    bool result = false;
+    List checkSearchField = [false, false, false];
+    if (searchParam[0] != "") {
+      checkSearchField[0] = true;
+    }
+    if (searchParam[1] != "") {
+      checkSearchField[1] = true;
+    }
+    if (searchParam[2] != "") {
+      checkSearchField[2] = true;
+    }
+
+    for (int i = 0; i < state.customers!.length; i++) {
+      List valueProductForSearch = [false, false, false];
+      if (searchParam[0] != "") {
+        valueProductForSearch[0] = listCustomersBeforeSearch[i].searchkey!.toLowerCase().contains(searchParam[0].toString().toLowerCase());
+      }
+      if (searchParam[1] != "") {
+        valueProductForSearch[1] = listCustomersBeforeSearch[i].phone!.toLowerCase().contains(searchParam[1].toString().toLowerCase());
+      }
+      if (searchParam[2] != "") {
+        valueProductForSearch[2] = listCustomersBeforeSearch[i].name!.toLowerCase().contains(searchParam[2].toString().toLowerCase());
+      }
+
+      print(checkSearchField);
+      print(valueProductForSearch);
+
+      if (unOrdDeepEq(checkSearchField, valueProductForSearch) == true) {
+        listCustomersAfterSearch.add(listCustomersBeforeSearch[i]);
+      }
+    }
+    print(listCustomersAfterSearch);
+    state = state.copyWith(customersAfterFilter: listCustomersAfterSearch);
+    if (listCustomersAfterSearch.isNotEmpty) {
+      result = true;
+    }
+    return result;
   }
 
   void resetSearch() {

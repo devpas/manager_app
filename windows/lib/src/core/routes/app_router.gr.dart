@@ -757,6 +757,15 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    AccountPosDesktopRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AccountPosDesktopPage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     DashboardRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -1145,6 +1154,10 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           TaxCusCategoriesDesktopRoute.name,
           path: '/tax-cus-categories-desktop',
+        ),
+        _i2.RouteConfig(
+          AccountPosDesktopRoute.name,
+          path: '/account-pos-desktop',
         ),
       ];
 }
@@ -2536,6 +2549,18 @@ class TaxCusCategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
         );
 
   static const String name = 'TaxCusCategoriesDesktopRoute';
+}
+
+/// generated route for
+/// [_i1.AccountPosDesktopPage]
+class AccountPosDesktopRoute extends _i2.PageRouteInfo<void> {
+  const AccountPosDesktopRoute()
+      : super(
+          AccountPosDesktopRoute.name,
+          path: '/account-pos-desktop',
+        );
+
+  static const String name = 'AccountPosDesktopRoute';
 }
 
 /// generated route for

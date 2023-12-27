@@ -101,8 +101,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     List<List> reason = [
-      [stateBase.translate[stateBase.languageSelected]["in"], -1],
-      [stateBase.translate[stateBase.languageSelected]["out"], 2],
+      [stateBase.translate[stateBase.languageSelected]["out"], -1],
+      [stateBase.translate[stateBase.languageSelected]["in"], 2],
     ];
 
     return Scaffold(
@@ -513,7 +513,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                               primary: false,
                                               itemCount: stateProducts.products!.length,
                                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                childAspectRatio: 2.0,
+                                                childAspectRatio: 1.9,
                                                 crossAxisCount: 2,
                                               ),
                                               itemBuilder: (context, index) {

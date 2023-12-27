@@ -21,6 +21,8 @@ class MainPASPage extends ConsumerWidget {
     final bottomBarNotifier = ref.read(bottomBarProvider.notifier);
     final stateBase = ref.watch(baseProvider);
     final notifierBase = ref.read(baseProvider.notifier);
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       top: false,
       left: false,
@@ -36,7 +38,7 @@ class MainPASPage extends ConsumerWidget {
         ],
         appBarBuilder: (context, tabsRouter) {
           return PreferredSize(
-            preferredSize: const Size.fromHeight(60.0),
+            preferredSize: const Size.fromHeight(70.0),
             child: CustomAppbarPOS(
               title: Text(
                 stateBase.baseInfomation["base_name"] ?? "",
@@ -104,6 +106,7 @@ class MainPASPage extends ConsumerWidget {
             },
           );
           return SizedBox(
+            height: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12.r),
