@@ -1,12 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/models.dart';
+import 'package:g_manager_app/modify/presentation/pages_dekstop/pos/pos_manage/product_manage/products/widgets/list_taxes_filter_modal.dart';
 import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/drawer_tablet.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
@@ -23,6 +27,73 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
 
   TextEditingController searchController = TextEditingController();
 
+  TextEditingController codeController = TextEditingController();
+
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController expireController = TextEditingController();
+
+  TextEditingController priceController = TextEditingController();
+
+  TextEditingController squenceController = TextEditingController();
+
+  final ItemScrollController _scrollControllerItem = ItemScrollController();
+
+  var taxCategories = [];
+
+  var taxCusCategories = [];
+
+  var taxes = [];
+
+  int itemIndex = -1;
+
+  bool createMode = false;
+
+  bool activeCheckBox = false;
+
+  bool loadData = false;
+
+  XFile? image;
+
+  String taxIdSelected = "";
+  String taxCategoryIdSelected = "";
+  String taxCusCategoryIdSelected = "";
+
+  var taxSelected = {};
+
+  List sortCondition = [
+    [0, "Tên"],
+    [1, "Giá"],
+    [3, "Thứ tự"]
+  ];
+
+  int conditionSelected = 0;
+
+  void loadValue() async {
+    setState(() {
+      final taxess = ref.watch(productsPASProvider).taxes!;
+      final taxCategoriess = ref.watch(productsPASProvider).taxCategories!;
+      final taxCusCategoriess = ref.watch(productsPASProvider).taxCusCategories!;
+      for (int i = 0; i < taxess.length; i++) {
+        taxes.add(taxess[i]);
+      }
+
+      for (int i = 0; i < taxCategoriess.length; i++) {
+        taxCategories.add(taxCategoriess[i]);
+      }
+
+      for (int i = 0; i < taxCusCategoriess.length; i++) {
+        taxCusCategories.add(taxCusCategoriess[i]);
+      }
+
+      taxes.insert(0, {"index": -1, "id": "-1", "name": "", "valid_from": "0000-00-00 00:00:00", "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
+      taxCategories.insert(0, {"index": -1, "id": "-1", "name": ""});
+      taxCusCategories.insert(0, {"index": -1, "id": "", "name": ""});
+      print(taxes);
+      loadData = true;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -30,16 +101,10 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(productsPASProvider.notifier).getListTaxes();
+        loadValue();
       },
     );
   }
-
-  TextEditingController codeController = TextEditingController();
-
-  bool activeCheckBox = true;
-
-  XFile? image;
 
   @override
   void dispose() {
@@ -134,7 +199,17 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                         iconData: FlutterRemix.refresh_line,
                         iconColor: AppColors.canceledOrders,
                         onTap: () {
-                          print("asd");
+                          notifier.getListTaxes();
+                          setState(() async {
+                            taxes = [];
+                            taxIdSelected = "";
+                            final taxess = await ref.watch(productsPASProvider).taxes!;
+                            for (int i = 0; i < taxess.length; i++) {
+                              taxes.add(taxess[i]);
+                            }
+                            taxes.insert(0, {"index": -1, "id": -1, "name": "", "valid_from": "0000-00-00 00:00:00", "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
+                            itemIndex = 0;
+                          });
                         },
                       ),
                       25.horizontalSpace,
@@ -142,7 +217,147 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                         backgroundColor: AppColors.blue.withOpacity(0.07),
                         iconData: FlutterRemix.search_2_line,
                         iconColor: AppColors.blue,
-                        onTap: () {},
+                        onTap: () {
+                          notifier.productName = "";
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) => Material(
+                              color: AppColors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0,
+                                  vertical: 23,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      stateBase.translate[stateBase.languageSelected]["barcode"],
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        letterSpacing: -0.4,
+                                        color: AppColors.black.withOpacity(0.3),
+                                      ),
+                                    ),
+                                    TextFormField(
+                                      textCapitalization: TextCapitalization.sentences,
+                                      controller: searchController,
+                                      onChanged: (value) {
+                                        searchController.text = value;
+                                      },
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        letterSpacing: -0.4,
+                                        color: AppColors.black,
+                                      ),
+                                      decoration: InputDecoration(
+                                        hintStyle: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          letterSpacing: -0.4,
+                                          color: AppColors.inputNameHint,
+                                        ),
+                                      ),
+                                    ),
+                                    20.verticalSpace,
+                                    SelectWithSearchPosButton(
+                                      iconData: FlutterRemix.arrow_down_s_line,
+                                      label: "Tìm chiết khấu",
+                                      title: sortCondition.where((type) => type[0] == conditionSelected).first[1],
+                                      onTap: () {
+                                        notifier.keySearch = "";
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          builder: (context) {
+                                            return Material(
+                                              color: AppColors.mainBackground,
+                                              child: Container(
+                                                padding: EdgeInsets.only(
+                                                  top: 20,
+                                                  left: 15,
+                                                  right: 15,
+                                                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Expanded(
+                                                      child: ListView.builder(
+                                                        padding: const EdgeInsets.symmetric(vertical: 10),
+                                                        physics: const CustomBouncingScrollPhysics(),
+                                                        itemCount: sortCondition.length,
+                                                        shrinkWrap: true,
+                                                        itemBuilder: (context, index) {
+                                                          return SearchedItem(
+                                                            title: '${sortCondition[index][1]}',
+                                                            isSelected: false,
+                                                            onTap: () {
+                                                              conditionSelected = index;
+                                                              Future.delayed(Duration(milliseconds: 100), () {
+                                                                Navigator.pop(context);
+                                                              });
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                    30.verticalSpace,
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    40.verticalSpace,
+                                    CommonAccentButton(
+                                      title: stateBase.translate[stateBase.languageSelected]["show_result"],
+                                      onPressed: () {
+                                        var result = [];
+                                        var taxesTemp = state.taxes!;
+                                        if (conditionSelected == 0) {
+                                          result = taxesTemp.where((e) => e["name"].toString().contains(searchController.text)).toList();
+                                        } else if (conditionSelected == 1) {
+                                          result = taxesTemp.where((e) => double.parse(e["rate"].toString()) == double.parse(searchController.text)).toList();
+                                        } else if (conditionSelected == 2) {
+                                          result = taxesTemp.where((e) => double.parse(e["rate_cascade"]) == double.parse(searchController.text)).toList();
+                                        }
+                                        print("asd :$result");
+                                        setState(() {
+                                          if (result.isNotEmpty) {
+                                            taxSelected = result.first;
+                                            itemIndex = taxSelected["index"];
+                                            print(itemIndex);
+                                            _scrollControllerItem.scrollTo(index: itemIndex - 1, duration: const Duration(milliseconds: 200));
+                                            notifier.setTaxSelected(taxSelected);
+                                            nameController.text = taxSelected["name"];
+                                            expireController.text = DateFormat.yMd().add_Hms().format(DateTime.parse(taxSelected["valid_from"]));
+                                            priceController.text = taxSelected["rate"].toString();
+                                            squenceController.text = taxSelected["rate_order"] != null ? taxSelected["rate_order"].toString() : "";
+                                            activeCheckBox = taxSelected["rate_cascade"] == 1 ? true : false;
+                                            taxIdSelected = taxSelected["id"];
+                                            taxCategoryIdSelected = taxSelected["tax_category_id"] ?? "";
+                                            taxCusCategoryIdSelected = taxSelected["tax_customer_category_id"] ?? "";
+                                          } else {
+                                            itemIndex = -1;
+                                          }
+                                        });
+                                        context.popRoute();
+                                      },
+                                    ),
+                                    20.verticalSpace,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       20.horizontalSpace,
                       CircleIconButton(
@@ -199,9 +414,9 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                         )
                       : Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: ListView.builder(
+                          child: ScrollablePositionedList.builder(
                             physics: const CustomBouncingScrollPhysics(),
-                            controller: _scrollController,
+                            itemScrollController: _scrollControllerItem,
                             shrinkWrap: true,
                             itemCount: state.taxes!.length,
                             itemBuilder: (context, index) {
@@ -210,10 +425,25 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
 
                               return InkWell(
                                 onTap: () {
+                                  print(tax);
+
+                                  createMode = false;
+                                  itemIndex = index + 1;
                                   notifier.setTaxSelected(tax);
+                                  nameController.text = tax["name"];
+                                  expireController.text = DateFormat.yMd().add_Hms().format(DateTime.parse(tax["valid_from"]));
+                                  priceController.text = tax["rate"].toString();
+                                  squenceController.text = tax["rate_order"] != null ? tax["rate_order"].toString() : "";
+                                  activeCheckBox = tax["rate_cascade"] == 1 ? true : false;
+                                  taxIdSelected = tax["id"];
+                                  taxCategoryIdSelected = tax["tax_category_id"] ?? "";
+                                  taxCusCategoryIdSelected = tax["tax_customer_category_id"] ?? "";
+                                  // print(taxIdSelected);
+                                  // print(taxCategoryIdSelected);
+                                  // print(taxCusCategoryIdSelected);
                                 },
                                 child: Container(
-                                  color: tax["id"] == state.taxSelected!["id"] ? Colors.blue : Colors.white,
+                                  color: tax["index"] == itemIndex ? Colors.blue : Colors.white,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Column(
@@ -230,7 +460,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                               width: screenWidth * 0.25,
                                               child: Text(
                                                 tax["name"],
-                                                style: TextStyle(color: tax["id"] == state.taxSelected!["id"] ? Colors.white : Colors.black),
+                                                style: TextStyle(color: tax["index"] == itemIndex ? Colors.white : Colors.black),
                                               ),
                                             ),
                                           ],
@@ -245,236 +475,264 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                         ),
                 ),
                 8.horizontalSpace,
-                Column(
-                  children: [
-                    Container(
-                      height: screenHeight * 0.825,
-                      width: screenWidth * 0.685,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.1,
+                loadData
+                    ? Column(
+                        children: [
+                          Container(
+                            height: screenHeight * 0.825,
+                            width: screenWidth * 0.685,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 0.1,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.15, child: const Text("Tên:")),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: nameController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                              ),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      (screenWidth * 0.1).horizontalSpace,
+                                      IconTextButton(
+                                        backgroundColor: AppColors.blue.withOpacity(0.07),
+                                        iconData: FlutterRemix.delete_bin_fill,
+                                        iconColor: AppColors.blue,
+                                        title: "Thêm vào danh mục",
+                                        textColor: AppColors.blue,
+                                        onPressed: () {
+                                          // notifierBase.loadTranslate();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.15, child: const Text("Loại chiết khấu:")),
+                                      SizedBox(
+                                        width: screenWidth * 0.185,
+                                        child: Column(
+                                          children: [
+                                            DropdownButton(
+                                                value: taxCategoryIdSelected == "" ? taxCategories[0] : taxCategories.where((e) => e["id"] == taxCategoryIdSelected).first,
+                                                items: taxCategories.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                                                  return DropdownMenuItem<dynamic>(
+                                                    value: value,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {
+                                                  setState(() {
+                                                    print(e);
+                                                    print(taxCategoryIdSelected);
+                                                    taxCategoryIdSelected = e["id"];
+                                                  });
+                                                }),
+                                          ],
+                                        ),
+                                      ),
+                                      (screenWidth * 0.1).horizontalSpace,
+                                      IconTextButton(
+                                        backgroundColor: AppColors.blue.withOpacity(0.07),
+                                        iconData: FlutterRemix.delete_bin_fill,
+                                        iconColor: AppColors.blue,
+                                        title: "Xóa khỏi danh mục",
+                                        textColor: AppColors.blue,
+                                        onPressed: () {
+                                          // notifierBase.loadTranslate();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.15, child: const Text("Hiệu lực từ:")),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: expireController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                              ),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      (screenWidth * 0.01).horizontalSpace,
+                                      CircleIconButton(
+                                        backgroundColor: AppColors.blue.withOpacity(0.07),
+                                        iconData: FlutterRemix.calendar_2_line,
+                                        iconColor: AppColors.blue,
+                                        onTap: () {},
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.15, child: const Text("Nhóm KH:")),
+                                      SizedBox(
+                                        width: screenWidth * 0.185,
+                                        child: Column(
+                                          children: [
+                                            DropdownButton(
+                                                value: taxCusCategoryIdSelected == "" ? taxCusCategories[0] : taxCusCategories.where((e) => e["id"] == taxCusCategoryIdSelected).first,
+                                                items: taxCusCategories.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                                                  return DropdownMenuItem<dynamic>(
+                                                    value: value,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {
+                                                  setState(() {
+                                                    taxCusCategoryIdSelected = e["id"];
+                                                  });
+                                                }),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.15, child: const Text("Danh mục cha CK:")),
+                                      SizedBox(
+                                        width: screenWidth * 0.185,
+                                        child: Column(
+                                          children: [
+                                            DropdownButton(
+                                                value: taxIdSelected == "" ? taxes[0] : taxes.where((e) => e["id"] == taxIdSelected).first,
+                                                items: taxes.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                                                  return DropdownMenuItem<dynamic>(
+                                                    value: value,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {
+                                                  setState(() {
+                                                    print(taxes[0]);
+                                                    taxIdSelected = e["id"].toString();
+                                                    print(taxIdSelected);
+                                                  });
+                                                }),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.15, child: const Text("Giá:")),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: priceController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                              ),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      10.horizontalSpace,
+                                      RoundedCheckBox(
+                                        value: activeCheckBox,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            activeCheckBox = !activeCheckBox;
+                                          });
+                                        },
+                                      ),
+                                      Text(
+                                        "Xếp cạnh",
+                                        style: GoogleFonts.inter(
+                                          color: activeCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.15, child: const Text("Thứ tự:")),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: squenceController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                              ),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ]),
+                            ),
+                          ),
+                        ],
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.accentGreen,
+                          strokeWidth: 2,
                         ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.15, child: const Text("Tên:")),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
-                                    width: screenWidth * 0.185,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: codeController,
-                                          decoration: const InputDecoration.collapsed(
-                                            hintText: '',
-                                          ),
-                                        ),
-                                        const Divider(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                (screenWidth * 0.1).horizontalSpace,
-                                IconTextButton(
-                                  backgroundColor: AppColors.blue.withOpacity(0.07),
-                                  iconData: FlutterRemix.delete_bin_fill,
-                                  iconColor: AppColors.blue,
-                                  title: "Thêm vào danh mục",
-                                  textColor: AppColors.blue,
-                                  onPressed: () {
-                                    // notifierBase.loadTranslate();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.15, child: const Text("Loại chiết khấu:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
-                                    children: [
-                                      DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.162, child: Text(value)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {}),
-                                    ],
-                                  ),
-                                ),
-                                (screenWidth * 0.1).horizontalSpace,
-                                IconTextButton(
-                                  backgroundColor: AppColors.blue.withOpacity(0.07),
-                                  iconData: FlutterRemix.delete_bin_fill,
-                                  iconColor: AppColors.blue,
-                                  title: "Xóa khỏi danh mục",
-                                  textColor: AppColors.blue,
-                                  onPressed: () {
-                                    // notifierBase.loadTranslate();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.15, child: const Text("Tên:")),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
-                                    width: screenWidth * 0.185,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: codeController,
-                                          decoration: const InputDecoration.collapsed(
-                                            hintText: '',
-                                          ),
-                                        ),
-                                        const Divider(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                (screenWidth * 0.01).horizontalSpace,
-                                CircleIconButton(
-                                  backgroundColor: AppColors.blue.withOpacity(0.07),
-                                  iconData: FlutterRemix.calendar_2_line,
-                                  iconColor: AppColors.blue,
-                                  onTap: () {},
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.15, child: const Text("Nhóm KH:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
-                                    children: [
-                                      DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.162, child: Text(value)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {}),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.15, child: const Text("Danh mục cha CK:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
-                                    children: [
-                                      DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.162, child: Text(value)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {}),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.15, child: const Text("Giá:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
-                                    children: [
-                                      DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.162, child: Text(value)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {}),
-                                    ],
-                                  ),
-                                ),
-                                10.horizontalSpace,
-                                RoundedCheckBox(
-                                  value: activeCheckBox,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      activeCheckBox = !activeCheckBox;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  "Xếp cạnh",
-                                  style: GoogleFonts.inter(
-                                    color: activeCheckBox ? AppColors.black : AppColors.black.withOpacity(0.5),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.15, child: const Text("Thứ tự:")),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
-                                    width: screenWidth * 0.185,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: codeController,
-                                          decoration: const InputDecoration.collapsed(
-                                            hintText: '',
-                                          ),
-                                        ),
-                                        const Divider(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ],
-                ),
+                      )
               ],
             ),
           )

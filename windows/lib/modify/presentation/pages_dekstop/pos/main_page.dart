@@ -174,7 +174,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                         statePos.infoSelected!.isNotEmpty
                                             ? statePos.infoSelected![0][1] != stateBase.translate[stateBase.languageSelected]["guest"]
                                                 ? Expanded(
-                                                    child: statePos.infoSelected![0][1].toString().length < 30
+                                                    child: statePos.infoSelected![0][1].toString().length < 25
                                                         ? Text(statePos.infoSelected![0][1].toString())
                                                         : Marquee(
                                                             text: statePos.infoSelected![0][1].toString(),

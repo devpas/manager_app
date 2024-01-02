@@ -41,6 +41,12 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
 
   XFile? image;
 
+  int itemIndex = -1;
+
+  bool createMode = false;
+
+  TextEditingController nameController = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
@@ -156,21 +162,45 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
                         backgroundColor: Colors.deepOrange.withOpacity(0.07),
                         iconData: FlutterRemix.add_line,
                         iconColor: Colors.deepOrange,
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            createMode = true;
+                            nameController.text = "";
+                          });
+                        },
                       ),
                       20.horizontalSpace,
                       CircleIconButton(
-                        backgroundColor: AppColors.red.withOpacity(0.07),
+                        backgroundColor: createMode ? Colors.grey.withOpacity(0.07) : AppColors.red.withOpacity(0.07),
                         iconData: FlutterRemix.close_line,
-                        iconColor: AppColors.red,
-                        onTap: () {},
+                        iconColor: createMode ? Colors.grey : AppColors.red,
+                        onTap: () {
+                          if (createMode == false) {
+                            notifier.deleteTaxCategory(state.taxCategorySelected["id"]);
+                          }
+                        },
                       ),
                       25.horizontalSpace,
                       CircleIconButton(
                         backgroundColor: AppColors.blue.withOpacity(0.07),
                         iconData: FlutterRemix.save_line,
                         iconColor: AppColors.blue,
-                        onTap: () {},
+                        onTap: () {
+                          if (createMode) {
+                            var taxCategoryData = {
+                              "name": nameController.text,
+                            };
+                            notifier.addTaxCategory(taxCategoryData);
+                          } else {
+                            var taxCategoryData = {
+                              "index": state.taxCategorySelected["index"],
+                              "id": state.taxCategorySelected["id"],
+                              "name": nameController.text,
+                            };
+                            notifier.updateTaxCategory(taxCategoryData);
+                          }
+                          createMode = false;
+                        },
                       ),
                       15.horizontalSpace,
                     ]),
@@ -210,10 +240,13 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
 
                               return InkWell(
                                 onTap: () {
+                                  createMode = false;
+                                  itemIndex = index + 1;
                                   notifier.setTaxCategorySelected(taxCategory);
+                                  nameController.text = taxCategory["name"];
                                 },
                                 child: Container(
-                                  color: taxCategory["id"] == state.taxCategorySelected!["id"] ? Colors.blue : Colors.white,
+                                  color: taxCategory["index"] == itemIndex ? Colors.blue : Colors.white,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Column(
@@ -230,7 +263,7 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
                                               width: screenWidth * 0.25,
                                               child: Text(
                                                 taxCategory["name"],
-                                                style: TextStyle(color: taxCategory["id"] == state.taxCategorySelected!["id"] ? Colors.white : Colors.black),
+                                                style: TextStyle(color: taxCategory["index"] == itemIndex ? Colors.white : Colors.black),
                                               ),
                                             ),
                                           ],
@@ -271,7 +304,7 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: codeController,
+                                          controller: nameController,
                                           decoration: const InputDecoration.collapsed(
                                             hintText: '',
                                           ),

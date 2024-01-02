@@ -30,8 +30,50 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
         ref.read(baseProvider.notifier).checkAccessBlock();
         ref.read(baseProvider.notifier).loadPrinterActive();
         ref.read(productsPASProvider.notifier).getListWarehouses();
+        if (LocalStorage.instance.getKeyAccessOwner() != "" || LocalStorage.instance.getKeyAccessShare() != "") {
+          ref.read(productsPASProvider.notifier).fetchProducts();
+          ref.read(productsPASProvider.notifier).getListCustomerType();
+          ref.read(productsPASProvider.notifier).getListTaxCategories();
+          ref.read(productsPASProvider.notifier).getListTaxes();
+          ref.read(customersProvider.notifier).fetchListCustomers();
+          ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+          ref.read(baseProvider.notifier).getListEmployee();
+        }
       },
     );
+  }
+
+  bool checkData() {
+    int check = 0;
+    if (ref.watch(productsPASProvider).products!.isNotEmpty) {
+      check += 1;
+    }
+    if (ref.watch(productsPASProvider).taxes!.isNotEmpty) {
+      check += 1;
+    }
+    if (ref.watch(productsPASProvider).taxCategories!.isNotEmpty) {
+      check += 1;
+    }
+    if (ref.watch(productsPASProvider).taxCusCategories!.isNotEmpty) {
+      check += 1;
+    }
+    if (ref.watch(customersProvider).customers!.isNotEmpty) {
+      check += 1;
+    }
+    if (ref.watch(categoriesPASProvider).categories!.isNotEmpty) {
+      check += 1;
+    }
+    if (ref.watch(baseProvider).employees!.isNotEmpty) {
+      check += 1;
+    }
+    bool result = false;
+    if (check == 7) {
+      result = true;
+    } else {
+      result = false;
+    }
+    print(result);
+    return result;
   }
 
   @override
@@ -127,95 +169,102 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
           ),
         ),
         backgroundColor: AppColors.mainBackground,
-        body: Container(
-          decoration: const BoxDecoration(color: AppColors.mainBackground),
-          padding: REdgeInsets.symmetric(horizontal: 15),
-          child: SingleChildScrollView(
-            physics: const CustomBouncingScrollPhysics(),
-            child: Column(
-              children: [
-                18.verticalSpace,
-                Row(
-                  mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
-                  children: [
-                    state.accessPosSystemBlock!
-                        ? DashboardItemBase(
-                            iconData: FlutterRemix.store_2_line,
-                            title: "vietnamese",
-                            iconColor: AppColors.inProgressOrders,
-                            onTap: () {
-                              notifier.setLanguage("vn");
-                            },
-                          )
-                        : const SizedBox(),
-                    state.accessBaseManagerBlock!
-                        ? DashboardItemBase(
-                            iconData: FlutterRemix.base_station_fill,
-                            title: "english",
-                            iconColor: AppColors.canceledOrders,
-                            onTap: () {
-                              notifier.setLanguage("en");
-                            },
-                          )
-                        : const SizedBox(),
-                  ],
+        body: !checkData()
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.greenMain,
+                  strokeWidth: 2,
                 ),
-                9.verticalSpace,
-                Row(
-                  mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
-                  children: [
-                    state.accessPosSystemBlock!
-                        ? DashboardItemBase(
-                            iconData: FlutterRemix.store_2_line,
-                            title: state.translate[state.languageSelected]["system_pos"],
-                            iconColor: AppColors.inProgressOrders,
-                            onTap: () {
-                              context.pushRoute(const MainDeskTopRoute());
-                            },
-                          )
-                        : const SizedBox(),
-                    state.accessBaseManagerBlock!
-                        ? DashboardItemBase(
-                            iconData: FlutterRemix.base_station_fill,
-                            title: state.translate[state.languageSelected]["manage_base"],
-                            iconColor: AppColors.canceledOrders,
-                            onTap: () {
-                              context.pushRoute(const BaseManageRoute());
-                            },
-                          )
-                        : const SizedBox(),
-                  ],
+              )
+            : Container(
+                decoration: const BoxDecoration(color: AppColors.mainBackground),
+                padding: REdgeInsets.symmetric(horizontal: 15),
+                child: SingleChildScrollView(
+                  physics: const CustomBouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      18.verticalSpace,
+                      Row(
+                        mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+                        children: [
+                          state.accessPosSystemBlock!
+                              ? DashboardItemBase(
+                                  iconData: FlutterRemix.store_2_line,
+                                  title: "vietnamese",
+                                  iconColor: AppColors.inProgressOrders,
+                                  onTap: () {
+                                    notifier.setLanguage("vn");
+                                  },
+                                )
+                              : const SizedBox(),
+                          state.accessBaseManagerBlock!
+                              ? DashboardItemBase(
+                                  iconData: FlutterRemix.base_station_fill,
+                                  title: "english",
+                                  iconColor: AppColors.canceledOrders,
+                                  onTap: () {
+                                    notifier.setLanguage("en");
+                                  },
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
+                      9.verticalSpace,
+                      Row(
+                        mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+                        children: [
+                          state.accessPosSystemBlock!
+                              ? DashboardItemBase(
+                                  iconData: FlutterRemix.store_2_line,
+                                  title: state.translate[state.languageSelected]["system_pos"],
+                                  iconColor: AppColors.inProgressOrders,
+                                  onTap: () {
+                                    context.pushRoute(const MainDeskTopRoute());
+                                  },
+                                )
+                              : const SizedBox(),
+                          state.accessBaseManagerBlock!
+                              ? DashboardItemBase(
+                                  iconData: FlutterRemix.base_station_fill,
+                                  title: state.translate[state.languageSelected]["manage_base"],
+                                  iconColor: AppColors.canceledOrders,
+                                  onTap: () {
+                                    context.pushRoute(const BaseManageRoute());
+                                  },
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
+                      9.verticalSpace,
+                      Row(
+                        mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+                        children: [
+                          state.accessUserSettingBlock!
+                              ? DashboardItemBase(
+                                  iconData: FlutterRemix.user_6_fill,
+                                  title: state.translate[state.languageSelected]["account"],
+                                  iconColor: AppColors.deliveredOrders,
+                                  onTap: () {
+                                    context.pushRoute(const AccountPosDesktopRoute());
+                                  },
+                                )
+                              : const SizedBox(),
+                          state.accessGlobalSettingBlock!
+                              ? DashboardItemBase(
+                                  iconData: FlutterRemix.settings_2_fill,
+                                  title: state.translate[state.languageSelected]["global_setting"],
+                                  iconColor: AppColors.greenMain,
+                                  onTap: () {
+                                    context.pushRoute(const SettingManageRoute());
+                                  },
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                9.verticalSpace,
-                Row(
-                  mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
-                  children: [
-                    state.accessUserSettingBlock!
-                        ? DashboardItemBase(
-                            iconData: FlutterRemix.user_6_fill,
-                            title: state.translate[state.languageSelected]["account"],
-                            iconColor: AppColors.deliveredOrders,
-                            onTap: () {
-                              context.pushRoute(const AccountPosDesktopRoute());
-                            },
-                          )
-                        : const SizedBox(),
-                    state.accessGlobalSettingBlock!
-                        ? DashboardItemBase(
-                            iconData: FlutterRemix.settings_2_fill,
-                            title: state.translate[state.languageSelected]["global_setting"],
-                            iconColor: AppColors.greenMain,
-                            onTap: () {
-                              context.pushRoute(const SettingManageRoute());
-                            },
-                          )
-                        : const SizedBox(),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
       );
     }
   }

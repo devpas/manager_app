@@ -77,12 +77,9 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
 
   Widget debt(BaseState stateBase) {
     final stateCustomer = ref.watch(customersProvider);
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     return Material(
       color: AppColors.white,
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -212,175 +209,12 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
   }
 
   Widget payment(BaseState stateBase) {
-    final statePos = ref.watch(posSystemPASProvider);
     final stateBase = ref.watch(baseProvider);
-    final notifierPos = ref.read(posSystemPASProvider.notifier);
-    final notifierProducts = ref.read(productsPASProvider.notifier);
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     final notifier = ref.read(posSystemPASProvider.notifier);
     return Column(
       children: [
-        WidgetsToImage(
-          controller: controller,
-          child: Column(
-            children: [
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(stateBase.translate[stateBase.languageSelected]["receipt"]),
-                ),
-              ),
-              Container(
-                height: 30,
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: screenWidth * 0.15,
-                        child: Text(
-                          stateBase.translate[stateBase.languageSelected]["product_name"],
-                          style: AppTypographies.styBlack11W400Opacity40,
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.05,
-                        child: Text(
-                          stateBase.translate[stateBase.languageSelected]["price"],
-                          style: AppTypographies.styBlack11W400Opacity40,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.05,
-                        child: Text(
-                          stateBase.translate[stateBase.languageSelected]["quantity"],
-                          style: AppTypographies.styBlack11W400Opacity40,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.1,
-                        child: Text(
-                          "%",
-                          style: AppTypographies.styBlack11W400Opacity40,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.07,
-                        child: Text(
-                          "${stateBase.translate[stateBase.languageSelected]["price"]} + %",
-                          style: AppTypographies.styBlack11W400Opacity40,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.1,
-                        child: Text(
-                          stateBase.translate[stateBase.languageSelected]["price"],
-                          style: AppTypographies.styBlack11W400Opacity40,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: screenHeight * 0.3,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  physics: const CustomBouncingScrollPhysics(),
-                  itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        notifierPos.updateIndex("ticketLine", index);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 1.5, 0, 1.5),
-                        child: Container(
-                          height: 30,
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: screenWidth * 0.15,
-                                  child: Text(
-                                    "${notifierProducts.listProductCache.where((product) => product.id == statePos.listTicket![statePos.selectTicket!].ticketlines![index].productId).toList().first.name}",
-                                    style: AppTypographies.styBlack11W400,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: screenWidth * 0.05,
-                                  child: Text(
-                                    notifierPos.convertNumberZero(double.parse("${statePos.listTicket![statePos.selectTicket!].ticketlines![index].price}")),
-                                    style: AppTypographies.styBlack11W400,
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: screenWidth * 0.05,
-                                  child: Text(
-                                    notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit!),
-                                    style: AppTypographies.styBlack11W400,
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: screenWidth * 0.1,
-                                  child: Text(
-                                    (notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) * 100).toStringAsFixed(2),
-                                    style: AppTypographies.styBlack11W400,
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: screenWidth * 0.07,
-                                  child: Text(
-                                    notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].price! * (1 + notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) / 100)),
-                                    style: AppTypographies.styBlack11W400,
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: screenWidth * 0.1,
-                                  child: Text(
-                                    notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].price! *
-                                        (1 + notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) / 100) *
-                                        double.parse("${statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit}")),
-                                    style: AppTypographies.styBlack11W400,
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 5, 20, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(stateBase.translate[stateBase.languageSelected]["total_money"], textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
-                    Text(notifierPos.totalMoneyCalculator(statePos.selectTicket!, true), textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
         Row(
           children: [
             SizedBox(
@@ -454,7 +288,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          stateBase.translate[stateBase.languageSelected]["back"],
+                          stateBase.translate[stateBase.languageSelected]["money_back"],
                           style: AppTypographies.styBlack14W400,
                         ),
                         Text(notifier.convertNumberZero(refundsMoney), style: AppTypographies.styBlack14W400)
@@ -501,9 +335,11 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
     final notifierCustomer = ref.read(customersProvider.notifier);
     final stateBase = ref.watch(baseProvider);
     final notifierBase = ref.read(baseProvider.notifier);
+    final statePos = ref.watch(posSystemPASProvider);
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: tabActive == 0 ? screenHeight : screenHeight * 0.6,
+      height: screenHeight,
       child: Column(
         children: [
           10.verticalSpace,
@@ -512,6 +348,166 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
             style: AppTypographies.styBlack22W500,
           ),
           10.verticalSpace,
+          WidgetsToImage(
+            controller: controller,
+            child: Column(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(stateBase.translate[stateBase.languageSelected]["receipt"]),
+                  ),
+                ),
+                Container(
+                  height: 30,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: screenWidth * 0.15,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["product_name"],
+                            style: AppTypographies.styBlack11W400Opacity40,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.05,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["price"],
+                            style: AppTypographies.styBlack11W400Opacity40,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.05,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["quantity"],
+                            style: AppTypographies.styBlack11W400Opacity40,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.1,
+                          child: Text(
+                            "%",
+                            style: AppTypographies.styBlack11W400Opacity40,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.07,
+                          child: Text(
+                            "${stateBase.translate[stateBase.languageSelected]["price"]} + %",
+                            style: AppTypographies.styBlack11W400Opacity40,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.1,
+                          child: Text(
+                            stateBase.translate[stateBase.languageSelected]["price"],
+                            style: AppTypographies.styBlack11W400Opacity40,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.3,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    physics: const CustomBouncingScrollPhysics(),
+                    itemCount: statePos.listTicket!.isNotEmpty ? statePos.listTicket![statePos.selectTicket!].ticketlines!.length : 0,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          notifierPos.updateIndex("ticketLine", index);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 1.5, 0, 1.5),
+                          child: Container(
+                            height: 30,
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: screenWidth * 0.15,
+                                    child: Text(
+                                      "${notifierProducts.listProductCache.where((product) => product.id == statePos.listTicket![statePos.selectTicket!].ticketlines![index].productId).toList().first.name}",
+                                      style: AppTypographies.styBlack11W400,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.05,
+                                    child: Text(
+                                      notifierPos.convertNumberZero(double.parse("${statePos.listTicket![statePos.selectTicket!].ticketlines![index].price}")),
+                                      style: AppTypographies.styBlack11W400,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.05,
+                                    child: Text(
+                                      notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit!),
+                                      style: AppTypographies.styBlack11W400,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.1,
+                                    child: Text(
+                                      (notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) * 100).toStringAsFixed(2),
+                                      style: AppTypographies.styBlack11W400,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.07,
+                                    child: Text(
+                                      notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].price! * (1 + notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) / 100)),
+                                      style: AppTypographies.styBlack11W400,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.1,
+                                    child: Text(
+                                      notifierPos.convertNumberZero(statePos.listTicket![statePos.selectTicket!].ticketlines![index].price! *
+                                          (1 + notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) / 100) *
+                                          double.parse("${statePos.listTicket![statePos.selectTicket!].ticketlines![index].unit}")),
+                                      style: AppTypographies.styBlack11W400,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 5, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(stateBase.translate[stateBase.languageSelected]["total_money"], textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
+                      Text(notifierPos.totalMoneyCalculator(statePos.selectTicket!, true), textAlign: TextAlign.right, style: AppTypographies.styBlack11W400),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           Container(
             color: AppColors.white,
             child: TabBar(

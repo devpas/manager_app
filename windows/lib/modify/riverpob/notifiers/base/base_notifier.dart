@@ -7,6 +7,8 @@ import 'package:esc_pos_printer/esc_pos_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_printer/flutter_bluetooth_printer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/modify/riverpob/notifiers/customers/customers_notifier.dart';
+import 'package:g_manager_app/src/core/di/dependency_manager.dart';
 import 'package:g_manager_app/src/core/routes/app_router.gr.dart';
 import 'package:g_manager_app/src/core/utils/local_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -445,7 +447,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
     return numb;
   }
 
-  Future<void> createOrder(double money, int reason, int printerId, String payment, String email, String note) async {
+  Future<void> createOrder(double money, int reason, int printerId, String payment, String email, String note, String customerId) async {
     TicketData ticket = TicketData(
         id: 0,
         title: DateFormat.yMd().add_Hms().format(DateTime.now()),
@@ -461,7 +463,13 @@ class BaseNotifier extends StateNotifier<BaseState> {
         payments: [PaymentData(id: 0, receiptId: 0, payment: "", total: 0, transId: "", returnMSG: "", notes: "")]);
 
     ticket = ticket.copyWith(
-        personId: email, customerId: "", status: 1, ticketlines: [], taxlines: [], payments: [PaymentData(id: 0, receiptId: 0, payment: "debtpaid", total: money, transId: "", returnMSG: "successful", notes: note)], receipt: ReceiptData(id: 0, moneyId: 0, datenew: DateTime.now(), attributes: "{}"));
+        personId: email,
+        customerId: customerId,
+        status: 1,
+        ticketlines: [],
+        taxlines: [],
+        payments: [PaymentData(id: 0, receiptId: 0, payment: "debtpaid", total: money, transId: "", returnMSG: "successful", notes: note)],
+        receipt: ReceiptData(id: 0, moneyId: 0, datenew: DateTime.now(), attributes: "{}"));
 
     final connected = await AppConnectivity.connectivity();
     if (connected) {

@@ -459,7 +459,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          stateBase.translate[stateBase.languageSelected]["back"],
+                          stateBase.translate[stateBase.languageSelected]["money_back"],
                           style: AppTypographies.styBlack14W400,
                         ),
                         Text(notifier.convertNumberZero(refundsMoney), style: AppTypographies.styBlack14W400)

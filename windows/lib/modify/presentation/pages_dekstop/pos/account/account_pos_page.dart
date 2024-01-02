@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/models/data/customer_data.dart';
 import 'package:g_manager_app/modify/models/data/product_data.dart';
-import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/calculator_simple.dart';
 import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/drawer_tablet.dart';
 import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/transfer_money_account_modal.dart';
 import 'package:g_manager_app/modify/riverpob/notifiers/notifiers.dart';
@@ -49,6 +48,8 @@ class _AccountPosDesktopPageState extends ConsumerState<AccountPosDesktopPage> w
 
   bool findStatus = true;
 
+  String inputText = "";
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +60,393 @@ class _AccountPosDesktopPageState extends ConsumerState<AccountPosDesktopPage> w
         ref.read(customersProvider.notifier).fetchListCustomers();
         noteController.text = ref.watch(customersProvider).customerSelected!.note!;
       },
+    );
+  }
+
+  Widget calculatorOrders(BuildContext context) {
+    final statePos = ref.watch(posSystemPASProvider);
+    final notifierPos = ref.read(posSystemPASProvider.notifier);
+    return Container(
+      width: 185,
+      height: 350,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.r),
+        color: AppColors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText = "";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 130.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "CE",
+                          style: TextStyle(fontSize: 20, color: Colors.green, fontWeight: FontWeight.bold),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {});
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "-",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "7";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "7",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "8";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "8",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "9";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "9",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "4";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "4",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "5";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "5",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "6";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "6",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "1";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "1",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "2";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "2",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "3";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "3",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      inputText += "0";
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 130.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "0",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    inputText += ".";
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                        width: 60.r,
+                        height: 60.r,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green),
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.green.withOpacity(0.1),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          ".",
+                          style: TextStyle(fontSize: 30, color: Colors.green),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                      width: 130.r,
+                      height: 60.r,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green),
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: Colors.green.withOpacity(0.1),
+                      ),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Text(inputText)],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
+                    child: Container(
+                      width: 60.r,
+                      height: 60.r,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green),
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: Colors.green.withOpacity(0.1),
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        FlutterRemix.check_line,
+                        size: 20.r,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -265,22 +653,20 @@ class _AccountPosDesktopPageState extends ConsumerState<AccountPosDesktopPage> w
                         15.horizontalSpace,
                         IconTextButton(
                           backgroundColor: AppColors.greenMain.withOpacity(0.07),
-                          iconData: FlutterRemix.exchange_dollar_line,
+                          iconData: stateBase.sendMoneyLoading! ? FlutterRemix.loader_3_fill : FlutterRemix.exchange_dollar_line,
                           iconColor: AppColors.greenMain,
                           title: "Thanh toán tài khoản",
                           textColor: AppColors.greenMain,
                           onPressed: () {
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) {
-                                return const TransferMoneyAccountModal(
-                                  totalMoneyFromTicket: 10000,
-                                  warehouseId: 1,
-                                  reason: 1,
-                                );
-                              },
-                            );
+                            if (stateBase.sendMoneyLoading! == false) {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) {
+                                  return const TransferMoneyAccountModal();
+                                },
+                              );
+                            }
                           },
                         ),
                         15.horizontalSpace,
@@ -499,11 +885,7 @@ class _AccountPosDesktopPageState extends ConsumerState<AccountPosDesktopPage> w
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            CalculatorSimple(
-                                              onPayment: () {},
-                                            )
-                                          ],
+                                          children: [calculatorOrders(context)],
                                         ),
                                       ],
                                     ),

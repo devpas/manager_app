@@ -35,11 +35,15 @@ class _TaxCusCategoriesDesktopPageState extends ConsumerState<TaxCusCategoriesDe
     );
   }
 
-  TextEditingController codeController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   bool activeCheckBox = true;
 
   XFile? image;
+
+  int itemIndex = -1;
+
+  bool createMode = false;
 
   @override
   void dispose() {
@@ -156,21 +160,45 @@ class _TaxCusCategoriesDesktopPageState extends ConsumerState<TaxCusCategoriesDe
                         backgroundColor: Colors.deepOrange.withOpacity(0.07),
                         iconData: FlutterRemix.add_line,
                         iconColor: Colors.deepOrange,
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            createMode = true;
+                            nameController.text = "";
+                          });
+                        },
                       ),
                       20.horizontalSpace,
                       CircleIconButton(
-                        backgroundColor: AppColors.red.withOpacity(0.07),
+                        backgroundColor: createMode ? Colors.grey.withOpacity(0.07) : AppColors.red.withOpacity(0.07),
                         iconData: FlutterRemix.close_line,
-                        iconColor: AppColors.red,
-                        onTap: () {},
+                        iconColor: createMode ? Colors.grey : AppColors.red,
+                        onTap: () {
+                          if (createMode == false) {
+                            notifier.deleteTaxCusCategory(state.taxCusCategorySelected["id"]);
+                          }
+                        },
                       ),
                       25.horizontalSpace,
                       CircleIconButton(
                         backgroundColor: AppColors.blue.withOpacity(0.07),
                         iconData: FlutterRemix.save_line,
                         iconColor: AppColors.blue,
-                        onTap: () {},
+                        onTap: () {
+                          if (createMode) {
+                            var taxCusCategoryData = {
+                              "name": nameController.text,
+                            };
+                            notifier.addTaxCusCategory(taxCusCategoryData);
+                          } else {
+                            var taxCusCategoryData = {
+                              "index": state.taxCusCategorySelected["index"],
+                              "id": state.taxCusCategorySelected["id"],
+                              "name": nameController.text,
+                            };
+                            notifier.updateTaxCusCategory(taxCusCategoryData);
+                          }
+                          createMode = false;
+                        },
                       ),
                       15.horizontalSpace,
                     ]),
@@ -190,7 +218,7 @@ class _TaxCusCategoriesDesktopPageState extends ConsumerState<TaxCusCategoriesDe
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.white,
                   ),
-                  child: state.taxCategoryLoading!
+                  child: state.taxCusCategoryLoading!
                       ? Center(
                           child: CircularProgressIndicator(
                             color: AppColors.greenMain,
@@ -210,10 +238,13 @@ class _TaxCusCategoriesDesktopPageState extends ConsumerState<TaxCusCategoriesDe
 
                               return InkWell(
                                 onTap: () {
+                                  createMode = false;
+                                  itemIndex = index + 1;
                                   notifier.setTaxCusCategorySelected(taxCusCategory);
+                                  nameController.text = taxCusCategory["name"];
                                 },
                                 child: Container(
-                                  color: taxCusCategory["id"] == state.taxCusCategorySelected!["id"] ? Colors.blue : Colors.white,
+                                  color: taxCusCategory["index"] == itemIndex ? Colors.blue : Colors.white,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Column(
@@ -230,7 +261,7 @@ class _TaxCusCategoriesDesktopPageState extends ConsumerState<TaxCusCategoriesDe
                                               width: screenWidth * 0.25,
                                               child: Text(
                                                 taxCusCategory["name"],
-                                                style: TextStyle(color: taxCusCategory["id"] == state.taxCusCategorySelected!["id"] ? Colors.white : Colors.black),
+                                                style: TextStyle(color: taxCusCategory["index"] == itemIndex ? Colors.white : Colors.black),
                                               ),
                                             ),
                                           ],
@@ -271,7 +302,7 @@ class _TaxCusCategoriesDesktopPageState extends ConsumerState<TaxCusCategoriesDe
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: codeController,
+                                          controller: nameController,
                                           decoration: const InputDecoration.collapsed(
                                             hintText: '',
                                           ),

@@ -226,7 +226,7 @@ class _AccountPosPageState extends ConsumerState<AccountPosPage> {
                       title: "Chuyển tiền",
                       onPressed: () {
                         if (money <= stateBase.moneyWallet) {
-                          notifierBase.createOrder(money, -2, 0, paymentMethod, "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}", note);
+                          // notifierBase.createOrder(money, -2, 0, paymentMethod, "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}", note,"");
                         } else {
                           setState(() {
                             checkMoney = false;

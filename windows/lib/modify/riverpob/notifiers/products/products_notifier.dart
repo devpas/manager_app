@@ -337,7 +337,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["data"] != null) {
       state = state.copyWith(taxCusCategories: response["data"], taxCusCategoryLoading: false, taxCusCategorySelected: response["data"][0]);
     } else {
-      // print(response);
+      print(response);
     }
   }
 
@@ -347,7 +347,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     if (response["msg"] == "add tax customer category successful") {
       await getListCustomerType();
     } else {
-      // print(response);
+      print(response);
     }
   }
 
@@ -361,13 +361,13 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     }
   }
 
-  Future<void> deleteTaxCusCategory(dynamic data) async {
+  Future<void> deleteTaxCusCategory(dynamic taxCusCatetoryId) async {
     state = state.copyWith(taxCusCategoryLoading: true);
-    final response = await _productsPASRepository.deleteTaxCusCategory(data);
+    final response = await _productsPASRepository.deleteTaxCusCategory(taxCusCatetoryId);
     if (response["msg"] == "delete tax customer category successful") {
       await getListCustomerType();
     } else {
-      // print(response);
+      print(response);
     }
   }
 

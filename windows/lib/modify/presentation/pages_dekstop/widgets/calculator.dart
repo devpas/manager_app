@@ -100,9 +100,12 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
                 InkWell(
                   onTap: () {
-                    double money = double.parse(inputText);
-                    double unit = double.parse(inputTextMod.replaceAll("X", ""));
-                    notifierPos.addTicketlineMoney(money, unit, "minus");
+                    var ticketlineSelected = statePos.listTicket![statePos.selectTicket!].ticketlines![statePos.selectTicketLine!];
+                    if (ticketlineSelected.unit! - 1 > 0) {
+                      notifierPos.editUnitProduct((ticketlineSelected.unit! - 1).toString(), ticketlineSelected.price.toString(), ticketlineSelected.productId, statePos.selectTicketLine!, statePos.selectTicket!);
+                    } else {
+                      notifierPos.deleteTicketline(statePos.selectTicket!, statePos.selectTicketLine!);
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(3),
@@ -305,10 +308,8 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
                 InkWell(
                   onTap: () {
-                    print("add money");
-                    double money = double.parse(inputText);
-                    double unit = double.parse(inputTextMod.replaceAll("X", ""));
-                    notifierPos.addTicketlineMoney(money, unit, "add");
+                    var ticketlineSelected = statePos.listTicket![statePos.selectTicket!].ticketlines![statePos.selectTicketLine!];
+                    notifierPos.editUnitProduct((ticketlineSelected.unit! + 1).toString(), ticketlineSelected.price.toString(), ticketlineSelected.productId, statePos.selectTicketLine!, statePos.selectTicket!);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(3),
@@ -508,77 +509,77 @@ class _CalculatorState extends ConsumerState<Calculator> {
                 ),
               ],
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     InkWell(
-            //       onTap: () {},
-            //       child: Padding(
-            //         padding: const EdgeInsets.all(3),
-            //         child: Container(
-            //           width: 130.r,
-            //           height: 57.r,
-            //           decoration: BoxDecoration(
-            //             border: Border.all(color: Colors.green),
-            //             borderRadius: BorderRadius.circular(5.r),
-            //             color: Colors.green.withOpacity(0.1),
-            //           ),
-            //           alignment: Alignment.center,
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(3.0),
-            //             child: Column(
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: [Text(inputText)],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     InkWell(
-            //       onTap: () {},
-            //       child: Padding(
-            //         padding: const EdgeInsets.all(3),
-            //         child: Container(
-            //           width: 60.r,
-            //           height: 57.r,
-            //           decoration: BoxDecoration(
-            //             border: Border.all(color: Colors.green),
-            //             color: Colors.green.withOpacity(0.1),
-            //           ),
-            //           alignment: Alignment.center,
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(3.0),
-            //             child: Column(
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: [Text(inputTextMod)],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     InkWell(
-            //       onTap: () {},
-            //       child: Padding(
-            //         padding: const EdgeInsets.all(3),
-            //         child: Container(
-            //           width: 60.r,
-            //           height: 57.r,
-            //           decoration: BoxDecoration(
-            //             border: Border.all(color: Colors.green),
-            //             borderRadius: BorderRadius.circular(5.r),
-            //             color: Colors.green.withOpacity(0.1),
-            //           ),
-            //           alignment: Alignment.center,
-            //           child: Icon(
-            //             FlutterRemix.barcode_line,
-            //             size: 20.r,
-            //             color: Colors.green,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(3),
+                    child: Container(
+                      width: 130.r,
+                      height: 57.r,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green),
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: Colors.green.withOpacity(0.1),
+                      ),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Text(inputText)],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(3),
+                    child: Container(
+                      width: 60.r,
+                      height: 57.r,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green),
+                        color: Colors.green.withOpacity(0.1),
+                      ),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Text(inputTextMod)],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(3),
+                    child: Container(
+                      width: 60.r,
+                      height: 57.r,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green),
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: Colors.green.withOpacity(0.1),
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        FlutterRemix.barcode_line,
+                        size: 20.r,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
