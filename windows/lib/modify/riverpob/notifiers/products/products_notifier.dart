@@ -474,4 +474,17 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     // print(tax);
     return tax;
   }
+
+  void sortTax() {
+    List<dynamic> taxesBeforeSort = state.taxes!;
+    List<dynamic> taxesAfterSort = [];
+
+    for (int i = 0; i < taxesBeforeSort.length; i++) {
+      taxesAfterSort.add(taxesBeforeSort[i]);
+    }
+
+    taxesAfterSort.sort((a, b) => a["name"].toString().toLowerCase().compareTo(b["name"].toString().toLowerCase()));
+
+    state = state.copyWith(taxes: taxesAfterSort);
+  }
 }

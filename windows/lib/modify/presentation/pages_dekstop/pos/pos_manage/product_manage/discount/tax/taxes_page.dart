@@ -433,7 +433,9 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                         backgroundColor: AppColors.greenMain.withOpacity(0.07),
                         iconData: FlutterRemix.sort_desc,
                         iconColor: AppColors.greenMain,
-                        onTap: () {},
+                        onTap: () {
+                          notifier.sortTax();
+                        },
                       ),
                       20.horizontalSpace,
                       CircleIconButton(
