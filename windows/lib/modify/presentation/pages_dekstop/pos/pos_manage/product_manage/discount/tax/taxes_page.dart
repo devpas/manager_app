@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../../components/components.dart';
+import '../../../../../../pages/pos/pos_manage/products_manage/discount/widgets/w_delete_tax_dialog.dart';
 import '../../../../../../theme/theme.dart';
 
 class TaxesDesktopPage extends ConsumerStatefulWidget {
@@ -86,12 +87,108 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
         taxCusCategories.add(taxCusCategoriess[i]);
       }
 
-      taxes.insert(0, {"index": -1, "id": "-1", "name": "", "valid_from": "0000-00-00 00:00:00", "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
+      taxes.insert(0, {"index": -1, "id": "-1", "name": "", "valid_from": DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now()), "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
       taxCategories.insert(0, {"index": -1, "id": "-1", "name": ""});
       taxCusCategories.insert(0, {"index": -1, "id": "", "name": ""});
       print(taxes);
       loadData = true;
     });
+  }
+
+  void addTax() {
+    setState(() {
+      final notifier = ref.read(productsPASProvider.notifier);
+      createMode = true;
+      nameController.text = "";
+      itemIndex = -1;
+      var tax = taxes[0];
+      taxSelected = taxes[0];
+      notifier.setTaxSelected(tax[0]);
+      nameController.text = tax["name"];
+      expireController.text = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.parse(tax["valid_from"]));
+      priceController.text = tax["rate"].toString();
+      squenceController.text = tax["rate_order"] != null ? tax["rate_order"].toString() : "";
+      activeCheckBox = tax["rate_cascade"] == 1 ? true : false;
+      taxIdSelected = tax["id"];
+      taxCategoryIdSelected = tax["tax_category_id"] ?? "";
+      taxCusCategoryIdSelected = tax["tax_customer_category_id"] ?? "";
+    });
+  }
+
+  void loadTax(index, tax) {
+    final notifier = ref.read(productsPASProvider.notifier);
+    createMode = false;
+    itemIndex = index + 1;
+    notifier.setTaxSelected(tax);
+    nameController.text = tax["name"];
+    expireController.text = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.parse(tax["valid_from"]));
+    priceController.text = tax["rate"].toString();
+    squenceController.text = tax["rate_order"] != null ? tax["rate_order"].toString() : "";
+    activeCheckBox = tax["rate_cascade"] == 1 ? true : false;
+    taxIdSelected = tax["id"];
+    taxCategoryIdSelected = tax["tax_category_id"] ?? "";
+    taxCusCategoryIdSelected = tax["tax_customer_category_id"] ?? "";
+  }
+
+  void searchTax() {
+    final notifier = ref.read(productsPASProvider.notifier);
+    final state = ref.watch(productsPASProvider);
+    var result = [];
+    var taxesTemp = state.taxes!;
+    if (conditionSelected == 0) {
+      result = taxesTemp.where((e) => e["name"].toString().contains(searchController.text)).toList();
+    } else if (conditionSelected == 1) {
+      result = taxesTemp.where((e) => double.parse(e["rate"].toString()) == double.parse(searchController.text)).toList();
+    } else if (conditionSelected == 2) {
+      result = taxesTemp.where((e) => double.parse(e["rate_cascade"]) == double.parse(searchController.text)).toList();
+    }
+    print("asd :$result");
+    setState(() {
+      if (result.isNotEmpty) {
+        taxSelected = result.first;
+        itemIndex = taxSelected["index"];
+        print(itemIndex);
+        _scrollControllerItem.scrollTo(index: itemIndex - 1, duration: const Duration(milliseconds: 200));
+        notifier.setTaxSelected(taxSelected);
+        nameController.text = taxSelected["name"];
+        expireController.text = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.parse(taxSelected["valid_from"]));
+        priceController.text = taxSelected["rate"].toString();
+        squenceController.text = taxSelected["rate_order"] != null ? taxSelected["rate_order"].toString() : "";
+        activeCheckBox = taxSelected["rate_cascade"] == 1 ? true : false;
+        taxIdSelected = taxSelected["id"];
+        taxCategoryIdSelected = taxSelected["tax_category_id"] ?? "";
+        taxCusCategoryIdSelected = taxSelected["tax_customer_category_id"] ?? "";
+      } else {
+        itemIndex = -1;
+      }
+    });
+  }
+
+  void saveTax() async {
+    final notifier = ref.read(productsPASProvider.notifier);
+    if (createMode) {
+      var taxData = {
+        "name": nameController.text,
+        "tax_customer_category_id": taxCusCategoryIdSelected,
+        "tax_category_id": taxCategoryIdSelected,
+        "tax_id": taxIdSelected,
+        "rate": double.parse(priceController.text),
+        "rate_cascade": activeCheckBox ? 1 : 0,
+        "rate_order": squenceController.text,
+        "valid_from": "'${expireController.text}",
+      };
+      await notifier.addTax(taxData);
+      setState(() {
+        taxes = [];
+        taxIdSelected = "";
+        final taxess = ref.watch(productsPASProvider).taxes!;
+        for (int i = 0; i < taxess.length; i++) {
+          taxes.add(taxess[i]);
+        }
+        taxes.insert(0, {"index": -1, "id": "-1", "name": "", "valid_from": DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now()), "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
+        itemIndex = 0;
+      });
+    } else {}
   }
 
   @override
@@ -200,14 +297,14 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                         iconColor: AppColors.canceledOrders,
                         onTap: () {
                           notifier.getListTaxes();
-                          setState(() async {
+                          setState(() {
                             taxes = [];
                             taxIdSelected = "";
-                            final taxess = await ref.watch(productsPASProvider).taxes!;
+                            final taxess = ref.watch(productsPASProvider).taxes!;
                             for (int i = 0; i < taxess.length; i++) {
                               taxes.add(taxess[i]);
                             }
-                            taxes.insert(0, {"index": -1, "id": -1, "name": "", "valid_from": "0000-00-00 00:00:00", "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
+                            taxes.insert(0, {"index": -1, "id": "-1", "name": "", "valid_from": DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now()), "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
                             itemIndex = 0;
                           });
                         },
@@ -319,35 +416,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                     CommonAccentButton(
                                       title: stateBase.translate[stateBase.languageSelected]["show_result"],
                                       onPressed: () {
-                                        var result = [];
-                                        var taxesTemp = state.taxes!;
-                                        if (conditionSelected == 0) {
-                                          result = taxesTemp.where((e) => e["name"].toString().contains(searchController.text)).toList();
-                                        } else if (conditionSelected == 1) {
-                                          result = taxesTemp.where((e) => double.parse(e["rate"].toString()) == double.parse(searchController.text)).toList();
-                                        } else if (conditionSelected == 2) {
-                                          result = taxesTemp.where((e) => double.parse(e["rate_cascade"]) == double.parse(searchController.text)).toList();
-                                        }
-                                        print("asd :$result");
-                                        setState(() {
-                                          if (result.isNotEmpty) {
-                                            taxSelected = result.first;
-                                            itemIndex = taxSelected["index"];
-                                            print(itemIndex);
-                                            _scrollControllerItem.scrollTo(index: itemIndex - 1, duration: const Duration(milliseconds: 200));
-                                            notifier.setTaxSelected(taxSelected);
-                                            nameController.text = taxSelected["name"];
-                                            expireController.text = DateFormat.yMd().add_Hms().format(DateTime.parse(taxSelected["valid_from"]));
-                                            priceController.text = taxSelected["rate"].toString();
-                                            squenceController.text = taxSelected["rate_order"] != null ? taxSelected["rate_order"].toString() : "";
-                                            activeCheckBox = taxSelected["rate_cascade"] == 1 ? true : false;
-                                            taxIdSelected = taxSelected["id"];
-                                            taxCategoryIdSelected = taxSelected["tax_category_id"] ?? "";
-                                            taxCusCategoryIdSelected = taxSelected["tax_customer_category_id"] ?? "";
-                                          } else {
-                                            itemIndex = -1;
-                                          }
-                                        });
+                                        searchTax();
                                         context.popRoute();
                                       },
                                     ),
@@ -371,21 +440,36 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                         backgroundColor: Colors.deepOrange.withOpacity(0.07),
                         iconData: FlutterRemix.add_line,
                         iconColor: Colors.deepOrange,
-                        onTap: () {},
+                        onTap: () {
+                          addTax();
+                        },
                       ),
                       20.horizontalSpace,
                       CircleIconButton(
                         backgroundColor: AppColors.red.withOpacity(0.07),
                         iconData: FlutterRemix.close_line,
                         iconColor: AppColors.red,
-                        onTap: () {},
+                        onTap: () {
+                          print(state.taxSelected["id"]);
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return DeleteTaxDialog(
+                                alias: state.taxSelected["id"].toString(),
+                              );
+                            },
+                          );
+                        },
                       ),
                       25.horizontalSpace,
                       CircleIconButton(
                         backgroundColor: AppColors.blue.withOpacity(0.07),
                         iconData: FlutterRemix.save_line,
                         iconColor: AppColors.blue,
-                        onTap: () {},
+                        onTap: () async {
+                          saveTax();
+                        },
                       ),
                       15.horizontalSpace,
                     ]),
@@ -425,19 +509,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
 
                               return InkWell(
                                 onTap: () {
-                                  print(tax);
-
-                                  createMode = false;
-                                  itemIndex = index + 1;
-                                  notifier.setTaxSelected(tax);
-                                  nameController.text = tax["name"];
-                                  expireController.text = DateFormat.yMd().add_Hms().format(DateTime.parse(tax["valid_from"]));
-                                  priceController.text = tax["rate"].toString();
-                                  squenceController.text = tax["rate_order"] != null ? tax["rate_order"].toString() : "";
-                                  activeCheckBox = tax["rate_cascade"] == 1 ? true : false;
-                                  taxIdSelected = tax["id"];
-                                  taxCategoryIdSelected = tax["tax_category_id"] ?? "";
-                                  taxCusCategoryIdSelected = tax["tax_customer_category_id"] ?? "";
+                                  loadTax(index, tax);
                                   // print(taxIdSelected);
                                   // print(taxCategoryIdSelected);
                                   // print(taxCusCategoryIdSelected);
@@ -513,16 +585,6 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                         ),
                                       ),
                                       (screenWidth * 0.1).horizontalSpace,
-                                      IconTextButton(
-                                        backgroundColor: AppColors.blue.withOpacity(0.07),
-                                        iconData: FlutterRemix.delete_bin_fill,
-                                        iconColor: AppColors.blue,
-                                        title: "Thêm vào danh mục",
-                                        textColor: AppColors.blue,
-                                        onPressed: () {
-                                          // notifierBase.loadTranslate();
-                                        },
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -554,16 +616,6 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                         ),
                                       ),
                                       (screenWidth * 0.1).horizontalSpace,
-                                      IconTextButton(
-                                        backgroundColor: AppColors.blue.withOpacity(0.07),
-                                        iconData: FlutterRemix.delete_bin_fill,
-                                        iconColor: AppColors.blue,
-                                        title: "Xóa khỏi danh mục",
-                                        textColor: AppColors.blue,
-                                        onPressed: () {
-                                          // notifierBase.loadTranslate();
-                                        },
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -594,7 +646,28 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                         backgroundColor: AppColors.blue.withOpacity(0.07),
                                         iconData: FlutterRemix.calendar_2_line,
                                         iconColor: AppColors.blue,
-                                        onTap: () {},
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Dialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.r),
+                                                ),
+                                                child: Container(
+                                                  constraints: BoxConstraints(
+                                                    maxWidth: 450.r,
+                                                  ),
+                                                  child: CustomDatePickerModal(onDateSaved: (DateTime? date) {
+                                                    setState(() {
+                                                      expireController.text = DateFormat("yyyy-MM-dd HH:mm:ss").format(date!);
+                                                    });
+                                                  }),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
                                       ),
                                     ],
                                   ),
@@ -637,7 +710,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                         child: Column(
                                           children: [
                                             DropdownButton(
-                                                value: taxIdSelected == "" ? taxes[0] : taxes.where((e) => e["id"] == taxIdSelected).first,
+                                                value: taxIdSelected == "" || taxIdSelected != "null" ? taxes[0] : taxes.where((e) => e["id"] == taxIdSelected).first,
                                                 items: taxes.map<DropdownMenuItem<dynamic>>((dynamic value) {
                                                   return DropdownMenuItem<dynamic>(
                                                     value: value,

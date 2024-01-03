@@ -459,7 +459,7 @@ class _AddTaxPageState extends ConsumerState<AddTaxPage> {
                       title: AppHelpers.getTranslation(TrKeys.save),
                       onPressed: () async {
                         if (taxName != "") {
-                          var dataTax = {
+                          var taxData = {
                             "name": taxName,
                             "tax_customer_category_id": taxCusCategoryId,
                             "tax_category_id": taxCategoryId,
@@ -469,7 +469,7 @@ class _AddTaxPageState extends ConsumerState<AddTaxPage> {
                             "rate_order": order,
                             "valid_from": DateFormat.yMd().add_Hms().format(dateExpire),
                           };
-                          await notifier.addTax(dataTax);
+                          await notifier.addTax(taxData);
                           if (context.mounted) {
                             if (state.taxLoading! == false) {
                               context.popRoute();
