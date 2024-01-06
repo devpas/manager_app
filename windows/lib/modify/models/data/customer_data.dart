@@ -4,7 +4,7 @@ class CustomerData {
       String? searchkey,
       String? taxId,
       String? name,
-      String? taxCategory,
+      String? taxCusCategory,
       String? card,
       double? maxDebt,
       String? address,
@@ -32,7 +32,7 @@ class CustomerData {
     _searchkey = searchkey;
     _taxId = _taxId;
     _name = name;
-    _taxCategory = taxCategory;
+    _taxCusCategory = taxCusCategory;
     _card = card;
     _maxDebt = maxDebt;
     _address = address;
@@ -63,7 +63,7 @@ class CustomerData {
     _searchkey = json['search_key'].toString();
     _taxId = json['tax_id'];
     _name = json['name'];
-    _taxCategory = json['customer_category_id'];
+    _taxCusCategory = json['customer_category_id'];
     _card = json['card'];
     _maxDebt = double.parse(json['max_debt'].toString()) + 0.0;
     _address = json['address'];
@@ -97,7 +97,7 @@ class CustomerData {
   String? _searchkey;
   String? _taxId;
   String? _name;
-  String? _taxCategory;
+  String? _taxCusCategory;
   String? _card;
   double? _maxDebt;
   String? _address;
@@ -126,7 +126,7 @@ class CustomerData {
     String? searchkey,
     String? taxId,
     String? name,
-    String? taxCategory,
+    String? taxCusCategory,
     String? card,
     double? maxDebt,
     String? address,
@@ -155,7 +155,7 @@ class CustomerData {
           searchkey: searchkey ?? _searchkey,
           taxId: taxId ?? _taxId,
           name: name ?? _name,
-          taxCategory: taxCategory ?? _taxCategory,
+          taxCusCategory: taxCusCategory ?? _taxCusCategory,
           card: card ?? _card,
           maxDebt: maxDebt ?? _maxDebt,
           address: address ?? _address,
@@ -187,7 +187,7 @@ class CustomerData {
 
   String? get name => _name;
 
-  String? get taxCategory => _taxCategory;
+  String? get taxCusCategory => _taxCusCategory;
 
   String? get card => _card;
 
@@ -239,7 +239,7 @@ class CustomerData {
     map['search_key'] = _searchkey;
     map['taxId'] = _taxId;
     map['name'] = _name;
-    map['customer_category_id'] = _taxCategory;
+    map['customer_category_id'] = _taxCusCategory;
     map['card'] = _card;
     map['max_debt'] = _maxDebt;
     map['address'] = _address;
@@ -273,7 +273,7 @@ class CustomerData {
       searchkey: "",
       taxId: "",
       name: "",
-      taxCategory: "",
+      taxCusCategory: "",
       card: "",
       maxDebt: 0.0,
       address: "",

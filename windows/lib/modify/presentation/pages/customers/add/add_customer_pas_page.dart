@@ -490,7 +490,7 @@ class _AddCustomerPasPageState extends ConsumerState<AddCustomerPasPage> with Ti
                                             setState(() {
                                               taxCusCategoryId = taxCusCategory["index"];
                                               taxCusCategoryName = taxCusCategory["name"];
-                                              customer = customer.copyWith(taxCategory: taxCusCategory["id"]);
+                                              customer = customer.copyWith(taxCusCategory: taxCusCategory["id"]);
                                             });
                                             Navigator.pop(context);
                                           },

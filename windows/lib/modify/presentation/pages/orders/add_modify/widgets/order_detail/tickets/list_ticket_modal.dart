@@ -58,7 +58,7 @@ class _ListTicketModalState extends ConsumerState<ListTicketModal> {
                       var customerPos = ["", "Khách lẻ", "Không có địa chỉ cụ thể", "", ""];
                       if (state.listTicket![index].customerId != "") {
                         var customer = stateCustomer.customers!.where((c) => c.id == state.listTicket![index].customerId!).toList()[0];
-                        customerPos = [customer.id!, customer.name!, customer.address!, customer.fileOrdersId ?? "", customer.taxCategory!];
+                        customerPos = [customer.id!, customer.name!, customer.address!, customer.fileOrdersId ?? "", customer.taxCusCategory!];
                       }
                       notifier.setSelectUserPos(customerPos);
                       notifierCustomer.selectCustomer(state.infoSelected![0][0]);

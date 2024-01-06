@@ -10,6 +10,7 @@ import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/drawer_t
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../../../src/core/utils/utils.dart';
@@ -29,6 +30,24 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
   TextEditingController searchController = TextEditingController();
   late TabController _tabController;
 
+  int indexItemSelected = 0;
+
+  bool activeCheckBox = true;
+  XFile? image;
+  TextEditingController codeController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController dtgtController = TextEditingController();
+  TextEditingController maxdebtController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
+  String taxCusCategoryIdSelected = "";
+  String createdate = "";
+  String card = "";
+  String currentDebt = "";
+  String curDate = "";
+  String nowDate = "";
+  var taxCusCategories = [];
+
   @override
   void initState() {
     super.initState();
@@ -38,15 +57,10 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
       Duration.zero,
       () {
         ref.read(customersProvider.notifier).fetchListCustomers();
+        loadValue();
       },
     );
   }
-
-  TextEditingController codeController = TextEditingController();
-
-  bool activeCheckBox = true;
-
-  XFile? image;
 
   Widget notes() {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -68,7 +82,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    controller: codeController,
+                    controller: noteController,
                     maxLines: 7,
                     decoration: const InputDecoration.collapsed(hintText: ''),
                   ),
@@ -302,6 +316,35 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
     );
   }
 
+  void loadValue() async {
+    setState(() {
+      final taxCusCategoriess = ref.watch(productsPASProvider).taxCusCategories!;
+      for (int i = 0; i < taxCusCategoriess.length; i++) {
+        taxCusCategories.add(taxCusCategoriess[i]);
+      }
+      taxCusCategories.insert(0, {"index": -1, "id": "", "name": ""});
+    });
+  }
+
+  void loadDataCustomer() {
+    final state = ref.watch(customersProvider);
+    CustomerData customer = state.customerSelected!;
+    setState(() {
+      activeCheckBox = customer.visible == 1 ? true : false;
+      codeController.text = customer.searchkey!;
+      phoneController.text = customer.phone!;
+      nameController.text = customer.name!;
+      dtgtController.text = customer.ngt ?? "";
+      maxdebtController.text = customer.curDebt.toString();
+      noteController.text = customer.note!;
+      createdate = customer.createDate.toString();
+      card = customer.card!;
+      currentDebt = customer.curDebt.toString();
+      taxCusCategoryIdSelected = customer.taxCusCategory!;
+      curDate = customer.curdate.toString();
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -314,6 +357,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
     final stateBase = ref.watch(baseProvider);
     final notifier = ref.read(customersProvider.notifier);
     final notifierBase = ref.read(baseProvider.notifier);
+    final stateProduct = ref.watch(productsPASProvider);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return AbsorbPointer(
@@ -476,10 +520,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                 }
                                 return InkWell(
                                   onTap: () {
+                                    setState(() {
+                                      indexItemSelected = index;
+                                    });
                                     notifier.selectCustomer(customer.id!);
+                                    loadDataCustomer();
                                   },
                                   child: Container(
-                                    color: customer.id == state.customerSelected!.id ? Colors.blue : Colors.white,
+                                    color: index == indexItemSelected ? Colors.blue : Colors.white,
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 5),
                                       child: Column(
@@ -496,7 +544,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                                 width: screenWidth * 0.25,
                                                 child: Text(
                                                   customer.name!,
-                                                  style: TextStyle(color: customer.id == state.customerSelected!.id ? Colors.white : Colors.black),
+                                                  style: TextStyle(color: index == indexItemSelected ? Colors.white : Colors.black),
                                                 ),
                                               ),
                                             ],
@@ -582,7 +630,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                       child: Column(
                                         children: [
                                           TextFormField(
-                                            controller: codeController,
+                                            controller: phoneController,
                                             decoration: const InputDecoration.collapsed(
                                               hintText: '',
                                             ),
@@ -594,23 +642,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                   ),
                                   10.horizontalSpace,
                                   SizedBox(width: screenWidth * 0.1, child: const Text("Ngày tạo:")),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: SizedBox(
-                                      width: screenWidth * 0.185,
-                                      child: Column(
-                                        children: [
-                                          TextFormField(
-                                            controller: codeController,
-                                            decoration: const InputDecoration.collapsed(
-                                              hintText: '',
-                                            ),
-                                          ),
-                                          const Divider(),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                  SizedBox(width: screenWidth * 0.185, child: Text(createdate)),
                                 ],
                               ),
                             ),
@@ -626,7 +658,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                       child: Column(
                                         children: [
                                           TextFormField(
-                                            controller: codeController,
+                                            controller: nameController,
                                             decoration: const InputDecoration.collapsed(
                                               hintText: '',
                                             ),
@@ -647,23 +679,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                   SizedBox(width: screenWidth * 0.1, child: const Text("Card:")),
                                   AbsorbPointer(
                                     absorbing: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: SizedBox(
-                                        width: screenWidth * 0.395,
-                                        child: Column(
-                                          children: [
-                                            TextFormField(
-                                              controller: codeController,
-                                              decoration: const InputDecoration.collapsed(
-                                                hintText: '',
-                                              ),
-                                            ),
-                                            const Divider(),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    child: SizedBox(width: screenWidth * 0.185, child: Text(card)),
                                   ),
                                   20.horizontalSpace,
                                   CircleIconButton(
@@ -694,7 +710,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                       child: Column(
                                         children: [
                                           TextFormField(
-                                            controller: codeController,
+                                            controller: dtgtController,
                                             decoration: const InputDecoration.collapsed(
                                               hintText: '',
                                             ),
@@ -714,7 +730,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                         child: Column(
                                           children: [
                                             TextFormField(
-                                              controller: codeController,
+                                              initialValue: "",
                                               decoration: const InputDecoration.collapsed(
                                                 hintText: '',
                                               ),
@@ -734,17 +750,22 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                 children: [
                                   SizedBox(width: screenWidth * 0.1, child: const Text("Nhóm KH:")),
                                   SizedBox(
-                                    width: screenWidth * 0.395,
+                                    width: screenWidth * 0.185,
                                     child: Column(
                                       children: [
                                         DropdownButton(
-                                            items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                                              return DropdownMenuItem<String>(
+                                            value: taxCusCategoryIdSelected == "" ? taxCusCategories[0] : taxCusCategories.where((e) => e["id"] == taxCusCategoryIdSelected).first,
+                                            items: taxCusCategories.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                                              return DropdownMenuItem<dynamic>(
                                                 value: value,
-                                                child: SizedBox(width: screenWidth * 0.37, child: Text(value)),
+                                                child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
                                               );
                                             }).toList(),
-                                            onChanged: (e) {}),
+                                            onChanged: (e) {
+                                              setState(() {
+                                                taxCusCategoryIdSelected = e["id"];
+                                              });
+                                            }),
                                       ],
                                     ),
                                   ),
@@ -763,7 +784,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                       child: Column(
                                         children: [
                                           TextFormField(
-                                            controller: codeController,
+                                            controller: maxdebtController,
                                             decoration: const InputDecoration.collapsed(
                                               hintText: '',
                                             ),
@@ -776,44 +797,12 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                   5.horizontalSpace,
                                   AbsorbPointer(
                                     absorbing: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: SizedBox(
-                                        width: screenWidth * 0.185,
-                                        child: Column(
-                                          children: [
-                                            TextFormField(
-                                              controller: codeController,
-                                              decoration: const InputDecoration.collapsed(
-                                                hintText: '',
-                                              ),
-                                            ),
-                                            const Divider(),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    child: SizedBox(width: screenWidth * 0.185, child: Text(currentDebt)),
                                   ),
                                   5.horizontalSpace,
                                   AbsorbPointer(
                                     absorbing: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: SizedBox(
-                                        width: screenWidth * 0.185,
-                                        child: Column(
-                                          children: [
-                                            TextFormField(
-                                              controller: codeController,
-                                              decoration: const InputDecoration.collapsed(
-                                                hintText: '',
-                                              ),
-                                            ),
-                                            const Divider(),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    child: SizedBox(width: screenWidth * 0.185, child: Text(curDate)),
                                   ),
                                   5.horizontalSpace,
                                 ],
@@ -826,51 +815,23 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                   SizedBox(width: screenWidth * 0.1, child: const Text("ĐH cuối-CG cuối:")),
                                   AbsorbPointer(
                                     absorbing: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: SizedBox(
-                                        width: screenWidth * 0.185,
-                                        child: Column(
-                                          children: [
-                                            TextFormField(
-                                              controller: codeController,
-                                              decoration: const InputDecoration.collapsed(
-                                                hintText: '',
-                                              ),
-                                            ),
-                                            const Divider(),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    child: SizedBox(width: screenWidth * 0.185, child: Text(curDate)),
                                   ),
                                   5.horizontalSpace,
                                   AbsorbPointer(
                                     absorbing: true,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: SizedBox(
-                                        width: screenWidth * 0.185,
-                                        child: Column(
-                                          children: [
-                                            TextFormField(
-                                              controller: codeController,
-                                              decoration: const InputDecoration.collapsed(
-                                                hintText: '',
-                                              ),
-                                            ),
-                                            const Divider(),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    child: SizedBox(width: screenWidth * 0.185, child: Text(nowDate)),
                                   ),
                                   20.horizontalSpace,
                                   CircleIconButton(
                                     backgroundColor: AppColors.canceledOrders.withOpacity(0.07),
                                     iconData: FlutterRemix.calendar_check_line,
                                     iconColor: AppColors.canceledOrders,
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        nowDate = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
+                                      });
+                                    },
                                   ),
                                 ],
                               ),

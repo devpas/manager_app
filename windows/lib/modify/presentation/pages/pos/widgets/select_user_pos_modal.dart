@@ -75,7 +75,7 @@ class _SearchUserModalInClientInfoState extends ConsumerState<SelectUserPosModal
                             title: '${customer.name}',
                             isSelected: false,
                             onTap: () {
-                              var customerPos = [customer.id, customer.name, customer.address, customer.fileOrdersId ?? "", customer.taxCategory];
+                              var customerPos = [customer.id, customer.name, customer.address, customer.fileOrdersId ?? "", customer.taxCusCategory];
                               notifierPos.setSelectUserPos(customerPos);
                               notifier.selectCustomer(statePos.infoSelected![0][0]);
                               context.popRoute();
