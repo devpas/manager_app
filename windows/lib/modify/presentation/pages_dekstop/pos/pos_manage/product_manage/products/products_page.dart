@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,7 +65,14 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
   String categoryName = "";
   TextEditingController attributeController = TextEditingController();
 
+  String taxCategoryIdSelected = "";
+  int categoryIdSelected = 0;
+
+  bool createMode = false;
+
   bool findStatus = true;
+
+  String imageUrl = "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg";
 
   @override
   void initState() {
@@ -78,6 +88,73 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
         }
       },
     );
+  }
+
+  void loadProductData() {
+    final state = ref.watch(productsPASProvider);
+    print(indexItemSelected);
+    ProductPasData product;
+    if (state.productsAfterFilter!.isNotEmpty) {
+      product = state.productsAfterFilter![indexItemSelected];
+    } else {
+      product = state.products![indexItemSelected];
+    }
+    setState(() {
+      refcodeController.text = product.reference!;
+      barcodeController.text = product.code!;
+      nameController.text = product.name!;
+      priceBuyController.text = product.priceBuy!.toString();
+      priceSellController.text = product.priceSell!.toString();
+      priceSellPercentController.text = ((double.parse(product.priceSell!.toString()) - double.parse(product.priceBuy!.toString())) * 100 / double.parse(product.priceSell!.toString())).toString();
+      pricesellAfterDiscountController.text = product.priceSell!.toString();
+      categoryIdSelected = product.categoryId!;
+      taxCategoryIdSelected = product.taxCat!;
+      imageUrl = product.image!;
+      print(taxCategoryIdSelected);
+    });
+  }
+
+  void newProduct() {
+    setState(() {
+      createMode = true;
+      refcodeController.text = "";
+      barcodeController.text = "";
+      nameController.text = "";
+      priceBuyController.text = "0";
+      priceSellController.text = "0";
+      priceSellPercentController.text = "0";
+      pricesellAfterDiscountController.text = "0";
+      categoryIdSelected = -1;
+      taxCategoryIdSelected = "";
+      indexItemSelected = 0;
+      image = null;
+      imageUrl = "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg";
+    });
+  }
+
+  void saveProduct() {
+    final notifier = ref.read(productsPASProvider.notifier);
+    final state = ref.watch(productsPASProvider);
+    ProductPasData product = ProductPasData().initProduct();
+    var base64 = "";
+    if (image != null) {
+      final bytes = File(image!.path).readAsBytesSync();
+      base64 = base64Encode(bytes);
+    }
+    if (createMode == false) {
+      product = state.productSelected!;
+    }
+    product = product.copyWith(
+        name: nameController.text, code: "'${barcodeController.text}", reference: "'${refcodeController.text}", priceBuy: double.parse(priceBuyController.text), priceSell: double.parse(priceSellController.text), categoryId: categoryIdSelected, taxCat: "'$taxCategoryIdSelected", image: base64);
+    print(state.productSelected!.index);
+    if (createMode) {
+      product = product.copyWith(attributes: '[{"warehouse_id":0,"stock_current":0,"stock_min":0,"stock_max":200},{"warehouse_id":1,"stock_current":0,"stock_min":0,"stock_max":200},{"warehouse_id":2,"stock_current":0,"stock_min":0,"stock_max":200}]', active: 1);
+      notifier.addProduct(product, "all");
+    } else {
+      notifier.updateProduct(product, "all");
+    }
+    notifier.resetSearch();
+    newProduct();
   }
 
   void filterList(dynamic filterValue, ProductsPasState stateProduct, ProductsPasNotifier notifierProduct) async {
@@ -238,13 +315,18 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         DropdownButton(
-                            items: state.taxes!.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                            value: taxCategoryIdSelected == "" ? state.taxCategories![0] : state.taxCategories!.where((e) => e["id"] == taxCategoryIdSelected).first,
+                            items: state.taxCategories!.map<DropdownMenuItem<dynamic>>((dynamic value) {
                               return DropdownMenuItem<dynamic>(
                                 value: value,
                                 child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
                               );
                             }).toList(),
-                            onChanged: (e) {}),
+                            onChanged: (e) {
+                              setState(() {
+                                taxCategoryIdSelected = e["id"].toString();
+                              });
+                            }),
                       ],
                     ),
                   ),
@@ -259,13 +341,19 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         DropdownButton(
+                            value: categoryIdSelected == 0 ? stateCategory.categories![0] : stateCategory.categories!.where((e) => e.id == categoryIdSelected).first,
                             items: stateCategory.categories!.map<DropdownMenuItem<CategoryPasData>>((CategoryPasData value) {
                               return DropdownMenuItem<CategoryPasData>(
                                 value: value,
                                 child: SizedBox(width: screenWidth * 0.160, child: Text(value.name!)),
                               );
                             }).toList(),
-                            onChanged: (e) {}),
+                            onChanged: (e) {
+                              setState(() {
+                                categoryIdSelected = int.parse(e!.id!.toString());
+                                print("asdasd $categoryIdSelected");
+                              });
+                            }),
                       ],
                     ),
                   ),
@@ -306,6 +394,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                 Align(
                   alignment: Alignment.center,
                   child: SelectImageCustomeSize(
+                    imageUrl: imageUrl,
                     file: image,
                     heigth: screenHeight * 0.35,
                     width: screenWidth * 0.2,
@@ -647,6 +736,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                             setState(() {
                               indexItemSelected = 0;
                               _scrollControllerItem.scrollTo(index: 0, duration: const Duration(milliseconds: 200));
+                              loadProductData();
                             });
                           },
                         ),
@@ -657,8 +747,9 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                           iconColor: AppColors.orderReviews,
                           onTap: () {
                             setState(() {
-                              if (indexItemSelected > 0) {
+                              if (indexItemSelected >= 1) {
                                 indexItemSelected = indexItemSelected - 1;
+                                loadProductData();
                               }
                             });
                           },
@@ -677,7 +768,17 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                           iconColor: AppColors.orderReviews,
                           onTap: () {
                             setState(() {
-                              indexItemSelected = indexItemSelected + 1;
+                              if ((state.productsAfterFilter!.isNotEmpty)) {
+                                if (indexItemSelected < state.productsAfterFilter!.length) {
+                                  indexItemSelected = indexItemSelected + 1;
+                                  loadProductData();
+                                }
+                              } else {
+                                if (indexItemSelected < state.products!.length - 1) {
+                                  indexItemSelected = indexItemSelected + 1;
+                                  loadProductData();
+                                }
+                              }
                             });
                           },
                         ),
@@ -690,6 +791,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                             setState(() {
                               indexItemSelected = state.products!.length - 1;
                               _scrollControllerItem.scrollTo(index: state.products!.length - 1, duration: const Duration(milliseconds: 200));
+                              loadProductData();
                             });
                           },
                         ),
@@ -736,21 +838,35 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                           backgroundColor: Colors.deepOrange.withOpacity(0.07),
                           iconData: FlutterRemix.add_line,
                           iconColor: Colors.deepOrange,
-                          onTap: () {},
+                          onTap: () {
+                            newProduct();
+                          },
                         ),
                         20.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.red.withOpacity(0.07),
                           iconData: FlutterRemix.close_line,
                           iconColor: AppColors.red,
-                          onTap: () {},
+                          onTap: () {
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) {
+                                return WDeleteProductDialog(
+                                  productId: state.productSelected!.id!,
+                                );
+                              },
+                            );
+                          },
                         ),
                         25.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.blue.withOpacity(0.07),
                           iconData: FlutterRemix.save_line,
                           iconColor: AppColors.blue,
-                          onTap: () {},
+                          onTap: () {
+                            saveProduct();
+                          },
                         ),
                         15.horizontalSpace,
                       ]),
@@ -793,6 +909,9 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                   onTap: () {
                                     setState(() {
                                       indexItemSelected = index;
+                                      createMode = false;
+                                      notifier.setProductSelected(product);
+                                      loadProductData();
                                     });
                                   },
                                   child: Container(
@@ -838,7 +957,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("${state.productSelected!.code!}-${state.productSelected!.name!}"),
+                                Text("${refcodeController.text}-${nameController.text}"),
                                 Row(
                                   children: [
                                     Padding(
@@ -849,7 +968,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                         child: SizedBox(
                                       child: TextFormField(
                                         controller: refcodeController,
-                                        decoration: const InputDecoration.collapsed(hintText: ''),
+                                        // decoration: const InputDecoration.collapsed(hintText: ''),
                                       ),
                                     )),
                                     Padding(
@@ -860,7 +979,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                         child: SizedBox(
                                       child: TextFormField(
                                         controller: nameController,
-                                        decoration: const InputDecoration.collapsed(hintText: ''),
+                                        // decoration: const InputDecoration.collapsed(hintText: ''),
                                       ),
                                     ))
                                   ],

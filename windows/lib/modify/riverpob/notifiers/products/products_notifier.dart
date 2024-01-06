@@ -211,12 +211,16 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(sortProductsId: sortId);
   }
 
-  Future<void> addProduct(ProductPasData product) async {
+  Future<void> addProduct(ProductPasData product, [String loadMode = "pos"]) async {
     state = state.copyWith(productsLoading: true);
     final response = await _productsPASRepository.addProduct(product);
     response.when(
       success: (data) async {
-        fetchProductsPos();
+        if (loadMode == "pos") {
+          fetchProductsPos();
+        } else if (loadMode == "all") {
+          fetchProducts();
+        }
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -227,12 +231,16 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(productsLoading: false);
   }
 
-  Future<void> updateProduct(ProductPasData product) async {
+  Future<void> updateProduct(ProductPasData product, [String loadMode = "pos"]) async {
     state = state.copyWith(productsLoading: true);
     final response = await _productsPASRepository.updateProduct(product);
     response.when(
       success: (data) async {
-        fetchProductsPos();
+        if (loadMode == "pos") {
+          fetchProductsPos();
+        } else if (loadMode == "all") {
+          fetchProducts();
+        }
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -243,12 +251,16 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(productsLoading: false);
   }
 
-  Future<void> deleteProduct(int productId) async {
+  Future<void> deleteProduct(int productId, [String loadMode = "pos"]) async {
     state = state.copyWith(productsLoading: true);
     final response = await _productsPASRepository.deleteProduct(productId);
     response.when(
       success: (data) async {
-        fetchProductsPos();
+        if (loadMode == "pos") {
+          fetchProductsPos();
+        } else if (loadMode == "all") {
+          fetchProducts();
+        }
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {

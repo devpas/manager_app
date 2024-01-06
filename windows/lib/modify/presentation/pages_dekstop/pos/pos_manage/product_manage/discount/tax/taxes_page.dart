@@ -125,7 +125,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
     priceController.text = tax["rate"].toString();
     squenceController.text = tax["rate_order"] != null ? tax["rate_order"].toString() : "";
     activeCheckBox = tax["rate_cascade"] == 1 ? true : false;
-    taxIdSelected = tax["id"];
+    taxIdSelected = tax["parent_id"];
     taxCategoryIdSelected = tax["tax_category_id"] ?? "";
     taxCusCategoryIdSelected = tax["tax_customer_category_id"] ?? "";
   }
@@ -166,29 +166,35 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
 
   void saveTax() async {
     final notifier = ref.read(productsPASProvider.notifier);
+    final state = ref.watch(productsPASProvider);
+    var taxData = {
+      "name": nameController.text,
+      "tax_customer_category_id": taxCusCategoryIdSelected,
+      "tax_category_id": taxCategoryIdSelected,
+      "parent_id": taxIdSelected,
+      "rate": double.parse(priceController.text),
+      "rate_cascade": activeCheckBox ? 1 : 0,
+      "rate_order": squenceController.text,
+      "valid_from": "'${expireController.text}",
+    };
     if (createMode) {
-      var taxData = {
-        "name": nameController.text,
-        "tax_customer_category_id": taxCusCategoryIdSelected,
-        "tax_category_id": taxCategoryIdSelected,
-        "tax_id": taxIdSelected,
-        "rate": double.parse(priceController.text),
-        "rate_cascade": activeCheckBox ? 1 : 0,
-        "rate_order": squenceController.text,
-        "valid_from": "'${expireController.text}",
-      };
       await notifier.addTax(taxData);
-      setState(() {
-        taxes = [];
-        taxIdSelected = "";
-        final taxess = ref.watch(productsPASProvider).taxes!;
-        for (int i = 0; i < taxess.length; i++) {
-          taxes.add(taxess[i]);
-        }
-        taxes.insert(0, {"index": -1, "id": "-1", "name": "", "valid_from": DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now()), "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
-        itemIndex = 0;
-      });
-    } else {}
+    } else {
+      taxData["index"] = state.taxSelected["index"];
+      taxData["id"] = state.taxSelected["id"];
+      print(taxData);
+      await notifier.updateTax(taxData);
+    }
+
+    setState(() {
+      taxes = [];
+      final taxess = ref.watch(productsPASProvider).taxes!;
+      for (int i = 0; i < taxess.length; i++) {
+        taxes.add(taxess[i]);
+      }
+      taxes.insert(0, {"index": -1, "id": "-1", "name": "", "valid_from": DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now()), "tax_category_id": "", "tax_customer_category_id": "", "parent_id": "", "rate": 0, "rate_cascade": 1, "rate_order": 0});
+      itemIndex = 0;
+    });
   }
 
   @override
@@ -712,7 +718,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                         child: Column(
                                           children: [
                                             DropdownButton(
-                                                value: taxIdSelected == "" || taxIdSelected != "null" ? taxes[0] : taxes.where((e) => e["id"] == taxIdSelected).first,
+                                                value: (taxIdSelected == "" || taxIdSelected == "null") ? taxes[0] : taxes.where((e) => e["id"] == taxIdSelected).first,
                                                 items: taxes.map<DropdownMenuItem<dynamic>>((dynamic value) {
                                                   return DropdownMenuItem<dynamic>(
                                                     value: value,

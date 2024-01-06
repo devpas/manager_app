@@ -10,8 +10,7 @@ import '../../../../../../theme/theme.dart';
 class WDeleteProductDialog extends ConsumerWidget {
   final int productId;
 
-  const WDeleteProductDialog({Key? key, required this.productId})
-      : super(key: key);
+  const WDeleteProductDialog({Key? key, required this.productId}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,7 +47,7 @@ class WDeleteProductDialog extends ConsumerWidget {
               backgroundColor: AppColors.red,
             ),
             onPressed: () {
-              notifier.deleteProduct(productId);
+              notifier.deleteProduct(productId, "all");
               context.popRoute();
             },
             child: Text(

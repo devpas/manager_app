@@ -57,6 +57,8 @@ class ProductPasData {
 
   ProductPasData.fromJson(dynamic json) {
     print(json.runtimeType);
+    print(json["index"]);
+    print(json["index"].runtimeType);
     _index = json['index'];
     _id = json['id'];
     _reference = json['reference'];
@@ -76,7 +78,6 @@ class ProductPasData {
     _image = json['image'];
     _active = json['active'];
     _attributesetInstanceId = json["attributeset_instance_id"];
-    print(json['stocks'].runtimeType);
     json['stocks'] = jsonDecode(json['stocks']);
     _stocks = json['stocks'] != null ? List<StockData>.from(json['stocks'].map((x) => StockData.fromJson(x))) : null;
     _maxStockCurrent = json["max_stock_current"];
@@ -87,7 +88,6 @@ class ProductPasData {
         _listImport!.add(v);
       });
     }
-    print(json["price_buy_auto"]);
     _priceBuyAuto = json["price_buy_auto"] + 0.0;
     _isAuto = json["is_auto"];
     _children = json['children'] != null ? List<ProductPasData>.from(json['children'].map((x) => ProductPasData.fromJson(x))) : null;
