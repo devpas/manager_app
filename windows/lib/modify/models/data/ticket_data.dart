@@ -18,12 +18,12 @@ class TicketData {
   }
 
   TicketData.fromJson(dynamic json) {
-    _id = json['ticket_data']['ticket']['id'];
+    _id = json['ticket_data']['ticket']['ticket_index'];
     _title = json['ticket_data']['ticket']['title'];
     _ticketType = json['ticket_data']['ticket']['ticket_type'];
     _ticketId = json['ticket_data']['ticket']['ticket_id'];
-    _personId = json['ticket_data']['ticket']['person_id'];
-    _customerId = json['ticket_data']['ticket']['customer_id'];
+    _personId = json['ticket_data']['ticket']['person'];
+    _customerId = json['ticket_data']['ticket']['customer'];
     _status = json['ticket_data']['ticket']['status'];
     _datenew = DateTime.parse(json['date_new']);
     if (json['ticket_data']['ticketlines'] != null) {
@@ -100,7 +100,7 @@ class TicketData {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
+    map['ticket_index'] = _id;
     map['title'] = _title;
     map['ticket_type'] = _ticketType;
     map['ticket_id'] = _ticketId;

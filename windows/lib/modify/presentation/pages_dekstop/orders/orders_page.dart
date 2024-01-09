@@ -1,19 +1,17 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_manager_app/modify/models/data/customer_data.dart';
-import 'package:g_manager_app/modify/models/data/product_data.dart';
-import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/product_item_pas.dart';
 import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/drawer_tablet.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import '../../../../../../../src/core/constants/constants.dart';
-import '../../../../../../../src/core/routes/app_router.gr.dart';
-import '../../../../../../../src/core/utils/utils.dart';
+import '../../../models/models.dart';
 import '../../components/components.dart';
+import '../../pages/orders/widgets/order_filter_modal.dart';
 import '../../theme/theme.dart';
 
 class OrdersDesktopPage extends ConsumerStatefulWidget {
@@ -32,6 +30,9 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
 
   String inputText = "";
 
+  TicketData ticketSelected = TicketData();
+  int indexItemSelected = -1;
+
   @override
   void initState() {
     super.initState();
@@ -49,9 +50,27 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
     _scrollController.dispose();
   }
 
+  String valueTime = "q-1-2024";
+
+  String getNameSellerByPersonId(String personId) {
+    String sellerName = "";
+    final stateBase = ref.watch(baseProvider);
+    if (md5.convert(utf8.encode("${stateBase.baseRootInfomation["email"]}_${stateBase.baseRootInfomation["email"]}")).toString() == personId) {
+      sellerName = "${stateBase.baseRootInfomation["base_name"]}-${stateBase.baseRootInfomation["email"]}";
+    } else {
+      List<EmployeeData> listEmployee = stateBase.employees!;
+      for (int i = 0; i < listEmployee.length; i++) {
+        if (md5.convert(utf8.encode("${stateBase.baseRootInfomation["email"]}_${listEmployee[i].email}")).toString() == personId) {
+          sellerName = "${stateBase.employees![i].name}-${stateBase.employees![i].email}";
+        }
+      }
+    }
+    return sellerName;
+  }
+
   Widget calculatorAccount(BuildContext context) {
-    final statePos = ref.watch(posSystemPASProvider);
-    final notifierPos = ref.read(posSystemPASProvider.notifier);
+    final state = ref.watch(orderPasProvider);
+    final notifier = ref.read(orderPasProvider.notifier);
     return Container(
       width: 185,
       height: 350,
@@ -438,10 +457,12 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(customersProvider);
+    final state = ref.watch(orderPasProvider);
     final stateBase = ref.watch(baseProvider);
     final notifier = ref.read(customersProvider.notifier);
     final notifierBase = ref.read(baseProvider.notifier);
+    final stateOrder = ref.watch(orderPasProvider);
+    final notifierOrder = ref.read(orderPasProvider.notifier);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return AbsorbPointer(
@@ -489,10 +510,24 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                           color: AppColors.inProgressOrders.withOpacity(0.1),
                         ),
                         alignment: Alignment.centerLeft,
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 5, 0),
                           child: Row(
-                            children: [Text("")],
+                            children: [
+                              DropdownButton(
+                                  value: valueTime,
+                                  items: ["q-1-2023", "q-2-2023", "q-3-2023", "q-4-2023", "q-1-2024"].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: SizedBox(width: screenWidth * 0.1, child: Text(value)),
+                                    );
+                                  }).toList(),
+                                  onChanged: (e) {
+                                    setState(() {
+                                      valueTime = e!;
+                                    });
+                                  }),
+                            ],
                           ),
                         )),
                     SizedBox(
@@ -505,7 +540,16 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                           title: "Tìm kiếm",
                           textColor: AppColors.blue,
                           onPressed: () {
-                            // notifierBase.loadTranslate();
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) => OrderFilterModal(
+                                ontap: () {
+                                  notifierOrder.searchOrders();
+                                  context.popRoute();
+                                },
+                              ),
+                            );
                           },
                         ),
                         20.horizontalSpace,
@@ -556,10 +600,136 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
                     ),
                     height: screenHeight * 0.83,
                     width: screenWidth * 0.735,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            width: screenWidth * 0.35,
+                            child: state.isTicketsLoading
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.greenMain,
+                                      strokeWidth: 3.r,
+                                    ),
+                                  )
+                                : ListView(
+                                    physics: const CustomBouncingScrollPhysics(),
+                                    children: [
+                                      ListView.builder(
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        padding: REdgeInsets.only(
+                                          left: 15,
+                                          right: 15,
+                                          top: 14,
+                                          bottom: 0,
+                                        ),
+                                        itemCount: state.tickets!.length,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          TicketData order;
+                                          if (state.ticketsAfterFilter!.isNotEmpty) {
+                                            order = state.ticketsAfterFilter![index];
+                                          } else {
+                                            order = state.tickets![index];
+                                          }
+                                          return Column(
+                                            children: [
+                                              OrderPasItem(
+                                                order: order,
+                                                onTap: () {
+                                                  setState(() {
+                                                    print(order.runtimeType);
+                                                    ticketSelected = order;
+                                                    indexItemSelected = index;
+                                                    print(ticketSelected.toJson());
+                                                  });
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  )),
+                        VerticalDivider(),
+                        SizedBox(
+                            child: indexItemSelected != -1
+                                ? Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Đơn hàng-#${ticketSelected.ticketId}"),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Người xuất phiếu: ${getNameSellerByPersonId(ticketSelected.personId!)}"),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Khách hàng: ${notifier.getNameCustomeById(ticketSelected.customerId!)}"),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Ngày xuất phiếu: ${ticketSelected.datenew}"),
+                                    const Divider(),
+                                    Container(
+                                      width: screenWidth * 0.36,
+                                      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                                      child: Row(
+                                        children: [
+                                          SizedBox(width: screenWidth * 0.15, child: Text("Sản phẩm")),
+                                          SizedBox(width: screenWidth * 0.1, child: Text("giá+%")),
+                                          SizedBox(width: screenWidth * 0.05, child: Text("SL")),
+                                          SizedBox(child: Text("Tổng")),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: screenWidth * 0.36,
+                                      height: screenHeight * 0.3,
+                                      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                                      child: ListView(
+                                        physics: const CustomBouncingScrollPhysics(),
+                                        padding: EdgeInsets.all(3),
+                                        children: [
+                                          ListView.builder(
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemCount: ticketSelected.ticketlines!.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              TicketLineData ticketline = ticketSelected.ticketlines![index];
+                                              TaxlineData taxline = ticketSelected.taxlines![index];
+                                              return Row(
+                                                children: [
+                                                  SizedBox(width: screenWidth * 0.15, child: Text("${ticketline.productId}")),
+                                                  SizedBox(width: screenWidth * 0.1, child: Text("${taxline.amount!}")),
+                                                  SizedBox(width: screenWidth * 0.05, child: Text("${ticketline.unit}")),
+                                                  SizedBox(child: Text("${taxline.amount! * ticketline.unit!}")),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("SL món hàng: ${ticketSelected.ticketlines!.length}"),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Tổng tiền: ${ticketSelected.payments![0].total}"),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Phương thức thanh toán: ${ticketSelected.payments![0].payment}"),
+                                  ])
+                                : const SizedBox())
+                      ],
+                    ),
                   ),
                   Container(
                     decoration: BoxDecoration(

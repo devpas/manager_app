@@ -43,7 +43,6 @@ class SignInWebviewPage extends ConsumerWidget {
             return status! < 500;
           }),
     );
-    print(response.data);
     if (response.data.toString() == '{msg: google login success}') {
       return true;
     } else {

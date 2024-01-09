@@ -292,6 +292,8 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         payments: [PaymentData(id: 0, receiptId: 0, payment: payment, total: money, transId: "", returnMSG: "successful", notes: "")],
         receipt: ReceiptData(id: 0, moneyId: 0, datenew: DateTime.now(), attributes: "{}"));
 
+    // print(listTicket[state.selectTicket!].toJson());
+
     final connected = await AppConnectivity.connectivity();
     if (connected) {
       state = state.copyWith(createTicketLoading: true);

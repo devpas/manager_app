@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class CustomerData {
   CustomerData(
       {String? id,
@@ -256,13 +258,13 @@ class CustomerData {
     map['fax'] = _fax;
     map['notes'] = _note;
     map['visible'] = _visible;
-    map['cur_date'] = _curdate;
+    map['cur_date'] = "'${DateFormat("yyyy-MM-dd HH:mm:ss").format(_curdate!)}";
     map['cur_debt'] = _curDebt;
     map['file_orders_id'] = _fileOrdersId;
     if (_children != null) {
       map['children'] = _children?.map((v) => v.toJson()).toList();
     }
-    map['create_date'] = _createDate;
+    map['create_date'] = "'${DateFormat("yyyy-MM-dd HH:mm:ss").format(_createDate!)}";
     map['ngt'] = _ngt;
     return map;
   }

@@ -15,6 +15,7 @@ import '../../../../../../../src/core/constants/constants.dart';
 import '../../../../../../../src/core/routes/app_router.gr.dart';
 import '../../../../../../../src/core/utils/utils.dart';
 import '../../components/components.dart';
+import '../../pages/customers/widgets/w_delete_customer_dialog.dart';
 import '../../theme/theme.dart';
 
 class CustomersDesktopPage extends ConsumerStatefulWidget {
@@ -47,6 +48,8 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
   String curDate = "";
   String nowDate = "";
   var taxCusCategories = [];
+
+  bool createMode = false;
 
   @override
   void initState() {
@@ -326,16 +329,37 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
     });
   }
 
+  void newCustomer() {
+    final stateProduct = ref.watch(productsPASProvider);
+    setState(() {
+      createMode = true;
+      activeCheckBox = false;
+      codeController.text = "";
+      phoneController.text = "";
+      nameController.text = "";
+      dtgtController.text = "";
+      maxdebtController.text = "0";
+      noteController.text = "0";
+      createdate = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
+      card = "";
+      currentDebt = "0";
+      taxCusCategoryIdSelected = stateProduct.taxCusCategories![0]["id"];
+      curDate = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
+    });
+  }
+
   void loadDataCustomer() {
     final state = ref.watch(customersProvider);
     CustomerData customer = state.customerSelected!;
+    print(customer.id);
     setState(() {
+      createMode = false;
       activeCheckBox = customer.visible == 1 ? true : false;
       codeController.text = customer.searchkey!;
       phoneController.text = customer.phone!;
       nameController.text = customer.name!;
       dtgtController.text = customer.ngt ?? "";
-      maxdebtController.text = customer.curDebt.toString();
+      maxdebtController.text = customer.maxDebt.toString();
       noteController.text = customer.note!;
       createdate = customer.createDate.toString();
       card = customer.card!;
@@ -343,6 +367,41 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
       taxCusCategoryIdSelected = customer.taxCusCategory!;
       curDate = customer.curdate.toString();
     });
+  }
+
+  void saveCustomer() {
+    final notifier = ref.read(customersProvider.notifier);
+    final state = ref.watch(customersProvider);
+    CustomerData customer = CustomerData().initCustomer();
+    if (createMode == false) {
+      customer = state.customerSelected!;
+    }
+    customer = customer.copyWith(
+        name: nameController.text,
+        searchkey: "'${codeController.text}",
+        phone: "'${phoneController.text}",
+        ngt: "'${dtgtController.text}",
+        maxDebt: double.parse(maxdebtController.text),
+        note: "'${noteController.text}",
+        createDate: DateTime.parse(createdate),
+        card: "'$card",
+        curDebt: double.parse(currentDebt),
+        taxCusCategory: taxCusCategoryIdSelected,
+        curdate: DateTime.parse(curDate),
+        visible: activeCheckBox ? 1 : 0);
+    // print(state.productSelected!.index);
+    var customerData = customer.toJson();
+    if (createMode) {
+      notifier.addCustomer(customerData);
+    } else {
+      notifier.updateCustomer(customerData);
+    }
+    setState(() {
+      indexItemSelected = 0;
+    });
+    notifier.resetSearch();
+    notifier.selectCustomer(state.customers![0].id!);
+    loadDataCustomer();
   }
 
   @override
@@ -463,21 +522,35 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                           backgroundColor: Colors.deepOrange.withOpacity(0.07),
                           iconData: FlutterRemix.add_line,
                           iconColor: Colors.deepOrange,
-                          onTap: () {},
+                          onTap: () {
+                            newCustomer();
+                          },
                         ),
                         20.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.red.withOpacity(0.07),
                           iconData: FlutterRemix.close_line,
                           iconColor: AppColors.red,
-                          onTap: () {},
+                          onTap: () {
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) {
+                                return WDeleteCustomerDialog(
+                                  alias: state.customerSelected!.id!,
+                                );
+                              },
+                            );
+                          },
                         ),
                         25.horizontalSpace,
                         CircleIconButton(
                           backgroundColor: AppColors.blue.withOpacity(0.07),
                           iconData: FlutterRemix.save_line,
                           iconColor: AppColors.blue,
-                          onTap: () {},
+                          onTap: () {
+                            saveCustomer();
+                          },
                         ),
                         15.horizontalSpace,
                       ]),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,16 +80,17 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
   }
 
   Future<void> addCustomer(dynamic data) async {
-    data["cur_date"] = DateFormat.yMd().format(data["cur_date"]);
-    data["create_date"] = DateFormat.yMd().format(data["create_date"]);
+    // data["cur_date"] = DateFormat.yMd().format(data["cur_date"]);
+    // data["create_date"] = DateFormat.yMd().format(data["create_date"]);
     state = state.copyWith(customerLoading: true);
     final response = await _customersRepository.addCustomer(data);
     if (response["msg"] == "add customer successful") {
-      List<CustomerData> listCustomers = [];
+      List<CustomerData> listCustomersTemp = [];
       response["data"].forEach((v) {
-        listCustomers.add(CustomerData.fromJson(v));
+        listCustomersTemp.add(CustomerData.fromJson(v));
       });
-      state = state.copyWith(customersAfterFilter: listCustomers);
+      state = state.copyWith(customersAfterFilter: listCustomersTemp);
+      listCustomers = listCustomersTemp;
     } else {
       print("error");
     }
@@ -96,17 +98,17 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
   }
 
   Future<void> updateCustomer(dynamic data) async {
-    print(data);
     state = state.copyWith(customerLoading: true);
     data["cur_date"] = data["cur_date"].toString();
     data["create_date"] = data["create_date"].toString();
     final response = await _customersRepository.updateCustomer(data);
     if (response["msg"] == "update customer successful") {
-      List<CustomerData> listCustomers = [];
+      List<CustomerData> listCustomersTemp = [];
       response["data"].forEach((v) {
-        listCustomers.add(CustomerData.fromJson(v));
+        listCustomersTemp.add(CustomerData.fromJson(v));
       });
-      state = state.copyWith(customersAfterFilter: listCustomers);
+      state = state.copyWith(customersAfterFilter: listCustomersTemp);
+      listCustomers = listCustomersTemp;
     } else {
       print("error");
     }
@@ -117,11 +119,12 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     state = state.copyWith(customerLoading: true);
     final response = await _customersRepository.deleteCustomer(data);
     if (response["msg"] == "delete customer successful") {
-      List<CustomerData> listCustomers = [];
+      List<CustomerData> listCustomersTemp = [];
       response["data"].forEach((v) {
-        listCustomers.add(CustomerData.fromJson(v));
+        listCustomersTemp.add(CustomerData.fromJson(v));
       });
-      state = state.copyWith(customersAfterFilter: listCustomers);
+      state = state.copyWith(customersAfterFilter: listCustomersTemp);
+      listCustomers = listCustomersTemp;
     } else {
       print("error");
     }

@@ -18,7 +18,6 @@ class EmployeeData {
   }
 
   EmployeeData.fromJson(dynamic json) {
-    print(json);
     _name = json['name'];
     _phone = json['phone'];
     _email = json['email'];

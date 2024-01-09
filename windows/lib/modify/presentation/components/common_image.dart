@@ -22,7 +22,6 @@ class CommonImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("image" + imageUrl.toString());
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius.r),
       child: CachedNetworkImage(

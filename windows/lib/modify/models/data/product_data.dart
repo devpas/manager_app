@@ -56,9 +56,6 @@ class ProductPasData {
   }
 
   ProductPasData.fromJson(dynamic json) {
-    print(json.runtimeType);
-    print(json["index"]);
-    print(json["index"].runtimeType);
     _index = json['index'];
     _id = json['id'];
     _reference = json['reference'];
