@@ -293,8 +293,8 @@ class LocalStorage {
 
   String getlanguageSelected() => _preferences?.getString("language_selected") ?? 'vn';
 
-  void deleteKeyAccessOwner() => _preferences?.remove("owner_access_id");
-  void deleteKeyAccessShare() => _preferences?.remove("share_access_id");
+  void deleteKeyAccessOwner() => _preferences?.remove("owner_key_access");
+  void deleteKeyAccessShare() => _preferences?.remove("share_key_access");
   void deleteCookieAccess() => _preferences?.remove("google_cookie_access");
   void deleteListRole() => _preferences?.remove("list_role_share");
   void deleteBaseInformation() => _preferences?.remove("base_infomation");

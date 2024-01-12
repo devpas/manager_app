@@ -199,8 +199,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
     final response = await _baseRepository.getListEmplyees();
     response.when(
       success: (data) async {
-        state = state.copyWith(employees: data.employee);
-        state = state.copyWith(employeesLoading: false);
+        state = state.copyWith(employees: data.employee, employeesLoading: false);
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
@@ -488,7 +487,10 @@ class BaseNotifier extends StateNotifier<BaseState> {
     state = state.copyWith(printerLoading: true);
     final response = await _baseRepository.getListPrinters();
     if (response["data"] != null) {
-      state = state.copyWith(printers: response["data"], printerLoading: false, printerSelected: response["data"][0]);
+      state = state.copyWith(printers: response["data"], printerLoading: false);
+      if (response["data"].isNotEmpty) {
+        state = state.copyWith(printerSelected: response["data"][0]);
+      }
     } else {
       print(response);
     }

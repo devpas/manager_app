@@ -146,7 +146,6 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
     }
     product = product.copyWith(
         name: nameController.text, code: "'${barcodeController.text}", reference: "'${refcodeController.text}", priceBuy: double.parse(priceBuyController.text), priceSell: double.parse(priceSellController.text), categoryId: categoryIdSelected, taxCat: "'$taxCategoryIdSelected", image: base64);
-    print(state.productSelected!.index);
     if (createMode) {
       product = product.copyWith(attributes: '[{"warehouse_id":0,"stock_current":0,"stock_min":0,"stock_max":200},{"warehouse_id":1,"stock_current":0,"stock_min":0,"stock_max":200},{"warehouse_id":2,"stock_current":0,"stock_min":0,"stock_max":200}]', active: 1);
       notifier.addProduct(product, "all");
@@ -314,19 +313,21 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
-                        DropdownButton(
-                            value: taxCategoryIdSelected == "" ? state.taxCategories![0] : state.taxCategories!.where((e) => e["id"] == taxCategoryIdSelected).first,
-                            items: state.taxCategories!.map<DropdownMenuItem<dynamic>>((dynamic value) {
-                              return DropdownMenuItem<dynamic>(
-                                value: value,
-                                child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
-                              );
-                            }).toList(),
-                            onChanged: (e) {
-                              setState(() {
-                                taxCategoryIdSelected = e["id"].toString();
-                              });
-                            }),
+                        state.taxCategories!.isNotEmpty
+                            ? DropdownButton(
+                                value: taxCategoryIdSelected == "" ? state.taxCategories![0] : state.taxCategories!.where((e) => e["id"] == taxCategoryIdSelected).first,
+                                items: state.taxCategories!.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                                  return DropdownMenuItem<dynamic>(
+                                    value: value,
+                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                  );
+                                }).toList(),
+                                onChanged: (e) {
+                                  setState(() {
+                                    taxCategoryIdSelected = e["id"].toString();
+                                  });
+                                })
+                            : Text("Chưa có mục chiết khấu"),
                       ],
                     ),
                   ),
@@ -491,534 +492,538 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
             ),
           ),
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            5.verticalSpace,
-            Padding(
-              padding: const EdgeInsets.only(left: 5, right: 5),
-              child: Container(
-                height: screenHeight * 0.3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                ),
-                child: Column(children: [
+        body: stateCategory.categories!.length > 1
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  5.verticalSpace,
                   Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.only(left: 5, right: 5),
                     child: Container(
-                      height: screenHeight * 0.1,
-                      width: screenWidth,
+                      height: screenHeight * 0.3,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.2,
-                        ),
                         borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          const Text("Theo mã vạch"),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.1, child: const Text("Mã vạch:")),
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Container(
+                            height: screenHeight * 0.1,
+                            width: screenWidth,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 0.2,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                const Text("Theo mã vạch"),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
-                                    width: screenWidth * 0.185,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: barcodeSearchController,
-                                          decoration: const InputDecoration.collapsed(
-                                            hintText: '',
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.1, child: const Text("Mã vạch:")),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: barcodeSearchController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                              ),
+                                              const Divider(),
+                                            ],
                                           ),
                                         ),
-                                        const Divider(),
-                                      ],
-                                    ),
+                                      ),
+                                      5.verticalSpace,
+                                    ],
                                   ),
                                 ),
-                                5.verticalSpace,
-                              ],
+                              ]),
                             ),
                           ),
-                        ]),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Container(
-                      height: screenHeight * 0.18,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.1,
                         ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          const Text("Theo hình thức"),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.1, child: const Text("Tên:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
-                                    children: [
-                                      DropdownButton(
-                                          items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {}),
-                                    ],
-                                  ),
-                                ),
-                                5.horizontalSpace,
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Container(
+                            height: screenHeight * 0.18,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 0.1,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                const Text("Theo hình thức"),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
-                                    width: screenWidth * 0.185,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: nameSearchController,
-                                          decoration: const InputDecoration.collapsed(
-                                            hintText: '',
-                                          ),
-                                          onChanged: (e) {
-                                            setState(() {
-                                              nameSearchController.text = e.toString();
-                                            });
-                                          },
-                                        ),
-                                        const Divider(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                5.horizontalSpace,
-                                SizedBox(width: screenWidth * 0.1, child: const Text("Cấp trên:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
                                     children: [
-                                      DropdownButton(
-                                          value: stateCategory.categorySelected,
-                                          items: stateCategory.categories!.map<DropdownMenuItem<CategoryPasData>>((CategoryPasData category) {
-                                            return DropdownMenuItem<CategoryPasData>(
-                                              value: category,
-                                              child: SizedBox(width: screenWidth * 0.160, child: Text(category.name!)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {
-                                            notifierCategory.setCategorySelected(e!);
-                                          }),
+                                      SizedBox(width: screenWidth * 0.1, child: const Text("Tên:")),
+                                      SizedBox(
+                                        width: screenWidth * 0.185,
+                                        child: Column(
+                                          children: [
+                                            DropdownButton(
+                                                items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {}),
+                                          ],
+                                        ),
+                                      ),
+                                      5.horizontalSpace,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: nameSearchController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                                onChanged: (e) {
+                                                  setState(() {
+                                                    nameSearchController.text = e.toString();
+                                                  });
+                                                },
+                                              ),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      5.horizontalSpace,
+                                      SizedBox(width: screenWidth * 0.1, child: const Text("Cấp trên:")),
+                                      SizedBox(
+                                        width: screenWidth * 0.185,
+                                        child: Column(
+                                          children: [
+                                            DropdownButton(
+                                                value: stateCategory.categorySelected,
+                                                items: stateCategory.categories!.map<DropdownMenuItem<CategoryPasData>>((CategoryPasData category) {
+                                                  return DropdownMenuItem<CategoryPasData>(
+                                                    value: category,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(category.name!)),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {
+                                                  notifierCategory.setCategorySelected(e!);
+                                                }),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                              ],
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screenWidth * 0.1, child: const Text("Giá mua:")),
+                                      SizedBox(
+                                        width: screenWidth * 0.185,
+                                        child: Column(
+                                          children: [
+                                            DropdownButton(
+                                                items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {}),
+                                          ],
+                                        ),
+                                      ),
+                                      5.horizontalSpace,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: priceBuySearchController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                              ),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      5.horizontalSpace,
+                                      SizedBox(width: screenWidth * 0.1, child: const Text("Giá bán:")),
+                                      SizedBox(
+                                        width: screenWidth * 0.185,
+                                        child: Column(
+                                          children: [
+                                            DropdownButton(
+                                                items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {}),
+                                          ],
+                                        ),
+                                      ),
+                                      5.horizontalSpace,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: SizedBox(
+                                          width: screenWidth * 0.185,
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                controller: priceSellSearchController,
+                                                decoration: const InputDecoration.collapsed(
+                                                  hintText: '',
+                                                ),
+                                              ),
+                                              const Divider(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ]),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                SizedBox(width: screenWidth * 0.1, child: const Text("Giá mua:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
-                                    children: [
-                                      DropdownButton(
-                                          items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {}),
-                                    ],
-                                  ),
-                                ),
-                                5.horizontalSpace,
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
-                                    width: screenWidth * 0.185,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: priceBuySearchController,
-                                          decoration: const InputDecoration.collapsed(
-                                            hintText: '',
-                                          ),
-                                        ),
-                                        const Divider(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                5.horizontalSpace,
-                                SizedBox(width: screenWidth * 0.1, child: const Text("Giá bán:")),
-                                SizedBox(
-                                  width: screenWidth * 0.185,
-                                  child: Column(
-                                    children: [
-                                      DropdownButton(
-                                          items: conditionCompare.map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (e) {}),
-                                    ],
-                                  ),
-                                ),
-                                5.horizontalSpace,
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: SizedBox(
-                                    width: screenWidth * 0.185,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: priceSellSearchController,
-                                          decoration: const InputDecoration.collapsed(
-                                            hintText: '',
-                                          ),
-                                        ),
-                                        const Divider(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]),
-                      ),
-                    ),
-                  )
-                ]),
-              ),
-            ),
-            5.verticalSpace,
-            Padding(
-              padding: const EdgeInsets.only(left: 5, right: 5),
-              child: Container(
-                height: screenHeight * 0.05,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Row(children: [
-                    SizedBox(width: screenWidth * 0.235, child: Text("0/${state.products!.length}")),
-                    SizedBox(
-                      child: Row(children: [
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.orderReviews.withOpacity(0.07),
-                          iconData: FlutterRemix.skip_back_line,
-                          iconColor: AppColors.orderReviews,
-                          onTap: () {
-                            setState(() {
-                              indexItemSelected = 0;
-                              _scrollControllerItem.scrollTo(index: 0, duration: const Duration(milliseconds: 200));
-                              loadProductData();
-                            });
-                          },
-                        ),
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.orderReviews.withOpacity(0.07),
-                          iconData: FlutterRemix.arrow_left_line,
-                          iconColor: AppColors.orderReviews,
-                          onTap: () {
-                            setState(() {
-                              if (indexItemSelected >= 1) {
-                                indexItemSelected = indexItemSelected - 1;
-                                loadProductData();
-                              }
-                            });
-                          },
-                        ),
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.orderReviews.withOpacity(0.07),
-                          iconData: FlutterRemix.arrow_down_line,
-                          iconColor: AppColors.orderReviews,
-                          onTap: () {},
-                        ),
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.orderReviews.withOpacity(0.07),
-                          iconData: FlutterRemix.arrow_right_line,
-                          iconColor: AppColors.orderReviews,
-                          onTap: () {
-                            setState(() {
-                              if ((state.productsAfterFilter!.isNotEmpty)) {
-                                if (indexItemSelected < state.productsAfterFilter!.length) {
-                                  indexItemSelected = indexItemSelected + 1;
-                                  loadProductData();
-                                }
-                              } else {
-                                if (indexItemSelected < state.products!.length - 1) {
-                                  indexItemSelected = indexItemSelected + 1;
-                                  loadProductData();
-                                }
-                              }
-                            });
-                          },
-                        ),
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.orderReviews.withOpacity(0.07),
-                          iconData: FlutterRemix.skip_forward_line,
-                          iconColor: AppColors.orderReviews,
-                          onTap: () {
-                            setState(() {
-                              indexItemSelected = state.products!.length - 1;
-                              _scrollControllerItem.scrollTo(index: state.products!.length - 1, duration: const Duration(milliseconds: 200));
-                              loadProductData();
-                            });
-                          },
-                        ),
-                        25.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.canceledOrders.withOpacity(0.07),
-                          iconData: FlutterRemix.refresh_line,
-                          iconColor: AppColors.canceledOrders,
-                          onTap: () {
-                            var filterValue = {"code_ref": barcodeSearchController.text, "name": nameSearchController.text, "price_buy": priceBuySearchController.text, "price_sell": priceSellSearchController.text, "category_id": stateCategory.categorySelected!.id};
-                            filterList(filterValue, state, notifier);
-                          },
-                        ),
-                        25.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.blue.withOpacity(0.07),
-                          iconData: FlutterRemix.search_2_line,
-                          iconColor: AppColors.blue,
-                          onTap: () {
-                            notifier.productName = "";
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) => ListProductsFilterModal(),
-                            );
-                          },
-                        ),
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.greenMain.withOpacity(0.07),
-                          iconData: FlutterRemix.sort_desc,
-                          iconColor: AppColors.greenMain,
-                          onTap: () {
-                            notifier.productName = "";
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) => ListProductsSortModal(),
-                            );
-                          },
-                        ),
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: Colors.deepOrange.withOpacity(0.07),
-                          iconData: FlutterRemix.add_line,
-                          iconColor: Colors.deepOrange,
-                          onTap: () {
-                            newProduct();
-                          },
-                        ),
-                        20.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.red.withOpacity(0.07),
-                          iconData: FlutterRemix.close_line,
-                          iconColor: AppColors.red,
-                          onTap: () {
-                            showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                return WDeleteProductDialog(
-                                  productId: state.productSelected!.id!,
-                                );
-                              },
-                            );
-                          },
-                        ),
-                        25.horizontalSpace,
-                        CircleIconButton(
-                          backgroundColor: AppColors.blue.withOpacity(0.07),
-                          iconData: FlutterRemix.save_line,
-                          iconColor: AppColors.blue,
-                          onTap: () {
-                            saveProduct();
-                          },
-                        ),
-                        15.horizontalSpace,
+                        )
                       ]),
                     ),
-                  ]),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  Container(
-                    width: screenWidth * 0.25,
-                    height: screenHeight * 0.53,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                    ),
-                    child: state.productsLoading!
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.greenMain,
-                              strokeWidth: 3.r,
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ScrollablePositionedList.builder(
-                              itemScrollController: _scrollControllerItem,
-                              itemCount: state.productsAfterFilter!.isEmpty && findStatus == true ? state.products!.length : state.productsAfterFilter!.length,
-                              itemBuilder: (context, index) {
-                                ProductPasData product;
-                                if (state.productsAfterFilter!.isEmpty) {
-                                  product = state.products![index];
-                                } else {
-                                  product = state.productsAfterFilter![index];
-                                }
-                                return InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      indexItemSelected = index;
-                                      createMode = false;
-                                      notifier.setProductSelected(product);
+                  ),
+                  5.verticalSpace,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    child: Container(
+                      height: screenHeight * 0.05,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(children: [
+                          SizedBox(width: screenWidth * 0.235, child: Text("0/${state.products!.length}")),
+                          SizedBox(
+                            child: Row(children: [
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.orderReviews.withOpacity(0.07),
+                                iconData: FlutterRemix.skip_back_line,
+                                iconColor: AppColors.orderReviews,
+                                onTap: () {
+                                  setState(() {
+                                    indexItemSelected = 0;
+                                    _scrollControllerItem.scrollTo(index: 0, duration: const Duration(milliseconds: 200));
+                                    loadProductData();
+                                  });
+                                },
+                              ),
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.orderReviews.withOpacity(0.07),
+                                iconData: FlutterRemix.arrow_left_line,
+                                iconColor: AppColors.orderReviews,
+                                onTap: () {
+                                  setState(() {
+                                    if (indexItemSelected >= 1) {
+                                      indexItemSelected = indexItemSelected - 1;
                                       loadProductData();
-                                    });
-                                  },
-                                  child: Container(
-                                    width: 500,
-                                    color: index == indexItemSelected ? Colors.blue : Colors.white,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            product.name!,
-                                            style: TextStyle(color: index == indexItemSelected ? Colors.white : Colors.black),
+                                    }
+                                  });
+                                },
+                              ),
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.orderReviews.withOpacity(0.07),
+                                iconData: FlutterRemix.arrow_down_line,
+                                iconColor: AppColors.orderReviews,
+                                onTap: () {},
+                              ),
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.orderReviews.withOpacity(0.07),
+                                iconData: FlutterRemix.arrow_right_line,
+                                iconColor: AppColors.orderReviews,
+                                onTap: () {
+                                  setState(() {
+                                    if ((state.productsAfterFilter!.isNotEmpty)) {
+                                      if (indexItemSelected < state.productsAfterFilter!.length) {
+                                        indexItemSelected = indexItemSelected + 1;
+                                        loadProductData();
+                                      }
+                                    } else {
+                                      if (indexItemSelected < state.products!.length - 1) {
+                                        indexItemSelected = indexItemSelected + 1;
+                                        loadProductData();
+                                      }
+                                    }
+                                  });
+                                },
+                              ),
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.orderReviews.withOpacity(0.07),
+                                iconData: FlutterRemix.skip_forward_line,
+                                iconColor: AppColors.orderReviews,
+                                onTap: () {
+                                  setState(() {
+                                    indexItemSelected = state.products!.length - 1;
+                                    _scrollControllerItem.scrollTo(index: state.products!.length - 1, duration: const Duration(milliseconds: 200));
+                                    loadProductData();
+                                  });
+                                },
+                              ),
+                              25.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.canceledOrders.withOpacity(0.07),
+                                iconData: FlutterRemix.refresh_line,
+                                iconColor: AppColors.canceledOrders,
+                                onTap: () {
+                                  var filterValue = {"code_ref": barcodeSearchController.text, "name": nameSearchController.text, "price_buy": priceBuySearchController.text, "price_sell": priceSellSearchController.text, "category_id": stateCategory.categorySelected!.id};
+                                  filterList(filterValue, state, notifier);
+                                },
+                              ),
+                              25.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.blue.withOpacity(0.07),
+                                iconData: FlutterRemix.search_2_line,
+                                iconColor: AppColors.blue,
+                                onTap: () {
+                                  notifier.productName = "";
+                                  showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) => ListProductsFilterModal(),
+                                  );
+                                },
+                              ),
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.greenMain.withOpacity(0.07),
+                                iconData: FlutterRemix.sort_desc,
+                                iconColor: AppColors.greenMain,
+                                onTap: () {
+                                  notifier.productName = "";
+                                  showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) => ListProductsSortModal(),
+                                  );
+                                },
+                              ),
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: Colors.deepOrange.withOpacity(0.07),
+                                iconData: FlutterRemix.add_line,
+                                iconColor: Colors.deepOrange,
+                                onTap: () {
+                                  newProduct();
+                                },
+                              ),
+                              20.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.red.withOpacity(0.07),
+                                iconData: FlutterRemix.close_line,
+                                iconColor: AppColors.red,
+                                onTap: () {
+                                  showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return WDeleteProductDialog(
+                                        productId: state.productSelected!.id!,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                              25.horizontalSpace,
+                              CircleIconButton(
+                                backgroundColor: AppColors.blue.withOpacity(0.07),
+                                iconData: FlutterRemix.save_line,
+                                iconColor: AppColors.blue,
+                                onTap: () {
+                                  saveProduct();
+                                },
+                              ),
+                              15.horizontalSpace,
+                            ]),
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: screenWidth * 0.25,
+                          height: screenHeight * 0.53,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                          ),
+                          child: state.productsLoading!
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.greenMain,
+                                    strokeWidth: 3.r,
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: ScrollablePositionedList.builder(
+                                    itemScrollController: _scrollControllerItem,
+                                    itemCount: state.productsAfterFilter!.isEmpty && findStatus == true ? state.products!.length : state.productsAfterFilter!.length,
+                                    itemBuilder: (context, index) {
+                                      ProductPasData product;
+                                      if (state.productsAfterFilter!.isEmpty) {
+                                        product = state.products![index];
+                                      } else {
+                                        product = state.productsAfterFilter![index];
+                                      }
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            indexItemSelected = index;
+                                            createMode = false;
+                                            notifier.setProductSelected(product);
+                                            loadProductData();
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 500,
+                                          color: index == indexItemSelected ? Colors.blue : Colors.white,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 10),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  product.name!,
+                                                  style: TextStyle(color: index == indexItemSelected ? Colors.white : Colors.black),
+                                                ),
+                                              ],
+                                            ),
                                           ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                        ),
+                        8.horizontalSpace,
+                        Container(
+                          width: screenWidth * 0.735,
+                          height: screenHeight * 0.53,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                          ),
+                          child: state.productsLoading!
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.greenMain,
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("${refcodeController.text}-${nameController.text}"),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 5),
+                                            child: SizedBox(width: screenWidth * 0.05, child: const Text("Mã kho:")),
+                                          ),
+                                          Expanded(
+                                              child: SizedBox(
+                                            child: TextFormField(
+                                              controller: refcodeController,
+                                              // decoration: const InputDecoration.collapsed(hintText: ''),
+                                            ),
+                                          )),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 5),
+                                            child: SizedBox(width: screenWidth * 0.03, child: const Text("Tên:")),
+                                          ),
+                                          Expanded(
+                                              child: SizedBox(
+                                            child: TextFormField(
+                                              controller: nameController,
+                                              // decoration: const InputDecoration.collapsed(hintText: ''),
+                                            ),
+                                          ))
                                         ],
                                       ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                  ),
-                  8.horizontalSpace,
-                  Container(
-                    width: screenWidth * 0.735,
-                    height: screenHeight * 0.53,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                    ),
-                    child: state.productsLoading!
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.greenMain,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("${refcodeController.text}-${nameController.text}"),
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5),
-                                      child: SizedBox(width: screenWidth * 0.05, child: const Text("Mã kho:")),
-                                    ),
-                                    Expanded(
-                                        child: SizedBox(
-                                      child: TextFormField(
-                                        controller: refcodeController,
-                                        // decoration: const InputDecoration.collapsed(hintText: ''),
+                                      Container(
+                                        color: AppColors.white,
+                                        child: TabBar(
+                                          indicatorColor: AppColors.greenMain,
+                                          indicatorWeight: 2,
+                                          labelPadding: EdgeInsets.zero,
+                                          controller: _tabController,
+                                          labelColor: AppColors.black,
+                                          unselectedLabelColor: AppColors.unselectedTabBar,
+                                          unselectedLabelStyle: AppTypographies.styUnselected14W500,
+                                          labelStyle: AppTypographies.styBlack14W500,
+                                          tabs: [
+                                            Tab(text: stateBase.translate[stateBase.languageSelected]["total"]),
+                                            Tab(text: stateBase.translate[stateBase.languageSelected]["warehouse"]),
+                                            Tab(text: stateBase.translate[stateBase.languageSelected]["attribute"]),
+                                          ],
+                                        ),
                                       ),
-                                    )),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5),
-                                      child: SizedBox(width: screenWidth * 0.03, child: const Text("Tên:")),
-                                    ),
-                                    Expanded(
-                                        child: SizedBox(
-                                      child: TextFormField(
-                                        controller: nameController,
-                                        // decoration: const InputDecoration.collapsed(hintText: ''),
+                                      18.verticalSpace,
+                                      Expanded(
+                                        child: TabBarView(
+                                          controller: _tabController,
+                                          physics: const CustomBouncingScrollPhysics(),
+                                          children: [summary(), summary(), summary()],
+                                        ),
                                       ),
-                                    ))
-                                  ],
-                                ),
-                                Container(
-                                  color: AppColors.white,
-                                  child: TabBar(
-                                    indicatorColor: AppColors.greenMain,
-                                    indicatorWeight: 2,
-                                    labelPadding: EdgeInsets.zero,
-                                    controller: _tabController,
-                                    labelColor: AppColors.black,
-                                    unselectedLabelColor: AppColors.unselectedTabBar,
-                                    unselectedLabelStyle: AppTypographies.styUnselected14W500,
-                                    labelStyle: AppTypographies.styBlack14W500,
-                                    tabs: [
-                                      Tab(text: stateBase.translate[stateBase.languageSelected]["total"]),
-                                      Tab(text: stateBase.translate[stateBase.languageSelected]["warehouse"]),
-                                      Tab(text: stateBase.translate[stateBase.languageSelected]["attribute"]),
                                     ],
                                   ),
                                 ),
-                                18.verticalSpace,
-                                Expanded(
-                                  child: TabBarView(
-                                    controller: _tabController,
-                                    physics: const CustomBouncingScrollPhysics(),
-                                    children: [summary(), summary(), summary()],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                  ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
+              )
+            : const Center(
+                child: Text("Chưa tạo danh mục sản phẩm"),
               ),
-            )
-          ],
-        ),
       ),
     );
   }

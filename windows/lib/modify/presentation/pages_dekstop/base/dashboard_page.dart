@@ -28,9 +28,9 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
         ref.read(baseProvider.notifier).loadTranslate();
         ref.read(baseProvider.notifier).checkDataFolder();
         ref.read(baseProvider.notifier).checkAccessBlock();
-        ref.read(baseProvider.notifier).loadPrinterActive();
-        ref.read(productsPASProvider.notifier).getListWarehouses();
         if (LocalStorage.instance.getKeyAccessOwner() != "" || LocalStorage.instance.getKeyAccessShare() != "") {
+          ref.read(baseProvider.notifier).loadPrinterActive();
+          ref.read(productsPASProvider.notifier).getListWarehouses();
           ref.read(productsPASProvider.notifier).fetchProducts();
           ref.read(productsPASProvider.notifier).getListCustomerType();
           ref.read(productsPASProvider.notifier).getListTaxCategories();
@@ -45,34 +45,38 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
 
   bool checkData() {
     int check = 0;
-    if (ref.watch(productsPASProvider).products!.isNotEmpty) {
+    if (ref.watch(productsPASProvider).productsLoading == false) {
       check += 1;
     }
-    if (ref.watch(productsPASProvider).taxes!.isNotEmpty) {
+    if (ref.watch(productsPASProvider).taxLoading == false) {
       check += 1;
     }
-    if (ref.watch(productsPASProvider).taxCategories!.isNotEmpty) {
+    if (ref.watch(productsPASProvider).taxCategoryLoading == false) {
       check += 1;
     }
-    if (ref.watch(productsPASProvider).taxCusCategories!.isNotEmpty) {
+    if (ref.watch(productsPASProvider).taxCusCategoryLoading! == false) {
       check += 1;
     }
-    if (ref.watch(customersProvider).customers!.isNotEmpty) {
+    if (ref.watch(productsPASProvider).warehouseLoading! == false) {
       check += 1;
     }
-    if (ref.watch(categoriesPASProvider).categories!.isNotEmpty) {
+    if (ref.watch(customersProvider).customerLoading == false) {
       check += 1;
     }
-    if (ref.watch(baseProvider).employees!.isNotEmpty) {
+    if (ref.watch(categoriesPASProvider).categoryLoading == false) {
       check += 1;
     }
+    if (ref.watch(baseProvider).employeesLoading == false) {
+      check += 1;
+    }
+    print("check: $check");
     bool result = false;
-    if (check == 7) {
+    if (check == 8) {
       result = true;
     } else {
       result = false;
     }
-    print(result);
+    print("result: $result");
     return result;
   }
 

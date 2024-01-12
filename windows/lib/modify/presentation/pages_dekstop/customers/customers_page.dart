@@ -826,19 +826,21 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                                     width: screenWidth * 0.185,
                                     child: Column(
                                       children: [
-                                        DropdownButton(
-                                            value: taxCusCategoryIdSelected == "" ? taxCusCategories[0] : taxCusCategories.where((e) => e["id"] == taxCusCategoryIdSelected).first,
-                                            items: taxCusCategories.map<DropdownMenuItem<dynamic>>((dynamic value) {
-                                              return DropdownMenuItem<dynamic>(
-                                                value: value,
-                                                child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
-                                              );
-                                            }).toList(),
-                                            onChanged: (e) {
-                                              setState(() {
-                                                taxCusCategoryIdSelected = e["id"];
-                                              });
-                                            }),
+                                        taxCusCategories.isNotEmpty
+                                            ? DropdownButton(
+                                                value: taxCusCategoryIdSelected == "" ? taxCusCategories[0] : taxCusCategories.where((e) => e["id"] == taxCusCategoryIdSelected).first,
+                                                items: taxCusCategories.map<DropdownMenuItem<dynamic>>((dynamic value) {
+                                                  return DropdownMenuItem<dynamic>(
+                                                    value: value,
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (e) {
+                                                  setState(() {
+                                                    taxCusCategoryIdSelected = e["id"];
+                                                  });
+                                                })
+                                            : Text("Chưa có mục chiết khấu"),
                                       ],
                                     ),
                                   ),

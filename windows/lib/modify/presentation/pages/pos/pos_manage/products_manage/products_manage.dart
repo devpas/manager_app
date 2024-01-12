@@ -181,6 +181,7 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
   }
 
   Widget reports(BaseState state) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -307,8 +308,8 @@ class _ProductsManagePageState extends ConsumerState<ProductsManagePage> with Ti
                 // context.pushRoute(const ProductsManageRoute());
               },
             ),
-            const SizedBox(
-              width: 190,
+            SizedBox(
+              width: screenWidth * 0.45,
             )
           ],
         ),

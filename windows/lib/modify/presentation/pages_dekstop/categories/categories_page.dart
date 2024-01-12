@@ -10,6 +10,7 @@ import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../components/components.dart';
+import '../../pages/categories/widgets/w_delete_category_dialog.dart';
 import '../../theme/theme.dart';
 
 class CategoriesDesktopPage extends ConsumerStatefulWidget {
@@ -21,8 +22,6 @@ class CategoriesDesktopPage extends ConsumerStatefulWidget {
 
 class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> with TickerProviderStateMixin {
   late ScrollController _scrollController;
-
-  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -36,264 +35,45 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
     );
   }
 
-  TextEditingController codeController = TextEditingController();
-
   bool activeCheckBox = true;
 
-  XFile? image;
+  bool createMode = false;
 
-  Widget notes() {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: screenWidth * 0.67,
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0.3),
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextField(
-                    controller: codeController,
-                    maxLines: 7,
-                    decoration: const InputDecoration.collapsed(hintText: ''),
-                  ),
-                ),
-              ),
-              //create Text content "AAAA"
-            ],
-          ),
-        ),
-      ],
-    );
+  int indexItemSelected = -1;
+
+  TextEditingController nameController = TextEditingController();
+
+  int categoryIdSelected = -1;
+
+  void loadCategoryData(CategoryPasData category) {
+    print(category.toJson());
+    setState(() {
+      createMode = false;
+      nameController.text = category.name!;
+      categoryIdSelected = category.parentId!;
+    });
   }
 
-  Widget contact() {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: screenWidth * 0.67,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: Text("Mã kho:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá mua:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá bán:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá sau CK:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+  void saveCategory() {
+    final notifier = ref.read(categoriesPASProvider.notifier);
+    final state = ref.watch(categoriesPASProvider);
+    if (createMode) {
+      var dataCategory = {"name": nameController.text, "parent_id": categoryIdSelected, "image": "", "active": 1};
+      notifier.addCategory(dataCategory);
+    } else {
+      var dataCategory = {"id": state.categorySelected!.id, "name": nameController.text, "parent_id": categoryIdSelected, "image": "", "active": state.categorySelected!.active};
+      notifier.updateCategory(dataCategory);
+    }
+    newCategory();
   }
 
-  Widget address() {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: screenWidth * 0.67,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: Text("Mã kho:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá mua:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá bán:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá sau CK:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+  void newCategory() {
+    setState(() {
+      createMode = true;
+      nameController.text = "";
+      categoryIdSelected = -1;
+      indexItemSelected = -1;
+    });
   }
 
   @override
@@ -389,7 +169,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                         iconData: FlutterRemix.refresh_line,
                         iconColor: AppColors.canceledOrders,
                         onTap: () {
-                          print("asd");
+                          notifier.fetchCategoriesAppscript();
                         },
                       ),
                       25.horizontalSpace,
@@ -411,21 +191,35 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                         backgroundColor: Colors.deepOrange.withOpacity(0.07),
                         iconData: FlutterRemix.add_line,
                         iconColor: Colors.deepOrange,
-                        onTap: () {},
+                        onTap: () {
+                          newCategory();
+                        },
                       ),
                       20.horizontalSpace,
                       CircleIconButton(
                         backgroundColor: AppColors.red.withOpacity(0.07),
                         iconData: FlutterRemix.close_line,
                         iconColor: AppColors.red,
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return WDeleteCategoryDialog(
+                                alias: state.categorySelected!.id!,
+                              );
+                            },
+                          );
+                        },
                       ),
                       25.horizontalSpace,
                       CircleIconButton(
                         backgroundColor: AppColors.blue.withOpacity(0.07),
                         iconData: FlutterRemix.save_line,
                         iconColor: AppColors.blue,
-                        onTap: () {},
+                        onTap: () {
+                          saveCategory();
+                        },
                       ),
                       15.horizontalSpace,
                     ]),
@@ -468,10 +262,14 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                               }
                               return InkWell(
                                 onTap: () {
+                                  setState(() {
+                                    indexItemSelected = index;
+                                  });
+                                  loadCategoryData(category);
                                   notifier.setCategorySelected(category);
                                 },
                                 child: Container(
-                                  color: category.id == state.categorySelected!.id ? Colors.blue : Colors.white,
+                                  color: index == indexItemSelected ? Colors.blue : Colors.white,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 5),
                                     child: Column(
@@ -488,7 +286,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                                               width: screenWidth * 0.25,
                                               child: Text(
                                                 category.name!,
-                                                style: TextStyle(color: category.id == state.categorySelected!.id ? Colors.white : Colors.black),
+                                                style: TextStyle(color: index == indexItemSelected ? Colors.white : Colors.black),
                                               ),
                                             ),
                                           ],
@@ -521,7 +319,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                             padding: const EdgeInsets.only(left: 10),
                             child: Row(
                               children: [
-                                SizedBox(width: screenWidth * 0.1, child: const Text("Mã số:")),
+                                SizedBox(width: screenWidth * 0.1, child: const Text("Tên:")),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10),
                                   child: SizedBox(
@@ -529,7 +327,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: codeController,
+                                          controller: nameController,
                                           decoration: const InputDecoration.collapsed(
                                             hintText: '',
                                           ),
@@ -563,13 +361,19 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                                   child: Column(
                                     children: [
                                       DropdownButton(
-                                          items: ["A", "B", "C"].map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
+                                          value: categoryIdSelected == 0 ? state.categories![0] : state.categories!.where((e) => e.id == categoryIdSelected).first,
+                                          items: state.categories!.map<DropdownMenuItem<CategoryPasData>>((CategoryPasData value) {
+                                            return DropdownMenuItem<CategoryPasData>(
                                               value: value,
-                                              child: SizedBox(width: screenWidth * 0.162, child: Text(value)),
+                                              child: SizedBox(width: screenWidth * 0.160, child: Text(value.name!)),
                                             );
                                           }).toList(),
-                                          onChanged: (e) {}),
+                                          onChanged: (e) {
+                                            setState(() {
+                                              categoryIdSelected = int.parse(e!.id!.toString());
+                                              print("asdasd $categoryIdSelected");
+                                            });
+                                          }),
                                     ],
                                   ),
                                 ),
@@ -588,72 +392,72 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                             ),
                           ),
                           10.verticalSpace,
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Column(
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(width: screenWidth * 0.1, child: const Text("Hình ảnh:")),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: SelectImageCustomeSize(
-                                        file: image,
-                                        heigth: screenHeight * 0.35,
-                                        width: screenWidth * 0.2,
-                                        onChangePhoto: (XFile file) {
-                                          setState(() {
-                                            image = file;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    10.horizontalSpace,
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CircleIconButton(
-                                          backgroundColor: AppColors.blue.withOpacity(0.1),
-                                          iconData: FlutterRemix.folder_2_line,
-                                          iconColor: AppColors.blue,
-                                          onTap: () {},
-                                        ),
-                                        10.verticalSpace,
-                                        CircleIconButton(
-                                          backgroundColor: AppColors.blue.withOpacity(0.1),
-                                          iconData: FlutterRemix.close_line,
-                                          iconColor: AppColors.blue,
-                                          onTap: () {},
-                                        ),
-                                        10.verticalSpace,
-                                        CircleIconButton(
-                                          backgroundColor: AppColors.blue.withOpacity(0.1),
-                                          iconData: FlutterRemix.file_search_line,
-                                          iconColor: AppColors.blue,
-                                          onTap: () {},
-                                        ),
-                                        10.verticalSpace,
-                                        CircleIconButton(
-                                          backgroundColor: AppColors.blue.withOpacity(0.1),
-                                          iconData: FlutterRemix.zoom_in_line,
-                                          iconColor: AppColors.blue,
-                                          onTap: () {},
-                                        ),
-                                        10.verticalSpace,
-                                        CircleIconButton(
-                                          backgroundColor: AppColors.blue.withOpacity(0.1),
-                                          iconData: FlutterRemix.zoom_out_line,
-                                          iconColor: AppColors.blue,
-                                          onTap: () {},
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left: 10),
+                          //   child: Column(
+                          //     children: [
+                          //       Row(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           SizedBox(width: screenWidth * 0.1, child: const Text("Hình ảnh:")),
+                          //           Align(
+                          //             alignment: Alignment.center,
+                          //             child: SelectImageCustomeSize(
+                          //               file: image,
+                          //               heigth: screenHeight * 0.35,
+                          //               width: screenWidth * 0.2,
+                          //               onChangePhoto: (XFile file) {
+                          //                 setState(() {
+                          //                   image = file;
+                          //                 });
+                          //               },
+                          //             ),
+                          //           ),
+                          //           10.horizontalSpace,
+                          //           Column(
+                          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //             children: [
+                          //               CircleIconButton(
+                          //                 backgroundColor: AppColors.blue.withOpacity(0.1),
+                          //                 iconData: FlutterRemix.folder_2_line,
+                          //                 iconColor: AppColors.blue,
+                          //                 onTap: () {},
+                          //               ),
+                          //               10.verticalSpace,
+                          //               CircleIconButton(
+                          //                 backgroundColor: AppColors.blue.withOpacity(0.1),
+                          //                 iconData: FlutterRemix.close_line,
+                          //                 iconColor: AppColors.blue,
+                          //                 onTap: () {},
+                          //               ),
+                          //               10.verticalSpace,
+                          //               CircleIconButton(
+                          //                 backgroundColor: AppColors.blue.withOpacity(0.1),
+                          //                 iconData: FlutterRemix.file_search_line,
+                          //                 iconColor: AppColors.blue,
+                          //                 onTap: () {},
+                          //               ),
+                          //               10.verticalSpace,
+                          //               CircleIconButton(
+                          //                 backgroundColor: AppColors.blue.withOpacity(0.1),
+                          //                 iconData: FlutterRemix.zoom_in_line,
+                          //                 iconColor: AppColors.blue,
+                          //                 onTap: () {},
+                          //               ),
+                          //               10.verticalSpace,
+                          //               CircleIconButton(
+                          //                 backgroundColor: AppColors.blue.withOpacity(0.1),
+                          //                 iconData: FlutterRemix.zoom_out_line,
+                          //                 iconColor: AppColors.blue,
+                          //                 onTap: () {},
+                          //               ),
+                          //             ],
+                          //           )
+                          //         ],
+                          //       ),
+                          //     ],
+                          //   ),
+                          // )
                         ]),
                       ),
                     ),

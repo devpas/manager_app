@@ -125,7 +125,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
     priceController.text = tax["rate"].toString();
     squenceController.text = tax["rate_order"] != null ? tax["rate_order"].toString() : "";
     activeCheckBox = tax["rate_cascade"] == 1 ? true : false;
-    taxIdSelected = tax["parent_id"];
+    taxIdSelected = tax["parent_id"].toString();
     taxCategoryIdSelected = tax["tax_category_id"] ?? "";
     taxCusCategoryIdSelected = tax["tax_customer_category_id"] ?? "";
   }

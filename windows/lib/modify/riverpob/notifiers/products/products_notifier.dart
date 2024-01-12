@@ -34,7 +34,11 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     response.when(
       success: (data) async {
         listProductCache = data.products!;
-        minCategoryId = data.products![0].categoryId!;
+        if (data.products!.isNotEmpty) {
+          minCategoryId = data.products![0].categoryId!;
+        } else {
+          minCategoryId = -1;
+        }
         for (int i = 0; i < data.products!.length; i++) {
           if (data.products![i].categoryId! < minCategoryId) {
             minCategoryId = data.products![i].categoryId!;
@@ -56,7 +60,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     final response = await _productsPASRepository.getProduct("");
     response.when(
       success: (data) async {
-        state = state.copyWith(products: data.products, productSelected: data.products![0]);
+        state = state.copyWith(products: data.products);
+        if (data.products!.isNotEmpty) {
+          state = state.copyWith(productSelected: data.products![0]);
+        }
         listProductCache = state.products!;
       },
       failure: (failure) {
@@ -275,7 +282,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(warehouseLoading: true);
     final response = await _productsPASRepository.getListWarehouses();
     if (response["data"] != null) {
-      state = state.copyWith(warehouse: response["data"], warehouseLoading: false, warehouseSelected: response["data"][0]);
+      state = state.copyWith(warehouse: response["data"], warehouseLoading: false);
+      if (response["data"].isNotEmpty) {
+        state = state.copyWith(warehouseSelected: response["data"][0]);
+      }
     } else {
       // print(response);
     }
@@ -347,7 +357,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(taxCusCategoryLoading: true);
     final response = await _productsPASRepository.getListTaxCustomer();
     if (response["data"] != null) {
-      state = state.copyWith(taxCusCategories: response["data"], taxCusCategoryLoading: false, taxCusCategorySelected: response["data"][0]);
+      state = state.copyWith(taxCusCategories: response["data"], taxCusCategoryLoading: false);
+      if (response["data"].isNotEmpty) {
+        state = state.copyWith(taxCusCategorySelected: response["data"][0]);
+      }
     } else {
       print(response);
     }
@@ -387,7 +400,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(taxCategoryLoading: true);
     final response = await _productsPASRepository.getListTaxCategories();
     if (response["data"] != null) {
-      state = state.copyWith(taxCategories: response["data"], taxCategoryLoading: false, taxCategorySelected: response["data"][0]);
+      state = state.copyWith(taxCategories: response["data"], taxCategoryLoading: false);
+      if (response["data"].length > 0) {
+        state = state.copyWith(taxCategorySelected: response["data"][0]);
+      }
     } else {
       // print(response);
     }
@@ -427,7 +443,10 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     state = state.copyWith(taxLoading: true);
     final response = await _productsPASRepository.getListTaxes();
     if (response["data"] != null) {
-      state = state.copyWith(taxes: response["data"], taxLoading: false, taxSelected: response["data"][0]);
+      state = state.copyWith(taxes: response["data"], taxLoading: false);
+      if (response["data"].isNotEmpty) {
+        state = state.copyWith(taxSelected: response["data"][0]);
+      }
     } else {
       // print(response);
     }

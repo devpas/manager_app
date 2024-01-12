@@ -29,7 +29,10 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
       success: (data) async {
         CategoryPasData allCategories = CategoryPasData().copyWith(index: -1, id: -1, name: "All", parentId: 0, img: "", active: 1);
         data.categories!.insert(0, allCategories);
-        state = state.copyWith(categories: data.categories, categoryLoading: false, categorySelected: data.categories![0]);
+        state = state.copyWith(categories: data.categories, categoryLoading: false);
+        if (data.categories!.isNotEmpty) {
+          state = state.copyWith(categorySelected: data.categories![0]);
+        }
       },
       failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {

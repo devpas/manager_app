@@ -480,33 +480,40 @@ class _CalculatorState extends ConsumerState<Calculator> {
                     ),
                   ],
                 ),
-                InkWell(
-                  onTap: (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) ? onPayment : () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Container(
-                        width: 60.r,
-                        height: 130.r,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green : Colors.grey) : Colors.grey.withOpacity(0.1)),
-                          borderRadius: BorderRadius.circular(5.r),
-                          color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green.withOpacity(0.1) : Colors.grey.withOpacity(0.1)) : Colors.grey.withOpacity(0.1),
+                statePos.listTicket!.isNotEmpty
+                    ? InkWell(
+                        onTap: (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) ? onPayment : () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: Container(
+                              width: 60.r,
+                              height: 130.r,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green : Colors.grey) : Colors.grey.withOpacity(0.1)),
+                                borderRadius: BorderRadius.circular(5.r),
+                                color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green.withOpacity(0.1) : Colors.grey.withOpacity(0.1)) : Colors.grey.withOpacity(0.1),
+                              ),
+                              alignment: Alignment.center,
+                              child: statePos.createTicketLoading!
+                                  ? const CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: AppColors.greenMain,
+                                    )
+                                  : Text(
+                                      "=",
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                        color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green : Colors.grey) : Colors.grey.withOpacity(0.1),
+                                      ),
+                                    )),
                         ),
-                        alignment: Alignment.center,
-                        child: statePos.createTicketLoading!
-                            ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: AppColors.greenMain,
-                              )
-                            : Text(
-                                "=",
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green : Colors.grey) : Colors.grey.withOpacity(0.1),
-                                ),
-                              )),
-                  ),
-                ),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.mainBack,
+                          strokeWidth: 2,
+                        ),
+                      ),
               ],
             ),
             Row(
