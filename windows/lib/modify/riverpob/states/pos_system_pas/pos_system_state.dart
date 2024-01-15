@@ -15,6 +15,7 @@ class PosSystemState with _$PosSystemState {
       @Default(0) int? selectTicketLine,
       @Default(0) int? selectCategory,
       @Default(0) int? selectTicket,
+      @Default(-1) int? selectReason,
       @Default(false) bool isUsersLoading,
       @Default(false) bool? isUnitLoading,
       @Default(false) bool categoriesLoading,

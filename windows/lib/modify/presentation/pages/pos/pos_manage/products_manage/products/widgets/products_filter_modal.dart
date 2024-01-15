@@ -212,7 +212,7 @@ class ProductsFilterModal extends ConsumerWidget {
               title: 'Show result',
               onPressed: () {
                 if (ProductNameSelected(state.productSelected!) != "Tìm sản phẩm") {
-                  notifierPos.addTicketline(state.productSelected!, statePos.selectTicket!);
+                  notifierPos.addTicketline(state.productSelected!, statePos.selectTicket!, 0);
                 }
                 context.popRoute();
               },

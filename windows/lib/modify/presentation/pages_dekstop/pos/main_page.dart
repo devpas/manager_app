@@ -13,6 +13,7 @@ import '../../../riverpob/providers/providers.dart';
 import '../../components/components.dart';
 import '../../pages/orders/add_modify/widgets/client/client_info_modal.dart';
 import '../../pages/orders/add_modify/widgets/order_detail/tickets/list_ticket_modal.dart';
+import '../../pages/pos/pos_manage/products_manage/products/product_in_warehouse/widgets/select_warehouse_modal.dart';
 import '../../pages/pos/pos_manage/products_manage/products/widgets/product_item_pos.dart';
 import '../../pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
 import '../../pages/pos/pos_manage/products_manage/products/widgets/products_filter_modal.dart';
@@ -36,8 +37,6 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
   late FocusNode focusNode;
   bool keyboardActive = false;
   double heightContainerProduct = 40;
-
-  int reasonSelected = -1;
 
   void showKeyboard() {
     focusNode.requestFocus();
@@ -88,6 +87,16 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
         ref.read(productsPASProvider.notifier).getListWarehouses();
       },
     );
+  }
+
+  int getStockQuatity(int productId) {
+    final notifierBase = ref.read(baseProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
+    final stateProducts = ref.watch(productsPASProvider);
+    ProductPasData product = stateProducts.products!.where((p) => p.id == productId).first;
+    var selectWarehouseId = notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"];
+    var stockQuantity = product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent!;
+    return stockQuantity;
   }
 
   Widget posPage() {
@@ -191,17 +200,78 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                   )),
                             ),
                           ),
-                          15.horizontalSpace,
-                          CircleIconButton(
-                            backgroundColor: AppColors.blue.withOpacity(0.07),
-                            iconData: FlutterRemix.add_line,
-                            iconColor: AppColors.blue,
-                            onTap: () {
-                              if (!statePos.createTicketLoading!) {
-                                notifierPos.addTicket();
-                              }
-                            },
-                          ),
+                          statePos.createTicketLoading!
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.greenMain,
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: 30,
+                                  width: 150,
+                                  child: SelectWithOptionMiniButton(
+                                    title: "Thêm phiếu ${reason.where((r) => r[1] == statePos.selectReason).first[0]}",
+                                    iconData: FlutterRemix.arrow_down_s_line,
+                                    label: "",
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) => Material(
+                                          color: AppColors.white,
+                                          child: Padding(
+                                            padding: REdgeInsets.symmetric(horizontal: 15.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                24.verticalSpace,
+                                                Text(
+                                                  stateBase.translate[stateBase.languageSelected]["select_reason"],
+                                                  style: AppTypographies.styBlack22W500,
+                                                ),
+                                                24.verticalSpace,
+                                                ListView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: const CustomBouncingScrollPhysics(),
+                                                  itemCount: reason.length,
+                                                  itemBuilder: (context, index) {
+                                                    return ListTile(
+                                                      leading: Container(
+                                                        height: 20.r,
+                                                        width: 20.r,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(10.r),
+                                                          color: statePos.selectReason == reason[index][1] ? AppColors.white : AppColors.transparent,
+                                                          border: Border.all(
+                                                            color: statePos.selectReason == reason[index][1] ? AppColors.greenMain : AppColors.productBorder,
+                                                            width: statePos.selectReason == reason[index][1] ? 6.r : 2.r,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (!statePos.createTicketLoading!) {
+                                                            notifierPos.setReasonSelected(reason[index][1]);
+                                                            notifierPos.addTicket();
+                                                          }
+                                                          print(statePos.selectReason);
+                                                        });
+                                                        context.popRoute();
+                                                      },
+                                                      title: Text(reason[index][0].toString()),
+                                                    );
+                                                  },
+                                                ),
+                                                50.verticalSpace,
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                           15.horizontalSpace,
                           CircleIconButton(
                             backgroundColor: AppColors.red.withOpacity(0.07),
@@ -217,7 +287,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                           CircleIconButton(
                             backgroundColor: AppColors.canceledOrders.withOpacity(0.07),
                             iconData: FlutterRemix.menu_2_line,
-                            iconColor: AppColors.canceledOrders,
+                            iconColor: AppColors.blue,
                             onTap: () {
                               showModalBottomSheet(
                                 context: context,
@@ -227,6 +297,22 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                               );
                             },
                           ),
+                          15.horizontalSpace,
+                          notifierBase.checkShareMode()
+                              ? const SizedBox()
+                              : CircleIconButton(
+                                  backgroundColor: AppColors.canceledOrders.withOpacity(0.07),
+                                  iconData: Icons.warehouse,
+                                  iconColor: AppColors.canceledOrders,
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return const SelectWarehouseModal();
+                                      },
+                                    );
+                                  },
+                                ),
                         ],
                       ),
                       Row(
@@ -299,65 +385,6 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                                     child: Text(
                                                       stateBase.translate[stateBase.languageSelected]["product_name"],
                                                       style: AppTypographies.styBlack11W400Opacity40,
-                                                    ),
-                                                  ),
-                                                  Flexible(
-                                                    child: SelectWithOptionMiniButton(
-                                                      iconData: FlutterRemix.arrow_down_s_line,
-                                                      label: stateBase.translate[stateBase.languageSelected]["category"],
-                                                      onTap: () {
-                                                        showModalBottomSheet(
-                                                          context: context,
-                                                          builder: (context) => Material(
-                                                            color: AppColors.white,
-                                                            child: Padding(
-                                                              padding: REdgeInsets.symmetric(horizontal: 15.0),
-                                                              child: Column(
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                mainAxisSize: MainAxisSize.min,
-                                                                children: [
-                                                                  24.verticalSpace,
-                                                                  Text(
-                                                                    stateBase.translate[stateBase.languageSelected]["select_reason"],
-                                                                    style: AppTypographies.styBlack22W500,
-                                                                  ),
-                                                                  24.verticalSpace,
-                                                                  ListView.builder(
-                                                                    shrinkWrap: true,
-                                                                    physics: const CustomBouncingScrollPhysics(),
-                                                                    itemCount: reason.length,
-                                                                    itemBuilder: (context, index) {
-                                                                      return ListTile(
-                                                                        leading: Container(
-                                                                          height: 20.r,
-                                                                          width: 20.r,
-                                                                          decoration: BoxDecoration(
-                                                                            borderRadius: BorderRadius.circular(10.r),
-                                                                            color: reasonSelected == reason[index][1] ? AppColors.white : AppColors.transparent,
-                                                                            border: Border.all(
-                                                                              color: reasonSelected == reason[index][1] ? AppColors.greenMain : AppColors.productBorder,
-                                                                              width: reasonSelected == reason[index][1] ? 6.r : 2.r,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        onTap: () {
-                                                                          setState(() {
-                                                                            reasonSelected = reason[index][1];
-                                                                          });
-                                                                          context.popRoute();
-                                                                        },
-                                                                        title: Text(reason[index][0].toString()),
-                                                                      );
-                                                                    },
-                                                                  ),
-                                                                  50.verticalSpace,
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      title: reason.where((r) => r[1] == reasonSelected).first[0],
                                                     ),
                                                   ),
                                                 ],
@@ -612,7 +639,6 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                           return PayInfoModal(
                             totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
                             warehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
-                            reason: reasonSelected,
                           );
                         },
                       );
@@ -688,8 +714,11 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                       );
                                     },
                                     onTap: () {
-                                      if ((reasonSelected == 2) || (reasonSelected == -1)) {
-                                        notifierPos.addTicketline(product, statePos.selectTicket!);
+                                      var selectWarehouseId = notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"];
+                                      var stockQuantity = product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent;
+
+                                      if ((statePos.selectReason == 2) || (statePos.selectReason == -1)) {
+                                        notifierPos.addTicketline(product, statePos.selectTicket!, stockQuantity!);
                                         notifierPos.updateIndex("ticketLine", statePos.listTicket![statePos.selectTicket!].ticketlines!.length - 1);
                                       }
                                       notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!);

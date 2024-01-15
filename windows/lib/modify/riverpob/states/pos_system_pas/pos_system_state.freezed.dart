@@ -25,6 +25,7 @@ mixin _$PosSystemState {
   int? get selectTicketLine => throw _privateConstructorUsedError;
   int? get selectCategory => throw _privateConstructorUsedError;
   int? get selectTicket => throw _privateConstructorUsedError;
+  int? get selectReason => throw _privateConstructorUsedError;
   bool get isUsersLoading => throw _privateConstructorUsedError;
   bool? get isUnitLoading => throw _privateConstructorUsedError;
   bool get categoriesLoading => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $PosSystemStateCopyWith<$Res> {
       int? selectTicketLine,
       int? selectCategory,
       int? selectTicket,
+      int? selectReason,
       bool isUsersLoading,
       bool? isUnitLoading,
       bool categoriesLoading,
@@ -83,6 +85,7 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
     Object? selectTicketLine = freezed,
     Object? selectCategory = freezed,
     Object? selectTicket = freezed,
+    Object? selectReason = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
     Object? categoriesLoading = null,
@@ -126,6 +129,10 @@ class _$PosSystemStateCopyWithImpl<$Res, $Val extends PosSystemState>
       selectTicket: freezed == selectTicket
           ? _value.selectTicket
           : selectTicket // ignore: cast_nullable_to_non_nullable
+              as int?,
+      selectReason: freezed == selectReason
+          ? _value.selectReason
+          : selectReason // ignore: cast_nullable_to_non_nullable
               as int?,
       isUsersLoading: null == isUsersLoading
           ? _value.isUsersLoading
@@ -173,6 +180,7 @@ abstract class _$$PosSystemStateImplCopyWith<$Res>
       int? selectTicketLine,
       int? selectCategory,
       int? selectTicket,
+      int? selectReason,
       bool isUsersLoading,
       bool? isUnitLoading,
       bool categoriesLoading,
@@ -201,6 +209,7 @@ class __$$PosSystemStateImplCopyWithImpl<$Res>
     Object? selectTicketLine = freezed,
     Object? selectCategory = freezed,
     Object? selectTicket = freezed,
+    Object? selectReason = freezed,
     Object? isUsersLoading = null,
     Object? isUnitLoading = freezed,
     Object? categoriesLoading = null,
@@ -245,6 +254,10 @@ class __$$PosSystemStateImplCopyWithImpl<$Res>
           ? _value.selectTicket
           : selectTicket // ignore: cast_nullable_to_non_nullable
               as int?,
+      selectReason: freezed == selectReason
+          ? _value.selectReason
+          : selectReason // ignore: cast_nullable_to_non_nullable
+              as int?,
       isUsersLoading: null == isUsersLoading
           ? _value.isUsersLoading
           : isUsersLoading // ignore: cast_nullable_to_non_nullable
@@ -286,6 +299,7 @@ class _$PosSystemStateImpl extends _PosSystemState {
       this.selectTicketLine = 0,
       this.selectCategory = 0,
       this.selectTicket = 0,
+      this.selectReason = -1,
       this.isUsersLoading = false,
       this.isUnitLoading = false,
       this.categoriesLoading = false,
@@ -374,6 +388,9 @@ class _$PosSystemStateImpl extends _PosSystemState {
   final int? selectTicket;
   @override
   @JsonKey()
+  final int? selectReason;
+  @override
+  @JsonKey()
   final bool isUsersLoading;
   @override
   @JsonKey()
@@ -393,7 +410,7 @@ class _$PosSystemStateImpl extends _PosSystemState {
 
   @override
   String toString() {
-    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, categories: $categories, infoSelected: $infoSelected, selectTicketLine: $selectTicketLine, selectCategory: $selectCategory, selectTicket: $selectTicket, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, categoriesLoading: $categoriesLoading, productsLoading: $productsLoading, createTicketLoading: $createTicketLoading, isPaymentLoading: $isPaymentLoading)';
+    return 'PosSystemState(listTicket: $listTicket, customerPos: $customerPos, unitPos: $unitPos, paymentPos: $paymentPos, categories: $categories, infoSelected: $infoSelected, selectTicketLine: $selectTicketLine, selectCategory: $selectCategory, selectTicket: $selectTicket, selectReason: $selectReason, isUsersLoading: $isUsersLoading, isUnitLoading: $isUnitLoading, categoriesLoading: $categoriesLoading, productsLoading: $productsLoading, createTicketLoading: $createTicketLoading, isPaymentLoading: $isPaymentLoading)';
   }
 
   @override
@@ -418,6 +435,8 @@ class _$PosSystemStateImpl extends _PosSystemState {
                 other.selectCategory == selectCategory) &&
             (identical(other.selectTicket, selectTicket) ||
                 other.selectTicket == selectTicket) &&
+            (identical(other.selectReason, selectReason) ||
+                other.selectReason == selectReason) &&
             (identical(other.isUsersLoading, isUsersLoading) ||
                 other.isUsersLoading == isUsersLoading) &&
             (identical(other.isUnitLoading, isUnitLoading) ||
@@ -444,6 +463,7 @@ class _$PosSystemStateImpl extends _PosSystemState {
       selectTicketLine,
       selectCategory,
       selectTicket,
+      selectReason,
       isUsersLoading,
       isUnitLoading,
       categoriesLoading,
@@ -470,6 +490,7 @@ abstract class _PosSystemState extends PosSystemState {
       final int? selectTicketLine,
       final int? selectCategory,
       final int? selectTicket,
+      final int? selectReason,
       final bool isUsersLoading,
       final bool? isUnitLoading,
       final bool categoriesLoading,
@@ -496,6 +517,8 @@ abstract class _PosSystemState extends PosSystemState {
   int? get selectCategory;
   @override
   int? get selectTicket;
+  @override
+  int? get selectReason;
   @override
   bool get isUsersLoading;
   @override

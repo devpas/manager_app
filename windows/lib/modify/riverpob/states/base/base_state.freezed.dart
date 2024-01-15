@@ -44,7 +44,6 @@ mixin _$BaseState {
   XFile? get video => throw _privateConstructorUsedError;
   dynamic get translate => throw _privateConstructorUsedError;
   String? get languageSelected => throw _privateConstructorUsedError;
-  bool? get translateLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BaseStateCopyWith<BaseState> get copyWith =>
@@ -84,8 +83,7 @@ abstract class $BaseStateCopyWith<$Res> {
       XFile? image,
       XFile? video,
       dynamic translate,
-      String? languageSelected,
-      bool? translateLoading});
+      String? languageSelected});
 }
 
 /// @nodoc
@@ -129,7 +127,6 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
     Object? video = freezed,
     Object? translate = freezed,
     Object? languageSelected = freezed,
-    Object? translateLoading = freezed,
   }) {
     return _then(_value.copyWith(
       base: freezed == base
@@ -244,10 +241,6 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.languageSelected
           : languageSelected // ignore: cast_nullable_to_non_nullable
               as String?,
-      translateLoading: freezed == translateLoading
-          ? _value.translateLoading
-          : translateLoading // ignore: cast_nullable_to_non_nullable
-              as bool?,
     ) as $Val);
   }
 }
@@ -288,8 +281,7 @@ abstract class _$$BaseStateImplCopyWith<$Res>
       XFile? image,
       XFile? video,
       dynamic translate,
-      String? languageSelected,
-      bool? translateLoading});
+      String? languageSelected});
 }
 
 /// @nodoc
@@ -331,7 +323,6 @@ class __$$BaseStateImplCopyWithImpl<$Res>
     Object? video = freezed,
     Object? translate = freezed,
     Object? languageSelected = freezed,
-    Object? translateLoading = freezed,
   }) {
     return _then(_$BaseStateImpl(
       base: freezed == base
@@ -446,10 +437,6 @@ class __$$BaseStateImplCopyWithImpl<$Res>
           ? _value.languageSelected
           : languageSelected // ignore: cast_nullable_to_non_nullable
               as String?,
-      translateLoading: freezed == translateLoading
-          ? _value.translateLoading
-          : translateLoading // ignore: cast_nullable_to_non_nullable
-              as bool?,
     ));
   }
 }
@@ -485,8 +472,7 @@ class _$BaseStateImpl extends _BaseState {
       this.image,
       this.video,
       this.translate = const {},
-      this.languageSelected = "vn",
-      this.translateLoading = false})
+      this.languageSelected = "vn"})
       : _base = base,
         _employees = employees,
         _printers = printers,
@@ -607,13 +593,10 @@ class _$BaseStateImpl extends _BaseState {
   @override
   @JsonKey()
   final String? languageSelected;
-  @override
-  @JsonKey()
-  final bool? translateLoading;
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, baseEmployees: $baseEmployees, image: $image, video: $video, translate: $translate, languageSelected: $languageSelected, translateLoading: $translateLoading)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, baseEmployees: $baseEmployees, image: $image, video: $video, translate: $translate, languageSelected: $languageSelected)';
   }
 
   @override
@@ -671,9 +654,7 @@ class _$BaseStateImpl extends _BaseState {
             (identical(other.video, video) || other.video == video) &&
             const DeepCollectionEquality().equals(other.translate, translate) &&
             (identical(other.languageSelected, languageSelected) ||
-                other.languageSelected == languageSelected) &&
-            (identical(other.translateLoading, translateLoading) ||
-                other.translateLoading == translateLoading));
+                other.languageSelected == languageSelected));
   }
 
   @override
@@ -706,8 +687,7 @@ class _$BaseStateImpl extends _BaseState {
         image,
         video,
         const DeepCollectionEquality().hash(translate),
-        languageSelected,
-        translateLoading
+        languageSelected
       ]);
 
   @JsonKey(ignore: true)
@@ -746,8 +726,7 @@ abstract class _BaseState extends BaseState {
       final XFile? image,
       final XFile? video,
       final dynamic translate,
-      final String? languageSelected,
-      final bool? translateLoading}) = _$BaseStateImpl;
+      final String? languageSelected}) = _$BaseStateImpl;
   const _BaseState._() : super._();
 
   @override
@@ -806,8 +785,6 @@ abstract class _BaseState extends BaseState {
   dynamic get translate;
   @override
   String? get languageSelected;
-  @override
-  bool? get translateLoading;
   @override
   @JsonKey(ignore: true)
   _$$BaseStateImplCopyWith<_$BaseStateImpl> get copyWith =>

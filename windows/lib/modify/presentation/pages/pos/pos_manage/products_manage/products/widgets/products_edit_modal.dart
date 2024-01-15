@@ -10,6 +10,7 @@ import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:g_manager_app/src/core/utils/app_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../../../models/models.dart';
 import '../../../../../../components/components.dart';
 import '../../../../../../theme/theme.dart';
 
@@ -35,6 +36,8 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
 
   final int? ticketLineIndex;
 
+  String errorMsg = "";
+
   TextEditingController unitController = TextEditingController(text: "0");
   TextEditingController priceAndTaxController = TextEditingController(text: "0");
   TextEditingController priceController = TextEditingController(text: "0");
@@ -46,6 +49,16 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
     //ticketline!.taxId! = 0
     priceAndTaxController.text = (ticketline!.price! * (1 + 0 / 100)).toStringAsFixed(2);
     priceController.text = ticketline!.price!.toStringAsFixed(2);
+  }
+
+  int getStockQuatity() {
+    final notifierBase = ref.read(baseProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
+    final stateProducts = ref.watch(productsPASProvider);
+    ProductPasData product = stateProducts.products!.where((p) => p.id == ticketline!.productId).first;
+    var selectWarehouseId = notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"];
+    var stockQuantity = product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent!;
+    return stockQuantity;
   }
 
   @override
@@ -85,7 +98,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
               keyboardType: TextInputType.number,
               controller: unitController,
               inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-              onChanged: (input) => {},
+              onChanged: (input) {},
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -254,7 +267,14 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                 )
               ],
             ),
-            50.verticalSpace,
+            10.verticalSpace,
+            SizedBox(
+              child: Text(
+                errorMsg,
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+            30.verticalSpace,
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Row(
@@ -263,8 +283,16 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                   ConfirmButton(
                     title: stateBase.translate[stateBase.languageSelected]["ok"],
                     onTap: () {
-                      notifierPos.editUnitProduct(unitController.text, priceController.text, ticketline!.id, ticketIndex, ticketLineIndex);
-                      Navigator.pop(context);
+                      print(getStockQuatity());
+                      print(int.parse(unitController.text));
+                      if ((int.parse(unitController.text) <= getStockQuatity()) || statePos.selectReason == 2) {
+                        notifierPos.editUnitProduct(unitController.text, priceController.text, ticketline!.id, ticketIndex, ticketLineIndex);
+                        Navigator.pop(context);
+                      } else {
+                        setState(() {
+                          errorMsg = "Số lượng mua vượt số lượng trong kho";
+                        });
+                      }
                     },
                   ),
                   ConfirmButton(

@@ -17,8 +17,6 @@ class ListTicketModal extends ConsumerStatefulWidget {
 }
 
 class _ListTicketModalState extends ConsumerState<ListTicketModal> {
-  int selectTicket = 0;
-
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(posSystemPASProvider);
@@ -43,18 +41,18 @@ class _ListTicketModalState extends ConsumerState<ListTicketModal> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 final ticket = state.listTicket![index];
+
                 return TicketItem(
                   title: "${ticket.title}"
                       "\n ${notifierCustomer.getNameCustomeById(ticket.customerId!)}",
-                  isSelected: index == selectTicket ? true : false,
+                  isSelected: state.selectTicket == index ? true : false,
                   onDelete: () {
-                    print(index);
                     notifier.deleteTicket(index);
                     notifier.updateIndex("ticket", state.listTicket!.length - 1);
                   },
                   onTap: () {
+                    print(state.selectTicket == index ? true : false);
                     setState(() {
-                      selectTicket = index;
                       var customerPos = ["", "Khách lẻ", "Không có địa chỉ cụ thể", "", ""];
                       if (state.listTicket![index].customerId != "") {
                         var customer = stateCustomer.customers!.where((c) => c.id == state.listTicket![index].customerId!).toList()[0];

@@ -284,7 +284,7 @@ class AppTypographies {
 
   static TextStyle styGreen16W500 = GoogleFonts.inter(
     fontWeight: FontWeight.w500,
-    color: AppColors.black,
+    color: AppColors.greenMain,
     fontSize: 16.sp,
   );
 }

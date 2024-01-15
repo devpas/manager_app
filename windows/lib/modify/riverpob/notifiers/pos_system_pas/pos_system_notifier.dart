@@ -23,7 +23,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
 
   TicketData ticket = TicketData(
       id: 0,
-      title: DateFormat.yMd().add_Hms().format(DateTime.now()),
+      title: "${DateFormat.yMd().add_Hms().format(DateTime.now())} - Phiếu xuất",
       ticketType: 0,
       ticketId: 0,
       personId: "",
@@ -101,9 +101,15 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
   ];
 
   TicketData initTicket() {
+    String titleReason = "";
+    if (state.selectReason == -1) {
+      titleReason = " - Phiếu xuất";
+    } else if (state.selectReason == 2) {
+      titleReason = " - Phiếu nhập";
+    }
     return TicketData(
         id: 0,
-        title: DateFormat.yMd().add_Hms().format(DateTime.now()),
+        title: DateFormat.yMd().add_Hms().format(DateTime.now()) + titleReason,
         ticketType: 0,
         ticketId: 0,
         personId: "",
@@ -116,7 +122,8 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         payments: [PaymentData(id: 0, receiptId: 0, payment: "", total: 0, transId: "", returnMSG: "", notes: "")]);
   }
 
-  void addTicketline(ProductPasData product, int index) {
+  void addTicketline(ProductPasData product, int index, int stockQuatity) {
+    print(stockQuatity);
     TicketLineData ticketline = TicketLineData(
         id: listTicket[state.selectTicket!].ticketlines!.isNotEmpty ? listTicket[state.selectTicket!].ticketlines!.length + 1 : 1,
         ticketId: listTicket[state.selectTicket!].ticketId,
@@ -134,8 +141,11 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
       }
     } else {
       int indexTicketline = listTicket[index].ticketlines!.indexWhere((element) => element.productId == ticketline.productId);
-      listTicket[index].ticketlines![indexTicketline] = listTicket[index].ticketlines![indexTicketline].copyWith(unit: listTicket[index].ticketlines![indexTicketline].unit! + 1);
-      state = state.copyWith(listTicket: listTicket);
+      print(listTicket[index].ticketlines![indexTicketline].unit!);
+      if (listTicket[index].ticketlines![indexTicketline].unit! < stockQuatity) {
+        listTicket[index].ticketlines![indexTicketline] = listTicket[index].ticketlines![indexTicketline].copyWith(unit: listTicket[index].ticketlines![indexTicketline].unit! + 1);
+        state = state.copyWith(listTicket: listTicket);
+      }
     }
   }
 
@@ -188,7 +198,6 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     infoSelected[0] = customerPos[0];
     infoSelected[1] = unitPos[0];
     infoSelected[2] = paymentPos[0];
-
     listTicket.add(initTicket());
     state = state.copyWith(listTicket: listTicket, selectTicket: listTicket.length - 1, infoSelected: infoSelected);
   }
@@ -429,5 +438,9 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     } else {
       print(response);
     }
+  }
+
+  void setReasonSelected(int reason) {
+    state = state.copyWith(selectReason: reason);
   }
 }

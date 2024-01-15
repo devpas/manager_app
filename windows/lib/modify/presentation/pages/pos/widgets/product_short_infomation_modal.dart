@@ -50,7 +50,7 @@ class _ProductShortInfoModalState extends ConsumerState<ProductShortInfoModal> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: screenWidth * 0.8,
+                      width: screenWidth * 0.4,
                       child: Text(
                         product!.name.toString(),
                         style: AppTypographies.styBlack16W500,
@@ -74,37 +74,37 @@ class _ProductShortInfoModalState extends ConsumerState<ProductShortInfoModal> {
                     Column(
                       children: [
                         SizedBox(
-                            width: screenWidth * 0.5,
+                            width: screenWidth * 0.4,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text("Giá mua: ${product!.priceBuy}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
-                            width: screenWidth * 0.5,
+                            width: screenWidth * 0.4,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text("Giá bán: ${product!.priceSell}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
-                            width: screenWidth * 0.5,
+                            width: screenWidth * 0.4,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text("Mã vạch: ${product!.reference}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
-                            width: screenWidth * 0.5,
+                            width: screenWidth * 0.4,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text("Code: ${product!.code}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
-                            width: screenWidth * 0.5,
+                            width: screenWidth * 0.4,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text("Danh mục: ${state.categories!.where((category) => category.id == product!.categoryId).first.name}", style: AppTypographies.styBlack12W400),
                             )),
                         SizedBox(
-                            width: screenWidth * 0.5,
+                            width: screenWidth * 0.4,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text("${stateBase.translate[stateBase.languageSelected]["status"]}: ${product!.active == 1 ? stateBase.translate[stateBase.languageSelected]["active"] : stateBase.translate[stateBase.languageSelected]["inactive"]}", style: AppTypographies.styBlack12W400),

@@ -64,6 +64,16 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
     return heightContainerProduct;
   }
 
+  int getStockQuatity(int productId) {
+    final notifierBase = ref.read(baseProvider.notifier);
+    final stateBase = ref.watch(baseProvider);
+    final stateProducts = ref.watch(productsPASProvider);
+    ProductPasData product = stateProducts.products!.where((p) => p.id == productId).first;
+    var selectWarehouseId = notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"];
+    var stockQuantity = product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent!;
+    return stockQuantity;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -653,7 +663,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                 List<ProductPasData> result = notifierProducts.searchAndAddProductInTicketByRefCode(barCodeController.text);
                                 print(result.length);
                                 if (result.isNotEmpty) {
-                                  notifierPos.addTicketline(result[0], statePos.selectTicket!);
+                                  notifierPos.addTicketline(result[0], statePos.selectTicket!, 0);
                                 }
                               }
                             },

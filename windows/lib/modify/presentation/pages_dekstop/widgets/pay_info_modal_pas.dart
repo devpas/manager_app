@@ -19,13 +19,12 @@ import '../../theme/theme.dart';
 class PayInfoModal extends ConsumerStatefulWidget {
   final double totalMoneyFromTicket;
   final int warehouseId;
-  final int reason;
-  const PayInfoModal({Key? key, required this.totalMoneyFromTicket, required this.warehouseId, required this.reason}) : super(key: key);
+  const PayInfoModal({Key? key, required this.totalMoneyFromTicket, required this.warehouseId}) : super(key: key);
 
   @override
   ConsumerState<PayInfoModal> createState() =>
       // ignore: no_logic_in_create_state
-      _PayInfoModalState(totalMoneyFromTicket, warehouseId, reason);
+      _PayInfoModalState(totalMoneyFromTicket, warehouseId);
 }
 
 class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProviderStateMixin {
@@ -34,8 +33,6 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
   final double totalMoneyFromTicket;
 
   final int warehouseId;
-
-  final int reason;
 
   int tabActive = 0;
 
@@ -49,7 +46,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
 
   bool editMoney = false;
 
-  _PayInfoModalState(this.totalMoneyFromTicket, this.warehouseId, this.reason);
+  _PayInfoModalState(this.totalMoneyFromTicket, this.warehouseId);
 
   WidgetsToImageController controller = WidgetsToImageController();
 
@@ -575,12 +572,12 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                             String keyEmail = "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}";
                             if (tabActive == 0) {
                               context.popRoute();
-                              await notifier.createOrder(totalMoney, reason, warehouseId, "cash", keyEmail);
+                              await notifier.createOrder(totalMoney, statePos.selectReason!, warehouseId, "cash", keyEmail);
                               notifierBase.getMoneyWallet(keyEmail);
                               await notifierProducts.fetchProductsPos();
                             } else if (tabActive == 1) {
                               context.popRoute();
-                              await notifier.createOrder(totalMoney, reason, warehouseId, "debt", keyEmail);
+                              await notifier.createOrder(totalMoney, statePos.selectReason!, warehouseId, "debt", keyEmail);
                               notifierBase.getMoneyWallet(keyEmail);
                               await notifierProducts.fetchProductsPos();
                               await notifierCustomer.fetchListCustomers();
