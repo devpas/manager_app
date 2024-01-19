@@ -20,6 +20,8 @@ mixin _$OrdersPasState {
   List<TicketData>? get ticketsAfterFilter =>
       throw _privateConstructorUsedError;
   bool get isTicketsLoading => throw _privateConstructorUsedError;
+  List<dynamic>? get listTicketShortData => throw _privateConstructorUsedError;
+  bool get ticketInfomationLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrdersPasStateCopyWith<OrdersPasState> get copyWith =>
@@ -35,7 +37,9 @@ abstract class $OrdersPasStateCopyWith<$Res> {
   $Res call(
       {List<TicketData>? tickets,
       List<TicketData>? ticketsAfterFilter,
-      bool isTicketsLoading});
+      bool isTicketsLoading,
+      List<dynamic>? listTicketShortData,
+      bool ticketInfomationLoading});
 }
 
 /// @nodoc
@@ -54,6 +58,8 @@ class _$OrdersPasStateCopyWithImpl<$Res, $Val extends OrdersPasState>
     Object? tickets = freezed,
     Object? ticketsAfterFilter = freezed,
     Object? isTicketsLoading = null,
+    Object? listTicketShortData = freezed,
+    Object? ticketInfomationLoading = null,
   }) {
     return _then(_value.copyWith(
       tickets: freezed == tickets
@@ -67,6 +73,14 @@ class _$OrdersPasStateCopyWithImpl<$Res, $Val extends OrdersPasState>
       isTicketsLoading: null == isTicketsLoading
           ? _value.isTicketsLoading
           : isTicketsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      listTicketShortData: freezed == listTicketShortData
+          ? _value.listTicketShortData
+          : listTicketShortData // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      ticketInfomationLoading: null == ticketInfomationLoading
+          ? _value.ticketInfomationLoading
+          : ticketInfomationLoading // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -83,7 +97,9 @@ abstract class _$$OrdersPasStateImplCopyWith<$Res>
   $Res call(
       {List<TicketData>? tickets,
       List<TicketData>? ticketsAfterFilter,
-      bool isTicketsLoading});
+      bool isTicketsLoading,
+      List<dynamic>? listTicketShortData,
+      bool ticketInfomationLoading});
 }
 
 /// @nodoc
@@ -100,6 +116,8 @@ class __$$OrdersPasStateImplCopyWithImpl<$Res>
     Object? tickets = freezed,
     Object? ticketsAfterFilter = freezed,
     Object? isTicketsLoading = null,
+    Object? listTicketShortData = freezed,
+    Object? ticketInfomationLoading = null,
   }) {
     return _then(_$OrdersPasStateImpl(
       tickets: freezed == tickets
@@ -114,6 +132,14 @@ class __$$OrdersPasStateImplCopyWithImpl<$Res>
           ? _value.isTicketsLoading
           : isTicketsLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      listTicketShortData: freezed == listTicketShortData
+          ? _value._listTicketShortData
+          : listTicketShortData // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      ticketInfomationLoading: null == ticketInfomationLoading
+          ? _value.ticketInfomationLoading
+          : ticketInfomationLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -124,9 +150,12 @@ class _$OrdersPasStateImpl extends _OrdersPasState {
   const _$OrdersPasStateImpl(
       {final List<TicketData>? tickets = const [],
       final List<TicketData>? ticketsAfterFilter = const [],
-      this.isTicketsLoading = false})
+      this.isTicketsLoading = false,
+      final List<dynamic>? listTicketShortData = const [],
+      this.ticketInfomationLoading = false})
       : _tickets = tickets,
         _ticketsAfterFilter = ticketsAfterFilter,
+        _listTicketShortData = listTicketShortData,
         super._();
 
   final List<TicketData>? _tickets;
@@ -155,10 +184,25 @@ class _$OrdersPasStateImpl extends _OrdersPasState {
   @override
   @JsonKey()
   final bool isTicketsLoading;
+  final List<dynamic>? _listTicketShortData;
+  @override
+  @JsonKey()
+  List<dynamic>? get listTicketShortData {
+    final value = _listTicketShortData;
+    if (value == null) return null;
+    if (_listTicketShortData is EqualUnmodifiableListView)
+      return _listTicketShortData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final bool ticketInfomationLoading;
 
   @override
   String toString() {
-    return 'OrdersPasState(tickets: $tickets, ticketsAfterFilter: $ticketsAfterFilter, isTicketsLoading: $isTicketsLoading)';
+    return 'OrdersPasState(tickets: $tickets, ticketsAfterFilter: $ticketsAfterFilter, isTicketsLoading: $isTicketsLoading, listTicketShortData: $listTicketShortData, ticketInfomationLoading: $ticketInfomationLoading)';
   }
 
   @override
@@ -170,7 +214,12 @@ class _$OrdersPasStateImpl extends _OrdersPasState {
             const DeepCollectionEquality()
                 .equals(other._ticketsAfterFilter, _ticketsAfterFilter) &&
             (identical(other.isTicketsLoading, isTicketsLoading) ||
-                other.isTicketsLoading == isTicketsLoading));
+                other.isTicketsLoading == isTicketsLoading) &&
+            const DeepCollectionEquality()
+                .equals(other._listTicketShortData, _listTicketShortData) &&
+            (identical(
+                    other.ticketInfomationLoading, ticketInfomationLoading) ||
+                other.ticketInfomationLoading == ticketInfomationLoading));
   }
 
   @override
@@ -178,7 +227,9 @@ class _$OrdersPasStateImpl extends _OrdersPasState {
       runtimeType,
       const DeepCollectionEquality().hash(_tickets),
       const DeepCollectionEquality().hash(_ticketsAfterFilter),
-      isTicketsLoading);
+      isTicketsLoading,
+      const DeepCollectionEquality().hash(_listTicketShortData),
+      ticketInfomationLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +243,9 @@ abstract class _OrdersPasState extends OrdersPasState {
   const factory _OrdersPasState(
       {final List<TicketData>? tickets,
       final List<TicketData>? ticketsAfterFilter,
-      final bool isTicketsLoading}) = _$OrdersPasStateImpl;
+      final bool isTicketsLoading,
+      final List<dynamic>? listTicketShortData,
+      final bool ticketInfomationLoading}) = _$OrdersPasStateImpl;
   const _OrdersPasState._() : super._();
 
   @override
@@ -201,6 +254,10 @@ abstract class _OrdersPasState extends OrdersPasState {
   List<TicketData>? get ticketsAfterFilter;
   @override
   bool get isTicketsLoading;
+  @override
+  List<dynamic>? get listTicketShortData;
+  @override
+  bool get ticketInfomationLoading;
   @override
   @JsonKey(ignore: true)
   _$$OrdersPasStateImplCopyWith<_$OrdersPasStateImpl> get copyWith =>

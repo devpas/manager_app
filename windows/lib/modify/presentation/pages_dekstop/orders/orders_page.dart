@@ -605,129 +605,186 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                     width: screenWidth * 0.735,
                     child: Row(
                       children: [
-                        SizedBox(
-                            width: screenWidth * 0.35,
-                            child: state.isTicketsLoading
-                                ? Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColors.greenMain,
-                                      strokeWidth: 3.r,
-                                    ),
-                                  )
-                                : ListView(
-                                    physics: const CustomBouncingScrollPhysics(),
-                                    children: [
-                                      ListView.builder(
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        padding: REdgeInsets.only(
-                                          left: 15,
-                                          right: 15,
-                                          top: 14,
-                                          bottom: 0,
+                        state.listTicketShortData!.length < state.tickets!.length
+                            ? SizedBox(
+                                width: screenWidth * 0.35,
+                                child: state.isTicketsLoading
+                                    ? Center(
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.greenMain,
+                                          strokeWidth: 3.r,
                                         ),
-                                        itemCount: state.tickets!.length,
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, index) {
-                                          TicketData order;
-                                          if (state.ticketsAfterFilter!.isNotEmpty) {
-                                            order = state.ticketsAfterFilter![index];
-                                          } else {
-                                            order = state.tickets![index];
-                                          }
-                                          return Column(
-                                            children: [
-                                              OrderPasItem(
-                                                order: order,
-                                                onTap: () {
-                                                  setState(() {
-                                                    print(order.runtimeType);
-                                                    ticketSelected = order;
-                                                    indexItemSelected = index;
-                                                    print(ticketSelected.toJson());
-                                                  });
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  )),
-                        VerticalDivider(),
-                        SizedBox(
-                            child: indexItemSelected != -1
-                                ? Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text("Đơn hàng-#${ticketSelected.ticketId}"),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text("Người xuất phiếu: ${getNameSellerByPersonId(ticketSelected.personId!)}"),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text("Khách hàng: ${notifier.getNameCustomeById(ticketSelected.customerId!)}"),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text("Ngày xuất phiếu: ${ticketSelected.datenew}"),
-                                    const Divider(),
-                                    Container(
-                                      width: screenWidth * 0.36,
-                                      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(width: screenWidth * 0.15, child: Text("Sản phẩm")),
-                                          SizedBox(width: screenWidth * 0.1, child: Text("giá+%")),
-                                          SizedBox(width: screenWidth * 0.05, child: Text("SL")),
-                                          SizedBox(child: Text("Tổng")),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: screenWidth * 0.36,
-                                      height: screenHeight * 0.3,
-                                      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                                      child: ListView(
+                                      )
+                                    : ListView(
                                         physics: const CustomBouncingScrollPhysics(),
-                                        padding: EdgeInsets.all(3),
                                         children: [
                                           ListView.builder(
                                             physics: const NeverScrollableScrollPhysics(),
-                                            itemCount: ticketSelected.ticketlines!.length,
+                                            padding: REdgeInsets.only(
+                                              left: 15,
+                                              right: 15,
+                                              top: 14,
+                                              bottom: 0,
+                                            ),
+                                            itemCount: state.tickets!.length,
                                             shrinkWrap: true,
                                             itemBuilder: (context, index) {
-                                              TicketLineData ticketline = ticketSelected.ticketlines![index];
-                                              TaxlineData taxline = ticketSelected.taxlines![index];
-                                              return Row(
+                                              TicketData order;
+                                              if (state.ticketsAfterFilter!.isNotEmpty) {
+                                                order = state.ticketsAfterFilter![index];
+                                              } else {
+                                                order = state.tickets![index];
+                                              }
+                                              return Column(
                                                 children: [
-                                                  SizedBox(width: screenWidth * 0.15, child: Text("${ticketline.productId}")),
-                                                  SizedBox(width: screenWidth * 0.1, child: Text("${taxline.amount!}")),
-                                                  SizedBox(width: screenWidth * 0.05, child: Text("${ticketline.unit}")),
-                                                  SizedBox(child: Text("${taxline.amount! * ticketline.unit!}")),
+                                                  OrderPasItem(
+                                                    order: order,
+                                                    onTap: () {
+                                                      setState(() {
+                                                        print(order.runtimeType);
+                                                        ticketSelected = order;
+                                                        indexItemSelected = index;
+                                                        print(ticketSelected.toJson());
+                                                      });
+                                                    },
+                                                  ),
                                                 ],
                                               );
                                             },
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text("SL món hàng: ${ticketSelected.ticketlines!.length}"),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text("Tổng tiền: ${ticketSelected.payments![0].total}"),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text("Phương thức thanh toán: ${ticketSelected.payments![0].payment}"),
-                                  ])
-                                : const SizedBox())
+                                      ))
+                            : SizedBox(
+                                width: screenWidth * 0.35,
+                                child: state.isTicketsLoading
+                                    ? Center(
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.greenMain,
+                                          strokeWidth: 3.r,
+                                        ),
+                                      )
+                                    : ListView(
+                                        physics: const CustomBouncingScrollPhysics(),
+                                        children: [
+                                          ListView.builder(
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            padding: REdgeInsets.only(
+                                              left: 15,
+                                              right: 15,
+                                              top: 14,
+                                              bottom: 0,
+                                            ),
+                                            itemCount: state.listTicketShortData!.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              var order;
+                                              order = state.listTicketShortData![index];
+                                              return Column(
+                                                children: [
+                                                  OrderPasShortDataItem(
+                                                    order: order,
+                                                    onTap: () {
+                                                      if (state.ticketInfomationLoading == false) {
+                                                        notifierOrder.ticketId = order["ticket_id"];
+                                                        setState(() async {
+                                                          print(order.runtimeType);
+                                                          ticketSelected = (await notifierOrder.searchOrder())!;
+                                                          indexItemSelected = index;
+                                                          print(ticketSelected.toJson());
+                                                        });
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      )),
+                        VerticalDivider(),
+                        state.ticketInfomationLoading
+                            ? const Flexible(
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.greenMain,
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              )
+                            : SizedBox(
+                                child: indexItemSelected != -1
+                                    ? Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("Đơn hàng-#${ticketSelected.ticketId}"),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("Người xuất phiếu: ${getNameSellerByPersonId(ticketSelected.personId!)}"),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("Khách hàng: ${notifier.getNameCustomeById(ticketSelected.customerId!)}"),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("Ngày xuất phiếu: ${ticketSelected.datenew}"),
+                                        const Divider(),
+                                        Container(
+                                          width: screenWidth * 0.36,
+                                          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                                          child: Row(
+                                            children: [
+                                              SizedBox(width: screenWidth * 0.15, child: Text("Sản phẩm")),
+                                              SizedBox(width: screenWidth * 0.1, child: Text("giá+%")),
+                                              SizedBox(width: screenWidth * 0.05, child: Text("SL")),
+                                              SizedBox(child: Text("Tổng")),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: screenWidth * 0.36,
+                                          height: screenHeight * 0.3,
+                                          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                                          child: ListView(
+                                            physics: const CustomBouncingScrollPhysics(),
+                                            padding: EdgeInsets.all(3),
+                                            children: [
+                                              ListView.builder(
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemCount: ticketSelected.ticketlines!.length,
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) {
+                                                  TicketLineData ticketline = ticketSelected.ticketlines![index];
+                                                  TaxlineData taxline = ticketSelected.taxlines![index];
+                                                  return Row(
+                                                    children: [
+                                                      SizedBox(width: screenWidth * 0.15, child: Text("${ticketline.productId}")),
+                                                      SizedBox(width: screenWidth * 0.1, child: Text("${taxline.amount!}")),
+                                                      SizedBox(width: screenWidth * 0.05, child: Text("${ticketline.unit}")),
+                                                      SizedBox(child: Text("${taxline.amount! * ticketline.unit!}")),
+                                                    ],
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("SL món hàng: ${ticketSelected.ticketlines!.length}"),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("Tổng tiền: ${ticketSelected.payments![0].total}"),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("Phương thức thanh toán: ${ticketSelected.payments![0].payment}"),
+                                      ])
+                                    : const SizedBox())
                       ],
                     ),
                   ),

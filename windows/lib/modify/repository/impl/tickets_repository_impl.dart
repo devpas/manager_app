@@ -65,9 +65,10 @@ class TicketsRepositoryImpl extends TicketsRepository {
   }
 
   @override
-  Future<ApiResult<TicketsResponse>> searchTickets(dynamic queryParam) async {
+  Future<dynamic> searchTickets(dynamic queryParam) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
     final data = {"access_id": LocalStorage.instance.getKeyAccessOwner(), "query_param": queryParam};
+    var dataJson = {};
     if (LocalStorage.instance.getShareMode()) {
       data["access_id"] = LocalStorage.instance.getKeyAccessShare();
     }
@@ -96,16 +97,13 @@ class TicketsRepositoryImpl extends TicketsRepository {
               return status! < 500;
             }),
       );
-      print(response2.data);
-      return ApiResult.success(
-        data: TicketsResponse.fromJson(response2.data),
-      );
+      dataJson = json.decode(response2.toString());
     } else {
       print(response.data);
-      return ApiResult.success(
-        data: TicketsResponse.fromJson(response.data),
-      );
+      dataJson = json.decode(response.toString());
     }
+    print(dataJson["data"]);
+    return dataJson;
   }
 
   @override

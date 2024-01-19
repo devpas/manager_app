@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:g_manager_app/modify/repository/tickets_repository.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../src/core/handlers/handlers.dart';
 import '../../../models/models.dart';
@@ -65,9 +66,9 @@ class OrdersPasNotifier extends StateNotifier<OrdersPasState> {
     if (personId != "") {
       queryParam.add({"key": "person_id", "value": personId.toString()});
     }
-    if (limit > 0) {
-      queryParam.add({"key": "limit", "value": limit.toString()});
-    }
+    // if (limit > 0) {
+    //   queryParam.add({"key": "limit", "value": limit.toString()});
+    // }
     if (desc) {
       queryParam.add({"key": "desc", "value": desc.toString()});
     }
@@ -75,28 +76,89 @@ class OrdersPasNotifier extends StateNotifier<OrdersPasState> {
     print(queryParam);
 
     final response = await _ticketsRepository.searchTickets(queryParam);
-    response.when(
-      success: (data) async {
-        listCacheOrder = data.ticket!;
+    if (response["result"] < 5000) {
+      var dataResponse = ApiResult.success(
+        data: TicketsResponse.fromJson(response),
+      );
+      dataResponse.when(success: (data) async {
         state = state.copyWith(tickets: data.ticket);
-        // listProductCache = data.products!;
-        // minCategoryId = data.products![0].categoryId!;
-        // for (int i = 0; i < data.products!.length; i++) {
-        // if (data.products![i].categoryId! < minCategoryId) {
-        //   minCategoryId = data.products![i].categoryId!;
-        // }
-        // }
-        // state = state.copyWith(
-        //     products: data.products!
-        //         .where((product) => product.categoryId == minCategoryId)
-        //         .toList());
-      },
-      failure: (failure) {
+      }, failure: (failure) {
         if (failure == const NetworkExceptions.unauthorisedRequest()) {
           debugPrint('==> get brands failure: $failure');
         }
-      },
-    );
+      });
+    } else {
+      state = state.copyWith(listTicketShortData: response["data"]);
+    }
+    // response.when(
+    //   success: (data) async {
+    //     listCacheOrder = data.ticket!;
+    //     state = state.copyWith(tickets: data.ticket);
+    //     // listProductCache = data.products!;
+    //     // minCategoryId = data.products![0].categoryId!;
+    //     // for (int i = 0; i < data.products!.length; i++) {
+    //     // if (data.products![i].categoryId! < minCategoryId) {
+    //     //   minCategoryId = data.products![i].categoryId!;
+    //     // }
+    //     // }
+    //     // state = state.copyWith(
+    //     //     products: data.products!
+    //     //         .where((product) => product.categoryId == minCategoryId)
+    //     //         .toList());
+    //   },
+    //   failure: (failure) {
+    //     if (failure == const NetworkExceptions.unauthorisedRequest()) {
+    //       debugPrint('==> get brands failure: $failure');
+    //     }
+    //   },
+    // );
     state = state.copyWith(isTicketsLoading: false);
+  }
+
+  Future<TicketData?> searchOrder() async {
+    state = state.copyWith(ticketInfomationLoading: true);
+    String start = dateStart.toString();
+    String end = dateEnd.toString();
+    start = start.substring(0, start.length - 7);
+    end = end.substring(0, end.length - 7);
+    TicketData? ticketSelected;
+    var queryParam = [
+      {"key": "date_start", "value": start},
+      {"key": "date_end", "value": end},
+    ];
+    if (ticketType != 0) {
+      queryParam.add({"key": "ticket_type", "value": ticketType.toString()});
+    }
+    if (ticketId != 0) {
+      queryParam.add({"key": "ticket_id", "value": ticketId.toString()});
+    }
+    if (customerId != "") {
+      queryParam.add({"key": "customer_id", "value": customerId.toString()});
+    }
+    if (personId != "") {
+      queryParam.add({"key": "person_id", "value": personId.toString()});
+    }
+    // if (limit > 0) {
+    //   queryParam.add({"key": "limit", "value": limit.toString()});
+    // }
+    if (desc) {
+      queryParam.add({"key": "desc", "value": desc.toString()});
+    }
+
+    print(queryParam);
+
+    final response = await _ticketsRepository.searchTickets(queryParam);
+    var dataResponse = ApiResult.success(
+      data: TicketsResponse.fromJson(response),
+    );
+    dataResponse.when(success: (data) async {
+      ticketSelected = data.ticket![0];
+    }, failure: (failure) {
+      if (failure == const NetworkExceptions.unauthorisedRequest()) {
+        debugPrint('==> get brands failure: $failure');
+      }
+    });
+    state = state.copyWith(ticketInfomationLoading: false);
+    return ticketSelected;
   }
 }
