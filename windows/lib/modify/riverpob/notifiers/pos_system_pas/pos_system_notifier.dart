@@ -135,14 +135,14 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         taxId: product.taxCat,
         attributes: "");
     if (listTicket[index].ticketlines!.where((element) => element.productId == ticketline.productId).isEmpty) {
-      if (ticketline.unit! > 0) {
+      if (stockQuatity > 0 || state.selectReason == 2) {
         listTicket[index].ticketlines?.add(ticketline);
         state = state.copyWith(listTicket: listTicket);
       }
     } else {
       int indexTicketline = listTicket[index].ticketlines!.indexWhere((element) => element.productId == ticketline.productId);
       print(listTicket[index].ticketlines![indexTicketline].unit!);
-      if (listTicket[index].ticketlines![indexTicketline].unit! < stockQuatity) {
+      if ((listTicket[index].ticketlines![indexTicketline].unit! < stockQuatity) || state.selectReason == 2) {
         listTicket[index].ticketlines![indexTicketline] = listTicket[index].ticketlines![indexTicketline].copyWith(unit: listTicket[index].ticketlines![indexTicketline].unit! + 1);
         state = state.copyWith(listTicket: listTicket);
       }

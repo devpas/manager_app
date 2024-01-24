@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -73,11 +74,11 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
         leading: Builder(
           builder: (context) => SmallIconButton(
             icon: Icon(
-              FlutterRemix.menu_line,
+              Icons.arrow_back,
               size: 24.r,
               color: AppColors.black,
             ),
-            onPressed: Scaffold.of(context).openDrawer,
+            onPressed: context.popRoute,
           ),
         ),
       ),

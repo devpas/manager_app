@@ -102,11 +102,11 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
         leading: Builder(
           builder: (context) => SmallIconButton(
             icon: Icon(
-              FlutterRemix.menu_line,
+              Icons.arrow_back,
               size: 24.r,
               color: AppColors.black,
             ),
-            onPressed: Scaffold.of(context).openDrawer,
+            onPressed: context.popRoute,
           ),
         ),
       ),

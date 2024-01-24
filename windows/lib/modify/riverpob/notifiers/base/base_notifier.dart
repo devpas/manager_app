@@ -559,8 +559,11 @@ class BaseNotifier extends StateNotifier<BaseState> {
         printer.disconnect();
       }
     } else {
-      print(state.printerSelected["address"]);
-      FlutterBluetoothPrinter.printBytes(address: state.printerSelected["address"], data: data, keepConnected: true);
+      try {
+        FlutterBluetoothPrinter.printBytes(address: state.printerSelected["address"], data: data, keepConnected: true);
+      } catch (e) {
+        print("printer not connect");
+      }
     }
   }
 
@@ -586,7 +589,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
   }
 
   Future<void> moneyRecord() async {
-    state = state.copyWith(printerLoading: true);
+    // state = state.copyWith(moneyWalletLoading: true);
     final response = await _baseRepository.moneyRecord();
     if (response["msg"] == "money record successful") {
       // await getListPrinters();

@@ -45,7 +45,7 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
   @override
   void initState() {
     super.initState();
-    unitController.text = ticketline!.unit.toString();
+    unitController.text = ticketline!.unit!.toStringAsFixed(2);
     //ticketline!.taxId! = 0
     priceAndTaxController.text = (ticketline!.price! * (1 + 0 / 100)).toStringAsFixed(2);
     priceController.text = ticketline!.price!.toStringAsFixed(2);
@@ -284,8 +284,8 @@ class _ProductEditModalState extends ConsumerState<ProductEditModal> {
                     title: stateBase.translate[stateBase.languageSelected]["ok"],
                     onTap: () {
                       print(getStockQuatity());
-                      print(int.parse(unitController.text));
-                      if ((int.parse(unitController.text) <= getStockQuatity()) || statePos.selectReason == 2) {
+                      print(unitController.text);
+                      if ((double.parse(unitController.text) <= getStockQuatity()) || statePos.selectReason == 2) {
                         notifierPos.editUnitProduct(unitController.text, priceController.text, ticketline!.id, ticketIndex, ticketLineIndex);
                         Navigator.pop(context);
                       } else {

@@ -28,19 +28,23 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
         ref.read(baseProvider.notifier).loadTranslate();
         ref.read(baseProvider.notifier).checkDataFolder();
         ref.read(baseProvider.notifier).checkAccessBlock();
-        if (LocalStorage.instance.getKeyAccessOwner() != "" || LocalStorage.instance.getKeyAccessShare() != "") {
-          ref.read(baseProvider.notifier).loadPrinterActive();
-          ref.read(productsPASProvider.notifier).getListWarehouses();
-          ref.read(productsPASProvider.notifier).fetchProducts();
-          ref.read(productsPASProvider.notifier).getListCustomerType();
-          ref.read(productsPASProvider.notifier).getListTaxCategories();
-          ref.read(productsPASProvider.notifier).getListTaxes();
-          ref.read(customersProvider.notifier).fetchListCustomers();
-          ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
-          ref.read(baseProvider.notifier).getListEmployee();
-        }
+        loadData();
       },
     );
+  }
+
+  Future<void> loadData() async {
+    if (LocalStorage.instance.getKeyAccessOwner() != "" || LocalStorage.instance.getKeyAccessShare() != "") {
+      ref.read(baseProvider.notifier).loadPrinterActive();
+      ref.read(productsPASProvider.notifier).getListWarehouses();
+      ref.read(productsPASProvider.notifier).fetchProducts();
+      ref.read(productsPASProvider.notifier).getListCustomerType();
+      ref.read(productsPASProvider.notifier).getListTaxCategories();
+      ref.read(productsPASProvider.notifier).getListTaxes();
+      ref.read(customersProvider.notifier).fetchListCustomers();
+      ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+      ref.read(baseProvider.notifier).getListEmployee();
+    }
   }
 
   bool checkData() {
@@ -96,8 +100,9 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
               5.verticalSpace,
               state.msgBase == state.translate[state.languageSelected]["want_install_folder"]
                   ? AccentAddButton(
-                      onPressed: () {
-                        notifier.createDataFolder();
+                      onPressed: () async {
+                        await notifier.createDataFolder();
+                        loadData();
                       },
                       title: state.translate[state.languageSelected]["create_folder_data"],
                     )

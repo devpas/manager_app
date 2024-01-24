@@ -23,8 +23,8 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
   }
 
   Future<void> fetchCategoriesAppscript() async {
-    final response = await _categoriesPASRepository.getCategory("");
     state = state.copyWith(categoryLoading: true);
+    final response = await _categoriesPASRepository.getCategory("");
     response.when(
       success: (data) async {
         CategoryPasData allCategories = CategoryPasData().copyWith(index: -1, id: -1, name: "All", parentId: 0, img: "", active: 1);

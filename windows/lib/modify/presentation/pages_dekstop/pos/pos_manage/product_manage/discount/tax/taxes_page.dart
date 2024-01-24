@@ -120,7 +120,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
     createMode = false;
     itemIndex = index + 1;
     notifier.setTaxSelected(tax);
-    nameController.text = tax["name"];
+    nameController.text = tax["name"].toString();
     expireController.text = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.parse(tax["valid_from"]));
     priceController.text = tax["rate"].toString();
     squenceController.text = tax["rate_order"] != null ? tax["rate_order"].toString() : "";
@@ -235,11 +235,11 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
         leading: Builder(
           builder: (context) => SmallIconButton(
             icon: Icon(
-              FlutterRemix.menu_line,
+              Icons.arrow_back,
               size: 24.r,
               color: AppColors.black,
             ),
-            onPressed: Scaffold.of(context).openDrawer,
+            onPressed: context.popRoute,
           ),
         ),
       ),
@@ -539,7 +539,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                             SizedBox(
                                               width: screenWidth * 0.25,
                                               child: Text(
-                                                tax["name"],
+                                                tax["name"].toString(),
                                                 style: TextStyle(color: tax["index"] == itemIndex ? Colors.white : Colors.black),
                                               ),
                                             ),
@@ -610,7 +610,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                                 items: taxCategories.map<DropdownMenuItem<dynamic>>((dynamic value) {
                                                   return DropdownMenuItem<dynamic>(
                                                     value: value,
-                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"].toString())),
                                                   );
                                                 }).toList(),
                                                 onChanged: (e) {
@@ -722,7 +722,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
                                                 items: taxes.map<DropdownMenuItem<dynamic>>((dynamic value) {
                                                   return DropdownMenuItem<dynamic>(
                                                     value: value,
-                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"].toString())),
                                                   );
                                                 }).toList(),
                                                 onChanged: (e) {

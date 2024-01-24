@@ -333,6 +333,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
     final stateBase = ref.watch(baseProvider);
     final notifierBase = ref.read(baseProvider.notifier);
     final statePos = ref.watch(posSystemPASProvider);
+    final stateProduct = ref.watch(productsPASProvider);
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return SizedBox(
@@ -568,6 +569,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                           height: 40,
                           width: 100,
                           onPressed: () async {
+                            notifierBase.printEscpos(notifierPos.receipt(statePos.listTicket![statePos.selectTicket!], stateProduct.products!, stateBase.baseInfomation["base_name"]));
                             Uint8List? bytes = await controller.capture();
                             String keyEmail = "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}";
                             if (tabActive == 0) {

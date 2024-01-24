@@ -209,11 +209,11 @@ class _AddPrinterPageState extends ConsumerState<AddPrinterPage> {
                         if (printerName != "") {
                           var dataPrinter = {"name": printerName, "address": address, "type": typePrinter == 1 ? "wifi" : "bluetooth"};
                           await notifier.addPrinter(dataPrinter);
-                          if (context.mounted) {
-                            if (state.printerLoading! == false) {
-                              context.popRoute();
-                            }
-                          }
+                          // if (context.mounted) {
+                          //   if (state.printerLoading! == false) {
+                          //     context.popRoute();
+                          //   }
+                          // }
                         }
                       },
                     ),
