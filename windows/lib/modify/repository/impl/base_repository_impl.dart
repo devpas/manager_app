@@ -99,10 +99,12 @@ class BaseRepositoryImpl extends BaseRepository {
   }
 
   @override
-  Future<dynamic> createDataFolder() async {
+  Future<dynamic> createDataFolder(String baseType) async {
     headers["Cookie"] = LocalStorage.instance.getCookieAccess();
+
     final data = {
       "access_id": LocalStorage.instance.getKeyAccessOwner(),
+      "data": {"base_type": baseType}
     };
     if (LocalStorage.instance.getShareMode()) {
       data["access_id"] = LocalStorage.instance.getKeyAccessShare();

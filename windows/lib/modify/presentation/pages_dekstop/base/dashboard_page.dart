@@ -25,16 +25,16 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(baseProvider.notifier).loadTranslate();
-        ref.read(baseProvider.notifier).checkDataFolder();
-        ref.read(baseProvider.notifier).checkAccessBlock();
         loadData();
       },
     );
   }
 
   Future<void> loadData() async {
-    if (LocalStorage.instance.getKeyAccessOwner() != "" || LocalStorage.instance.getKeyAccessShare() != "") {
+    ref.read(baseProvider.notifier).loadTranslate();
+    await ref.read(baseProvider.notifier).checkDataFolder();
+    ref.read(baseProvider.notifier).checkAccessBlock();
+    if (ref.watch(baseProvider).msgBase != "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không") {
       ref.read(baseProvider.notifier).loadPrinterActive();
       ref.read(productsPASProvider.notifier).getListWarehouses();
       ref.read(productsPASProvider.notifier).fetchProducts();
@@ -84,10 +84,16 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
     return result;
   }
 
+  List<String> baseType = ["Cửa hàng", "Trang trại", "Vùng trồng"];
+
+  String baseTypeSelected = "Cửa hàng";
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(baseProvider);
     final notifier = ref.read(baseProvider.notifier);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     if (state.createDataRequest!) {
       return Scaffold(
         backgroundColor: AppColors.mainBackground,
@@ -99,12 +105,46 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
               Center(child: Text(state.msgBase!)),
               5.verticalSpace,
               state.msgBase == state.translate[state.languageSelected]["want_install_folder"]
-                  ? AccentAddButton(
-                      onPressed: () async {
-                        await notifier.createDataFolder();
-                        loadData();
-                      },
-                      title: state.translate[state.languageSelected]["create_folder_data"],
+                  ? Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: screenWidth * 0.1, child: const Text("Loại cơ sở:")),
+                              SizedBox(
+                                width: screenWidth * 0.185,
+                                child: Column(
+                                  children: [
+                                    DropdownButton(
+                                        value: baseTypeSelected,
+                                        items: baseType.map<DropdownMenuItem<String>>((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                          );
+                                        }).toList(),
+                                        onChanged: (e) {
+                                          setState(() {
+                                            baseTypeSelected = e!;
+                                          });
+                                        }),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        40.verticalSpace,
+                        AccentAddButton(
+                          onPressed: () async {
+                            await notifier.createDataFolder(baseTypeSelected);
+                            loadData();
+                          },
+                          title: state.translate[state.languageSelected]["create_folder_data"],
+                        ),
+                      ],
                     )
                   : const CircularProgressIndicator(
                       strokeWidth: 2,

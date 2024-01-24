@@ -94,11 +94,11 @@ class BaseNotifier extends StateNotifier<BaseState> {
     }
   }
 
-  Future<void> createDataFolder() async {
+  Future<void> createDataFolder(String baseType) async {
     state = state.copyWith(msgBase: "Quá trình tạo dữ liệu sẽ có thế mất vài giây đến vài phút");
     final connected = await AppConnectivity.connectivity();
     if (connected) {
-      final response = await _baseRepository.createDataFolder();
+      final response = await _baseRepository.createDataFolder(baseType);
       if (response["data"]["msg"] == "dữ liệu mới đã được tạo thành công" && response["data"]["key_access"] != "not found") {
         state = state.copyWith(createDataRequest: false, baseInfomation: response["data"]["base_infomation"], baseRootInfomation: response["data"]["base_infomation"]);
         LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);

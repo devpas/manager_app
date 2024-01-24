@@ -4,7 +4,7 @@ import '../../modify/models/models.dart';
 abstract class BaseRepository {
   Future<ApiResult<BaseResponse>> getListBase();
   Future<dynamic> checkDataFolder();
-  Future<dynamic> createDataFolder();
+  Future<dynamic> createDataFolder(String baseType);
   Future<dynamic> addEmployee(dynamic dataEmployee);
   Future<dynamic> updateEmployee(dynamic dataEmployee);
   Future<dynamic> deleteEmployee(String email);

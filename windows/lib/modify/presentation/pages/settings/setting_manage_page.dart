@@ -33,81 +33,55 @@ class _SettingManagePageState extends ConsumerState<SettingManagePage> {
   Widget build(BuildContext context) {
     final state = ref.watch(baseProvider);
     final notifier = ref.read(baseProvider.notifier);
-    if (state.createDataRequest!) {
-      return Scaffold(
-        backgroundColor: AppColors.mainBackground,
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: CustomAppbarPOS(
+          center: true,
+          title: Text(
+            "Cấu hình chung",
+            style: AppTypographies.styBlack12W400,
+          ),
+          leading: Builder(
+            builder: (context) => SmallIconButton(
+              icon: Icon(
+                FlutterRemix.arrow_left_s_line,
+                size: 24.r,
+                color: AppColors.black,
+              ),
+              onPressed: context.popRoute,
+            ),
+          ),
+          // actions: getBaseActions(context)
+        ),
+      ),
+      backgroundColor: AppColors.mainBackground,
+      body: Container(
+        decoration: const BoxDecoration(color: AppColors.mainBackground),
+        padding: REdgeInsets.symmetric(horizontal: 15),
+        child: SingleChildScrollView(
+          physics: const CustomBouncingScrollPhysics(),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(child: Text(state.msgBase!)),
-              5.verticalSpace,
-              state.msgBase == "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không"
-                  ? AccentAddButton(
-                      onPressed: () {
-                        notifier.createDataFolder();
-                      },
-                      title: 'Tạo thư mục dữ liệu',
-                    )
-                  : const CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: AppColors.greenMain,
-                    ),
+              18.verticalSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  DashboardItemBase(
+                    iconData: FlutterRemix.printer_line,
+                    title: "Máy in",
+                    iconColor: AppColors.inProgressOrders,
+                    onTap: () {
+                      context.pushRoute(const ListPrinterRoute());
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),
-      );
-    } else {
-      return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60.0),
-          child: CustomAppbarPOS(
-            center: true,
-            title: Text(
-              "Cấu hình chung",
-              style: AppTypographies.styBlack12W400,
-            ),
-            leading: Builder(
-              builder: (context) => SmallIconButton(
-                icon: Icon(
-                  FlutterRemix.arrow_left_s_line,
-                  size: 24.r,
-                  color: AppColors.black,
-                ),
-                onPressed: context.popRoute,
-              ),
-            ),
-            // actions: getBaseActions(context)
-          ),
-        ),
-        backgroundColor: AppColors.mainBackground,
-        body: Container(
-          decoration: const BoxDecoration(color: AppColors.mainBackground),
-          padding: REdgeInsets.symmetric(horizontal: 15),
-          child: SingleChildScrollView(
-            physics: const CustomBouncingScrollPhysics(),
-            child: Column(
-              children: [
-                18.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    DashboardItemBase(
-                      iconData: FlutterRemix.printer_line,
-                      title: "Máy in",
-                      iconColor: AppColors.inProgressOrders,
-                      onTap: () {
-                        context.pushRoute(const ListPrinterRoute());
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
 }
