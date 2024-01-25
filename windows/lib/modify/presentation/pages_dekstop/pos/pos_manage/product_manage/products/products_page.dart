@@ -15,6 +15,7 @@ import 'package:g_manager_app/modify/presentation/pages_dekstop/widgets/drawer_t
 import 'package:g_manager_app/modify/riverpob/notifiers/notifiers.dart';
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
 import 'package:g_manager_app/modify/riverpob/states/products/products_state.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../../../../src/core/constants/constants.dart';
@@ -58,6 +59,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
   TextEditingController barcodeController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController priceBuyController = TextEditingController();
+  TextEditingController priceBuyAutoController = TextEditingController();
   TextEditingController priceSellController = TextEditingController();
   TextEditingController priceSellPercentController = TextEditingController();
   TextEditingController pricesellAfterDiscountController = TextEditingController();
@@ -71,6 +73,8 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
   bool createMode = false;
 
   bool findStatus = true;
+
+  bool activeCheckBoxAuto = true;
 
   String imageUrl = "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg";
 
@@ -90,6 +94,12 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
     );
   }
 
+  String calculationPercentPriceSell(double priceBuy, double priceSell) {
+    String pricePercent = ((double.parse(priceSell.toString()) - double.parse(priceBuy.toString())) * 100 / double.parse(priceBuy.toString())).toString();
+
+    return pricePercent;
+  }
+
   void loadProductData() {
     final state = ref.watch(productsPASProvider);
     print(indexItemSelected);
@@ -105,11 +115,13 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
       nameController.text = product.name!;
       priceBuyController.text = product.priceBuy!.toString();
       priceSellController.text = product.priceSell!.toString();
-      priceSellPercentController.text = ((double.parse(product.priceSell!.toString()) - double.parse(product.priceBuy!.toString())) * 100 / double.parse(product.priceSell!.toString())).toString();
+      priceSellPercentController.text = calculationPercentPriceSell(product.priceBuy!, product.priceSell!);
       pricesellAfterDiscountController.text = product.priceSell!.toString();
       categoryIdSelected = product.categoryId!;
       taxCategoryIdSelected = product.taxCat!;
       imageUrl = product.image!;
+      activeCheckBoxAuto = product.isAuto == 1 ? true : false;
+      priceBuyAutoController.text = product.priceBuyAuto.toString();
       print(taxCategoryIdSelected);
     });
   }
@@ -127,6 +139,8 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
       categoryIdSelected = -1;
       taxCategoryIdSelected = "";
       indexItemSelected = 0;
+      activeCheckBoxAuto = true;
+      priceBuyAutoController.text = "0";
       image = null;
       imageUrl = "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg";
     });
@@ -228,21 +242,83 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     padding: const EdgeInsets.only(bottom: 8),
                     child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá mua:")),
                   ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: priceBuyController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
+                  activeCheckBoxAuto
+                      ? AbsorbPointer(
+                          absorbing: true,
+                          child: SizedBox(
+                            width: screenWidth * 0.185,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  controller: priceBuyAutoController,
+                                  decoration: const InputDecoration.collapsed(
+                                    hintText: '',
+                                  ),
+                                ),
+                                const Divider(),
+                              ],
+                            ),
+                          ),
+                        )
+                      : SizedBox(
+                          width: screenWidth * 0.185,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                keyboardType: TextInputType.number,
+                                onChanged: (e) {
+                                  if (e != "" && priceSellController.text != "") {
+                                    priceSellPercentController.text = calculationPercentPriceSell(
+                                      double.parse(e),
+                                      double.parse(priceSellController.text),
+                                    );
+                                    pricesellAfterDiscountController.text = priceSellController.text;
+                                  }
+                                },
+                                controller: priceBuyController,
+                                decoration: const InputDecoration.collapsed(
+                                  hintText: '',
+                                ),
+                              ),
+                              const Divider(),
+                            ],
                           ),
                         ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
                   5.verticalSpace,
+                  10.horizontalSpace,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: SizedBox(
+                        width: 200,
+                        child: Row(
+                          children: [
+                            RoundedCheckBox(
+                              value: activeCheckBoxAuto,
+                              onChanged: (value) {
+                                setState(() {
+                                  activeCheckBoxAuto = !activeCheckBoxAuto;
+                                  if (activeCheckBoxAuto == true) {
+                                    priceSellPercentController.text = calculationPercentPriceSell(double.parse(priceBuyAutoController.text), double.parse(priceSellController.text));
+                                  } else {
+                                    priceSellPercentController.text = calculationPercentPriceSell(double.parse(priceBuyController.text), double.parse(priceSellController.text));
+                                  }
+                                  pricesellAfterDiscountController.text = priceSellController.text;
+                                });
+                              },
+                            ),
+                            10.horizontalSpace,
+                            Text(
+                              stateBase.translate[stateBase.languageSelected]["auto_calculate"],
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: activeCheckBoxAuto ? AppColors.black : AppColors.black.withOpacity(0.5),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
                 ],
               ),
               Row(
@@ -256,6 +332,16 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         TextFormField(
+                          keyboardType: TextInputType.number,
+                          onChanged: (e) {
+                            if (e != "" && priceBuyController.text != "") {
+                              priceSellPercentController.text = calculationPercentPriceSell(
+                                double.parse(priceBuyController.text),
+                                double.parse(e),
+                              );
+                              pricesellAfterDiscountController.text = e;
+                            }
+                          },
                           controller: priceSellController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
@@ -271,6 +357,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: priceSellPercentController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
@@ -294,6 +381,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     child: Column(
                       children: [
                         TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: pricesellAfterDiscountController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
