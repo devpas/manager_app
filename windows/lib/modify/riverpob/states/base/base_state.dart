@@ -35,6 +35,7 @@ class BaseState with _$BaseState {
     XFile? video,
     @Default({}) dynamic translate,
     @Default("vn") String? languageSelected,
+    @Default(false) bool? startAppDataLoading,
   }) = _BaseState;
 
   const BaseState._();

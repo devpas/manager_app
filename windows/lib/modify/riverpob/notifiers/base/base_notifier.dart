@@ -598,11 +598,46 @@ class BaseNotifier extends StateNotifier<BaseState> {
     }
   }
 
+  Future<dynamic> loadDataWhenStartApp() async {
+    final response = await _baseRepository.loadDataWhenStartApp();
+    if (response["msg"] == "load data successful") {
+      state = state.copyWith(startAppDataLoading: false);
+    } else {
+      // print(response);
+    }
+    return response;
+  }
+
   void loadTranslate() {
     state = state.copyWith(translate: Translates().translate);
   }
 
   void setLanguage(String lang) {
     state = state.copyWith(languageSelected: lang);
+  }
+
+  Future<dynamic> startApp() async {
+    var appData;
+    state = state.copyWith(startAppDataLoading: true);
+    loadTranslate();
+    checkDataFolder();
+    checkAccessBlock();
+    if (state.msgBase != "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không") {
+      loadPrinterActive();
+      appData = await loadDataWhenStartApp();
+    } else {
+      state = state.copyWith(startAppDataLoading: false);
+      appData = {};
+    }
+    return appData;
+  }
+
+  void getDataFromAppData(dynamic appData) {
+    var employeeData = ApiResult.success(data: EmployeeResponse.fromJson(appData["employee_data"]));
+    employeeData.when(success: (data) async {
+      state = state.copyWith(employees: data.employee);
+    }, failure: (e) {
+      print(e);
+    });
   }
 }

@@ -66,14 +66,22 @@ class _SettingManagePageState extends ConsumerState<SettingManagePage> {
             children: [
               18.verticalSpace,
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DashboardItemBase(
                     iconData: FlutterRemix.printer_line,
-                    title: "Máy in",
+                    title: state.translate[state.languageSelected]["printer"],
                     iconColor: AppColors.inProgressOrders,
                     onTap: () {
                       context.pushRoute(const ListPrinterRoute());
+                    },
+                  ),
+                  DashboardItemBase(
+                    iconData: FlutterRemix.printer_line,
+                    title: state.translate[state.languageSelected]["language"],
+                    iconColor: AppColors.inProgressOrders,
+                    onTap: () {
+                      context.pushRoute(const SwitchLanguageRoute());
                     },
                   ),
                 ],

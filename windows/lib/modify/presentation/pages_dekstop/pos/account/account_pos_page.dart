@@ -473,7 +473,7 @@ class _AccountPosDesktopPageState extends ConsumerState<AccountPosDesktopPage> w
         drawer: const WMainDrawerPosDesktop(),
         appBar: CustomAppbarPOS(
           title: Text(
-            stateBase.translate[stateBase.languageSelected]["product"],
+            stateBase.translate[stateBase.languageSelected]["account"],
             style: AppTypographies.styBlack16W500,
             textAlign: TextAlign.center,
           ),

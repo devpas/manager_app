@@ -9,6 +9,7 @@ import '../../../../modify/repository/products_repository.dart';
 import '../../../../src/core/handlers/handlers.dart';
 import '../../../models/data/category_data.dart';
 import '../../../models/data/product_data.dart';
+import '../../../models/models.dart';
 import '../../states/states.dart';
 
 class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
@@ -517,5 +518,26 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
     taxesAfterSort.sort((a, b) => a["name"].toString().toLowerCase().compareTo(b["name"].toString().toLowerCase()));
 
     state = state.copyWith(taxes: taxesAfterSort);
+  }
+
+  void getDataFromAppData(dynamic appData) {
+    print(appData["product_data"]);
+    var productData = ApiResult.success(data: ProductsPasResponse.fromJson(appData["product_data"]));
+    productData.when(success: (data) async {
+      state = state.copyWith(
+          products: data.products,
+          productSelected: data.products![0],
+          taxCategories: appData["tax_category_data"]["data"],
+          taxCategorySelected: appData["tax_category_data"]["data"][0],
+          taxCusCategories: appData["tax_customer_category_data"]["data"],
+          taxCusCategorySelected: appData["tax_customer_category_data"]["data"][0],
+          taxes: appData["tax_data"]["data"],
+          taxSelected: appData["tax_data"]["data"][0],
+          warehouse: appData["warehouse_data"]["data"],
+          warehouseSelected: appData["warehouse_data"]["data"][0]);
+    }, failure: (e) {
+      print(e);
+    });
+    print(state.warehouse);
   }
 }

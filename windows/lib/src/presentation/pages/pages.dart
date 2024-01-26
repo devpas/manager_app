@@ -70,6 +70,7 @@ export '../../../modify/presentation/pages/pos/pos_manage/products_manage/discou
 export '../../../modify/presentation/pages/pos/pos_manage/products_manage/discount/tax/update/update_tax.dart';
 export '../../../modify/presentation/pages/pos/account/account_pos_page.dart';
 export '../../../modify/presentation/pages/settings/setting_manage_page.dart';
+export '../../../modify/presentation/pages/settings/language/language_page.dart';
 export '../../../modify/presentation/pages/settings/printer/printer_settings.dart';
 export '../../../modify/presentation/pages/settings/printer/add/add_printer.dart';
 export '../../../modify/presentation/pages/settings/printer/update/update_printer.dart';

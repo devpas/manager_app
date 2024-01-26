@@ -44,6 +44,7 @@ mixin _$BaseState {
   XFile? get video => throw _privateConstructorUsedError;
   dynamic get translate => throw _privateConstructorUsedError;
   String? get languageSelected => throw _privateConstructorUsedError;
+  bool? get startAppDataLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BaseStateCopyWith<BaseState> get copyWith =>
@@ -83,7 +84,8 @@ abstract class $BaseStateCopyWith<$Res> {
       XFile? image,
       XFile? video,
       dynamic translate,
-      String? languageSelected});
+      String? languageSelected,
+      bool? startAppDataLoading});
 }
 
 /// @nodoc
@@ -127,6 +129,7 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
     Object? video = freezed,
     Object? translate = freezed,
     Object? languageSelected = freezed,
+    Object? startAppDataLoading = freezed,
   }) {
     return _then(_value.copyWith(
       base: freezed == base
@@ -241,6 +244,10 @@ class _$BaseStateCopyWithImpl<$Res, $Val extends BaseState>
           ? _value.languageSelected
           : languageSelected // ignore: cast_nullable_to_non_nullable
               as String?,
+      startAppDataLoading: freezed == startAppDataLoading
+          ? _value.startAppDataLoading
+          : startAppDataLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -281,7 +288,8 @@ abstract class _$$BaseStateImplCopyWith<$Res>
       XFile? image,
       XFile? video,
       dynamic translate,
-      String? languageSelected});
+      String? languageSelected,
+      bool? startAppDataLoading});
 }
 
 /// @nodoc
@@ -323,6 +331,7 @@ class __$$BaseStateImplCopyWithImpl<$Res>
     Object? video = freezed,
     Object? translate = freezed,
     Object? languageSelected = freezed,
+    Object? startAppDataLoading = freezed,
   }) {
     return _then(_$BaseStateImpl(
       base: freezed == base
@@ -437,6 +446,10 @@ class __$$BaseStateImplCopyWithImpl<$Res>
           ? _value.languageSelected
           : languageSelected // ignore: cast_nullable_to_non_nullable
               as String?,
+      startAppDataLoading: freezed == startAppDataLoading
+          ? _value.startAppDataLoading
+          : startAppDataLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -472,7 +485,8 @@ class _$BaseStateImpl extends _BaseState {
       this.image,
       this.video,
       this.translate = const {},
-      this.languageSelected = "vn"})
+      this.languageSelected = "vn",
+      this.startAppDataLoading = false})
       : _base = base,
         _employees = employees,
         _printers = printers,
@@ -593,10 +607,13 @@ class _$BaseStateImpl extends _BaseState {
   @override
   @JsonKey()
   final String? languageSelected;
+  @override
+  @JsonKey()
+  final bool? startAppDataLoading;
 
   @override
   String toString() {
-    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, baseEmployees: $baseEmployees, image: $image, video: $video, translate: $translate, languageSelected: $languageSelected)';
+    return 'BaseState(base: $base, baseSelected: $baseSelected, baseLoading: $baseLoading, employeesLoading: $employeesLoading, createDataRequest: $createDataRequest, msgBase: $msgBase, employees: $employees, blockSelected: $blockSelected, roleCodeSelected: $roleCodeSelected, roleNameSelected: $roleNameSelected, noteAddEmployee: $noteAddEmployee, accessPosSystemBlock: $accessPosSystemBlock, accessBaseManagerBlock: $accessBaseManagerBlock, accessUserSettingBlock: $accessUserSettingBlock, accessGlobalSettingBlock: $accessGlobalSettingBlock, baseInfomation: $baseInfomation, baseRootInfomation: $baseRootInfomation, moneyWallet: $moneyWallet, moneyWalletLoading: $moneyWalletLoading, sendMoneyLoading: $sendMoneyLoading, printers: $printers, printerSelected: $printerSelected, printerLoading: $printerLoading, baseEmployees: $baseEmployees, image: $image, video: $video, translate: $translate, languageSelected: $languageSelected, startAppDataLoading: $startAppDataLoading)';
   }
 
   @override
@@ -654,7 +671,9 @@ class _$BaseStateImpl extends _BaseState {
             (identical(other.video, video) || other.video == video) &&
             const DeepCollectionEquality().equals(other.translate, translate) &&
             (identical(other.languageSelected, languageSelected) ||
-                other.languageSelected == languageSelected));
+                other.languageSelected == languageSelected) &&
+            (identical(other.startAppDataLoading, startAppDataLoading) ||
+                other.startAppDataLoading == startAppDataLoading));
   }
 
   @override
@@ -687,7 +706,8 @@ class _$BaseStateImpl extends _BaseState {
         image,
         video,
         const DeepCollectionEquality().hash(translate),
-        languageSelected
+        languageSelected,
+        startAppDataLoading
       ]);
 
   @JsonKey(ignore: true)
@@ -726,7 +746,8 @@ abstract class _BaseState extends BaseState {
       final XFile? image,
       final XFile? video,
       final dynamic translate,
-      final String? languageSelected}) = _$BaseStateImpl;
+      final String? languageSelected,
+      final bool? startAppDataLoading}) = _$BaseStateImpl;
   const _BaseState._() : super._();
 
   @override
@@ -785,6 +806,8 @@ abstract class _BaseState extends BaseState {
   dynamic get translate;
   @override
   String? get languageSelected;
+  @override
+  bool? get startAppDataLoading;
   @override
   @JsonKey(ignore: true)
   _$$BaseStateImplCopyWith<_$BaseStateImpl> get copyWith =>

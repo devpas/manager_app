@@ -359,6 +359,11 @@ import 'modals_route.dart';
       customRouteBuilder: modalsPageRoute,
     ),
     CustomRoute(
+      path: '/switch-language',
+      page: SwitchLanguagePage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
       path: '/main-desktop',
       page: MainDeskTopPage,
       customRouteBuilder: modalsPageRoute,

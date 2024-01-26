@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
@@ -31,57 +33,18 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
   }
 
   Future<void> loadData() async {
-    ref.read(baseProvider.notifier).loadTranslate();
-    await ref.read(baseProvider.notifier).checkDataFolder();
-    ref.read(baseProvider.notifier).checkAccessBlock();
-    if (ref.watch(baseProvider).msgBase != "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không") {
-      ref.read(baseProvider.notifier).loadPrinterActive();
-      ref.read(productsPASProvider.notifier).getListWarehouses();
-      ref.read(productsPASProvider.notifier).fetchProducts();
-      ref.read(productsPASProvider.notifier).getListCustomerType();
-      ref.read(productsPASProvider.notifier).getListTaxCategories();
-      ref.read(productsPASProvider.notifier).getListTaxes();
-      ref.read(customersProvider.notifier).fetchListCustomers();
-      ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
-      ref.read(baseProvider.notifier).getListEmployee();
-    }
-  }
-
-  bool checkData() {
-    int check = 0;
-    if (ref.watch(productsPASProvider).productsLoading == false) {
-      check += 1;
-    }
-    if (ref.watch(productsPASProvider).taxLoading == false) {
-      check += 1;
-    }
-    if (ref.watch(productsPASProvider).taxCategoryLoading == false) {
-      check += 1;
-    }
-    if (ref.watch(productsPASProvider).taxCusCategoryLoading! == false) {
-      check += 1;
-    }
-    if (ref.watch(productsPASProvider).warehouseLoading! == false) {
-      check += 1;
-    }
-    if (ref.watch(customersProvider).customerLoading == false) {
-      check += 1;
-    }
-    if (ref.watch(categoriesPASProvider).categoryLoading == false) {
-      check += 1;
-    }
-    if (ref.watch(baseProvider).employeesLoading == false) {
-      check += 1;
-    }
-    print("check: $check");
-    bool result = false;
-    if (check == 8) {
-      result = true;
-    } else {
-      result = false;
-    }
-    print("result: $result");
-    return result;
+    var appData = await ref.read(baseProvider.notifier).startApp();
+    ref.read(baseProvider.notifier).getDataFromAppData(appData);
+    ref.read(customersProvider.notifier).getDataFromAppData(appData);
+    ref.read(categoriesPASProvider.notifier).getDataFromAppData(appData);
+    ref.read(productsPASProvider.notifier).getDataFromAppData(appData);
+    ref.read(productsPASProvider.notifier).fetchProducts();
+    // ref.read(productsPASProvider.notifier).getListCustomerType();
+    // ref.read(productsPASProvider.notifier).getListTaxCategories();
+    // ref.read(productsPASProvider.notifier).getListTaxes();
+    // ref.read(customersProvider.notifier).fetchListCustomers();
+    // ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+    // ref.read(baseProvider.notifier).getListEmployee();
   }
 
   List<String> baseType = ["Cửa hàng", "Trang trại", "Vùng trồng"];
@@ -218,7 +181,7 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
           ),
         ),
         backgroundColor: AppColors.mainBackground,
-        body: !checkData()
+        body: state.startAppDataLoading!
             ? const Center(
                 child: CircularProgressIndicator(
                   color: AppColors.greenMain,
@@ -233,32 +196,6 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
                   child: Column(
                     children: [
                       18.verticalSpace,
-                      Row(
-                        mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
-                        children: [
-                          state.accessPosSystemBlock!
-                              ? DashboardItemBase(
-                                  iconData: FlutterRemix.store_2_line,
-                                  title: "vietnamese",
-                                  iconColor: AppColors.inProgressOrders,
-                                  onTap: () {
-                                    notifier.setLanguage("vn");
-                                  },
-                                )
-                              : const SizedBox(),
-                          state.accessBaseManagerBlock!
-                              ? DashboardItemBase(
-                                  iconData: FlutterRemix.base_station_fill,
-                                  title: "english",
-                                  iconColor: AppColors.canceledOrders,
-                                  onTap: () {
-                                    notifier.setLanguage("en");
-                                  },
-                                )
-                              : const SizedBox(),
-                        ],
-                      ),
-                      9.verticalSpace,
                       Row(
                         mainAxisAlignment: state.accessUserSettingBlock! ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
                         children: [

@@ -20,4 +20,5 @@ abstract class BaseRepository {
   Future<dynamic> getListBaseEmployee();
   Future<dynamic> checkExpireFileLargeData();
   Future<dynamic> moneyRecord();
+  Future<dynamic> loadDataWhenStartApp();
 }

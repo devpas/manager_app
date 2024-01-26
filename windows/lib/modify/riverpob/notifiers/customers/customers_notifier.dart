@@ -213,4 +213,13 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     print(lastDay);
     return lastDay;
   }
+
+  void getDataFromAppData(dynamic appData) {
+    var customerData = ApiResult.success(data: CustomerResponse.fromJson(appData["customer_data"]));
+    customerData.when(success: (data) async {
+      state = state.copyWith(customers: data.customers, customerSelected: data.customers![0]);
+    }, failure: (e) {
+      print(e);
+    });
+  }
 }

@@ -128,7 +128,9 @@ class Translates {
       "parent_tax": "Chiếc khấu cấp trên",
       "update_product": "Cập nhật sản phẩm",
       "transaction": "Giao dịch",
-      "contact": "Liên hệ"
+      "contact": "Liên hệ",
+      "language": "Ngôn ngữ",
+      "printer": "Máy in"
     },
     "en": {
       "base": "Base",
@@ -257,7 +259,9 @@ class Translates {
       "auto_calculate": "Auto calculate",
       "update_product": "Update product",
       "transaction": "Transaction",
-      "contact": "Contact"
+      "contact": "Contact",
+      "language": "Language",
+      "printer": "Printer"
     }
   };
 

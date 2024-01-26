@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/modify/models/models.dart';
 
 import '../../../../modify/repository/categories_repository.dart';
 import '../../../../src/core/handlers/handlers.dart';
@@ -74,5 +75,14 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
     if (response["msg"] == "delete category successful") {
       fetchCategoriesAppscript();
     }
+  }
+
+  void getDataFromAppData(dynamic appData) {
+    var categoryData = ApiResult.success(data: CategoriesPasResponse.fromJson(appData["category_data"]));
+    categoryData.when(success: (data) async {
+      state = state.copyWith(categories: data.categories, categorySelected: data.categories![0]);
+    }, failure: (e) {
+      print(e);
+    });
   }
 }

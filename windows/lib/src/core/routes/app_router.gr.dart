@@ -667,6 +667,15 @@ class AppRouter extends _i2.RootStackRouter {
         barrierDismissible: false,
       );
     },
+    SwitchLanguageRoute.name: (routeData) {
+      return _i2.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.SwitchLanguagePage(),
+        customRouteBuilder: _i4.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     MainDeskTopRoute.name: (routeData) {
       return _i2.CustomPage<dynamic>(
         routeData: routeData,
@@ -1114,6 +1123,10 @@ class AppRouter extends _i2.RootStackRouter {
         _i2.RouteConfig(
           UpdatePrinterRoute.name,
           path: '/update-printers',
+        ),
+        _i2.RouteConfig(
+          SwitchLanguageRoute.name,
+          path: '/switch-language',
         ),
         _i2.RouteConfig(
           MainDeskTopRoute.name,
@@ -2429,6 +2442,18 @@ class UpdatePrinterRouteArgs {
   String toString() {
     return 'UpdatePrinterRouteArgs{printer: $printer, key: $key}';
   }
+}
+
+/// generated route for
+/// [_i1.SwitchLanguagePage]
+class SwitchLanguageRoute extends _i2.PageRouteInfo<void> {
+  const SwitchLanguageRoute()
+      : super(
+          SwitchLanguageRoute.name,
+          path: '/switch-language',
+        );
+
+  static const String name = 'SwitchLanguageRoute';
 }
 
 /// generated route for

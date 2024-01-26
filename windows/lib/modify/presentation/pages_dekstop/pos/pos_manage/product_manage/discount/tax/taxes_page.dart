@@ -204,6 +204,7 @@ class _TaxesDesktopPageState extends ConsumerState<TaxesDesktopPage> with Ticker
     Future.delayed(
       Duration.zero,
       () {
+        ref.read(productsPASProvider.notifier).getListTaxes();
         loadValue();
       },
     );
