@@ -94,8 +94,8 @@ class _CategoriesPasPageState extends ConsumerState<CategoriesPasPage> {
                       controller: _scrollController,
                       physics: const CustomBouncingScrollPhysics(),
                       padding: REdgeInsets.symmetric(
-                        horizontal: 15,
                         vertical: 30,
+                        horizontal: 15,
                       ),
                       itemCount: state.categories!.length,
                       shrinkWrap: true,
