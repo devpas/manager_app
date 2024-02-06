@@ -73,6 +73,7 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
         }
       },
     );
+
     state = state.copyWith(productsLoading: false);
   }
 
@@ -503,7 +504,6 @@ class ProductsPasNotifier extends StateNotifier<ProductsPasState> {
         tax = double.parse(taxes[i]["rate"].toString());
       }
     }
-    // print(tax);
     return tax;
   }
 

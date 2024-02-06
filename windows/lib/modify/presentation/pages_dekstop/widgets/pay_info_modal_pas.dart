@@ -12,25 +12,23 @@ import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '../../../../../src/core/constants/constants.dart';
 import '../../../../../src/core/utils/utils.dart';
+import '../../../models/models.dart';
 import '../../../riverpob/states/base/base_state.dart';
 import '../../components/components.dart';
 import '../../theme/theme.dart';
 
 class PayInfoModal extends ConsumerStatefulWidget {
-  final double totalMoneyFromTicket;
   final int warehouseId;
-  const PayInfoModal({Key? key, required this.totalMoneyFromTicket, required this.warehouseId}) : super(key: key);
+  const PayInfoModal({Key? key, required this.warehouseId}) : super(key: key);
 
   @override
   ConsumerState<PayInfoModal> createState() =>
       // ignore: no_logic_in_create_state
-      _PayInfoModalState(totalMoneyFromTicket, warehouseId);
+      _PayInfoModalState(warehouseId);
 }
 
 class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProviderStateMixin {
   late TabController _tabController;
-
-  final double totalMoneyFromTicket;
 
   final int warehouseId;
 
@@ -46,16 +44,21 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
 
   bool editMoney = false;
 
-  _PayInfoModalState(this.totalMoneyFromTicket, this.warehouseId);
+  CustomerData? customerSelected;
+
+  _PayInfoModalState(this.warehouseId);
 
   WidgetsToImageController controller = WidgetsToImageController();
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      totalMoney = totalMoneyFromTicket;
-    });
+    Future.delayed(
+      Duration.zero,
+      () {
+        getCustomerInfomation();
+      },
+    );
 
     _tabController = TabController(length: 2, vsync: this);
   }
@@ -70,6 +73,20 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
       disable = false;
     }
     return disable;
+  }
+
+  void getCustomerInfomation() {
+    final notifierPos = ref.read(posSystemPASProvider.notifier);
+    final notifierCustomer = ref.read(customersProvider.notifier);
+    final statePos = ref.watch(posSystemPASProvider);
+    setState(() {
+      if (notifierPos.infoSelected[0][1] != "Khách lẻ") {
+        customerSelected = notifierCustomer.getCustomeById(notifierPos.infoSelected[0][0]);
+      } else {
+        customerSelected = CustomerData().initCustomer();
+      }
+      totalMoney = double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false));
+    });
   }
 
   Widget debt(BaseState stateBase) {
@@ -120,7 +137,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                             style: AppTypographies.styBlack14W400,
                           ),
                         ),
-                        SizedBox(width: 300, child: Text(stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.name! : "", style: AppTypographies.styBlack14W400))
+                        SizedBox(width: 300, child: Text(customerSelected != null ? customerSelected!.name! : "", style: AppTypographies.styBlack14W400))
                       ],
                     ),
                     30.verticalSpace,
@@ -133,7 +150,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                             style: AppTypographies.styBlack14W400,
                           ),
                         ),
-                        SizedBox(width: 300, child: Text(stateCustomer.customerSelected != null ? "${stateCustomer.customerSelected!.note}" : "", style: AppTypographies.styBlack14W400))
+                        SizedBox(width: 300, child: Text(customerSelected != null ? "${customerSelected!.note}" : "", style: AppTypographies.styBlack14W400))
                       ],
                     ),
                     30.verticalSpace,
@@ -149,7 +166,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                         SizedBox(
                             width: 300,
                             child: Text(
-                              "${stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.maxDebt : 0}",
+                              "${customerSelected != null ? customerSelected!.maxDebt : 0}",
                               style: AppTypographies.styBlack14W400,
                               textAlign: TextAlign.end,
                             ))
@@ -168,7 +185,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                         SizedBox(
                             width: 300,
                             child: Text(
-                              "${stateCustomer.customerSelected != null ? stateCustomer.customerSelected!.curDebt!.toStringAsFixed(2) : 0}",
+                              "${customerSelected != null ? customerSelected!.curDebt!.toStringAsFixed(2) : 0}",
                               style: AppTypographies.styBlack14W400,
                               textAlign: TextAlign.end,
                             ))
@@ -187,7 +204,7 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                         SizedBox(
                           width: 300,
                           child: Text(
-                            stateCustomer.customerSelected != null ? DateFormat.yMd().add_Hms().format(stateCustomer.customerSelected!.curdate!) : "",
+                            customerSelected != null ? DateFormat.yMd().add_Hms().format(customerSelected!.curdate!) : "",
                             style: AppTypographies.styBlack14W400,
                             textAlign: TextAlign.end,
                           ),
@@ -564,29 +581,31 @@ class _PayInfoModalState extends ConsumerState<PayInfoModal> with TickerProvider
                   padding: const EdgeInsets.all(5.0),
                   child: arrearsMoney == 0
                       ? AccentButtonCustom(
-                          disable: stateCustomer.customerSelected != null ? checkMaxDebt(stateCustomer.customerSelected!.maxDebt!, (totalMoney + stateCustomer.customerSelected!.curDebt!)) : checkMaxDebt(0, totalMoney),
+                          disable: customerSelected != null ? checkMaxDebt(customerSelected!.maxDebt!, (totalMoney + customerSelected!.curDebt!)) : true,
                           title: AppHelpers.getTranslation(TrKeys.ok),
                           height: 40,
                           width: 100,
                           onPressed: () async {
-                            notifierBase.printEscpos(notifierPos.receipt(statePos.listTicket![statePos.selectTicket!], stateProduct.products!, stateBase.baseInfomation["base_name"]));
+                            // notifierBase.printEscpos(notifierPos.receipt(statePos.listTicket![statePos.selectTicket!], stateProduct.products!, stateBase.baseInfomation["base_name"]));
+
                             Uint8List? bytes = await controller.capture();
                             String keyEmail = "${stateBase.baseRootInfomation["email"]}_${stateBase.baseInfomation["email"]}";
                             if (tabActive == 0) {
                               context.popRoute();
+                              print("total money :$totalMoney");
                               await notifier.createOrder(totalMoney, statePos.selectReason!, warehouseId, "cash", keyEmail);
                               notifierBase.getMoneyWallet(keyEmail);
                               await notifierProducts.fetchProductsPos();
-                            } else if (tabActive == 1) {
+                            } else if (tabActive == 1 && checkMaxDebt(customerSelected!.maxDebt!, (totalMoney + customerSelected!.curDebt!))) {
                               context.popRoute();
                               await notifier.createOrder(totalMoney, statePos.selectReason!, warehouseId, "debt", keyEmail);
                               notifierBase.getMoneyWallet(keyEmail);
                               await notifierProducts.fetchProductsPos();
                               await notifierCustomer.fetchListCustomers();
-                              notifierCustomer.selectCustomer(stateCustomer.customerSelected!.id!);
+                              notifierCustomer.selectCustomer(customerSelected!.id!);
                             }
-                            if (stateCustomer.customerSelected!.email != "") {
-                              String customerEmail = stateCustomer.customerSelected!.email!;
+                            if (customerSelected!.email != "") {
+                              String customerEmail = customerSelected!.email!;
                               var receiptData = {"image_base64": base64Encode(bytes!).toString(), "customer_email": customerEmail};
                               await notifierPos.sendEmailReceipt(receiptData);
                             }

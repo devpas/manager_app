@@ -92,7 +92,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
       () {
         ref.read(productsPASProvider.notifier).resetSearch();
         ref.read(posSystemPASProvider.notifier).initListTicketMoveProduct();
-        ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+        ref.read(categoriesPASProvider.notifier).fetchCategories();
         ref.read(productsPASProvider.notifier).fetchProductsPos();
         ref.read(productsPASProvider.notifier).getListWarehouses();
       },
@@ -663,7 +663,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                 List<ProductPasData> result = notifierProducts.searchAndAddProductInTicketByRefCode(barCodeController.text);
                                 print(result.length);
                                 if (result.isNotEmpty) {
-                                  notifierPos.addTicketline(result[0], statePos.selectTicket!, 0);
+                                  notifierPos.addTicketline(result[0], statePos.selectTicket!, 0, 0);
                                 }
                               }
                             },

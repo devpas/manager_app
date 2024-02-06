@@ -30,7 +30,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+        ref.read(categoriesPASProvider.notifier).fetchCategories();
       },
     );
   }
@@ -169,7 +169,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                         iconData: FlutterRemix.refresh_line,
                         iconColor: AppColors.canceledOrders,
                         onTap: () {
-                          notifier.fetchCategoriesAppscript();
+                          notifier.fetchCategories();
                         },
                       ),
                       25.horizontalSpace,
@@ -260,42 +260,46 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                               } else {
                                 category = state.categoriesAfterFilter![index];
                               }
-                              return InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    indexItemSelected = index;
-                                  });
-                                  loadCategoryData(category);
-                                  notifier.setCategorySelected(category);
-                                },
-                                child: Container(
-                                  color: index == indexItemSelected ? Colors.blue : Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.person,
-                                              color: Colors.red,
-                                            ),
-                                            SizedBox(
-                                              width: screenWidth * 0.25,
-                                              child: Text(
-                                                category.name!,
-                                                style: TextStyle(color: index == indexItemSelected ? Colors.white : Colors.black),
+                              if (state.categories![index].id != -1) {
+                                return InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      indexItemSelected = index;
+                                    });
+                                    loadCategoryData(category);
+                                    notifier.setCategorySelected(category);
+                                  },
+                                  child: Container(
+                                    color: index == indexItemSelected ? Colors.blue : Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.person,
+                                                color: Colors.red,
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                              SizedBox(
+                                                width: screenWidth * 0.25,
+                                                child: Text(
+                                                  category.name!,
+                                                  style: TextStyle(color: index == indexItemSelected ? Colors.white : Colors.black),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
+                                );
+                              } else {
+                                return SizedBox();
+                              }
                             },
                           ),
                         ),

@@ -32,7 +32,7 @@ class _CategoriesPasPageState extends ConsumerState<CategoriesPasPage> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+        ref.read(categoriesPASProvider.notifier).fetchCategories();
       },
     );
     _scrollController = ScrollController();
@@ -101,26 +101,30 @@ class _CategoriesPasPageState extends ConsumerState<CategoriesPasPage> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final category = state.categories![index];
-                        return WCategoryItem(
-                          userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
-                          category: category,
-                          onEditTap: () async {
-                            context.pushRoute(
-                              EditCategoryPasRoute(category: category),
-                            );
-                          },
-                          onDeleteTap: () {
-                            showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                return WDeleteCategoryDialog(
-                                  alias: category.id!,
-                                );
-                              },
-                            );
-                          },
-                        );
+                        if (category.id != -1) {
+                          return WCategoryItem(
+                            userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
+                            category: category,
+                            onEditTap: () async {
+                              context.pushRoute(
+                                EditCategoryPasRoute(category: category),
+                              );
+                            },
+                            onDeleteTap: () {
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return WDeleteCategoryDialog(
+                                    alias: category.id!,
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        } else {
+                          return SizedBox();
+                        }
                       },
                     ),
                   )

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_bluetooth_printer/flutter_bluetooth_printer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:g_manager_app/src/riverpod/states/products/products_state.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../modify/models/models.dart';
@@ -122,8 +123,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         payments: [PaymentData(id: 0, receiptId: 0, payment: "", total: 0, transId: "", returnMSG: "", notes: "")]);
   }
 
-  void addTicketline(ProductPasData product, int index, int stockQuatity) {
-    print(stockQuatity);
+  void addTicketline(ProductPasData product, int index, int stockQuatity, double taxRate) {
     TicketLineData ticketline = TicketLineData(
         id: listTicket[state.selectTicket!].ticketlines!.isNotEmpty ? listTicket[state.selectTicket!].ticketlines!.length + 1 : 1,
         ticketId: listTicket[state.selectTicket!].ticketId,
@@ -133,17 +133,21 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         unit: 1,
         price: double.parse("${product.priceSell}"),
         taxId: product.taxCat,
+        taxRate: taxRate,
         attributes: "");
     if (listTicket[index].ticketlines!.where((element) => element.productId == ticketline.productId).isEmpty) {
       if (stockQuatity > 0 || state.selectReason == 2) {
         listTicket[index].ticketlines?.add(ticketline);
+        for (int i = 0; i < listTicket[index].ticketlines!.length; i++) {
+          listTicket[index].ticketlines![i] = listTicket[index].ticketlines![i].copyWith(taxRate: taxRate);
+        }
         state = state.copyWith(listTicket: listTicket);
       }
     } else {
       int indexTicketline = listTicket[index].ticketlines!.indexWhere((element) => element.productId == ticketline.productId);
       print(listTicket[index].ticketlines![indexTicketline].unit!);
       if ((listTicket[index].ticketlines![indexTicketline].unit! < stockQuatity) || state.selectReason == 2) {
-        listTicket[index].ticketlines![indexTicketline] = listTicket[index].ticketlines![indexTicketline].copyWith(unit: listTicket[index].ticketlines![indexTicketline].unit! + 1);
+        listTicket[index].ticketlines![indexTicketline] = listTicket[index].ticketlines![indexTicketline].copyWith(unit: listTicket[index].ticketlines![indexTicketline].unit! + 1, taxRate: taxRate);
         state = state.copyWith(listTicket: listTicket);
       }
     }
@@ -216,11 +220,13 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     if (listTicket.isNotEmpty) {
       if (listTicket[index].ticketlines!.isNotEmpty) {
         for (int i = 0; i < listTicket[index].ticketlines!.length; i++) {
-          //listTicket[index].ticketlines![i].taxId! = 0
-          total = total + (listTicket[index].ticketlines![i].price! * (1 + 0 / 100) * double.parse("${listTicket[index].ticketlines![i].unit}"));
+          print(listTicket[index].ticketlines![i].taxRate!);
+          total = total + (listTicket[index].ticketlines![i].price! * (1 + (listTicket[index].ticketlines![i].taxRate! / 100)) * double.parse("${listTicket[index].ticketlines![i].unit}"));
         }
       }
     }
+
+    print(total);
 
     if (convertCurrency) {
       return total.toStringAsFixed(2);
@@ -283,6 +289,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
 
   Future<void> createOrder(double money, int reason, int warehouseId, String payment, String email) async {
     print(email);
+    print(money);
     if (reason == 2) {
       money = 0 - money;
     }
@@ -290,7 +297,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
     for (int i = 0; i < listTicket[state.selectTicket!].ticketlines!.length; i++) {
       TicketLineData ticketline = listTicket[state.selectTicket!].ticketlines![i];
       // ticketline.taxId! = 0;
-      listTaxline.add(TaxlineData(id: 0, taxId: ticketline.taxId, receiptId: 0, base: ticketline.price, amount: ticketline.price! * (0 / 100 + 1)));
+      listTaxline.add(TaxlineData(id: 0, taxId: ticketline.taxId, receiptId: 0, base: ticketline.price, amount: ticketline.price! * (ticketline.taxRate! / 100)));
     }
 
     listTicket[state.selectTicket!] = listTicket[state.selectTicket!].copyWith(
@@ -301,7 +308,7 @@ class PosSystemNotifier extends StateNotifier<PosSystemState> {
         payments: [PaymentData(id: 0, receiptId: 0, payment: payment, total: money, transId: "", returnMSG: "successful", notes: "")],
         receipt: ReceiptData(id: 0, moneyId: 0, datenew: DateTime.now(), attributes: "{}"));
 
-    // print(listTicket[state.selectTicket!].toJson());
+    print(listTicket[state.selectTicket!].toJson());
 
     final connected = await AppConnectivity.connectivity();
     if (connected) {

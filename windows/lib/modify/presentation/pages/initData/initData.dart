@@ -30,7 +30,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         ref.read(productsPASProvider.notifier).getListTaxCategories();
         ref.read(productsPASProvider.notifier).getListTaxes();
         ref.read(customersProvider.notifier).fetchListCustomers();
-        ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+        ref.read(categoriesPASProvider.notifier).fetchCategories();
         ref.read(baseProvider.notifier).getDataRoleBlock();
         ref.read(baseProvider.notifier).getListEmployee();
         ref.read(baseProvider.notifier).getListPrinters();

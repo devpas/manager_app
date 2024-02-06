@@ -87,7 +87,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
         LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
         await checkExpireFileLargeData();
         await getMoneyWallet("${state.baseRootInfomation["email"]}_${state.baseInfomation["email"]}");
-        await moneyRecord();
+        // await moneyRecord();
       }
     } else {
       print("no connection");
@@ -588,15 +588,15 @@ class BaseNotifier extends StateNotifier<BaseState> {
     return edit;
   }
 
-  Future<void> moneyRecord() async {
-    // state = state.copyWith(moneyWalletLoading: true);
-    final response = await _baseRepository.moneyRecord();
-    if (response["msg"] == "money record successful") {
-      // await getListPrinters();
-    } else {
-      print(response);
-    }
-  }
+  // Future<void> moneyRecord() async {
+  //   // state = state.copyWith(moneyWalletLoading: true);
+  //   final response = await _baseRepository.moneyRecord();
+  //   if (response["msg"] == "money record successful") {
+  //     // await getListPrinters();
+  //   } else {
+  //     print(response);
+  //   }
+  // }
 
   Future<dynamic> loadDataWhenStartApp() async {
     final response = await _baseRepository.loadDataWhenStartApp();
@@ -620,7 +620,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
     var appData;
     state = state.copyWith(startAppDataLoading: true);
     loadTranslate();
-    checkDataFolder();
+    await checkDataFolder();
     checkAccessBlock();
     if (state.msgBase != "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không") {
       loadPrinterActive();

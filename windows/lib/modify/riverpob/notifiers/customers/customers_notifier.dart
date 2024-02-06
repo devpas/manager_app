@@ -82,6 +82,17 @@ class CustomersNotifier extends StateNotifier<CustomersState> {
     return nameCustomer;
   }
 
+  CustomerData? getCustomeById(String customerId) {
+    CustomerData? customer;
+    for (int i = 0; i < listCustomers.length; i++) {
+      if (listCustomers[i].id == customerId) {
+        customer = listCustomers[i];
+        break;
+      }
+    }
+    return customer;
+  }
+
   Future<void> addCustomer(dynamic data) async {
     // data["cur_date"] = DateFormat.yMd().format(data["cur_date"]);
     // data["create_date"] = DateFormat.yMd().format(data["create_date"]);

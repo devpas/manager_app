@@ -88,7 +88,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+        ref.read(categoriesPASProvider.notifier).fetchCategories();
         ref.read(productsPASProvider.notifier).fetchProductsPos();
         ref.read(productsPASProvider.notifier).getListTaxes();
         ref.read(posSystemPASProvider.notifier).initListTicket();
@@ -496,16 +496,20 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                     itemCount: stateCategories.categories!.length,
                                     shrinkWrap: false,
                                     itemBuilder: (context, index) {
-                                      return CategoryPosItem(
-                                        title: '${stateCategories.categories![index].name}',
-                                        isSelected: statePos.selectCategory == index ? true : false,
-                                        onTap: () {
-                                          setState(() {
-                                            notifierPos.updateIndex("category", index);
-                                            notifierProducts.getProductByCategory(stateCategories.categories![index].id);
-                                          });
-                                        },
-                                      );
+                                      if (stateCategories.categories![index].id != -1) {
+                                        return CategoryPosItem(
+                                          title: '${stateCategories.categories![index].name}',
+                                          isSelected: statePos.selectCategory == index ? true : false,
+                                          onTap: () {
+                                            setState(() {
+                                              notifierPos.updateIndex("category", index);
+                                              notifierProducts.getProductByCategory(stateCategories.categories![index].id);
+                                            });
+                                          },
+                                        );
+                                      } else {
+                                        return SizedBox();
+                                      }
                                     },
                                   ),
                                 ),
@@ -543,10 +547,9 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                                     var stockQuantity = product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent;
 
                                                     if ((reasonSelected == 2) || (reasonSelected == -1)) {
-                                                      notifierPos.addTicketline(product, statePos.selectTicket!, stockQuantity!);
+                                                      notifierPos.addTicketline(product, statePos.selectTicket!, stockQuantity!, notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!));
                                                       notifierPos.updateIndex("ticketLine", statePos.listTicket![statePos.selectTicket!].ticketlines!.length - 1);
                                                     }
-                                                    notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!);
                                                   },
                                                   child: ProductItemPOS(
                                                     selectWarehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],

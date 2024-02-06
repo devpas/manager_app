@@ -10,6 +10,7 @@ class TicketLineData {
     double? unit,
     double? price,
     String? taxId,
+    double? taxRate,
     String? attributes,
   }) {
     _id = id;
@@ -20,6 +21,7 @@ class TicketLineData {
     _unit = unit;
     _price = price;
     _taxId = taxId;
+    _taxRate = taxRate;
     _attributes = attributes;
   }
 
@@ -43,6 +45,7 @@ class TicketLineData {
   double? _unit;
   double? _price;
   String? _taxId;
+  double? _taxRate;
   String? _attributes;
 
   TicketLineData copyWith({
@@ -54,10 +57,20 @@ class TicketLineData {
     double? unit,
     double? price,
     String? taxId,
+    double? taxRate,
     String? attributes,
   }) =>
       TicketLineData(
-          id: id ?? _id, ticketId: ticket ?? _ticketId, line: line ?? _line, productId: productId ?? _productId, attributesetInstanceId: attributesetInstanceId ?? _attributesetInstanceId, unit: unit ?? _unit, price: price ?? _price, taxId: taxId ?? _taxId, attributes: attributes ?? _attributes);
+          id: id ?? _id,
+          ticketId: ticket ?? _ticketId,
+          line: line ?? _line,
+          productId: productId ?? _productId,
+          attributesetInstanceId: attributesetInstanceId ?? _attributesetInstanceId,
+          unit: unit ?? _unit,
+          price: price ?? _price,
+          taxId: taxId ?? _taxId,
+          taxRate: taxRate ?? _taxRate,
+          attributes: attributes ?? _attributes);
 
   int? get id => _id;
 
@@ -75,6 +88,8 @@ class TicketLineData {
 
   String? get taxId => _taxId;
 
+  double? get taxRate => _taxRate;
+
   String? get attributes => _attributes;
 
   Map<String, dynamic> toJson() {
@@ -87,6 +102,7 @@ class TicketLineData {
     map['unit'] = _unit;
     map['price'] = _price;
     map['tax_id'] = _taxId;
+    map['tax_rate'] = _taxRate;
     map['attributes'] = _attributes;
     return map;
   }

@@ -33,12 +33,15 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
   }
 
   Future<void> loadData() async {
+    print("shade mode: ${ref.read(baseProvider.notifier).checkShareMode()}");
+
     var appData = await ref.read(baseProvider.notifier).startApp();
     ref.read(baseProvider.notifier).getDataFromAppData(appData);
     ref.read(customersProvider.notifier).getDataFromAppData(appData);
     ref.read(categoriesPASProvider.notifier).getDataFromAppData(appData);
     ref.read(productsPASProvider.notifier).getDataFromAppData(appData);
     ref.read(productsPASProvider.notifier).fetchProducts();
+
     // ref.read(productsPASProvider.notifier).getListCustomerType();
     // ref.read(productsPASProvider.notifier).getListTaxCategories();
     // ref.read(productsPASProvider.notifier).getListTaxes();
@@ -127,7 +130,7 @@ class _DashboardBaseDeskTopPageState extends ConsumerState<DashboardBaseDeskTopP
               state.baseInfomation["base_name"] ?? "",
               style: AppTypographies.styBlack12W400,
             ),
-            subtitle: notifier.checkShareMode() ? state.translate[state.languageSelected]["status_base_shared"] + state.baseInfomation["owner_name"] : state.translate[state.languageSelected]["status_base_owner"],
+            subtitle: notifier.checkShareMode() ? "${state.translate[state.languageSelected]["status_base_shared"]} ${state.baseInfomation["owner_name"]}" : state.translate[state.languageSelected]["status_base_owner"],
             center: true,
             leading: Builder(
               builder: (context) => SmallIconButton(

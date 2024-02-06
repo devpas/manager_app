@@ -80,7 +80,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
     Future.delayed(
       Duration.zero,
       () {
-        ref.read(categoriesPASProvider.notifier).fetchCategoriesAppscript();
+        ref.read(categoriesPASProvider.notifier).fetchCategories();
         ref.read(productsPASProvider.notifier).fetchProductsPos();
         ref.read(productsPASProvider.notifier).getListTaxes();
         ref.read(posSystemPASProvider.notifier).initListTicket();
@@ -486,7 +486,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                                       SizedBox(
                                                         width: screenWidth * 0.08,
                                                         child: Text(
-                                                          (notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!) * 100).toStringAsFixed(2),
+                                                          (notifierProducts.taxCalculate(statePos.infoSelected![0][4], statePos.listTicket![statePos.selectTicket!].ticketlines![index].taxId!)).toStringAsFixed(2),
                                                           style: statePos.selectTicketLine == index ? AppTypographies.styGreen11W400 : AppTypographies.styBlack11W400,
                                                           textAlign: TextAlign.right,
                                                         ),
@@ -637,7 +637,6 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                         context: context,
                         builder: (context) {
                           return PayInfoModal(
-                            totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
                             warehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
                           );
                         },
@@ -665,16 +664,20 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                       itemCount: stateCategories.categories!.length,
                       shrinkWrap: false,
                       itemBuilder: (context, index) {
-                        return CategoryPosItem(
-                          title: '${stateCategories.categories![index].name}',
-                          isSelected: statePos.selectCategory == index ? true : false,
-                          onTap: () {
-                            setState(() {
-                              notifierPos.updateIndex("category", index);
-                              notifierProducts.getProductByCategory(stateCategories.categories![index].id);
-                            });
-                          },
-                        );
+                        if (stateCategories.categories![index].id != -1) {
+                          return CategoryPosItem(
+                            title: '${stateCategories.categories![index].name}',
+                            isSelected: statePos.selectCategory == index ? true : false,
+                            onTap: () {
+                              setState(() {
+                                notifierPos.updateIndex("category", index);
+                                notifierProducts.getProductByCategory(stateCategories.categories![index].id);
+                              });
+                            },
+                          );
+                        } else {
+                          return SizedBox();
+                        }
                       },
                     ),
                   ),
@@ -718,7 +721,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                       var stockQuantity = product.stocks!.where((warehouse) => warehouse.id == selectWarehouseId).toList().first.stockCurrent;
 
                                       if ((statePos.selectReason == 2) || (statePos.selectReason == -1)) {
-                                        notifierPos.addTicketline(product, statePos.selectTicket!, stockQuantity!);
+                                        notifierPos.addTicketline(product, statePos.selectTicket!, stockQuantity!, notifierProducts.taxCalculate(statePos.infoSelected![0][4], product.taxCat!));
                                         notifierPos.updateIndex("ticketLine", statePos.listTicket![statePos.selectTicket!].ticketlines!.length - 1);
                                       }
                                       notifierProducts.taxCalculate(stateCustomer.customerSelected != null ? statePos.infoSelected![0][4] : "", product.taxCat!);

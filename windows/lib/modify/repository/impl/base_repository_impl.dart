@@ -43,7 +43,7 @@ class BaseRepositoryImpl extends BaseRepository {
               return status! < 500;
             }),
       );
-      print(response2.data);
+      log(response2.data.toString());
       return ApiResult.success(
         data: BaseResponse.fromJson(response2.data),
       );
