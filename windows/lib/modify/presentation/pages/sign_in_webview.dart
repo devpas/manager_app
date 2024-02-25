@@ -19,11 +19,14 @@ import '../../../src/core/routes/app_router.gr.dart';
 
 // ignore: must_be_immutable
 class SignInWebviewPage extends ConsumerWidget {
-  SignInWebviewPage({Key? key}) : super(key: key);
+  SignInWebviewPage({Key? key, required this.url})
+      : super(
+          key: key,
+        );
 
   String cookieGAS = '';
 
-  final String _url = AppConstants.baseUrlAppscript;
+  final String url;
   final String cookieValue = 'some-cookie-value';
   final String domain = 'https://script.google.com';
   final String cookieName = 'some_cookie_name';
@@ -67,9 +70,9 @@ class SignInWebviewPage extends ConsumerWidget {
         child: SizedBox(
           width: 1.sw,
           height: 1.sh,
-          child: isLogin == false
+          child: isLogin == false && url != ""
               ? WebView(
-                  initialUrl: _url,
+                  initialUrl: url,
                   userAgent: "random",
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (controller) async {
@@ -81,7 +84,7 @@ class SignInWebviewPage extends ConsumerWidget {
                     ]);
                   },
                   onPageFinished: (_) async {
-                    final gotCookies = await cookieManager.getCookies(_url);
+                    final gotCookies = await cookieManager.getCookies(url);
                     // cookieManager.clearCookies();
                     for (var item in gotCookies) {
                       if (item.toString().contains('__Secure-1PSID=')) {

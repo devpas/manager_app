@@ -132,13 +132,10 @@ class LoginPage extends ConsumerWidget {
                             flex: 1,
                             child: SmallIconButton(
                               icon: Icon(
-                                state.showPassword
-                                    ? FlutterRemix.eye_line
-                                    : FlutterRemix.eye_close_line,
+                                state.showPassword ? FlutterRemix.eye_line : FlutterRemix.eye_close_line,
                                 color: AppColors.black,
                               ),
-                              onPressed: () =>
-                                  notifier.setShowPassword(!state.showPassword),
+                              onPressed: () => notifier.setShowPassword(!state.showPassword),
                             ),
                           ),
                         ],
@@ -159,19 +156,17 @@ class LoginPage extends ConsumerWidget {
                           checkYourNetwork: () {
                             AppHelpers.showCheckFlash(
                               context,
-                              AppHelpers.getTranslation(
-                                  TrKeys.checkYourNetworkConnection),
+                              AppHelpers.getTranslation(TrKeys.checkYourNetworkConnection),
                             );
                           },
                           errorOccurred: () {
                             AppHelpers.showCheckFlash(
                               context,
-                              AppHelpers.getTranslation(
-                                  TrKeys.somethingWentWrongWithTheServer),
+                              AppHelpers.getTranslation(TrKeys.somethingWentWrongWithTheServer),
                             );
                           },
                           goToMain: () {
-                            context.replaceRoute(SignInWebviewRoute());
+                            context.replaceRoute(SignInWebviewRoute(url: LocalStorage.instance.getServerUrl()));
                           },
                         ),
                         child: Row(

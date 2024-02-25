@@ -318,11 +318,13 @@ class AppRouter extends _i2.RootStackRouter {
       );
     },
     SignInWebviewRoute.name: (routeData) {
-      final args = routeData.argsAs<SignInWebviewRouteArgs>(
-          orElse: () => const SignInWebviewRouteArgs());
+      final args = routeData.argsAs<SignInWebviewRouteArgs>();
       return _i2.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i1.SignInWebviewPage(key: args.key),
+        child: _i1.SignInWebviewPage(
+          key: args.key,
+          url: args.url,
+        ),
       );
     },
     ProfileInfomationUserRoute.name: (routeData) {
@@ -1802,24 +1804,34 @@ class EditEmployeeRouteArgs {
 /// generated route for
 /// [_i1.SignInWebviewPage]
 class SignInWebviewRoute extends _i2.PageRouteInfo<SignInWebviewRouteArgs> {
-  SignInWebviewRoute({_i3.Key? key})
-      : super(
+  SignInWebviewRoute({
+    _i3.Key? key,
+    required String url,
+  }) : super(
           SignInWebviewRoute.name,
           path: '/signIn-webview',
-          args: SignInWebviewRouteArgs(key: key),
+          args: SignInWebviewRouteArgs(
+            key: key,
+            url: url,
+          ),
         );
 
   static const String name = 'SignInWebviewRoute';
 }
 
 class SignInWebviewRouteArgs {
-  const SignInWebviewRouteArgs({this.key});
+  const SignInWebviewRouteArgs({
+    this.key,
+    required this.url,
+  });
 
   final _i3.Key? key;
 
+  final String url;
+
   @override
   String toString() {
-    return 'SignInWebviewRouteArgs{key: $key}';
+    return 'SignInWebviewRouteArgs{key: $key, url: $url}';
   }
 }
 

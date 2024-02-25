@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class AppConstants {
   AppConstants._();
 
@@ -31,8 +33,7 @@ class AppConstants {
   // static const String baseUrl = 'http://10.0.2.2:8000';
   // static const String imageBaseUrl = 'http://10.0.2.2:8000';
 
-  static const String baseUrlAppscript =
-      'https://script.google.com/macros/s/AKfycbwBFeT0LUiVsdYHspd8gV95GweilFDIRrGr6kh0o2k/dev';
+  static const String baseUrlAppscript = 'https://script.google.com/macros/s/AKfycbwBFeT0LUiVsdYHspd8gV95GweilFDIRrGr6kh0o2k/dev';
 
   // static const String baseUrlAppscript =
   //     'https://script.google.com/macros/s/AKfycbyl5qpw8JroLkdRhHDRjIY5OetJERnp0p3rqFwg4koreByNVZdpg2sF7cpG2oEEnKlu/exec';

@@ -293,6 +293,14 @@ class LocalStorage {
 
   String getlanguageSelected() => _preferences?.getString("language_selected") ?? 'vn';
 
+  String getServerUrl() => _preferences?.getString("server_url") ?? '';
+
+  Future<void> setServerUrl(String url) async {
+    if (_preferences != null) {
+      _preferences!.setString("server_url", url);
+    }
+  }
+
   void deleteKeyAccessOwner() => _preferences?.remove("owner_key_access");
   void deleteKeyAccessShare() => _preferences?.remove("share_key_access");
   void deleteCookieAccess() => _preferences?.remove("google_cookie_access");
