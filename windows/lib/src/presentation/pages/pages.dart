@@ -75,6 +75,10 @@ export '../../../modify/presentation/pages/settings/printer/printer_settings.dar
 export '../../../modify/presentation/pages/settings/printer/add/add_printer.dart';
 export '../../../modify/presentation/pages/settings/printer/update/update_printer.dart';
 export '../../../modify/presentation/pages/process/process_page.dart';
+export '../../../modify/presentation/pages/settings/lab/test_lab_page.dart';
+export '../../../modify/presentation/pages/settings/lab/chat/chat_page.dart';
+export '../../../modify/presentation/pages/settings/lab/dynamic_server/dynamic_server_page.dart';
+export '../../../modify/presentation/pages/settings/lab/gps/gps_page.dart';
 
 //desktop
 export '../../../modify/presentation/pages_dekstop/pos/main_page.dart';

@@ -11,61 +11,69 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:flutter/material.dart' as _i3;
+import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:flutter/material.dart' as _i7;
 
-import '../../../modify/models/data/product_data.dart' as _i8;
-import '../../../modify/models/models.dart' as _i7;
-import '../../models/models.dart' as _i6;
+import '../../../modify/models/data/product_data.dart' as _i12;
+import '../../../modify/models/models.dart' as _i11;
+import '../../../modify/presentation/pages/settings/lab/chat/chat_page.dart'
+    as _i3;
+import '../../../modify/presentation/pages/settings/lab/dynamic_server/dynamic_server_page.dart'
+    as _i4;
+import '../../../modify/presentation/pages/settings/lab/gps/gps_page.dart'
+    as _i5;
+import '../../../modify/presentation/pages/settings/lab/test_lab_page.dart'
+    as _i2;
+import '../../models/models.dart' as _i10;
 import '../../presentation/pages/pages.dart' as _i1;
-import '../constants/constants.dart' as _i5;
-import 'modals_route.dart' as _i4;
+import '../constants/constants.dart' as _i9;
+import 'modals_route.dart' as _i8;
 
-class AppRouter extends _i2.RootStackRouter {
-  AppRouter([_i3.GlobalKey<_i3.NavigatorState>? navigatorKey])
+class AppRouter extends _i6.RootStackRouter {
+  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i2.PageFactory> pagesMap = {
+  final Map<String, _i6.PageFactory> pagesMap = {
     MainRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.MainPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     NotificationsRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.NotificationsPage(),
       );
     },
     OrderDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<OrderDetailsRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.OrderDetailsPage(
           key: args.key,
           orderId: args.orderId,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddProductRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddProductPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     LoginRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.LoginPage(),
       );
@@ -73,7 +81,7 @@ class AppRouter extends _i2.RootStackRouter {
     SelectLangRoute.name: (routeData) {
       final args = routeData.argsAs<SelectLangRouteArgs>(
           orElse: () => const SelectLangRouteArgs());
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i1.SelectLangPage(
           key: args.key,
@@ -82,51 +90,51 @@ class AppRouter extends _i2.RootStackRouter {
       );
     },
     SplashRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashPage(),
       );
     },
     NoConnectionRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.NoConnectionPage(),
       );
     },
     ShopsRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.ShopsPage(),
       );
     },
     ShopEditRoute.name: (routeData) {
       final args = routeData.argsAs<ShopEditRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.ShopEditPage(
           key: args.key,
           uuid: args.uuid,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     BrandsRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.BrandsPage(),
       );
     },
     AddBrandRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.AddBrandPage(),
       );
     },
     EditBrandRoute.name: (routeData) {
       final args = routeData.argsAs<EditBrandRouteArgs>();
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i1.EditBrandPage(
           key: args.key,
@@ -135,72 +143,72 @@ class AppRouter extends _i2.RootStackRouter {
       );
     },
     CategoriesRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.CategoriesPage(),
       );
     },
     AddCategoryRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddCategoryPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     EditCategoryRoute.name: (routeData) {
       final args = routeData.argsAs<EditCategoryRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.EditCategoryPage(
           key: args.key,
           alias: args.alias,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     EditProductRoute.name: (routeData) {
       final args = routeData.argsAs<EditProductRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.EditProductPage(
           key: args.key,
           uuid: args.uuid,
           from: args.from,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddOrderRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddOrderPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     PosBagRoute.name: (routeData) {
       final args = routeData.argsAs<PosBagRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.PosBagPage(
           key: args.key,
           bag: args.bag,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     EditUserRoute.name: (routeData) {
       final args = routeData.argsAs<EditUserRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.EditUserPage(
           key: args.key,
@@ -208,84 +216,84 @@ class AppRouter extends _i2.RootStackRouter {
           title: args.title,
           from: args.from,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     UsersRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.UsersPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ReviewsRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ReviewsPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     OrderReviewsRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.OrderReviewsPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProductReviewsRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ProductReviewsPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     DashboardBaseRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.DashboardBasePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     MainPASRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.MainPASPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     BaseManageRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.BaseManagePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     BaseDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<BaseDetailsRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.BaseDetailsPage(
           key: args.key,
           base: args.base,
           from: args.from,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
@@ -293,33 +301,33 @@ class AppRouter extends _i2.RootStackRouter {
     AddEmployeeRoute.name: (routeData) {
       final args = routeData.argsAs<AddEmployeeRouteArgs>(
           orElse: () => const AddEmployeeRouteArgs());
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.AddEmployeePage(
           key: args.key,
           uuid: args.uuid,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     EditEmployeeRoute.name: (routeData) {
       final args = routeData.argsAs<EditEmployeeRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.EditEmployeePage(
           key: args.key,
           employee: args.employee,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     SignInWebviewRoute.name: (routeData) {
       final args = routeData.argsAs<SignInWebviewRouteArgs>();
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i1.SignInWebviewPage(
           key: args.key,
@@ -328,493 +336,529 @@ class AppRouter extends _i2.RootStackRouter {
       );
     },
     ProfileInfomationUserRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.ProfileInfomationUserPage(),
       );
     },
     CategoriesPasRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.CategoriesPasPage(),
       );
     },
     AddCategoryPasRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddCategoryPasPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     EditCategoryPasRoute.name: (routeData) {
       final args = routeData.argsAs<EditCategoryPasRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.EditCategoryPasPage(
           key: args.key,
           category: args.category,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProductsPasRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.ProductsPasPage(),
       );
     },
     AddProductPasRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddProductPasPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     EditProductPasRoute.name: (routeData) {
       final args = routeData.argsAs<EditProductPasRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.EditProductPasPage(
           key: args.key,
           productData: args.productData,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     PosManageRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.PosManagePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProductsManageRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ProductsManagePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     OrdersPasRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.OrdersPasPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     OrderDetailsPasRoute.name: (routeData) {
       final args = routeData.argsAs<OrderDetailsPasRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.OrderDetailsPasPage(
           key: args.key,
           order: args.order,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     CustomersPasRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.CustomersPasPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddCustomerPasRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddCustomerPasPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     UpdateCustomerPasRoute.name: (routeData) {
       final args = routeData.argsAs<UpdateCustomerPasRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.UpdateCustomerPasPage(
           key: args.key,
           customer: args.customer,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     OptionsManageRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.OptionsManagePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ListStocksRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ListStocksPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddWarehouseRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddWarehousePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     UpdateWarehouseRoute.name: (routeData) {
       final args = routeData.argsAs<UpdateWarehouseRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.UpdateWarehousePage(
           args.warehouse,
           key: args.key,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProductsInWarehouseRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ProductsInWarehousePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     StockDiaryRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.StockDiaryPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     MoveProductRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.MoveProductPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ListCustomerTypeRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ListCustomerTypePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddTaxCusCategoryRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddTaxCusCategoryPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     UpdateTaxCusCategoryRoute.name: (routeData) {
       final args = routeData.argsAs<UpdateTaxCusCategoryRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.UpdateTaxCusCategoryPage(
           args.taxCusCategory,
           key: args.key,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ListTaxCategoriesRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ListTaxCategoriesPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddTaxCategoryRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddTaxCategoryPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     UpdateTaxCategoryRoute.name: (routeData) {
       final args = routeData.argsAs<UpdateTaxCategoryRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.UpdateTaxCategoryPage(
           args.taxCategory,
           key: args.key,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ListTaxesRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ListTaxesPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddTaxRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddTaxPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     UpdateTaxRoute.name: (routeData) {
       final args = routeData.argsAs<UpdateTaxRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.UpdateTaxPage(
           args.tax,
           key: args.key,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AccountPosRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AccountPosPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     SettingManageRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.SettingManagePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ListPrinterRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ListPrinterPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AddPrinterRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AddPrinterPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     UpdatePrinterRoute.name: (routeData) {
       final args = routeData.argsAs<UpdatePrinterRouteArgs>();
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.UpdatePrinterPage(
           args.printer,
           key: args.key,
         ),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     SwitchLanguageRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.SwitchLanguagePage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    TestLabRoute.name: (routeData) {
+      return _i6.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i2.TestLabPage(),
+        customRouteBuilder: _i8.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ChatRoute.name: (routeData) {
+      return _i6.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i3.ChatPage(),
+        customRouteBuilder: _i8.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    DynamicServerRoute.name: (routeData) {
+      return _i6.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i4.DynamicServerPage(),
+        customRouteBuilder: _i8.modalsPageRoute,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    GPSTrackerRoute.name: (routeData) {
+      return _i6.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i5.GPSTrackerPage(),
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     MainDeskTopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.MainDeskTopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     DashboardBaseDeskTopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.DashboardBaseDeskTopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProductsManageDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ProductsManageDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ProductsDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.ProductsDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     CustomersDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.CustomersDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     OrdersDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.OrdersDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     CategoriesDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.CategoriesDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     TaxesDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.TaxesDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     TaxCategoriesDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.TaxCategoriesDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     TaxCusCategoriesDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.TaxCusCategoriesDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AccountPosDesktopRoute.name: (routeData) {
-      return _i2.CustomPage<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.AccountPosDesktopPage(),
-        customRouteBuilder: _i4.modalsPageRoute,
+        customRouteBuilder: _i8.modalsPageRoute,
         opaque: true,
         barrierDismissible: false,
       );
     },
     DashboardRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.DashboardPage(),
       );
     },
     OrdersRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.OrdersPage(),
       );
     },
     PosSystemRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.PosSystemPage(),
       );
     },
     ProductsRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.ProductsPage(),
       );
     },
     DeliveryBoyRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.DeliveryBoyPage(),
       );
     },
     DashboardPASRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.DashboardPASPage(),
       );
     },
     ProccessRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.ProccessPage(),
       );
@@ -822,355 +866,371 @@ class AppRouter extends _i2.RootStackRouter {
   };
 
   @override
-  List<_i2.RouteConfig> get routes => [
-        _i2.RouteConfig(
+  List<_i6.RouteConfig> get routes => [
+        _i6.RouteConfig(
           MainRoute.name,
           path: '/main',
           children: [
-            _i2.RouteConfig(
+            _i6.RouteConfig(
               DashboardRoute.name,
               path: 'dashboard',
               parent: MainRoute.name,
             ),
-            _i2.RouteConfig(
+            _i6.RouteConfig(
               OrdersRoute.name,
               path: 'orders',
               parent: MainRoute.name,
             ),
-            _i2.RouteConfig(
+            _i6.RouteConfig(
               PosSystemRoute.name,
               path: 'pos-system',
               parent: MainRoute.name,
             ),
-            _i2.RouteConfig(
+            _i6.RouteConfig(
               ProductsRoute.name,
               path: 'products',
               parent: MainRoute.name,
             ),
-            _i2.RouteConfig(
+            _i6.RouteConfig(
               DeliveryBoyRoute.name,
               path: 'delivery-boy',
               parent: MainRoute.name,
             ),
           ],
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           NotificationsRoute.name,
           path: '/notifications',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           OrderDetailsRoute.name,
           path: '/order-details',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddProductRoute.name,
           path: '/add-product',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           LoginRoute.name,
           path: '/login',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           SelectLangRoute.name,
           path: '/select-lang',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           SplashRoute.name,
           path: '/',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           NoConnectionRoute.name,
           path: '/no-connection',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ShopsRoute.name,
           path: '/shops',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ShopEditRoute.name,
           path: '/shop-edit',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           BrandsRoute.name,
           path: '/brands',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddBrandRoute.name,
           path: '/add-brand',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           EditBrandRoute.name,
           path: '/edit-brand',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           CategoriesRoute.name,
           path: '/categories',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddCategoryRoute.name,
           path: '/add-category',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           EditCategoryRoute.name,
           path: '/edit-category',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           EditProductRoute.name,
           path: '/edit-product',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddOrderRoute.name,
           path: '/add-order',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           PosBagRoute.name,
           path: '/pos-bag',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           EditUserRoute.name,
           path: '/edit-user',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           UsersRoute.name,
           path: '/users',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ReviewsRoute.name,
           path: '/reviews',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           OrderReviewsRoute.name,
           path: '/order-reviews',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ProductReviewsRoute.name,
           path: '/product-reviews',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           DashboardBaseRoute.name,
           path: '/dashboard-base',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           MainPASRoute.name,
           path: '/main-pas',
           children: [
-            _i2.RouteConfig(
+            _i6.RouteConfig(
               DashboardPASRoute.name,
               path: 'dashboard-pas',
               parent: MainPASRoute.name,
             ),
-            _i2.RouteConfig(
+            _i6.RouteConfig(
               ProccessRoute.name,
               path: 'process-pas',
               parent: MainPASRoute.name,
             ),
           ],
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           BaseManageRoute.name,
           path: '/base-manage',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           BaseDetailsRoute.name,
           path: '/base-details',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddEmployeeRoute.name,
           path: '/add-employee',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           EditEmployeeRoute.name,
           path: '/edit-employee',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           SignInWebviewRoute.name,
           path: '/signIn-webview',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ProfileInfomationUserRoute.name,
           path: '/profile-user',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           CategoriesPasRoute.name,
           path: '/categories-pas',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddCategoryPasRoute.name,
           path: '/add-category-pas',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           EditCategoryPasRoute.name,
           path: '/edit-category-pas',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ProductsPasRoute.name,
           path: '/products-pas',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddProductPasRoute.name,
           path: '/add-product-pas',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           EditProductPasRoute.name,
           path: '/edit-product-pas',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           PosManageRoute.name,
           path: '/pos-manage',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ProductsManageRoute.name,
           path: '/products-manage',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           OrdersPasRoute.name,
           path: '/orders-pas-manage',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           OrderDetailsPasRoute.name,
           path: '/order-pas-details',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           CustomersPasRoute.name,
           path: '/customers-pas-manage',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddCustomerPasRoute.name,
           path: '/add-customers',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           UpdateCustomerPasRoute.name,
           path: '/add-customers',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           OptionsManageRoute.name,
           path: '/options-manager',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ListStocksRoute.name,
           path: '/list-warhouse',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddWarehouseRoute.name,
           path: '/add-warehouse',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           UpdateWarehouseRoute.name,
           path: '/update-warehouse',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ProductsInWarehouseRoute.name,
           path: '/product-in-warehouse',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           StockDiaryRoute.name,
           path: '/stock-diary',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           MoveProductRoute.name,
           path: '/move-product',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ListCustomerTypeRoute.name,
           path: '/list-customer_type',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddTaxCusCategoryRoute.name,
           path: '/add-customer_type',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           UpdateTaxCusCategoryRoute.name,
           path: '/update-customer_type',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ListTaxCategoriesRoute.name,
           path: '/list-tax_categories',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddTaxCategoryRoute.name,
           path: '/add-tax_category',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           UpdateTaxCategoryRoute.name,
           path: '/update-tax_category',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ListTaxesRoute.name,
           path: '/list-taxes',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddTaxRoute.name,
           path: '/add-tax',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           UpdateTaxRoute.name,
           path: '/update-tax',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AccountPosRoute.name,
           path: '/account-pos',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           SettingManageRoute.name,
           path: '/global-setting',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ListPrinterRoute.name,
           path: '/list-printers',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AddPrinterRoute.name,
           path: '/add-printers',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           UpdatePrinterRoute.name,
           path: '/update-printers',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           SwitchLanguageRoute.name,
           path: '/switch-language',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
+          TestLabRoute.name,
+          path: '/test-lab',
+        ),
+        _i6.RouteConfig(
+          ChatRoute.name,
+          path: '/test-chat',
+        ),
+        _i6.RouteConfig(
+          DynamicServerRoute.name,
+          path: '/test-dynamic-server',
+        ),
+        _i6.RouteConfig(
+          GPSTrackerRoute.name,
+          path: '/test-gps',
+        ),
+        _i6.RouteConfig(
           MainDeskTopRoute.name,
           path: '/main-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           DashboardBaseDeskTopRoute.name,
           path: '/dashboard-base-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ProductsManageDesktopRoute.name,
           path: '/product-manage-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           ProductsDesktopRoute.name,
           path: '/products-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           CustomersDesktopRoute.name,
           path: '/customers-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           OrdersDesktopRoute.name,
           path: '/orders-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           CategoriesDesktopRoute.name,
           path: '/categories-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           TaxesDesktopRoute.name,
           path: '/taxes-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           TaxCategoriesDesktopRoute.name,
           path: '/tax-categories-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           TaxCusCategoriesDesktopRoute.name,
           path: '/tax-cus-categories-desktop',
         ),
-        _i2.RouteConfig(
+        _i6.RouteConfig(
           AccountPosDesktopRoute.name,
           path: '/account-pos-desktop',
         ),
@@ -1179,8 +1239,8 @@ class AppRouter extends _i2.RootStackRouter {
 
 /// generated route for
 /// [_i1.MainPage]
-class MainRoute extends _i2.PageRouteInfo<void> {
-  const MainRoute({List<_i2.PageRouteInfo>? children})
+class MainRoute extends _i6.PageRouteInfo<void> {
+  const MainRoute({List<_i6.PageRouteInfo>? children})
       : super(
           MainRoute.name,
           path: '/main',
@@ -1192,7 +1252,7 @@ class MainRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.NotificationsPage]
-class NotificationsRoute extends _i2.PageRouteInfo<void> {
+class NotificationsRoute extends _i6.PageRouteInfo<void> {
   const NotificationsRoute()
       : super(
           NotificationsRoute.name,
@@ -1204,9 +1264,9 @@ class NotificationsRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.OrderDetailsPage]
-class OrderDetailsRoute extends _i2.PageRouteInfo<OrderDetailsRouteArgs> {
+class OrderDetailsRoute extends _i6.PageRouteInfo<OrderDetailsRouteArgs> {
   OrderDetailsRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     required int? orderId,
   }) : super(
           OrderDetailsRoute.name,
@@ -1226,7 +1286,7 @@ class OrderDetailsRouteArgs {
     required this.orderId,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final int? orderId;
 
@@ -1238,7 +1298,7 @@ class OrderDetailsRouteArgs {
 
 /// generated route for
 /// [_i1.AddProductPage]
-class AddProductRoute extends _i2.PageRouteInfo<void> {
+class AddProductRoute extends _i6.PageRouteInfo<void> {
   const AddProductRoute()
       : super(
           AddProductRoute.name,
@@ -1250,7 +1310,7 @@ class AddProductRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.LoginPage]
-class LoginRoute extends _i2.PageRouteInfo<void> {
+class LoginRoute extends _i6.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -1262,9 +1322,9 @@ class LoginRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.SelectLangPage]
-class SelectLangRoute extends _i2.PageRouteInfo<SelectLangRouteArgs> {
+class SelectLangRoute extends _i6.PageRouteInfo<SelectLangRouteArgs> {
   SelectLangRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     bool isRequired = false,
   }) : super(
           SelectLangRoute.name,
@@ -1284,7 +1344,7 @@ class SelectLangRouteArgs {
     this.isRequired = false,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final bool isRequired;
 
@@ -1296,7 +1356,7 @@ class SelectLangRouteArgs {
 
 /// generated route for
 /// [_i1.SplashPage]
-class SplashRoute extends _i2.PageRouteInfo<void> {
+class SplashRoute extends _i6.PageRouteInfo<void> {
   const SplashRoute()
       : super(
           SplashRoute.name,
@@ -1308,7 +1368,7 @@ class SplashRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.NoConnectionPage]
-class NoConnectionRoute extends _i2.PageRouteInfo<void> {
+class NoConnectionRoute extends _i6.PageRouteInfo<void> {
   const NoConnectionRoute()
       : super(
           NoConnectionRoute.name,
@@ -1320,7 +1380,7 @@ class NoConnectionRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ShopsPage]
-class ShopsRoute extends _i2.PageRouteInfo<void> {
+class ShopsRoute extends _i6.PageRouteInfo<void> {
   const ShopsRoute()
       : super(
           ShopsRoute.name,
@@ -1332,9 +1392,9 @@ class ShopsRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ShopEditPage]
-class ShopEditRoute extends _i2.PageRouteInfo<ShopEditRouteArgs> {
+class ShopEditRoute extends _i6.PageRouteInfo<ShopEditRouteArgs> {
   ShopEditRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     required String? uuid,
   }) : super(
           ShopEditRoute.name,
@@ -1354,7 +1414,7 @@ class ShopEditRouteArgs {
     required this.uuid,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final String? uuid;
 
@@ -1366,7 +1426,7 @@ class ShopEditRouteArgs {
 
 /// generated route for
 /// [_i1.BrandsPage]
-class BrandsRoute extends _i2.PageRouteInfo<void> {
+class BrandsRoute extends _i6.PageRouteInfo<void> {
   const BrandsRoute()
       : super(
           BrandsRoute.name,
@@ -1378,7 +1438,7 @@ class BrandsRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddBrandPage]
-class AddBrandRoute extends _i2.PageRouteInfo<void> {
+class AddBrandRoute extends _i6.PageRouteInfo<void> {
   const AddBrandRoute()
       : super(
           AddBrandRoute.name,
@@ -1390,9 +1450,9 @@ class AddBrandRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.EditBrandPage]
-class EditBrandRoute extends _i2.PageRouteInfo<EditBrandRouteArgs> {
+class EditBrandRoute extends _i6.PageRouteInfo<EditBrandRouteArgs> {
   EditBrandRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     required int id,
   }) : super(
           EditBrandRoute.name,
@@ -1412,7 +1472,7 @@ class EditBrandRouteArgs {
     required this.id,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final int id;
 
@@ -1424,7 +1484,7 @@ class EditBrandRouteArgs {
 
 /// generated route for
 /// [_i1.CategoriesPage]
-class CategoriesRoute extends _i2.PageRouteInfo<void> {
+class CategoriesRoute extends _i6.PageRouteInfo<void> {
   const CategoriesRoute()
       : super(
           CategoriesRoute.name,
@@ -1436,7 +1496,7 @@ class CategoriesRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddCategoryPage]
-class AddCategoryRoute extends _i2.PageRouteInfo<void> {
+class AddCategoryRoute extends _i6.PageRouteInfo<void> {
   const AddCategoryRoute()
       : super(
           AddCategoryRoute.name,
@@ -1448,9 +1508,9 @@ class AddCategoryRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.EditCategoryPage]
-class EditCategoryRoute extends _i2.PageRouteInfo<EditCategoryRouteArgs> {
+class EditCategoryRoute extends _i6.PageRouteInfo<EditCategoryRouteArgs> {
   EditCategoryRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     required String alias,
   }) : super(
           EditCategoryRoute.name,
@@ -1470,7 +1530,7 @@ class EditCategoryRouteArgs {
     required this.alias,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final String alias;
 
@@ -1482,11 +1542,11 @@ class EditCategoryRouteArgs {
 
 /// generated route for
 /// [_i1.EditProductPage]
-class EditProductRoute extends _i2.PageRouteInfo<EditProductRouteArgs> {
+class EditProductRoute extends _i6.PageRouteInfo<EditProductRouteArgs> {
   EditProductRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     String? uuid,
-    required _i5.OpenEditProductFrom from,
+    required _i9.OpenEditProductFrom from,
   }) : super(
           EditProductRoute.name,
           path: '/edit-product',
@@ -1507,11 +1567,11 @@ class EditProductRouteArgs {
     required this.from,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final String? uuid;
 
-  final _i5.OpenEditProductFrom from;
+  final _i9.OpenEditProductFrom from;
 
   @override
   String toString() {
@@ -1521,7 +1581,7 @@ class EditProductRouteArgs {
 
 /// generated route for
 /// [_i1.AddOrderPage]
-class AddOrderRoute extends _i2.PageRouteInfo<void> {
+class AddOrderRoute extends _i6.PageRouteInfo<void> {
   const AddOrderRoute()
       : super(
           AddOrderRoute.name,
@@ -1533,10 +1593,10 @@ class AddOrderRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.PosBagPage]
-class PosBagRoute extends _i2.PageRouteInfo<PosBagRouteArgs> {
+class PosBagRoute extends _i6.PageRouteInfo<PosBagRouteArgs> {
   PosBagRoute({
-    _i3.Key? key,
-    required _i6.PosSystemBagData bag,
+    _i7.Key? key,
+    required _i10.PosSystemBagData bag,
   }) : super(
           PosBagRoute.name,
           path: '/pos-bag',
@@ -1555,9 +1615,9 @@ class PosBagRouteArgs {
     required this.bag,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
-  final _i6.PosSystemBagData bag;
+  final _i10.PosSystemBagData bag;
 
   @override
   String toString() {
@@ -1567,12 +1627,12 @@ class PosBagRouteArgs {
 
 /// generated route for
 /// [_i1.EditUserPage]
-class EditUserRoute extends _i2.PageRouteInfo<EditUserRouteArgs> {
+class EditUserRoute extends _i6.PageRouteInfo<EditUserRouteArgs> {
   EditUserRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     String? uuid,
     required String title,
-    required _i5.OpenEditUserFrom from,
+    required _i9.OpenEditUserFrom from,
   }) : super(
           EditUserRoute.name,
           path: '/edit-user',
@@ -1595,13 +1655,13 @@ class EditUserRouteArgs {
     required this.from,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final String? uuid;
 
   final String title;
 
-  final _i5.OpenEditUserFrom from;
+  final _i9.OpenEditUserFrom from;
 
   @override
   String toString() {
@@ -1611,7 +1671,7 @@ class EditUserRouteArgs {
 
 /// generated route for
 /// [_i1.UsersPage]
-class UsersRoute extends _i2.PageRouteInfo<void> {
+class UsersRoute extends _i6.PageRouteInfo<void> {
   const UsersRoute()
       : super(
           UsersRoute.name,
@@ -1623,7 +1683,7 @@ class UsersRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ReviewsPage]
-class ReviewsRoute extends _i2.PageRouteInfo<void> {
+class ReviewsRoute extends _i6.PageRouteInfo<void> {
   const ReviewsRoute()
       : super(
           ReviewsRoute.name,
@@ -1635,7 +1695,7 @@ class ReviewsRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.OrderReviewsPage]
-class OrderReviewsRoute extends _i2.PageRouteInfo<void> {
+class OrderReviewsRoute extends _i6.PageRouteInfo<void> {
   const OrderReviewsRoute()
       : super(
           OrderReviewsRoute.name,
@@ -1647,7 +1707,7 @@ class OrderReviewsRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ProductReviewsPage]
-class ProductReviewsRoute extends _i2.PageRouteInfo<void> {
+class ProductReviewsRoute extends _i6.PageRouteInfo<void> {
   const ProductReviewsRoute()
       : super(
           ProductReviewsRoute.name,
@@ -1659,7 +1719,7 @@ class ProductReviewsRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.DashboardBasePage]
-class DashboardBaseRoute extends _i2.PageRouteInfo<void> {
+class DashboardBaseRoute extends _i6.PageRouteInfo<void> {
   const DashboardBaseRoute()
       : super(
           DashboardBaseRoute.name,
@@ -1671,8 +1731,8 @@ class DashboardBaseRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.MainPASPage]
-class MainPASRoute extends _i2.PageRouteInfo<void> {
-  const MainPASRoute({List<_i2.PageRouteInfo>? children})
+class MainPASRoute extends _i6.PageRouteInfo<void> {
+  const MainPASRoute({List<_i6.PageRouteInfo>? children})
       : super(
           MainPASRoute.name,
           path: '/main-pas',
@@ -1684,7 +1744,7 @@ class MainPASRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.BaseManagePage]
-class BaseManageRoute extends _i2.PageRouteInfo<void> {
+class BaseManageRoute extends _i6.PageRouteInfo<void> {
   const BaseManageRoute()
       : super(
           BaseManageRoute.name,
@@ -1696,11 +1756,11 @@ class BaseManageRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.BaseDetailsPage]
-class BaseDetailsRoute extends _i2.PageRouteInfo<BaseDetailsRouteArgs> {
+class BaseDetailsRoute extends _i6.PageRouteInfo<BaseDetailsRouteArgs> {
   BaseDetailsRoute({
-    _i3.Key? key,
-    required _i7.BaseData? base,
-    required _i5.OpenEditUserFrom from,
+    _i7.Key? key,
+    required _i11.BaseData? base,
+    required _i9.OpenEditUserFrom from,
   }) : super(
           BaseDetailsRoute.name,
           path: '/base-details',
@@ -1721,11 +1781,11 @@ class BaseDetailsRouteArgs {
     required this.from,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
-  final _i7.BaseData? base;
+  final _i11.BaseData? base;
 
-  final _i5.OpenEditUserFrom from;
+  final _i9.OpenEditUserFrom from;
 
   @override
   String toString() {
@@ -1735,9 +1795,9 @@ class BaseDetailsRouteArgs {
 
 /// generated route for
 /// [_i1.AddEmployeePage]
-class AddEmployeeRoute extends _i2.PageRouteInfo<AddEmployeeRouteArgs> {
+class AddEmployeeRoute extends _i6.PageRouteInfo<AddEmployeeRouteArgs> {
   AddEmployeeRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     String? uuid,
   }) : super(
           AddEmployeeRoute.name,
@@ -1757,7 +1817,7 @@ class AddEmployeeRouteArgs {
     this.uuid,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final String? uuid;
 
@@ -1769,10 +1829,10 @@ class AddEmployeeRouteArgs {
 
 /// generated route for
 /// [_i1.EditEmployeePage]
-class EditEmployeeRoute extends _i2.PageRouteInfo<EditEmployeeRouteArgs> {
+class EditEmployeeRoute extends _i6.PageRouteInfo<EditEmployeeRouteArgs> {
   EditEmployeeRoute({
-    _i3.Key? key,
-    required _i7.EmployeeData? employee,
+    _i7.Key? key,
+    required _i11.EmployeeData? employee,
   }) : super(
           EditEmployeeRoute.name,
           path: '/edit-employee',
@@ -1791,9 +1851,9 @@ class EditEmployeeRouteArgs {
     required this.employee,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
-  final _i7.EmployeeData? employee;
+  final _i11.EmployeeData? employee;
 
   @override
   String toString() {
@@ -1803,9 +1863,9 @@ class EditEmployeeRouteArgs {
 
 /// generated route for
 /// [_i1.SignInWebviewPage]
-class SignInWebviewRoute extends _i2.PageRouteInfo<SignInWebviewRouteArgs> {
+class SignInWebviewRoute extends _i6.PageRouteInfo<SignInWebviewRouteArgs> {
   SignInWebviewRoute({
-    _i3.Key? key,
+    _i7.Key? key,
     required String url,
   }) : super(
           SignInWebviewRoute.name,
@@ -1825,7 +1885,7 @@ class SignInWebviewRouteArgs {
     required this.url,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   final String url;
 
@@ -1837,7 +1897,7 @@ class SignInWebviewRouteArgs {
 
 /// generated route for
 /// [_i1.ProfileInfomationUserPage]
-class ProfileInfomationUserRoute extends _i2.PageRouteInfo<void> {
+class ProfileInfomationUserRoute extends _i6.PageRouteInfo<void> {
   const ProfileInfomationUserRoute()
       : super(
           ProfileInfomationUserRoute.name,
@@ -1849,7 +1909,7 @@ class ProfileInfomationUserRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.CategoriesPasPage]
-class CategoriesPasRoute extends _i2.PageRouteInfo<void> {
+class CategoriesPasRoute extends _i6.PageRouteInfo<void> {
   const CategoriesPasRoute()
       : super(
           CategoriesPasRoute.name,
@@ -1861,7 +1921,7 @@ class CategoriesPasRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddCategoryPasPage]
-class AddCategoryPasRoute extends _i2.PageRouteInfo<void> {
+class AddCategoryPasRoute extends _i6.PageRouteInfo<void> {
   const AddCategoryPasRoute()
       : super(
           AddCategoryPasRoute.name,
@@ -1873,10 +1933,10 @@ class AddCategoryPasRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.EditCategoryPasPage]
-class EditCategoryPasRoute extends _i2.PageRouteInfo<EditCategoryPasRouteArgs> {
+class EditCategoryPasRoute extends _i6.PageRouteInfo<EditCategoryPasRouteArgs> {
   EditCategoryPasRoute({
-    _i3.Key? key,
-    required _i7.CategoryPasData category,
+    _i7.Key? key,
+    required _i11.CategoryPasData category,
   }) : super(
           EditCategoryPasRoute.name,
           path: '/edit-category-pas',
@@ -1895,9 +1955,9 @@ class EditCategoryPasRouteArgs {
     required this.category,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
-  final _i7.CategoryPasData category;
+  final _i11.CategoryPasData category;
 
   @override
   String toString() {
@@ -1907,7 +1967,7 @@ class EditCategoryPasRouteArgs {
 
 /// generated route for
 /// [_i1.ProductsPasPage]
-class ProductsPasRoute extends _i2.PageRouteInfo<void> {
+class ProductsPasRoute extends _i6.PageRouteInfo<void> {
   const ProductsPasRoute()
       : super(
           ProductsPasRoute.name,
@@ -1919,7 +1979,7 @@ class ProductsPasRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddProductPasPage]
-class AddProductPasRoute extends _i2.PageRouteInfo<void> {
+class AddProductPasRoute extends _i6.PageRouteInfo<void> {
   const AddProductPasRoute()
       : super(
           AddProductPasRoute.name,
@@ -1931,10 +1991,10 @@ class AddProductPasRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.EditProductPasPage]
-class EditProductPasRoute extends _i2.PageRouteInfo<EditProductPasRouteArgs> {
+class EditProductPasRoute extends _i6.PageRouteInfo<EditProductPasRouteArgs> {
   EditProductPasRoute({
-    _i3.Key? key,
-    required _i8.ProductPasData productData,
+    _i7.Key? key,
+    required _i12.ProductPasData productData,
   }) : super(
           EditProductPasRoute.name,
           path: '/edit-product-pas',
@@ -1953,9 +2013,9 @@ class EditProductPasRouteArgs {
     required this.productData,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
-  final _i8.ProductPasData productData;
+  final _i12.ProductPasData productData;
 
   @override
   String toString() {
@@ -1965,7 +2025,7 @@ class EditProductPasRouteArgs {
 
 /// generated route for
 /// [_i1.PosManagePage]
-class PosManageRoute extends _i2.PageRouteInfo<void> {
+class PosManageRoute extends _i6.PageRouteInfo<void> {
   const PosManageRoute()
       : super(
           PosManageRoute.name,
@@ -1977,7 +2037,7 @@ class PosManageRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ProductsManagePage]
-class ProductsManageRoute extends _i2.PageRouteInfo<void> {
+class ProductsManageRoute extends _i6.PageRouteInfo<void> {
   const ProductsManageRoute()
       : super(
           ProductsManageRoute.name,
@@ -1989,7 +2049,7 @@ class ProductsManageRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.OrdersPasPage]
-class OrdersPasRoute extends _i2.PageRouteInfo<void> {
+class OrdersPasRoute extends _i6.PageRouteInfo<void> {
   const OrdersPasRoute()
       : super(
           OrdersPasRoute.name,
@@ -2001,10 +2061,10 @@ class OrdersPasRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.OrderDetailsPasPage]
-class OrderDetailsPasRoute extends _i2.PageRouteInfo<OrderDetailsPasRouteArgs> {
+class OrderDetailsPasRoute extends _i6.PageRouteInfo<OrderDetailsPasRouteArgs> {
   OrderDetailsPasRoute({
-    _i3.Key? key,
-    required _i7.TicketData? order,
+    _i7.Key? key,
+    required _i11.TicketData? order,
   }) : super(
           OrderDetailsPasRoute.name,
           path: '/order-pas-details',
@@ -2023,9 +2083,9 @@ class OrderDetailsPasRouteArgs {
     required this.order,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
-  final _i7.TicketData? order;
+  final _i11.TicketData? order;
 
   @override
   String toString() {
@@ -2035,7 +2095,7 @@ class OrderDetailsPasRouteArgs {
 
 /// generated route for
 /// [_i1.CustomersPasPage]
-class CustomersPasRoute extends _i2.PageRouteInfo<void> {
+class CustomersPasRoute extends _i6.PageRouteInfo<void> {
   const CustomersPasRoute()
       : super(
           CustomersPasRoute.name,
@@ -2047,7 +2107,7 @@ class CustomersPasRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddCustomerPasPage]
-class AddCustomerPasRoute extends _i2.PageRouteInfo<void> {
+class AddCustomerPasRoute extends _i6.PageRouteInfo<void> {
   const AddCustomerPasRoute()
       : super(
           AddCustomerPasRoute.name,
@@ -2060,10 +2120,10 @@ class AddCustomerPasRoute extends _i2.PageRouteInfo<void> {
 /// generated route for
 /// [_i1.UpdateCustomerPasPage]
 class UpdateCustomerPasRoute
-    extends _i2.PageRouteInfo<UpdateCustomerPasRouteArgs> {
+    extends _i6.PageRouteInfo<UpdateCustomerPasRouteArgs> {
   UpdateCustomerPasRoute({
-    _i3.Key? key,
-    required _i7.CustomerData customer,
+    _i7.Key? key,
+    required _i11.CustomerData customer,
   }) : super(
           UpdateCustomerPasRoute.name,
           path: '/add-customers',
@@ -2082,9 +2142,9 @@ class UpdateCustomerPasRouteArgs {
     required this.customer,
   });
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
-  final _i7.CustomerData customer;
+  final _i11.CustomerData customer;
 
   @override
   String toString() {
@@ -2094,7 +2154,7 @@ class UpdateCustomerPasRouteArgs {
 
 /// generated route for
 /// [_i1.OptionsManagePage]
-class OptionsManageRoute extends _i2.PageRouteInfo<void> {
+class OptionsManageRoute extends _i6.PageRouteInfo<void> {
   const OptionsManageRoute()
       : super(
           OptionsManageRoute.name,
@@ -2106,7 +2166,7 @@ class OptionsManageRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ListStocksPage]
-class ListStocksRoute extends _i2.PageRouteInfo<void> {
+class ListStocksRoute extends _i6.PageRouteInfo<void> {
   const ListStocksRoute()
       : super(
           ListStocksRoute.name,
@@ -2118,7 +2178,7 @@ class ListStocksRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddWarehousePage]
-class AddWarehouseRoute extends _i2.PageRouteInfo<void> {
+class AddWarehouseRoute extends _i6.PageRouteInfo<void> {
   const AddWarehouseRoute()
       : super(
           AddWarehouseRoute.name,
@@ -2130,10 +2190,10 @@ class AddWarehouseRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.UpdateWarehousePage]
-class UpdateWarehouseRoute extends _i2.PageRouteInfo<UpdateWarehouseRouteArgs> {
+class UpdateWarehouseRoute extends _i6.PageRouteInfo<UpdateWarehouseRouteArgs> {
   UpdateWarehouseRoute({
     required dynamic warehouse,
-    _i3.Key? key,
+    _i7.Key? key,
   }) : super(
           UpdateWarehouseRoute.name,
           path: '/update-warehouse',
@@ -2154,7 +2214,7 @@ class UpdateWarehouseRouteArgs {
 
   final dynamic warehouse;
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   @override
   String toString() {
@@ -2164,7 +2224,7 @@ class UpdateWarehouseRouteArgs {
 
 /// generated route for
 /// [_i1.ProductsInWarehousePage]
-class ProductsInWarehouseRoute extends _i2.PageRouteInfo<void> {
+class ProductsInWarehouseRoute extends _i6.PageRouteInfo<void> {
   const ProductsInWarehouseRoute()
       : super(
           ProductsInWarehouseRoute.name,
@@ -2176,7 +2236,7 @@ class ProductsInWarehouseRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.StockDiaryPage]
-class StockDiaryRoute extends _i2.PageRouteInfo<void> {
+class StockDiaryRoute extends _i6.PageRouteInfo<void> {
   const StockDiaryRoute()
       : super(
           StockDiaryRoute.name,
@@ -2188,7 +2248,7 @@ class StockDiaryRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.MoveProductPage]
-class MoveProductRoute extends _i2.PageRouteInfo<void> {
+class MoveProductRoute extends _i6.PageRouteInfo<void> {
   const MoveProductRoute()
       : super(
           MoveProductRoute.name,
@@ -2200,7 +2260,7 @@ class MoveProductRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ListCustomerTypePage]
-class ListCustomerTypeRoute extends _i2.PageRouteInfo<void> {
+class ListCustomerTypeRoute extends _i6.PageRouteInfo<void> {
   const ListCustomerTypeRoute()
       : super(
           ListCustomerTypeRoute.name,
@@ -2212,7 +2272,7 @@ class ListCustomerTypeRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddTaxCusCategoryPage]
-class AddTaxCusCategoryRoute extends _i2.PageRouteInfo<void> {
+class AddTaxCusCategoryRoute extends _i6.PageRouteInfo<void> {
   const AddTaxCusCategoryRoute()
       : super(
           AddTaxCusCategoryRoute.name,
@@ -2225,10 +2285,10 @@ class AddTaxCusCategoryRoute extends _i2.PageRouteInfo<void> {
 /// generated route for
 /// [_i1.UpdateTaxCusCategoryPage]
 class UpdateTaxCusCategoryRoute
-    extends _i2.PageRouteInfo<UpdateTaxCusCategoryRouteArgs> {
+    extends _i6.PageRouteInfo<UpdateTaxCusCategoryRouteArgs> {
   UpdateTaxCusCategoryRoute({
     required dynamic taxCusCategory,
-    _i3.Key? key,
+    _i7.Key? key,
   }) : super(
           UpdateTaxCusCategoryRoute.name,
           path: '/update-customer_type',
@@ -2249,7 +2309,7 @@ class UpdateTaxCusCategoryRouteArgs {
 
   final dynamic taxCusCategory;
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   @override
   String toString() {
@@ -2259,7 +2319,7 @@ class UpdateTaxCusCategoryRouteArgs {
 
 /// generated route for
 /// [_i1.ListTaxCategoriesPage]
-class ListTaxCategoriesRoute extends _i2.PageRouteInfo<void> {
+class ListTaxCategoriesRoute extends _i6.PageRouteInfo<void> {
   const ListTaxCategoriesRoute()
       : super(
           ListTaxCategoriesRoute.name,
@@ -2271,7 +2331,7 @@ class ListTaxCategoriesRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddTaxCategoryPage]
-class AddTaxCategoryRoute extends _i2.PageRouteInfo<void> {
+class AddTaxCategoryRoute extends _i6.PageRouteInfo<void> {
   const AddTaxCategoryRoute()
       : super(
           AddTaxCategoryRoute.name,
@@ -2284,10 +2344,10 @@ class AddTaxCategoryRoute extends _i2.PageRouteInfo<void> {
 /// generated route for
 /// [_i1.UpdateTaxCategoryPage]
 class UpdateTaxCategoryRoute
-    extends _i2.PageRouteInfo<UpdateTaxCategoryRouteArgs> {
+    extends _i6.PageRouteInfo<UpdateTaxCategoryRouteArgs> {
   UpdateTaxCategoryRoute({
     required dynamic taxCategory,
-    _i3.Key? key,
+    _i7.Key? key,
   }) : super(
           UpdateTaxCategoryRoute.name,
           path: '/update-tax_category',
@@ -2308,7 +2368,7 @@ class UpdateTaxCategoryRouteArgs {
 
   final dynamic taxCategory;
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   @override
   String toString() {
@@ -2318,7 +2378,7 @@ class UpdateTaxCategoryRouteArgs {
 
 /// generated route for
 /// [_i1.ListTaxesPage]
-class ListTaxesRoute extends _i2.PageRouteInfo<void> {
+class ListTaxesRoute extends _i6.PageRouteInfo<void> {
   const ListTaxesRoute()
       : super(
           ListTaxesRoute.name,
@@ -2330,7 +2390,7 @@ class ListTaxesRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddTaxPage]
-class AddTaxRoute extends _i2.PageRouteInfo<void> {
+class AddTaxRoute extends _i6.PageRouteInfo<void> {
   const AddTaxRoute()
       : super(
           AddTaxRoute.name,
@@ -2342,10 +2402,10 @@ class AddTaxRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.UpdateTaxPage]
-class UpdateTaxRoute extends _i2.PageRouteInfo<UpdateTaxRouteArgs> {
+class UpdateTaxRoute extends _i6.PageRouteInfo<UpdateTaxRouteArgs> {
   UpdateTaxRoute({
     required dynamic tax,
-    _i3.Key? key,
+    _i7.Key? key,
   }) : super(
           UpdateTaxRoute.name,
           path: '/update-tax',
@@ -2366,7 +2426,7 @@ class UpdateTaxRouteArgs {
 
   final dynamic tax;
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   @override
   String toString() {
@@ -2376,7 +2436,7 @@ class UpdateTaxRouteArgs {
 
 /// generated route for
 /// [_i1.AccountPosPage]
-class AccountPosRoute extends _i2.PageRouteInfo<void> {
+class AccountPosRoute extends _i6.PageRouteInfo<void> {
   const AccountPosRoute()
       : super(
           AccountPosRoute.name,
@@ -2388,7 +2448,7 @@ class AccountPosRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.SettingManagePage]
-class SettingManageRoute extends _i2.PageRouteInfo<void> {
+class SettingManageRoute extends _i6.PageRouteInfo<void> {
   const SettingManageRoute()
       : super(
           SettingManageRoute.name,
@@ -2400,7 +2460,7 @@ class SettingManageRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ListPrinterPage]
-class ListPrinterRoute extends _i2.PageRouteInfo<void> {
+class ListPrinterRoute extends _i6.PageRouteInfo<void> {
   const ListPrinterRoute()
       : super(
           ListPrinterRoute.name,
@@ -2412,7 +2472,7 @@ class ListPrinterRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AddPrinterPage]
-class AddPrinterRoute extends _i2.PageRouteInfo<void> {
+class AddPrinterRoute extends _i6.PageRouteInfo<void> {
   const AddPrinterRoute()
       : super(
           AddPrinterRoute.name,
@@ -2424,10 +2484,10 @@ class AddPrinterRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.UpdatePrinterPage]
-class UpdatePrinterRoute extends _i2.PageRouteInfo<UpdatePrinterRouteArgs> {
+class UpdatePrinterRoute extends _i6.PageRouteInfo<UpdatePrinterRouteArgs> {
   UpdatePrinterRoute({
     required dynamic printer,
-    _i3.Key? key,
+    _i7.Key? key,
   }) : super(
           UpdatePrinterRoute.name,
           path: '/update-printers',
@@ -2448,7 +2508,7 @@ class UpdatePrinterRouteArgs {
 
   final dynamic printer;
 
-  final _i3.Key? key;
+  final _i7.Key? key;
 
   @override
   String toString() {
@@ -2458,7 +2518,7 @@ class UpdatePrinterRouteArgs {
 
 /// generated route for
 /// [_i1.SwitchLanguagePage]
-class SwitchLanguageRoute extends _i2.PageRouteInfo<void> {
+class SwitchLanguageRoute extends _i6.PageRouteInfo<void> {
   const SwitchLanguageRoute()
       : super(
           SwitchLanguageRoute.name,
@@ -2469,8 +2529,56 @@ class SwitchLanguageRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [_i2.TestLabPage]
+class TestLabRoute extends _i6.PageRouteInfo<void> {
+  const TestLabRoute()
+      : super(
+          TestLabRoute.name,
+          path: '/test-lab',
+        );
+
+  static const String name = 'TestLabRoute';
+}
+
+/// generated route for
+/// [_i3.ChatPage]
+class ChatRoute extends _i6.PageRouteInfo<void> {
+  const ChatRoute()
+      : super(
+          ChatRoute.name,
+          path: '/test-chat',
+        );
+
+  static const String name = 'ChatRoute';
+}
+
+/// generated route for
+/// [_i4.DynamicServerPage]
+class DynamicServerRoute extends _i6.PageRouteInfo<void> {
+  const DynamicServerRoute()
+      : super(
+          DynamicServerRoute.name,
+          path: '/test-dynamic-server',
+        );
+
+  static const String name = 'DynamicServerRoute';
+}
+
+/// generated route for
+/// [_i5.GPSTrackerPage]
+class GPSTrackerRoute extends _i6.PageRouteInfo<void> {
+  const GPSTrackerRoute()
+      : super(
+          GPSTrackerRoute.name,
+          path: '/test-gps',
+        );
+
+  static const String name = 'GPSTrackerRoute';
+}
+
+/// generated route for
 /// [_i1.MainDeskTopPage]
-class MainDeskTopRoute extends _i2.PageRouteInfo<void> {
+class MainDeskTopRoute extends _i6.PageRouteInfo<void> {
   const MainDeskTopRoute()
       : super(
           MainDeskTopRoute.name,
@@ -2482,7 +2590,7 @@ class MainDeskTopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.DashboardBaseDeskTopPage]
-class DashboardBaseDeskTopRoute extends _i2.PageRouteInfo<void> {
+class DashboardBaseDeskTopRoute extends _i6.PageRouteInfo<void> {
   const DashboardBaseDeskTopRoute()
       : super(
           DashboardBaseDeskTopRoute.name,
@@ -2494,7 +2602,7 @@ class DashboardBaseDeskTopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ProductsManageDesktopPage]
-class ProductsManageDesktopRoute extends _i2.PageRouteInfo<void> {
+class ProductsManageDesktopRoute extends _i6.PageRouteInfo<void> {
   const ProductsManageDesktopRoute()
       : super(
           ProductsManageDesktopRoute.name,
@@ -2506,7 +2614,7 @@ class ProductsManageDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ProductsDesktopPage]
-class ProductsDesktopRoute extends _i2.PageRouteInfo<void> {
+class ProductsDesktopRoute extends _i6.PageRouteInfo<void> {
   const ProductsDesktopRoute()
       : super(
           ProductsDesktopRoute.name,
@@ -2518,7 +2626,7 @@ class ProductsDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.CustomersDesktopPage]
-class CustomersDesktopRoute extends _i2.PageRouteInfo<void> {
+class CustomersDesktopRoute extends _i6.PageRouteInfo<void> {
   const CustomersDesktopRoute()
       : super(
           CustomersDesktopRoute.name,
@@ -2530,7 +2638,7 @@ class CustomersDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.OrdersDesktopPage]
-class OrdersDesktopRoute extends _i2.PageRouteInfo<void> {
+class OrdersDesktopRoute extends _i6.PageRouteInfo<void> {
   const OrdersDesktopRoute()
       : super(
           OrdersDesktopRoute.name,
@@ -2542,7 +2650,7 @@ class OrdersDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.CategoriesDesktopPage]
-class CategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
+class CategoriesDesktopRoute extends _i6.PageRouteInfo<void> {
   const CategoriesDesktopRoute()
       : super(
           CategoriesDesktopRoute.name,
@@ -2554,7 +2662,7 @@ class CategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.TaxesDesktopPage]
-class TaxesDesktopRoute extends _i2.PageRouteInfo<void> {
+class TaxesDesktopRoute extends _i6.PageRouteInfo<void> {
   const TaxesDesktopRoute()
       : super(
           TaxesDesktopRoute.name,
@@ -2566,7 +2674,7 @@ class TaxesDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.TaxCategoriesDesktopPage]
-class TaxCategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
+class TaxCategoriesDesktopRoute extends _i6.PageRouteInfo<void> {
   const TaxCategoriesDesktopRoute()
       : super(
           TaxCategoriesDesktopRoute.name,
@@ -2578,7 +2686,7 @@ class TaxCategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.TaxCusCategoriesDesktopPage]
-class TaxCusCategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
+class TaxCusCategoriesDesktopRoute extends _i6.PageRouteInfo<void> {
   const TaxCusCategoriesDesktopRoute()
       : super(
           TaxCusCategoriesDesktopRoute.name,
@@ -2590,7 +2698,7 @@ class TaxCusCategoriesDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.AccountPosDesktopPage]
-class AccountPosDesktopRoute extends _i2.PageRouteInfo<void> {
+class AccountPosDesktopRoute extends _i6.PageRouteInfo<void> {
   const AccountPosDesktopRoute()
       : super(
           AccountPosDesktopRoute.name,
@@ -2602,7 +2710,7 @@ class AccountPosDesktopRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.DashboardPage]
-class DashboardRoute extends _i2.PageRouteInfo<void> {
+class DashboardRoute extends _i6.PageRouteInfo<void> {
   const DashboardRoute()
       : super(
           DashboardRoute.name,
@@ -2614,7 +2722,7 @@ class DashboardRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.OrdersPage]
-class OrdersRoute extends _i2.PageRouteInfo<void> {
+class OrdersRoute extends _i6.PageRouteInfo<void> {
   const OrdersRoute()
       : super(
           OrdersRoute.name,
@@ -2626,7 +2734,7 @@ class OrdersRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.PosSystemPage]
-class PosSystemRoute extends _i2.PageRouteInfo<void> {
+class PosSystemRoute extends _i6.PageRouteInfo<void> {
   const PosSystemRoute()
       : super(
           PosSystemRoute.name,
@@ -2638,7 +2746,7 @@ class PosSystemRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ProductsPage]
-class ProductsRoute extends _i2.PageRouteInfo<void> {
+class ProductsRoute extends _i6.PageRouteInfo<void> {
   const ProductsRoute()
       : super(
           ProductsRoute.name,
@@ -2650,7 +2758,7 @@ class ProductsRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.DeliveryBoyPage]
-class DeliveryBoyRoute extends _i2.PageRouteInfo<void> {
+class DeliveryBoyRoute extends _i6.PageRouteInfo<void> {
   const DeliveryBoyRoute()
       : super(
           DeliveryBoyRoute.name,
@@ -2662,7 +2770,7 @@ class DeliveryBoyRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.DashboardPASPage]
-class DashboardPASRoute extends _i2.PageRouteInfo<void> {
+class DashboardPASRoute extends _i6.PageRouteInfo<void> {
   const DashboardPASRoute()
       : super(
           DashboardPASRoute.name,
@@ -2674,7 +2782,7 @@ class DashboardPASRoute extends _i2.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.ProccessPage]
-class ProccessRoute extends _i2.PageRouteInfo<void> {
+class ProccessRoute extends _i6.PageRouteInfo<void> {
   const ProccessRoute()
       : super(
           ProccessRoute.name,

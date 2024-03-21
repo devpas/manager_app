@@ -33,7 +33,8 @@ class HttpServiceAppscriptDev {
 }
 
 class HttpServiceAppscript {
-  String url = LocalStorage.instance.getServerUrl();
+  // String url = LocalStorage.instance.getServerUrl();
+  String url = "https://script.google.com/macros/s/AKfycbwBFeT0LUiVsdYHspd8gV95GweilFDIRrGr6kh0o2k/dev";
   Dio client({bool requireAuth = false}) => Dio(
         BaseOptions(
           // baseUrl: AppConstants.baseUrlAppscript,

@@ -497,7 +497,7 @@ class _UpdateCustomerPasPageState extends ConsumerState<UpdateCustomerPasPage> w
               20.verticalSpace,
               SelectWithAddButton(
                 label: "Mục khách hàng",
-                title: taxCusCategoryName == "" ? state.taxCusCategories!.where((e) => e["id"] == customer.taxCusCategory).first["name"] : taxCusCategoryName,
+                title: taxCusCategoryName == "" ? (state.taxCusCategories!.where((e) => e["id"] == customer.taxCusCategory).length > 0 ? state.taxCusCategories!.where((e) => e["id"] == customer.taxCusCategory).first["name"] : "") : taxCusCategoryName,
                 onSelectTap: () {
                   taxCusCategorySearch = state.taxCusCategories!;
                   showModalBottomSheet(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,6 +33,7 @@ class SignInWebviewPage extends ConsumerWidget {
   final String cookieName = 'some_cookie_name';
   final cookieManager = WebviewCookieManager();
   bool isLogin = false;
+  String email = "";
 
   Future<bool> connectGAS(String cookie) async {
     Map<String, String> headers = {"Content-Type": "application/json", "Accept": "application/json", "Cookie": cookie};
@@ -46,11 +48,30 @@ class SignInWebviewPage extends ConsumerWidget {
             return status! < 500;
           }),
     );
-    if (response.data.toString() == '{msg: google login success}') {
+    var data = jsonDecode(response.toString());
+    print(data);
+    if (data["msg"] == 'google login success') {
+      checkEmail(data["email"]);
       return true;
     } else {
       return false;
     }
+  }
+
+  void checkEmail(String email) {
+    final collection = FirebaseFirestore.instance.collection("users");
+    final query = collection.where("email", isEqualTo: email).get().then(
+      (querySnapshot) {
+        print("Successfully completed");
+        for (var docSnapshot in querySnapshot.docs) {
+          print(docSnapshot["project_id"]);
+          LocalStorage.instance.setServerUrl(docSnapshot["project_id"]);
+        }
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+    // Map<String, dynamic> data = {"id": 10};
+    // FirebaseFirestore.instance.collection('users').doc("").set(data);
   }
 
   @override
@@ -72,7 +93,7 @@ class SignInWebviewPage extends ConsumerWidget {
           height: 1.sh,
           child: isLogin == false && url != ""
               ? WebView(
-                  initialUrl: url,
+                  initialUrl: "https://script.google.com/macros/s/AKfycbwBFeT0LUiVsdYHspd8gV95GweilFDIRrGr6kh0o2k/dev",
                   userAgent: "random",
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (controller) async {
@@ -92,8 +113,10 @@ class SignInWebviewPage extends ConsumerWidget {
                         LocalStorage.instance.setCookieAccess(cookieGAS);
                         isLogin = true;
                         var isConnect = await connectGAS(cookieGAS);
+                        print(email);
                         print(isConnect);
                         if (isConnect) {
+                          isConnect = false;
                           // notifierLogin.loginAdminSilent(goToMain: () {
                           String screenMode = LocalStorage.instance.getScreenMode();
                           screenMode == "desktop" ? context.pushRoute(const DashboardBaseDeskTopRoute()) : context.pushRoute(const DashboardBaseRoute());

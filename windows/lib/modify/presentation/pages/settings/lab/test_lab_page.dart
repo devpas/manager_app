@@ -5,18 +5,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/riverpob/providers/base/base_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../src/core/routes/app_router.gr.dart';
-import '../../theme/theme.dart';
-import '../../components/components.dart';
 
-class SettingManagePage extends ConsumerStatefulWidget {
-  const SettingManagePage({Key? key}) : super(key: key);
+import '../../../../../src/core/routes/app_router.gr.dart';
+import '../../../components/components.dart';
+import '../../../theme/app_colors.dart';
+import '../../../theme/app_typographies.dart';
+
+class TestLabPage extends ConsumerStatefulWidget {
+  const TestLabPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<SettingManagePage> createState() => _SettingManagePageState();
+  ConsumerState<TestLabPage> createState() => _TestLabPageState();
 }
 
-class _SettingManagePageState extends ConsumerState<SettingManagePage> {
+class _TestLabPageState extends ConsumerState<TestLabPage> {
   @override
   void initState() {
     super.initState();
@@ -67,18 +69,18 @@ class _SettingManagePageState extends ConsumerState<SettingManagePage> {
                 children: [
                   DashboardItemBase(
                     iconData: FlutterRemix.printer_line,
-                    title: state.translate[state.languageSelected]["printer"],
+                    title: "chat xử lý đơn hàng",
                     iconColor: AppColors.inProgressOrders,
                     onTap: () {
-                      context.pushRoute(const ListPrinterRoute());
+                      context.pushRoute(const ChatRoute());
                     },
                   ),
                   DashboardItemBase(
                     iconData: FlutterRemix.printer_line,
-                    title: state.translate[state.languageSelected]["language"],
+                    title: "theo dõi gps",
                     iconColor: AppColors.inProgressOrders,
                     onTap: () {
-                      context.pushRoute(const SwitchLanguageRoute());
+                      context.pushRoute(const GPSTrackerRoute());
                     },
                   ),
                 ],
@@ -90,10 +92,10 @@ class _SettingManagePageState extends ConsumerState<SettingManagePage> {
                   state.accessUserSettingBlock!
                       ? DashboardItemBase(
                           iconData: FlutterRemix.user_6_fill,
-                          title: state.translate[state.languageSelected]["test_lab"],
+                          title: "kết nối server động",
                           iconColor: AppColors.deliveredOrders,
                           onTap: () {
-                            context.pushRoute(const TestLabRoute());
+                            context.pushRoute(const DynamicServerRoute());
                           },
                         )
                       : const SizedBox(),

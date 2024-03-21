@@ -1,4 +1,8 @@
 import 'package:auto_route/annotations.dart';
+import 'package:g_manager_app/modify/presentation/pages/settings/lab/chat/chat_page.dart';
+import 'package:g_manager_app/modify/presentation/pages/settings/lab/dynamic_server/dynamic_server_page.dart';
+import 'package:g_manager_app/modify/presentation/pages/settings/lab/gps/gps_page.dart';
+import 'package:g_manager_app/modify/presentation/pages/settings/lab/test_lab_page.dart';
 import '../../presentation/pages/pages.dart';
 import 'modals_route.dart';
 
@@ -363,6 +367,28 @@ import 'modals_route.dart';
       page: SwitchLanguagePage,
       customRouteBuilder: modalsPageRoute,
     ),
+    CustomRoute(
+      path: '/test-lab',
+      page: TestLabPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/test-chat',
+      page: ChatPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/test-dynamic-server',
+      page: DynamicServerPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+    CustomRoute(
+      path: '/test-gps',
+      page: GPSTrackerPage,
+      customRouteBuilder: modalsPageRoute,
+    ),
+
+    // desktop
     CustomRoute(
       path: '/main-desktop',
       page: MainDeskTopPage,

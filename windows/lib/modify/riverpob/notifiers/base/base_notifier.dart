@@ -85,8 +85,8 @@ class BaseNotifier extends StateNotifier<BaseState> {
         }
         state = state.copyWith(baseRootInfomation: response["data"]["base_infomation"]);
         LocalStorage.instance.setKeyAccessOwner(response["data"]["key_access"]);
-        await checkExpireFileLargeData();
-        await getMoneyWallet("${state.baseRootInfomation["email"]}_${state.baseInfomation["email"]}");
+        checkExpireFileLargeData();
+        getMoneyWallet("${state.baseRootInfomation["email"]}_${state.baseInfomation["email"]}");
         // await moneyRecord();
       }
     } else {
@@ -624,7 +624,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
     checkAccessBlock();
     if (state.msgBase != "Bạn chưa có thư mục chứa dữ liệu, bạn có muốn tạo nó không") {
       loadPrinterActive();
-      appData = await loadDataWhenStartApp();
+      appData = loadDataWhenStartApp();
     } else {
       state = state.copyWith(startAppDataLoading: false);
       appData = {};

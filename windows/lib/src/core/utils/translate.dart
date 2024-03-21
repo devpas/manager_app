@@ -130,7 +130,8 @@ class Translates {
       "transaction": "Giao dịch",
       "contact": "Liên hệ",
       "language": "Ngôn ngữ",
-      "printer": "Máy in"
+      "printer": "Máy in",
+      "test_lab": "khu vực thử nghiệm",
     },
     "en": {
       "base": "Base",
@@ -261,7 +262,8 @@ class Translates {
       "transaction": "Transaction",
       "contact": "Contact",
       "language": "Language",
-      "printer": "Printer"
+      "printer": "Printer",
+      "test_lab": "Test lab",
     }
   };
 
