@@ -527,8 +527,10 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                               primary: false,
                                               itemCount: stateProducts.products!.length,
                                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                childAspectRatio: 1.9,
-                                                crossAxisCount: 2,
+                                                crossAxisCount: 5,
+                                                crossAxisSpacing: 5,
+                                                mainAxisSpacing: 5,
+                                                childAspectRatio: 2,
                                               ),
                                               itemBuilder: (context, index) {
                                                 final product = stateProducts.products![index];

@@ -28,7 +28,7 @@ class ProductItemPOS extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: AppColors.white,
             child: SizedBox(
-              height: widthHeight * 0.08,
+              height: 68,
               width: widthWidget * 0.36,
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),

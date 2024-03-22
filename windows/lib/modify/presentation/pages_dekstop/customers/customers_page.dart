@@ -41,6 +41,13 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
   TextEditingController dtgtController = TextEditingController();
   TextEditingController maxdebtController = TextEditingController();
   TextEditingController noteController = TextEditingController();
+  TextEditingController nameContactController = TextEditingController();
+  TextEditingController nameOtherContactController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneContactController = TextEditingController();
+  TextEditingController address1Controller = TextEditingController();
+  TextEditingController address2Controller = TextEditingController();
+  TextEditingController postalCodeController = TextEditingController();
   String taxCusCategoryIdSelected = "";
   String createdate = "";
   String card = "";
@@ -114,14 +121,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: Text("Mã kho:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: Text("Tên:")),
                   ),
                   SizedBox(
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: nameContactController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -137,14 +144,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá mua:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Tên khác:")),
                   ),
                   SizedBox(
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: nameOtherContactController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -160,14 +167,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá bán:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Email:")),
                   ),
                   SizedBox(
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: emailController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -183,14 +190,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá sau CK:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Điện thoại:")),
                   ),
                   SizedBox(
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: phoneContactController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -224,14 +231,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: Text("Mã kho:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Địa chỉ dòng 1:")),
                   ),
                   SizedBox(
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: address1Controller,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -247,14 +254,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá mua:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Địa chỉ 2:")),
                   ),
                   SizedBox(
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
+                          controller: address2Controller,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -270,37 +277,14 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá bán:")),
+                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Mã bưu chính:")),
                   ),
                   SizedBox(
                     width: screenWidth * 0.185,
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: codeController,
-                          decoration: const InputDecoration.collapsed(
-                            hintText: '',
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: SizedBox(width: screenWidth * 0.1, child: const Text("Giá sau CK:")),
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.185,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: codeController,
+                          controller: postalCodeController,
                           decoration: const InputDecoration.collapsed(
                             hintText: '',
                           ),
@@ -345,6 +329,10 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
       currentDebt = "0";
       taxCusCategoryIdSelected = stateProduct.taxCusCategories![0]["id"];
       curDate = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
+      nameContactController.text = "";
+      nameOtherContactController.text = "";
+      emailController.text = "";
+      phoneContactController.text = "";
     });
   }
 
@@ -366,6 +354,10 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
       currentDebt = customer.curDebt.toString();
       taxCusCategoryIdSelected = customer.taxCusCategory!;
       curDate = customer.curdate.toString();
+      nameContactController.text = customer.firstname ?? "";
+      nameOtherContactController.text = customer.lastname ?? "";
+      emailController.text = customer.email ?? "";
+      phoneContactController.text = customer.phone2 ?? "";
     });
   }
 
@@ -388,7 +380,11 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
         curDebt: double.parse(currentDebt),
         taxCusCategory: taxCusCategoryIdSelected,
         curdate: DateTime.parse(curDate),
-        visible: activeCheckBox ? 1 : 0);
+        visible: activeCheckBox ? 1 : 0,
+        email: "'${emailController.text}",
+        firstname: "'${nameContactController.text}",
+        lastname: "'${nameOtherContactController.text}",
+        phone2: "'${phoneContactController.text}");
     // print(state.productSelected!.index);
     var customerData = customer.toJson();
     if (createMode) {
