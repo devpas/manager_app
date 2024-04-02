@@ -91,7 +91,7 @@ class WCategoryItem extends ConsumerWidget {
                         onPressed: onEditTap,
                       ),
                       AbsorbPointer(
-                        absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
+                        absorbing: userRole == "pos-admin" ? false : true,
                         child: SmallIconButton(
                           icon: Container(
                             height: 36,
@@ -104,7 +104,7 @@ class WCategoryItem extends ConsumerWidget {
                             child: Icon(
                               FlutterRemix.delete_bin_line,
                               size: 20.r,
-                              color: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
+                              color: userRole == "pos-admin" ? Colors.black : Colors.grey,
                             ),
                           ),
                           onPressed: onDeleteTap,

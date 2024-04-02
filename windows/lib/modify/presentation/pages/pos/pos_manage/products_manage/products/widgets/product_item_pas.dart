@@ -26,6 +26,7 @@ class ProductItemPas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(userRole);
     final bool isOutOfStock = product.stocks == null || product.stocks!.isEmpty;
     final bool hasDiscount = isOutOfStock ? false : (product.taxCat != null);
     final String price = isOutOfStock
@@ -95,7 +96,7 @@ class ProductItemPas extends StatelessWidget {
                                 onPressed: onTap,
                               ),
                               AbsorbPointer(
-                                absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
+                                absorbing: userRole == "pos-admin" ? false : true,
                                 child: SmallIconButton(
                                   icon: Container(
                                     height: 36,
@@ -107,7 +108,7 @@ class ProductItemPas extends StatelessWidget {
                                     padding: const EdgeInsets.all(8),
                                     child: SvgPicture.asset(
                                       AppAssets.svgIcDelete,
-                                      color: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
+                                      color: userRole == "pos-admin" ? Colors.black : Colors.grey,
                                     ),
                                   ),
                                   onPressed: onDeleteTap,

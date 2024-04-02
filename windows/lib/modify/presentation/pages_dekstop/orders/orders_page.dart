@@ -72,8 +72,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
     final state = ref.watch(orderPasProvider);
     final notifier = ref.read(orderPasProvider.notifier);
     return Container(
-      width: 185,
-      height: 350,
+      width: 230,
+      height: 450,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
         color: AppColors.white,
@@ -83,7 +83,6 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
@@ -94,8 +93,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 130.r,
-                        height: 60.r,
+                        width: 128,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -115,8 +114,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -142,8 +141,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -165,8 +164,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -188,8 +187,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -205,7 +204,6 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
@@ -216,8 +214,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -239,8 +237,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -262,8 +260,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -289,8 +287,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -312,8 +310,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -335,8 +333,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -352,7 +350,6 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
@@ -363,8 +360,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 130.r,
-                        height: 60.r,
+                        width: 128,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -384,8 +381,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                        width: 60.r,
-                        height: 60.r,
+                        width: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green),
                           borderRadius: BorderRadius.circular(5.r),
@@ -401,15 +398,14 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                      width: 130.r,
-                      height: 60.r,
+                      width: 128,
+                      height: 60,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.green),
                         borderRadius: BorderRadius.circular(5.r),
@@ -431,8 +427,8 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 3, 5, 3),
                     child: Container(
-                      width: 60.r,
-                      height: 60.r,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.green),
                         borderRadius: BorderRadius.circular(5.r),
@@ -441,7 +437,7 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                       alignment: Alignment.center,
                       child: Icon(
                         FlutterRemix.check_line,
-                        size: 20.r,
+                        size: 20,
                         color: Colors.green,
                       ),
                     ),
@@ -480,7 +476,7 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
             builder: (context) => SmallIconButton(
               icon: Icon(
                 FlutterRemix.menu_line,
-                size: 24.r,
+                size: 24,
                 color: AppColors.black,
               ),
               onPressed: Scaffold.of(context).openDrawer,
@@ -601,7 +597,7 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    height: screenHeight * 0.83,
+                    height: screenHeight * 0.815,
                     width: screenWidth * 0.735,
                     child: Row(
                       children: [
@@ -612,7 +608,7 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                                     ? Center(
                                         child: CircularProgressIndicator(
                                           color: AppColors.greenMain,
-                                          strokeWidth: 3.r,
+                                          strokeWidth: 3,
                                         ),
                                       )
                                     : ListView(
@@ -660,7 +656,7 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                                     ? Center(
                                         child: CircularProgressIndicator(
                                           color: AppColors.greenMain,
-                                          strokeWidth: 3.r,
+                                          strokeWidth: 3,
                                         ),
                                       )
                                     : ListView(
@@ -793,7 +789,7 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                       borderRadius: BorderRadius.circular(5),
                       color: Colors.white,
                     ),
-                    height: screenHeight * 0.83,
+                    height: screenHeight * 0.815,
                     width: screenWidth * 0.25,
                     child: Column(children: [
                       calculatorAccount(context),

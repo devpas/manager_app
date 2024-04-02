@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/src/core/utils/local_storage.dart';
 
 import '../../../../../../../models/models.dart';
 import '../../../../../../components/components.dart';
@@ -20,6 +21,7 @@ class ProductItemPOS extends StatelessWidget {
   Widget build(BuildContext context) {
     double widthWidget = MediaQuery.of(context).size.width;
     double widthHeight = MediaQuery.of(context).size.height;
+    String screenMode = LocalStorage.instance.getScreenMode();
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Column(
@@ -28,7 +30,7 @@ class ProductItemPOS extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: AppColors.white,
             child: SizedBox(
-              height: 68,
+              height: screenMode == "desktop" ? 70 : 75,
               width: widthWidget * 0.36,
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),

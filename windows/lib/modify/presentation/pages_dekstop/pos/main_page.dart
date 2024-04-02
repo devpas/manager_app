@@ -366,7 +366,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 5),
                                     child: Container(
-                                      width: 825,
+                                      width: screenWidth * 0.725,
                                       height: 30,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5.r),
@@ -436,8 +436,8 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 245,
-                                    width: 825,
+                                    height: screenHeight * 0.25,
+                                    width: screenWidth * 0.725,
                                     child: MediaQuery.removePadding(
                                       context: context,
                                       removeTop: true,
@@ -525,7 +525,6 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                             ),
                             10.horizontalSpace,
                             Container(
-                              height: 390,
                               width: 40,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.r),
@@ -654,7 +653,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                 padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                 child: SizedBox(
                   width: 290,
-                  height: 300,
+                  height: screenHeight * 0.3,
                   child: MediaQuery.removePadding(
                     context: context,
                     removeTop: true,
@@ -688,7 +687,7 @@ class _MainDeskTopPageState extends ConsumerState<MainDeskTopPage> with TickerPr
                 padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                 child: SizedBox(
                   width: screenWidth * 0.72,
-                  height: 300,
+                  height: screenHeight * 0.3,
                   child: MediaQuery.removePadding(
                     context: context,
                     removeTop: true,

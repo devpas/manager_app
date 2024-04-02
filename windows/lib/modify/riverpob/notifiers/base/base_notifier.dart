@@ -270,7 +270,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
           }
         }
       }
-      // print(listRoleCode);
+      print(listRoleCode);
       LocalStorage.instance.setListRoleShare(jsonEncode(dataSave));
       LocalStorage.instance.setListRoleCode(listRoleCode);
       checkAccessBlock();
@@ -408,7 +408,7 @@ class BaseNotifier extends StateNotifier<BaseState> {
 
   List<String> getRoleCode() {
     List<String> listRoleCode = LocalStorage.instance.getListRoleCode();
-    // print(listRoleCode);
+    print(listRoleCode);
     return listRoleCode;
   }
 

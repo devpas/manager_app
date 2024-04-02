@@ -216,7 +216,7 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
               children: [
                 Container(
                   width: screenWidth * 0.3,
-                  height: screenHeight * 0.825,
+                  height: screenHeight * 0.815,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.white,
@@ -282,7 +282,7 @@ class _TaxCategoriesDesktopPageState extends ConsumerState<TaxCategoriesDesktopP
                 Column(
                   children: [
                     Container(
-                      height: screenHeight * 0.825,
+                      height: screenHeight * 0.815,
                       width: screenWidth * 0.685,
                       decoration: BoxDecoration(
                         border: Border.all(

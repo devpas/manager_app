@@ -56,7 +56,7 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
       if (keyboardActive) {
         heightContainerProduct = height * 0.1;
       } else {
-        heightContainerProduct = height * 0.425;
+        heightContainerProduct = height * 0.4;
       }
     });
     return heightContainerProduct;
@@ -527,10 +527,8 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                                               primary: false,
                                               itemCount: stateProducts.products!.length,
                                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 5,
-                                                crossAxisSpacing: 5,
-                                                mainAxisSpacing: 5,
-                                                childAspectRatio: 2,
+                                                crossAxisCount: 2,
+                                                childAspectRatio: 1.85,
                                               ),
                                               itemBuilder: (context, index) {
                                                 final product = stateProducts.products![index];
@@ -575,268 +573,265 @@ class _DashboardPageState extends ConsumerState<DashboardPASPage> {
                           strokeWidth: 3.r,
                           color: AppColors.greenMain,
                         ),
-                  Padding(
-                    padding: REdgeInsets.fromLTRB(0, 3, 0, 0),
-                    child: Container(
-                      height: screenHeight * 0.045,
-                      color: Colors.white,
-                      child: Row(children: [
-                        InkWell(
-                          onTap: () {
+                  Container(
+                    height: screenHeight * 0.045,
+                    color: Colors.white,
+                    child: Row(children: [
+                      InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return const ListTicketModal();
+                            },
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: Container(
+                            width: 30.r,
+                            height: 30.r,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.pinkAccent.withOpacity(0.1),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              statePos.listTicket!.isNotEmpty ? statePos.listTicket!.length.toString() : "1",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.pinkAccent, fontSize: 11.sp, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                      ),
+                      keyboardVisible
+                          ? InkWell(
+                              onTap: () {
+                                dismissKeyboard();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                child: Container(
+                                  width: 30.r,
+                                  height: 30.r,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    color: Colors.lightBlue.withOpacity(0.1),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 20.r,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                showKeyboard();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                child: Container(
+                                  width: 30.r,
+                                  height: 30.r,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    color: Colors.lightBlue.withOpacity(0.1),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.keyboard,
+                                    size: 20.r,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ),
+                              ),
+                            ),
+                      InkWell(
+                        onTap: () {
+                          if (!statePos.createTicketLoading!) {
+                            notifierPos.deleteTicketline(statePos.selectTicket, statePos.selectTicketLine);
+                            setState(() {
+                              statePos.selectTicketLine;
+                              if (statePos.selectTicketLine! > 0) {
+                                notifierPos.updateIndex("ticketLine", statePos.selectTicketLine! - 1);
+                              }
+                            });
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: Container(
+                            width: 30.r,
+                            height: 30.r,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.red.withOpacity(0.1),
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.close,
+                              size: 20.r,
+                              color: statePos.createTicketLoading! ? Colors.grey : Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
+                            print(statePos.listTicket![statePos.selectTicket!].ticketlines!.length);
+                            print(statePos.selectTicket);
+                            print(statePos.selectTicketLine);
                             showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) => ProductEditModal(statePos.listTicket![statePos.selectTicket!].ticketlines![statePos.selectTicketLine!], statePos.selectTicketLine, statePos.selectTicket),
+                            );
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: Container(
+                            width: 30.r,
+                            height: 30.r,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.edit,
+                              size: 20.r,
+                              color: statePos.createTicketLoading! ? Colors.grey : Colors.orange,
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (!statePos.createTicketLoading!) {
+                            notifierPos.addTicket();
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: Container(
+                            width: 30.r,
+                            height: 30.r,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.purple.withOpacity(0.1),
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.add,
+                              size: 20.r,
+                              color: statePos.createTicketLoading! ? Colors.grey : Colors.purple,
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (!statePos.createTicketLoading!) {
+                            notifierPos.deleteTicket(statePos.selectTicket);
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: Container(
+                            width: 30.r,
+                            height: 30.r,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.blue.withOpacity(0.1),
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.delete,
+                              size: 20.r,
+                              color: statePos.createTicketLoading! ? Colors.grey : Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+                        child: TextField(
+                          focusNode: focusNode,
+                          decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green),
+                            ),
+                          ),
+                        ),
+                      )),
+                      const SizedBox(
+                        width: 40,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
+                          child: SizedBox(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
+                            showModalBottomSheet(
+                              isScrollControlled: true,
                               context: context,
                               builder: (context) {
-                                return const ListTicketModal();
+                                return PayInfoModal(
+                                  totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
+                                  warehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
+                                  reason: reasonSelected,
+                                );
                               },
                             );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Container(
-                              width: 30.r,
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: Container(
+                              width: 50.r,
                               height: 30.r,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.r),
-                                color: Colors.pinkAccent.withOpacity(0.1),
+                                color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green.withOpacity(0.1) : Colors.grey.withOpacity(0.1)) : Colors.grey.withOpacity(0.1),
                               ),
                               alignment: Alignment.center,
-                              child: Text(
-                                statePos.listTicket!.isNotEmpty ? statePos.listTicket!.length.toString() : "1",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.pinkAccent, fontSize: 11.sp, fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
+                              child: statePos.createTicketLoading!
+                                  ? const CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: AppColors.greenMain,
+                                    )
+                                  : Text(
+                                      "=",
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                        color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green : Colors.grey) : Colors.grey.withOpacity(0.1),
+                                      ),
+                                    )),
                         ),
-                        keyboardVisible
-                            ? InkWell(
-                                onTap: () {
-                                  dismissKeyboard();
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                  child: Container(
-                                    width: 30.r,
-                                    height: 30.r,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: Colors.lightBlue.withOpacity(0.1),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Icon(
-                                      Icons.keyboard_arrow_down,
-                                      size: 20.r,
-                                      color: Colors.lightBlue,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : InkWell(
-                                onTap: () {
-                                  showKeyboard();
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                  child: Container(
-                                    width: 30.r,
-                                    height: 30.r,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      color: Colors.lightBlue.withOpacity(0.1),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Icon(
-                                      Icons.keyboard,
-                                      size: 20.r,
-                                      color: Colors.lightBlue,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                        InkWell(
-                          onTap: () {
-                            if (!statePos.createTicketLoading!) {
-                              notifierPos.deleteTicketline(statePos.selectTicket, statePos.selectTicketLine);
-                              setState(() {
-                                statePos.selectTicketLine;
-                                if (statePos.selectTicketLine! > 0) {
-                                  notifierPos.updateIndex("ticketLine", statePos.selectTicketLine! - 1);
-                                }
-                              });
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Container(
-                              width: 30.r,
-                              height: 30.r,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.r),
-                                color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.red.withOpacity(0.1),
-                              ),
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.close,
-                                size: 20.r,
-                                color: statePos.createTicketLoading! ? Colors.grey : Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
-                              print(statePos.listTicket![statePos.selectTicket!].ticketlines!.length);
-                              print(statePos.selectTicket);
-                              print(statePos.selectTicketLine);
-                              showModalBottomSheet(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (context) => ProductEditModal(statePos.listTicket![statePos.selectTicket!].ticketlines![statePos.selectTicketLine!], statePos.selectTicketLine, statePos.selectTicket),
-                              );
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Container(
-                              width: 30.r,
-                              height: 30.r,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.r),
-                                color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
-                              ),
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.edit,
-                                size: 20.r,
-                                color: statePos.createTicketLoading! ? Colors.grey : Colors.orange,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (!statePos.createTicketLoading!) {
-                              notifierPos.addTicket();
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Container(
-                              width: 30.r,
-                              height: 30.r,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.r),
-                                color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.purple.withOpacity(0.1),
-                              ),
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.add,
-                                size: 20.r,
-                                color: statePos.createTicketLoading! ? Colors.grey : Colors.purple,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (!statePos.createTicketLoading!) {
-                              notifierPos.deleteTicket(statePos.selectTicket);
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Container(
-                              width: 30.r,
-                              height: 30.r,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.r),
-                                color: statePos.createTicketLoading! ? Colors.grey.withOpacity(0.1) : Colors.blue.withOpacity(0.1),
-                              ),
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.delete,
-                                size: 20.r,
-                                color: statePos.createTicketLoading! ? Colors.grey : Colors.blue,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
-                          child: TextField(
-                            focusNode: focusNode,
-                            decoration: const InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green),
-                              ),
-                            ),
-                          ),
-                        )),
-                        const SizedBox(
-                          width: 40,
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                            child: SizedBox(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (statePos.listTicket![statePos.selectTicket!].ticketlines!.isNotEmpty && !statePos.createTicketLoading!) {
-                              showModalBottomSheet(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (context) {
-                                  return PayInfoModal(
-                                    totalMoneyFromTicket: double.parse(notifierPos.totalMoneyCalculator(statePos.selectTicket!, false)),
-                                    warehouseId: notifierBase.checkShareMode() ? stateBase.baseInfomation["warehouse_id"] : stateProducts.warehouseSelected["id"],
-                                    reason: reasonSelected,
-                                  );
-                                },
-                              );
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Container(
-                                width: 50.r,
-                                height: 30.r,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green.withOpacity(0.1) : Colors.grey.withOpacity(0.1)) : Colors.grey.withOpacity(0.1),
-                                ),
-                                alignment: Alignment.center,
-                                child: statePos.createTicketLoading!
-                                    ? const CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        color: AppColors.greenMain,
-                                      )
-                                    : Text(
-                                        "=",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                          color: notifierPos.listTicket.isNotEmpty ? (notifierPos.listTicket[statePos.selectTicket!].ticketlines!.isNotEmpty ? Colors.green : Colors.grey) : Colors.grey.withOpacity(0.1),
-                                        ),
-                                      )),
-                          ),
-                        ),
-                      ]),
-                    ),
+                      ),
+                    ]),
                   )
                 ],
               )

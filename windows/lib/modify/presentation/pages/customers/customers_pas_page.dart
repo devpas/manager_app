@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_manager_app/src/core/utils/local_storage.dart';
 
 import '../../../../src/core/routes/app_router.gr.dart';
 import '../../../../modify/presentation/components/components.dart';
@@ -166,7 +167,7 @@ class _CustomersPasPageState extends ConsumerState<CustomersPasPage> with Ticker
                   itemBuilder: (context, index) {
                     final customer = searching ? state.customersAfterFilter![index] : state.customers![index];
                     return CustomerItemWidget(
-                      userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
+                      userRole: LocalStorage.instance.getShareMode() ? notifierBase.getRoleCode().where((e) => e.contains("pos-")).first : "",
                       customer: customer,
                       onDeleteTap: () {
                         showDialog(

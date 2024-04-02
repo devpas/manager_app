@@ -561,7 +561,7 @@ class _CustomersDesktopPageState extends ConsumerState<CustomersDesktopPage> wit
                 children: [
                   Container(
                     width: screenWidth * 0.3,
-                    height: screenHeight * 0.825,
+                    height: screenHeight * 0.815,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Colors.white,

@@ -103,7 +103,7 @@ class _CategoriesPasPageState extends ConsumerState<CategoriesPasPage> {
                         final category = state.categories![index];
                         if (category.id != -1) {
                           return WCategoryItem(
-                            userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
+                            userRole: LocalStorage.instance.getShareMode() ? notifierBase.getRoleCode().where((e) => e.contains("pos-")).first : "",
                             category: category,
                             onEditTap: () async {
                               context.pushRoute(

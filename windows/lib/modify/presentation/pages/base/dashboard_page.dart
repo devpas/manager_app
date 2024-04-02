@@ -57,9 +57,9 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: screenWidth * 0.1, child: const Text("Loại cơ sở:")),
+                    SizedBox(width: screenWidth * 0.2, child: const Text("Loại cơ sở:")),
                     SizedBox(
-                      width: screenWidth * 0.185,
+                      width: screenWidth * 0.4,
                       child: Column(
                         children: [
                           DropdownButton(
@@ -67,7 +67,7 @@ class _DashboardBasePageState extends ConsumerState<DashboardBasePage> {
                               items: baseType.map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
-                                  child: SizedBox(width: screenWidth * 0.160, child: Text(value)),
+                                  child: SizedBox(width: screenWidth * 0.3, child: Text(value)),
                                 );
                               }).toList(),
                               onChanged: (e) {

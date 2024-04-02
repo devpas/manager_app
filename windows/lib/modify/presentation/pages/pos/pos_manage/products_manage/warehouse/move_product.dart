@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_manager_app/modify/presentation/pages/pos/pos_manage/products_manage/products/widgets/products_edit_modal.dart';
 
 import 'package:g_manager_app/modify/riverpob/providers/providers.dart';
+import 'package:g_manager_app/src/core/utils/local_storage.dart';
 import 'package:intl/intl.dart';
 import '../../../../../../models/data/product_data.dart';
 import '../../../../../theme/theme.dart';
@@ -111,6 +112,7 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
     final notifierCategories = ref.read(categoriesPASProvider.notifier);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    String screenMode = LocalStorage.instance.getScreenMode();
     return WillPopScope(
       onWillPop: () async {
         notifierPos.deleteTicket(statePos.selectTicket);
@@ -455,9 +457,9 @@ class _MoveProductPageState extends ConsumerState<MoveProductPage> {
                                                 shrinkWrap: true,
                                                 primary: false,
                                                 itemCount: stateProducts.products!.length,
-                                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  childAspectRatio: 2.1,
-                                                  crossAxisCount: 2,
+                                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                  childAspectRatio: screenMode == "desktop" ? 3.5 : 2.1,
+                                                  crossAxisCount: screenMode == "desktop" ? 3 : 2,
                                                 ),
                                                 itemBuilder: (context, index) {
                                                   final product = stateProducts.products![index];

@@ -135,7 +135,7 @@ class _ProductsPasPageState extends ConsumerState<ProductsPasPage> {
                               product = state.productsAfterFilter![index];
                             }
                             return ProductItemPas(
-                              userRole: notifierBase.getRoleCode().where((e) => e.contains("pos-")).first,
+                              userRole: LocalStorage.instance.getShareMode() ? notifierBase.getRoleCode().where((e) => e.contains("pos-")).first : "",
                               product: product,
                               onTap: () async {
                                 notifier.setProductSelected(product);

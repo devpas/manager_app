@@ -234,7 +234,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
               children: [
                 Container(
                   width: screenWidth * 0.3,
-                  height: screenHeight * 0.825,
+                  height: screenHeight * 0.815,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.white,
@@ -247,7 +247,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                           ),
                         )
                       : Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(2.0),
                           child: ListView.builder(
                             physics: const CustomBouncingScrollPhysics(),
                             controller: _scrollController,
@@ -308,7 +308,7 @@ class _CategoriesDesktopPageState extends ConsumerState<CategoriesDesktopPage> w
                 Column(
                   children: [
                     Container(
-                      height: screenHeight * 0.825,
+                      height: screenHeight * 0.815,
                       width: screenWidth * 0.685,
                       decoration: BoxDecoration(
                         border: Border.all(

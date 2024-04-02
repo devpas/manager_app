@@ -285,8 +285,6 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                             ],
                           ),
                         ),
-                  5.verticalSpace,
-                  10.horizontalSpace,
                   Padding(
                     padding: const EdgeInsets.only(top: 5),
                     child: SizedBox(
@@ -398,7 +396,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                 children: [
                   SizedBox(width: screenWidth * 0.1, child: const Text("Loại chiết khấu:")),
                   SizedBox(
-                    width: screenWidth * 0.185,
+                    width: screenWidth * 0.14,
                     child: Column(
                       children: [
                         state.taxCategories!.isNotEmpty
@@ -407,7 +405,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                 items: state.taxCategories!.map<DropdownMenuItem<dynamic>>((dynamic value) {
                                   return DropdownMenuItem<dynamic>(
                                     value: value,
-                                    child: SizedBox(width: screenWidth * 0.160, child: Text(value["name"])),
+                                    child: SizedBox(width: screenWidth * 0.1, child: Text(value["name"])),
                                   );
                                 }).toList(),
                                 onChanged: (e) {
@@ -420,13 +418,9 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                     ),
                   ),
                   5.verticalSpace,
-                ],
-              ),
-              Row(
-                children: [
                   SizedBox(width: screenWidth * 0.1, child: const Text("Cấp trên:")),
                   SizedBox(
-                    width: screenWidth * 0.185,
+                    width: screenWidth * 0.14,
                     child: Column(
                       children: [
                         DropdownButton(
@@ -434,7 +428,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                             items: stateCategory.categories!.map<DropdownMenuItem<CategoryPasData>>((CategoryPasData value) {
                               return DropdownMenuItem<CategoryPasData>(
                                 value: value,
-                                child: SizedBox(width: screenWidth * 0.160, child: Text(value.name!)),
+                                child: SizedBox(width: screenWidth * 0.1, child: Text(value.name!)),
                               );
                             }).toList(),
                             onChanged: (e) {
@@ -446,9 +440,9 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                       ],
                     ),
                   ),
-                  5.verticalSpace,
                 ],
               ),
+
               // Row(
               //   children: [
               //     SizedBox(width: screenWidth * 0.1, child: const Text("Thuộc tính:")),
@@ -485,7 +479,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                   child: SelectImageCustomeSize(
                     imageUrl: imageUrl,
                     file: image,
-                    heigth: screenHeight * 0.35,
+                    heigth: screenHeight * 0.3,
                     width: screenWidth * 0.2,
                     onChangePhoto: (XFile file) {
                       setState(() {
@@ -588,7 +582,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                   Padding(
                     padding: const EdgeInsets.only(left: 5, right: 5),
                     child: Container(
-                      height: screenHeight * 0.3,
+                      height: screenHeight * 0.32,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white,
@@ -597,7 +591,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                         Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Container(
-                            height: screenHeight * 0.1,
+                            height: screenHeight * 0.12,
                             width: screenWidth,
                             decoration: BoxDecoration(
                               border: Border.all(
@@ -675,7 +669,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                       ),
                                       5.horizontalSpace,
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 10),
+                                        padding: const EdgeInsets.only(top: 8),
                                         child: SizedBox(
                                           width: screenWidth * 0.185,
                                           child: Column(
@@ -741,7 +735,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                       ),
                                       5.horizontalSpace,
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 10),
+                                        padding: const EdgeInsets.only(top: 8),
                                         child: SizedBox(
                                           width: screenWidth * 0.185,
                                           child: Column(
@@ -776,7 +770,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                       ),
                                       5.horizontalSpace,
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 10),
+                                        padding: const EdgeInsets.only(top: 8),
                                         child: SizedBox(
                                           width: screenWidth * 0.185,
                                           child: Column(
@@ -971,7 +965,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                       children: [
                         Container(
                           width: screenWidth * 0.25,
-                          height: screenHeight * 0.53,
+                          height: screenHeight * 0.49,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Colors.white,
@@ -1029,7 +1023,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                         8.horizontalSpace,
                         Container(
                           width: screenWidth * 0.735,
-                          height: screenHeight * 0.53,
+                          height: screenHeight * 0.49,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Colors.white,
@@ -1042,7 +1036,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                   ),
                                 )
                               : Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(5.0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1050,10 +1044,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                       Text("${refcodeController.text}-${nameController.text}"),
                                       Row(
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 5),
-                                            child: SizedBox(width: screenWidth * 0.05, child: const Text("Mã kho:")),
-                                          ),
+                                          SizedBox(width: screenWidth * 0.05, child: const Text("Mã kho:")),
                                           Expanded(
                                               child: SizedBox(
                                             child: TextFormField(
@@ -1061,10 +1052,7 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                               // decoration: const InputDecoration.collapsed(hintText: ''),
                                             ),
                                           )),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 5),
-                                            child: SizedBox(width: screenWidth * 0.03, child: const Text("Tên:")),
-                                          ),
+                                          SizedBox(width: screenWidth * 0.03, child: const Text("Tên:")),
                                           Expanded(
                                               child: SizedBox(
                                             child: TextFormField(
@@ -1092,7 +1080,6 @@ class _ProductsDesktopPageState extends ConsumerState<ProductsDesktopPage> with 
                                           ],
                                         ),
                                       ),
-                                      18.verticalSpace,
                                       Expanded(
                                         child: TabBarView(
                                           controller: _tabController,
