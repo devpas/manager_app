@@ -459,6 +459,7 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
     final notifierBase = ref.read(baseProvider.notifier);
     final stateOrder = ref.watch(orderPasProvider);
     final notifierOrder = ref.read(orderPasProvider.notifier);
+    final stateProducts = ref.watch(productsPASProvider);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return AbsorbPointer(
@@ -747,30 +748,33 @@ class _OrdersDesktopPageState extends ConsumerState<OrdersDesktopPage> with Tick
                                             physics: const CustomBouncingScrollPhysics(),
                                             padding: EdgeInsets.all(3),
                                             children: [
-                                              ListView.builder(
-                                                physics: const NeverScrollableScrollPhysics(),
-                                                itemCount: ticketSelected.ticketlines!.length,
-                                                shrinkWrap: true,
-                                                itemBuilder: (context, index) {
-                                                  TicketLineData ticketline = ticketSelected.ticketlines![index];
-                                                  TaxlineData taxline = ticketSelected.taxlines![index];
-                                                  return Row(
-                                                    children: [
-                                                      SizedBox(width: screenWidth * 0.15, child: Text("${ticketline.productId}")),
-                                                      SizedBox(width: screenWidth * 0.1, child: Text("${taxline.amount!}")),
-                                                      SizedBox(width: screenWidth * 0.05, child: Text("${ticketline.unit}")),
-                                                      SizedBox(child: Text("${taxline.amount! * ticketline.unit!}")),
-                                                    ],
-                                                  );
-                                                },
-                                              ),
+                                              ticketSelected.ticketlines != null
+                                                  ? ListView.builder(
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      itemCount: ticketSelected.ticketlines!.length,
+                                                      shrinkWrap: true,
+                                                      itemBuilder: (context, index) {
+                                                        TicketLineData ticketline = ticketSelected.ticketlines![index];
+                                                        TaxlineData taxline = ticketSelected.taxlines![index];
+                                                        List<ProductPasData> productByTicketline = stateProducts.products!.where((product) => product.id == ticketline.productId).toList();
+                                                        return Row(
+                                                          children: [
+                                                            SizedBox(width: screenWidth * 0.15, child: Text("${productByTicketline.isNotEmpty ? productByTicketline.first.name : "Can find name product"}")),
+                                                            SizedBox(width: screenWidth * 0.1, child: Text("${taxline.amount!}")),
+                                                            SizedBox(width: screenWidth * 0.05, child: Text("${ticketline.unit}")),
+                                                            SizedBox(child: Text("${taxline.amount! * ticketline.unit!}")),
+                                                          ],
+                                                        );
+                                                      },
+                                                    )
+                                                  : const SizedBox(),
                                             ],
                                           ),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        Text("SL món hàng: ${ticketSelected.ticketlines!.length}"),
+                                        Text("SL món hàng: ${ticketSelected.ticketlines != null ? ticketSelected.ticketlines!.length : 0}"),
                                         const SizedBox(
                                           height: 10,
                                         ),

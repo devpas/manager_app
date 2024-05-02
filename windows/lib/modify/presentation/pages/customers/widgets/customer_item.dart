@@ -149,11 +149,11 @@ class CustomerItemWidget extends StatelessWidget {
                                   ),
                                   4.horizontalSpace,
                                   AbsorbPointer(
-                                    absorbing: userRole == "pos-admin" ? false : true,
+                                    absorbing: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? false : true,
                                     child: CircleIconButton(
                                       backgroundColor: AppColors.black.withOpacity(0.05),
                                       iconData: FlutterRemix.delete_bin_line,
-                                      iconColor: userRole == "pos-admin" ? Colors.black : Colors.grey,
+                                      iconColor: userRole == "pos-admin" || !LocalStorage.instance.getShareMode() ? Colors.black : Colors.grey,
                                       onTap: onDeleteTap,
                                     ),
                                   ),

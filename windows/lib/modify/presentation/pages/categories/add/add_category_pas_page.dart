@@ -118,17 +118,13 @@ class _AddCategoryPasPageState extends ConsumerState<AddCategoryPasPage> {
                     30.verticalSpace,
                     SelectWithSearchButton(
                       label: AppHelpers.getTranslation(TrKeys.parentCategory),
-                      title: parentCategoryId == -1
-                          ? "Chọn danh mục cấp trên"
-                          : parentCategoryName,
+                      title: parentCategoryId == -1 ? "Chọn danh mục cấp trên" : parentCategoryName,
                       onTap: () {
                         categoriesSearch = state.categories!;
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return StatefulBuilder(builder:
-                                  (BuildContext context,
-                                      StateSetter setModelState) {
+                              return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
                                 return Material(
                                   color: AppColors.mainBackground,
                                   child: Container(
@@ -136,9 +132,7 @@ class _AddCategoryPasPageState extends ConsumerState<AddCategoryPasPage> {
                                       top: 20,
                                       left: 15,
                                       right: 15,
-                                      bottom: MediaQuery.of(context)
-                                          .viewInsets
-                                          .bottom,
+                                      bottom: MediaQuery.of(context).viewInsets.bottom,
                                     ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -146,22 +140,14 @@ class _AddCategoryPasPageState extends ConsumerState<AddCategoryPasPage> {
                                         SearchTextField(
                                           onChanged: (v) {
                                             setModelState(() {
-                                              categoriesSearch = state
-                                                  .categories!
-                                                  .where((e) => e.name!
-                                                      .toLowerCase()
-                                                      .contains(
-                                                          v.toLowerCase()))
-                                                  .toList();
+                                              categoriesSearch = state.categories!.where((e) => e.name!.toLowerCase().contains(v.toLowerCase())).toList();
                                             });
                                           },
-                                          hintText: AppHelpers.getTranslation(
-                                              TrKeys.searchCategory),
+                                          hintText: AppHelpers.getTranslation(TrKeys.searchCategory),
                                         ),
                                         10.verticalSpace,
                                         SearchedItem(
-                                          title: AppHelpers.getTranslation(
-                                              TrKeys.noCategory),
+                                          title: AppHelpers.getTranslation(TrKeys.noCategory),
                                           isSelected: false,
                                           onTap: () {
                                             setState(() {
@@ -176,24 +162,19 @@ class _AddCategoryPasPageState extends ConsumerState<AddCategoryPasPage> {
                                         ),
                                         Expanded(
                                           child: ListView.builder(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            physics:
-                                                const CustomBouncingScrollPhysics(),
+                                            padding: const EdgeInsets.symmetric(vertical: 10),
+                                            physics: const CustomBouncingScrollPhysics(),
                                             itemCount: categoriesSearch!.length,
                                             shrinkWrap: true,
                                             itemBuilder: (context, index) {
-                                              final parentCategory =
-                                                  categoriesSearch![index];
+                                              final parentCategory = categoriesSearch![index];
                                               return SearchedItem(
                                                 title: '${parentCategory.name}',
                                                 isSelected: false,
                                                 onTap: () {
                                                   setState(() {
-                                                    parentCategoryId =
-                                                        parentCategory.id!;
-                                                    parentCategoryName =
-                                                        parentCategory.name!;
+                                                    parentCategoryId = parentCategory.id!;
+                                                    parentCategoryName = parentCategory.name!;
                                                   });
                                                   print(parentCategoryId);
                                                   print(parentCategoryName);
@@ -234,15 +215,11 @@ class _AddCategoryPasPageState extends ConsumerState<AddCategoryPasPage> {
                         ),
                         10.horizontalSpace,
                         Text(
-                          active
-                              ? AppHelpers.getTranslation(TrKeys.active)
-                              : AppHelpers.getTranslation(TrKeys.inactive),
+                          active ? AppHelpers.getTranslation(TrKeys.active) : AppHelpers.getTranslation(TrKeys.inactive),
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
-                            color: active
-                                ? AppColors.black
-                                : AppColors.black.withOpacity(0.5),
+                            color: active ? AppColors.black : AppColors.black.withOpacity(0.5),
                           ),
                         )
                       ],
@@ -264,12 +241,7 @@ class _AddCategoryPasPageState extends ConsumerState<AddCategoryPasPage> {
                             base64 = base64Encode(bytes);
                           }
 
-                          var dataCategory = {
-                            "name": categoryName,
-                            "parent_id": parentCategoryId,
-                            "image": base64,
-                            "active": active
-                          };
+                          var dataCategory = {"name": categoryName, "parent_id": parentCategoryId, "image": base64, "active": active};
                           notifier.addCategory(dataCategory);
                           context.popRoute();
                         }

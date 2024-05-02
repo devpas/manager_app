@@ -25,7 +25,7 @@ class WMainDrawerBase extends ConsumerWidget {
     final notifier = ref.read(baseProvider.notifier);
     return Drawer(
       backgroundColor: AppColors.white,
-      width: double.infinity,
+      width: 400,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
@@ -40,7 +40,9 @@ class WMainDrawerBase extends ConsumerWidget {
                   color: AppColors.black,
                   size: 24.r,
                 ),
-                onPressed: context.popRoute,
+                onPressed: () {
+                  context.popRoute();
+                },
               ),
             ),
             Row(

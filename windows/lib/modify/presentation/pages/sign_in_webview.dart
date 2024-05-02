@@ -82,6 +82,7 @@ class SignInWebviewPage extends ConsumerWidget {
       backgroundColor: const Color(0x00eceff3),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          LocalStorage.instance.logout();
           Restart.restartApp();
         },
         backgroundColor: Colors.white,
